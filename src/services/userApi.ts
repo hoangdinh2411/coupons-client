@@ -1,12 +1,12 @@
-import { UserData } from "@/models/auth.type";
-import customFetchWithToken from "./customFetchWithToken";
+import { UserData } from '@/models/auth.type'
+import customFetchWithToken from './customFetchWithToken'
 
 export const getUserProfile = async () => {
   return await customFetchWithToken<UserData>(`/users/profile`, {
-    method: "GET",
+    method: 'GET',
     next: {
-      tags: ["profile"],
+      tags: ['profile'],
       revalidate: 3600,
     },
-  });
-};
+  })
+}
