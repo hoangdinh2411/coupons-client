@@ -1,4 +1,4 @@
-import '../styles/global.scss'
+import '../styles/global.css'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
 export async function generateMetadata(): Promise<Metadata> {

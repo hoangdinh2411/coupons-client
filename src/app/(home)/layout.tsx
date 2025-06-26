@@ -1,9 +1,16 @@
-import { ReactNode } from 'react'
+import Header from '@/components/header'
+import { Fragment, ReactNode } from 'react'
 
 export default function MainLayout({
   children,
 }: {
   children: ReactNode
 }): JSX.Element {
-  return <>{children} </>
+  return (
+    <Fragment>
+      <Header />
+      <main>{children}</main>
+      <footer></footer>
+    </Fragment>
+  )
 }

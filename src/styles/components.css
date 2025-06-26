@@ -1,0 +1,7 @@
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply text-sm h-fit lg:text-base relative h-10 w-full border-gray-500 flex items-center rounded-lg border-2 p-2 cursor-pointer  text-white justify-center;
+  }
+}
