@@ -1,0 +1,20 @@
+# Ignore build directories
+**/build/*
+**/dist/*
+
+# Ignore Environment variables
+.env
+.env.*
+!.env.example
+
+# Ignore ApiDoc files
+apps/api/apidoc/*
+
+# Ignore files for Yarn
+package-lock.json
+yarn.lock
+node_modules
+.yarn/*
+sign-in-template
+# Misc
+.DS_Store

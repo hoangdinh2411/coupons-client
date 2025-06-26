@@ -1,0 +1,68 @@
+@use '../../abstracts' as *;
+
+.message {
+  width: 100%;
+  padding: 1.1rem;
+  position: relative;
+  border-radius: 999999px;
+  @include flex(left, center);
+  @include text(null, 400, 1rem, 1.3rem);
+  @include shadow(1rem 1rem 21rem 0px $deep-space-blue);
+  svg {
+    margin-left: auto;
+    transform: scale(0.7);
+    @include breakpoint(xl) {
+      transform: scale(1);
+    }
+  }
+
+  &--globy {
+    color: $text-primary;
+    background: $glass;
+    backdrop-filter: saturate(120%) blur(5px);
+    -webkit-backdrop-filter: saturate(120%) blur(5px);
+  }
+
+  &--customer {
+    color: $text-primary;
+    background: $charcoal-blue;
+    backdrop-filter: saturate(120%) blur(5px);
+    -webkit-backdrop-filter: saturate(120%) blur(5px);
+  }
+
+  .bold {
+    font-weight: 700;
+  }
+
+  @include breakpoint(md) {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    padding: 1.4rem;
+  }
+  @include breakpoint(xl) {
+    font-size: 1.6rem;
+    line-height: 2rem;
+    padding: 2.4rem;
+  }
+}
+
+.avatar {
+  position: absolute;
+  top: 0;
+  right: 95%;
+  z-index: 10;
+  border-radius: 50%;
+  background-color: $gray-100;
+  @include box(2.6rem, 2.6rem);
+  @include breakpoint(md) {
+    @include box(3.2rem, 3.2rem);
+  }
+  @include breakpoint(xl) {
+    @include box(4rem, 4rem);
+  }
+  @include flex(center, center);
+  @include shadow($shadow);
+  svg > * {
+    fill: $text-secondary;
+  }
+}

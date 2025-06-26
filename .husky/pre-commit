@@ -1,0 +1,4 @@
+npm run lint 
+eslint --fix
+npm run format
+npm run checkFormat

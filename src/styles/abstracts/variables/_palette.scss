@@ -1,0 +1,34 @@
+@use 'colors' as *;
+
+$text-primary: $black;
+$text-secondary: $black;
+$text-error: $red;
+$text-hover: $purple;
+$app-bg: $deep-space-blue;
+
+$border-primary: rgba($white, 0.7);
+$border-secondary: $charcoal-blue;
+$border-gray: $charcoal-blue-op50;
+$divider: $charcoal-blue;
+
+$input-bg: $deep-space-blue;
+$input-bg-error: $light-red;
+$input-label: $black;
+$input-label-active: $purple;
+$input-label-error: $red;
+$input-border: rgba($cadet-gray, 0.1);
+$input-border-active: rgba($purple, 0.2);
+$input-border-error: $red;
+$input-error-message: $red;
+
+// Button
+$btn-bg: $purple;
+$btn-bg-active: $light-purple-80;
+$btn-text: $white;
+$btn-text-active: $purple;
+$btn-border-active: $purple;
+$btn-bg-disabled: rgba($cadet-gray, 0.1);
+$btn-border-disabled-active: $gray-200;
+$btn-text-disabled: $gray-200;
+$btn-icon-disabled: $gray-200;
+$btn-icon-disabled-active: $gray-200;
