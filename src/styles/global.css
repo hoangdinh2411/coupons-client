@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+@import './components.css';
+@import './font.css';
+@import './themes/base.css';
+
+html,
+body {
+  font-family: var(--font-aptos);
+  background-color: var(--color-gray-100);
+}
+/* 
+.loader {
+  width: 60px;
+  aspect-ratio: 1;
+  --_c: no-repeat radial-gradient(farthest-side, #b239e8 92%, transparent);
+  background:
+    var(--_c) top,
+    var(--_c) left,
+    var(--_c) right,
+    var(--_c) bottom;
+  background-size: 14px 14px;
+  animation: loadingSpinner 1s infinite;
+} */
+
+/* HTML: <div class="loader"></div> */
+
+@keyframes loadingSpinner {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+
+input:disabled,
+button:disabled {
+  cursor: not-allowed;
+}

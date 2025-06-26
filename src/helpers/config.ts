@@ -1,7 +1,12 @@
 export const APP_ROUTERS = {
   INDEX: '/',
-  FORGOT_PASSWORD: '/forgot-password',
-  SIGN_IN: '/sign-in',
+  FORGOT_PASSWORD: '/auth/forgot-password',
+  SIGN_IN: '/auth/sign-in',
+  SIGN_UP: '/auth/sign-up',
+  STORES: '/stores',
+  ALL_CATEGORIES: '/coupons',
+  ALL_TOPICS: '/topics',
+  BLOGS: '/blogs',
 }
 
 const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://globy.ai'
