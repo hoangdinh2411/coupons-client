@@ -1,5 +1,4 @@
-import { ImageType } from '@/shared/layouts-components/uploadFile/UploadFile'
-import { MetaData, TimestampedEntity } from './share.type'
+import { ImageType, MetaData, TimestampedEntity } from './share.type'
 import { TopicData } from './topic.type'
 
 export interface BlogPayload {

@@ -21,3 +21,9 @@ export interface MetaData {
   description?: string
   keywords?: string[]
 }
+
+export type ImageType = {
+  file_name: string
+  url: string
+  public_id: string
+}

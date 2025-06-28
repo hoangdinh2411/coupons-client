@@ -31,8 +31,7 @@ export default function SearchBar() {
     <div
       ref={containerRef}
       data-focused={isFocused}
-      className="flex-1  relative bg-light-green rounded-t-2xl rounded-b-2xl
-      data-[focused=true]:lg:rounded-b-none data-[focused=true]:lg:bg-white  lg:max-w-[450px] w-full"
+      className="bg-light-green relative w-full flex-1 rounded-t-2xl rounded-b-2xl lg:max-w-[450px] data-[focused=true]:lg:rounded-b-none data-[focused=true]:lg:bg-white"
     >
       <IoIosSearch
         className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
@@ -40,32 +39,29 @@ export default function SearchBar() {
       />
       <input
         type="Search"
-        className="h-10 pl-10 w-full  "
+        className="h-10 w-full pl-10"
         onFocus={handleToggleFocused}
       />
       <div
         data-focused={isFocused}
-        className="lg:absolute fixed top-0 h-auto lg:top-full left-0 bg-white  data-[focused=true]:block hidden w-full rounded-b-2xl lg:p-4"
+        className="fixed top-0 left-0 hidden h-auto w-full rounded-b-2xl bg-white data-[focused=true]:block lg:absolute lg:top-full lg:p-4"
       >
-        <div className="flex lg:hidden p-4 gap-2 items-center">
+        <div className="flex items-center gap-2 p-4 lg:hidden">
           <HiOutlineArrowLeft
             onClick={handleToggleFocused}
-            className="cursor-pointer "
+            className="cursor-pointer"
             size={24}
           />
-          <div
-            className="relative   rounded-full border-1 border-solid border-black
-      w-full"
-          >
+          <div className="relative w-full rounded-full border-1 border-solid border-black">
             <IoIosSearch
-              className="absolute cursor-pointer top-1/2 left-2 -translate-y-1/2 "
+              className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
               size={24}
             />
-            <input type="Search" className="h-10 pl-10 w-full  " />
+            <input type="Search" className="h-10 w-full pl-10" />
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="font-semibold lg:text-md text-xl lg:text-lg px-4 lg:px-0 py-2 bg-light-gray lg:bg-transparent">
+          <p className="lg:text-md bg-light-gray px-4 py-2 text-xl font-semibold lg:bg-transparent lg:px-0 lg:text-lg">
             Recent
           </p>
           <div className="flex flex-col gap-2 px-6 lg:px-2">
