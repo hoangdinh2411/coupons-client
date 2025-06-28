@@ -110,7 +110,7 @@ export default function SiginTemplate() {
           </button>
           <Link
             href={APP_ROUTERS.FORGOT_PASSWORD}
-            className="text-slate-600 font-500 text-center mt-2"
+            className="text-slate-600 font-500 text-center hover:text-green mt-2"
           >
             Forgot Password?
           </Link>
