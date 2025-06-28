@@ -3,10 +3,13 @@ export const APP_ROUTERS = {
   FORGOT_PASSWORD: '/auth/forgot-password',
   SIGN_IN: '/auth/sign-in',
   SIGN_UP: '/auth/sign-up',
+  SIGN_OUT: '/sign-out',
   STORES: '/stores',
   ALL_CATEGORIES: '/coupons',
   ALL_TOPICS: '/topics',
   BLOGS: '/blogs',
+  PROFILE: '/me',
+  MY_COUPONS: '/me/coupons',
 }
 
 const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://globy.ai'

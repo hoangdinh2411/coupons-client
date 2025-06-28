@@ -1,7 +1,7 @@
 'use client'
-import { UserData } from '@/models/auth.type'
-import { CategoryData } from '@/models/category.type'
-import { StoreData } from '@/models/store.type'
+import { UserData } from '@/types/auth.type'
+import { CategoryData } from '@/types/category.type'
+import { StoreData } from '@/types/store.type'
 import { create, useStore } from 'zustand'
 
 export type AppStoreType = {
