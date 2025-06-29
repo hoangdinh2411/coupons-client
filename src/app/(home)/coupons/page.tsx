@@ -65,16 +65,16 @@ const CouponTemplate: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-10 my-10 w-full">
+    <div className="container mx-auto my-10 w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
       {/* TOP CATEGORIES */}
-      <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+      <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
         Top Coupons & Deals Categories
       </h2>
-      <div className="flex flex-wrap justify-between gap-y-4 gap-x-2 mb-6">
+      <div className="mb-6 flex flex-wrap justify-between gap-x-2 gap-y-4">
         {topCategories.map((category, index) => (
           <div
             key={index}
-            className="w-1/2 sm:w-1/3 md:w-1/5 flex justify-center"
+            className="flex w-1/2 justify-center sm:w-1/3 md:w-1/5"
           >
             <CardCoupon {...category} />
           </div>
@@ -82,10 +82,10 @@ const CouponTemplate: React.FC = () => {
       </div>
 
       {/* DIVIDER */}
-      <div className="border-b border-slate-300 mt-10 mb-12 w-full" />
+      <div className="mt-10 mb-12 w-full border-b border-slate-300" />
 
       {/* ALL CATEGORIES */}
-      <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+      <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
         All Coupons & Deals Categories
       </h2>
       <div className="flex flex-col gap-6">
@@ -93,13 +93,13 @@ const CouponTemplate: React.FC = () => {
           <div key={title}>
             <Link
               href="/"
-              className="text-base sm:text-lg hover:underline font-semibold mb-2 uppercase block"
+              className="mb-2 block text-base font-semibold uppercase hover:underline sm:text-lg"
             >
               {title}
             </Link>
             <ul className="list-disc pl-5">
               {items.map((item, index) => (
-                <li key={index} className="text-sm sm:text-base mb-2">
+                <li key={index} className="mb-2 text-sm sm:text-base">
                   <Link className="hover:underline" href="/">
                     {item}
                   </Link>
