@@ -4,4 +4,11 @@
   .btn {
     @apply text-sm h-fit lg:text-base relative h-10 w-full border-gray-500 flex items-center rounded-lg border-2 p-2 cursor-pointer  text-white justify-center;
   }
+  .btn-primary{
+    @apply rounded-3xl mt-4 cursor-pointer hover:bg-light-green text-center font-bold py-2 text-white hover:text-slate-600 font-bold bg-green transition-all duration-300
+  }
+  .textfield {
+    @apply !border !border-slate-300 w-full px-2 h-11 rounded-none text-slate-600 mt-1
+  }
+  
 }

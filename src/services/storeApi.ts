@@ -1,6 +1,6 @@
-import { StoreData } from '@/models/store.type'
+import { IResponseWithTotal } from '@/types/share.type'
 import customFetch from './customFetch'
-import { IResponseWithTotal } from '@/models/request.type'
+import { StoreData } from '@/types/store.type'
 
 export const getAllStores = async (limit?: number, page?: number) => {
   return await customFetch<IResponseWithTotal<StoreData[]>>(

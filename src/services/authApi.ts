@@ -1,4 +1,4 @@
-import { UserData, VerifyRequestPayload } from '@/models/auth.type'
+import { UserData, VerifyRequestPayload } from '@/types/auth.type'
 import customFetch from './customFetch'
 import customFetchWithToken from './customFetchWithToken'
 
@@ -19,5 +19,11 @@ export const verifyEmailApi = async (data: VerifyRequestPayload) => {
   return await customFetchWithToken<UserData>(`/auth/verify-account`, {
     method: 'PATCH',
     body: JSON.stringify(data),
+  })
+}
+export const signOutApi = async () => {
+  return await fetch('/api/sign-out', {
+    method: 'DELETE',
+    credentials: 'include',
   })
 }
