@@ -10,22 +10,22 @@ export default function Header() {
   return (
     <header>
       <div className="bg-light-green">
-        <p className=" text-black flex justify-center items-center text-sm h-10 max-w-[1280px] m-auto ">
+        <p className="m-auto flex h-10 max-w-[1280px] items-center justify-center text-sm text-black">
           Save up to 20% on all Coupons & Accessories with “FG6556KD” code
         </p>
       </div>
-      <div className="bg-olive-green w-full ">
-        <nav className=" w-full relative py-4 flex gap-4 items-center max-w-[1280px] p-4 m-auto">
+      <div className="bg-olive-green w-full">
+        <nav className="relative m-auto flex w-full max-w-[1280px] items-center gap-4 p-4 py-4">
           <Link
             href={APP_ROUTERS.INDEX}
-            className="relative w-10 lg:w-40 aspect-auto h-12 block "
+            className="relative block aspect-auto h-12 w-10 lg:w-40"
           >
             <Image
               src="/images/logo-with-white-text-and-green-logo.png"
               alt="Logo"
               fill
               priority
-              className="object-contain lg:block hidden"
+              className="hidden object-contain lg:block"
               sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
             />
             <Image
@@ -33,7 +33,7 @@ export default function Header() {
               alt="Logo"
               fill
               priority
-              className="object-contain lg:hidden block"
+              className="block object-contain lg:hidden"
               sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
             />
           </Link>

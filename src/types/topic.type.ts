@@ -1,5 +1,4 @@
-import { ImageType } from '@/shared/layouts-components/uploadFile/UploadFile'
-import { MetaData } from './share.type'
+import { ImageType, MetaData } from './share.type'
 
 export interface TopicPayload {
   name: string
