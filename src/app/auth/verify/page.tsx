@@ -54,7 +54,7 @@ function VerifyPage() {
         )} */}
         <label
           htmlFor="Verification-input"
-          className="form-label block text-base font-bold text-slate-800 mt-2"
+          className="form-label mt-2 block text-base font-bold text-slate-800"
         >
           Verification code
         </label>
