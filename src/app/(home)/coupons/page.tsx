@@ -62,44 +62,70 @@ const CouponTemplate: React.FC = () => {
     ],
     Baby: ['Baby Furniture'],
     'Beauty and Personal Care': ['Personal Care', 'Vitamins and Supplements'],
+    Automotive2: [
+      'Motorcycles',
+      'Car Stereo and Electronics',
+      'Tires and Wheels',
+    ],
+    Entertainment: [
+      'Concerts and Event Tickets',
+      'Movie Theaters',
+      'Music and Musical Instruments',
+      'Amusement and Theme Parks',
+      'Gambling',
+      'Party and Event Supplies',
+      'Birthday Supplies',
+      'Graduation',
+      'Invitations',
+    ],
+    Luggage2: [
+      'Backpacks',
+      'Nursery and Garden',
+      'Seeds and Plants',
+      'Pools and Supplies',
+      'Home Improvement and Tools',
+      'Power Tools',
+      'Woodworking Tools',
+      'Outdoor Power Equipment',
+      'Hardware and Tools',
+    ],
+    Baby2: ['Baby Furniture'],
   }
 
   return (
-    <div className="container mx-auto my-10 w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
-      {/* TOP CATEGORIES */}
+    <div className="container mx-auto my-10 w-full max-w-[1280px] px-6 sm:px-6 lg:px-10">
       <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
         Top Coupons & Deals Categories
       </h2>
-      <div className="mb-6 flex flex-wrap justify-between gap-x-2 gap-y-4">
+      <div className="mt-10 mb-4 sm:mb-6 flex flex-wrap items-center gap-1 gap-y-4">
         {topCategories.map((category, index) => (
           <div
             key={index}
-            className="flex w-1/2 justify-center sm:w-1/3 md:w-1/5"
+            className="flex w-[calc(50%-4px)] justify-center md:w-[calc(33%-4px)] lg:w-[calc(20%-4px)]"
           >
             <CardCoupon {...category} />
           </div>
         ))}
       </div>
-
-      {/* DIVIDER */}
-      <div className="mt-10 mb-12 w-full border-b border-slate-300" />
-
-      {/* ALL CATEGORIES */}
-      <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+      <div className="mb-6 w-full border-b border-slate-300 sm:mt-10 sm:mb-12" />
+      <h2 className="text-[20px] font-[900] sm:text-3xl">
         All Coupons & Deals Categories
       </h2>
-      <div className="flex flex-col gap-6">
+      <div className="my-4 w-full columns-1 gap-4 lg:columns-3">
         {Object.entries(allCategories).map(([title, items]) => (
-          <div key={title}>
+          <div className="mb-7 md:mb-10" key={title}>
             <Link
               href="/"
-              className="mb-2 block text-base font-semibold uppercase hover:underline sm:text-lg"
+              className="mb-1 block text-[12px] font-semibold uppercase hover:underline sm:text-[16px]"
             >
               {title}
             </Link>
-            <ul className="list-disc pl-5">
+            <ul className="ml-12 list-disc">
               {items.map((item, index) => (
-                <li key={index} className="mb-2 text-sm sm:text-base">
+                <li
+                  key={index}
+                  className="mb-2 text-[16px] text-slate-700 sm:text-base"
+                >
                   <Link className="hover:underline" href="/">
                     {item}
                   </Link>
