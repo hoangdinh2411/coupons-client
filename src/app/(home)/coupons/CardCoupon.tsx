@@ -26,14 +26,14 @@ function CardCoupon({
       onClick={() => Router.push(href)}
     >
       <Image
-        width={100}
-        height={100}
+        width={144}
+        height={144}
         alt={content}
-        className="h-28 w-28 rounded-full"
+        className="h-[126px] w-[126px] rounded-full sm:h-[144px] sm:w-[144px]"
         src={`${imgUrl}` || '/images/no-img.webp'}
       />
       <Link
-        className="w-[160px] text-center font-bold uppercase group-hover:underline"
+        className="h-10 sm:h-14 w-[160px] text-center text-sm font-bold uppercase group-hover:underline"
         href={href}
       >
         {typeof content === 'string' ? content : 'Invalid content'}
