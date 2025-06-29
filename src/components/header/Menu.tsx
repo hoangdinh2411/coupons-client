@@ -111,36 +111,36 @@ export default function Menu() {
     }
   }, [pathname])
   return (
-    <ul className="lg:flex hidden gap-4">
-      <li className=" relative text-white font-semibold ">
+    <ul className="hidden gap-4 lg:flex">
+      <li className="relative font-semibold text-white">
         <p
-          className={`flex gap-1 items-center rounded-full hover:bg-white/10 py-3 px-4  border-transparent border-1 p-1 cursor-pointer ${target === 'category' ? 'border-white' : ''}`}
+          className={`flex cursor-pointer items-center gap-1 rounded-full border-1 border-transparent p-1 px-4 py-3 hover:bg-white/10 ${target === 'category' ? 'border-white' : ''}`}
           onClick={() => handleToggleSubmenu('category')}
         >
           Stores
           <IoIosArrowDown
             data-open={target === 'category'}
-            className="data-[open=true]:rotate-180  transition-all duration-200"
+            className="transition-all duration-200 data-[open=true]:rotate-180"
           />
         </p>
         <div
           ref={categoryRef}
           data-target={target}
-          className="data-[target=category]:flex data-[target=blog]:hidden hidden p-2   min-w-80 absolute top-[60px] bg-white text-black font-medium  gap-2 rounded-sm border-1 border-light-gray shadow-md "
+          className="border-light-gray absolute top-[60px] hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium text-black shadow-md data-[target=blog]:hidden data-[target=category]:flex"
         >
-          <div className="flex flex-col gap-4 min-w-36 border-r-2 border-gray-200 border-solid">
+          <div className="flex min-w-36 flex-col gap-4 border-r-2 border-solid border-gray-200">
             <Fragment>
               {categories.map((cat, idx) => (
                 <p
                   key={idx}
-                  className={`cursor-pointer hover:text-green ${category === idx ? 'font-semibold border-r-4' : ''} border-solid border-green font-medium`}
+                  className={`hover:text-green cursor-pointer ${category === idx ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
                   onClick={() => setCategory(idx)}
                 >
                   {cat.name}
                 </p>
               ))}
               <Link
-                className="font-semibold hover:text-green"
+                className="hover:text-green font-semibold"
                 href={`${APP_ROUTERS.ALL_CATEGORIES}`}
               >
                 All categories
@@ -170,36 +170,33 @@ export default function Menu() {
           </div>
         </div>
       </li>
-      <li className="relative text-white font-semibold">
-        <Link
-          href={APP_ROUTERS.ALL_CATEGORIES}
-          className=" rounded-full hover:bg-white/10 py-3 px-4  border-transparent border-1 p-1 cursor-pointer focus:border-white "
-        >
+      <li className="relative font-semibold text-white">
+        <p className="cursor-pointer rounded-full border-1 border-transparent p-1 px-4 py-3 hover:bg-white/10 focus:border-white">
           Coupons
-        </Link>
+        </p>
       </li>
-      <li className="relative text-white font-semibold">
+      <li className="relative font-semibold text-white">
         <p
-          className={`flex gap-1 items-center rounded-full hover:bg-white/10 py-3 px-4  border-transparent border-1 p-1 cursor-pointer ${target === 'blog' ? 'border-white' : ''}`}
+          className={`flex cursor-pointer items-center gap-1 rounded-full border-1 border-transparent p-1 px-4 py-3 hover:bg-white/10 ${target === 'blog' ? 'border-white' : ''}`}
           onClick={() => handleToggleSubmenu('blog')}
         >
           Blogs
           <IoIosArrowDown
             data-open={target === 'blog'}
-            className="data-[open=true]:rotate-180  transition-all duration-200"
+            className="transition-all duration-200 data-[open=true]:rotate-180"
           />
         </p>
         <div
           ref={blogRef}
           data-open={target === 'blog'}
-          className="data-[open=true]:flex  hidden p-2   min-w-80 absolute top-[60px] bg-white text-black font-medium  gap-2 rounded-sm border-1 border-light-gray shadow-md "
+          className="border-light-gray absolute top-[60px] hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium text-black shadow-md data-[open=true]:flex"
         >
-          <div className="flex flex-col gap-4 min-w-36 border-r-2 border-gray-200 border-solid">
+          <div className="flex min-w-36 flex-col gap-4 border-r-2 border-solid border-gray-200">
             <Fragment>
               {categories.map((cat, idx) => (
                 <p
                   key={idx}
-                  className={`cursor-pointer hover:text-green ${category === idx ? 'font-semibold border-r-4' : ''} border-solid border-green font-medium`}
+                  className={`hover:text-green cursor-pointer ${category === idx ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
                   onClick={() => setCategory(idx)}
                 >
                   {cat.name}

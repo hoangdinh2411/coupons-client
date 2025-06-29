@@ -30,10 +30,10 @@ export default function Actions() {
     }
   }, [isOpen])
   return (
-    <div className="lg:flex hidden gap-4   items-center ml-auto">
-      {user !== null ? (
+    <div className="ml-auto hidden items-center gap-4 lg:flex">
+      {user === null ? (
         <Link
-          className="rounded-full text-white  hover:bg-white/10 py-3 px-8  border-transparent border-1 p-1 cursor-pointer "
+          className="cursor-pointer rounded-full border-1 border-transparent p-1 px-8 py-3 text-white hover:bg-white/10"
           href={APP_ROUTERS.SIGN_IN}
         >
           Sign In
@@ -43,31 +43,31 @@ export default function Actions() {
           ref={containerRef}
           onClick={handleToggle}
           data-open={isOpen}
-          className="flex gap-1 data-[open=true]:border-white border-1 border-transparent border-solid items-center min-w-8 relative rounded-full text-white  hover:bg-white/10 py-3 px-6  border-transparent border-1 p-1 cursor-pointer "
+          className="relative flex min-w-8 cursor-pointer items-center gap-1 rounded-full border-1 border-solid border-transparent p-1 px-6 py-3 text-white hover:bg-white/10 data-[open=true]:border-white"
         >
           email@mgail.com
           <IoIosArrowDown
             data-open={isOpen}
-            className="data-[open=true]:rotate-180  transition-all duration-200"
+            className="transition-all duration-200 data-[open=true]:rotate-180"
           />
           <div
             data-open={isOpen}
-            className="data-[open=true]:flex hidden  flex-col w-full  p-2  absolute top-[60px] left-0 bg-white text-black font-medium  gap-2 rounded-sm border-1 border-light-gray shadow-md "
+            className="border-light-gray absolute top-[60px] left-0 hidden w-full flex-col gap-2 rounded-sm border-1 bg-white p-2 font-medium text-black shadow-md data-[open=true]:flex"
           >
             <Link
-              className="hover:underline p-1 font-semibold"
+              className="p-1 font-semibold hover:underline"
               href={APP_ROUTERS.MY_COUPONS}
             >
               My Saved Coupons
             </Link>
             <Link
-              className="hover:underline p-1 font-semibold"
+              className="p-1 font-semibold hover:underline"
               href={APP_ROUTERS.PROFILE}
             >
               My Account
             </Link>
             <Link
-              className="hover:underline p-1 font-semibold"
+              className="p-1 font-semibold hover:underline"
               href={APP_ROUTERS.SIGN_OUT}
             >
               Sign out

@@ -1,6 +1,5 @@
-import { ImageType } from '@/shared/layouts-components/uploadFile/UploadFile'
 import { CategoryData } from './category.type'
-import { MetaData, TimestampedEntity } from './share.type'
+import { ImageType, MetaData, TimestampedEntity } from './share.type'
 
 export interface StorePayload {
   name?: string

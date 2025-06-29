@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function AuthPage() {
   return (
-    <div className="w-full max-w-[360px] m-auto flex flex-col gap-5 justify-start items-center">
+    <div className="m-auto flex w-full max-w-[360px] flex-col items-center justify-start gap-5">
       <div>
         <h3 className="text-center text-[40px] font-semibold">Sign In</h3>
         <p className="text-sm">
@@ -13,7 +13,7 @@ export default function AuthPage() {
           </Link>
         </p>
       </div>
-      <form className=" bg-white w-full p-6 rounded-sm"></form>
+      <form className="w-full rounded-sm bg-white p-6"></form>
     </div>
   )
 }
