@@ -22,18 +22,18 @@ function CardCoupon({
   return (
     <button
       {...rest}
-      className={`${className} group flex justify-center items-center flex-col gap-2`}
+      className={`${className} group flex flex-col items-center justify-center gap-2`}
       onClick={() => Router.push(href)}
     >
       <Image
         width={100}
         height={100}
         alt={content}
-        className="rounded-full w-28 h-28"
+        className="h-28 w-28 rounded-full"
         src={`${imgUrl}` || '/images/no-img.webp'}
       />
       <Link
-        className="uppercase w-[160px] font-bold group-hover:underline text-center"
+        className="w-[160px] text-center font-bold uppercase group-hover:underline"
         href={href}
       >
         {typeof content === 'string' ? content : 'Invalid content'}
