@@ -85,7 +85,7 @@ const ALL_CATEGORIES = {
   ],
   Baby2: ['Baby Furniture'],
 }
-const CouponTemplate: React.FC = () => {
+function CouponPage() {
   return (
     <div className="container mx-auto my-10 w-full max-w-[1280px] px-6 sm:px-6 lg:px-10">
       <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
@@ -133,4 +133,4 @@ const CouponTemplate: React.FC = () => {
   )
 }
 
-export default CouponTemplate
+export default CouponPage
