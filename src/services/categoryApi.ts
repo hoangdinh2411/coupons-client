@@ -1,6 +1,6 @@
-import { CategoryData } from '@/models/category.type'
+import { CategoryData } from '@/types/category.type'
 import customFetch from './customFetch'
-import { IResponseWithTotal } from '@/models/request.type'
+import { IResponseWithTotal } from '@/types/share.type'
 
 export const getAllCategories = async (limit?: number, page?: number) => {
   return await customFetch<IResponseWithTotal<CategoryData[]>>(

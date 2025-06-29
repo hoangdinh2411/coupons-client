@@ -2,48 +2,54 @@
 import { APP_ROUTERS } from '@/helpers/config'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { SignInSchema } from '@/helpers/schemas'
+import { useActionState, useEffect } from 'react'
+import { SignInAction } from '@/app/actions/sign-in.action'
+import toast from 'react-hot-toast'
+import { UserData } from '@/types/auth.type'
+import UseAppStore from '@/stores/app.store'
+import { signOutApi } from '@/services/authApi'
 
 //TODO: Typing & style
-export type AuthLoginSchemaType = z.infer<typeof SignInSchema>
-export default function SiginPage() {
-  const navigation = useRouter()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AuthLoginSchemaType>({
-    resolver: zodResolver(SignInSchema),
-  })
+export default function SignInPage() {
+  const [state, action, isPending] = useActionState(SignInAction, {})
+  const router = useRouter()
+  const { setUser } = UseAppStore((state) => state)
 
-  const onSubmit = (data: AuthLoginSchemaType) => {
-    alert(JSON.stringify(data))
-    navigation.push(APP_ROUTERS.VERIFY)
+  async function handleSignOut(email: string) {
+    const res = await signOutApi()
+    if (res.ok) {
+      router.push(APP_ROUTERS.VERIFY + '?email=' + email)
+    }
   }
+  useEffect(() => {
+    if (state.error) {
+      toast.error(state.error)
+    }
+    if (state.data) {
+      const result: UserData = state.data
+      if (result && !result.email_verified) {
+        handleSignOut(result.email)
+        return
+      }
+      setUser(state.data)
+      toast.success('Welcome back!')
+      setTimeout(() => {
+        router.push(APP_ROUTERS.INDEX)
+      }, 2000)
+    }
+  }, [state])
 
   return (
     <div className="flex h-full w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:mt-6 md:h-[500px] md:w-[330px] md:bg-[#F3F4F6]">
       <div className="w-full sm:mx-auto sm:w-sm md:mx-1 md:w-full">
         <div className="md:mb-4">
-          <h3 className="text-center text-[40px] font-semibold">Log In</h3>
-          <p className="text-center text-sm">
-            Don&#39;t have an account?{' '}
-            <Link
-              href={APP_ROUTERS.SIGN_UP}
-              className="text-green font-semibold underline"
-            >
-              Sign up
-            </Link>
-          </p>
+          <h3 className="text-center text-[40px] font-semibold">Sign In</h3>
         </div>
         <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex w-full flex-col gap-2 rounded-sm bg-white p-6"
+          action={action}
+          className="flex w-full flex-col gap-3 rounded-sm bg-white p-6"
         >
-          <p className="mb-6 text-center text-slate-500">
+          {/* <p className="mb-6 text-center text-slate-500">
             By logging in you confirm that you are 16 years of age or older and
             you agree to our{' '}
             <span className="hover:text-green cursor-pointer font-bold text-slate-700 underline">
@@ -53,7 +59,7 @@ export default function SiginPage() {
             <span className="hover:text-green cursor-pointer font-bold text-slate-700 underline">
               Privacy Policy
             </span>
-          </p>
+          </p> */}
 
           <div className="form-group w-full">
             <label
@@ -66,11 +72,12 @@ export default function SiginPage() {
               id="email-input"
               placeholder="Email Address"
               className="textfield"
-              {...register('email')}
+              type="email"
+              name="email"
             />
-            {errors.email && (
+            {state?.errors && state?.errors.email && (
               <small className="font-500 mt-1 block text-sm text-red-600">
-                {errors.email.message}
+                {state?.errors.email}
               </small>
             )}
           </div>
@@ -82,24 +89,34 @@ export default function SiginPage() {
               Password
             </label>
             <input
+              type="password"
               id="password-input"
-              placeholder="password"
+              placeholder="Password"
               className="textfield"
-              {...register('password')}
+              name="password"
             />
-            {errors.password && (
+            {state?.errors && state?.errors.password && (
               <small className="font-500 mt-1 block text-sm text-red-600">
-                {errors.password.message}
+                {state?.errors.password}
               </small>
             )}{' '}
           </div>
-          <button type="submit" className="btn-primary">
+          <p className="text-left text-sm">
+            Don&#39;t have an account?{' '}
+            <Link
+              href={APP_ROUTERS.SIGN_UP}
+              className="text-green hover:text-olive-green text-base font-semibold underline"
+            >
+              Sign up
+            </Link>
+          </p>
+          <button type="submit" className="btn-primary" disabled={isPending}>
             {' '}
-            Login
+            Sign In
           </button>
           <Link
             href={APP_ROUTERS.FORGOT_PASSWORD}
-            className="font-500 hover:text-green mt-2 text-center text-slate-600"
+            className="font-500 hover:text-green text-olive-green mt-2 text-center underline"
           >
             Forgot Password?
           </Link>

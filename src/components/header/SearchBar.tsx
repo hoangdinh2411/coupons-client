@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { IoIosSearch } from 'react-icons/io'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 export default function SearchBar() {
-  const [isFocused, setIsFocused] = useState(true)
+  const [isFocused, setIsFocused] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const handleToggleFocused = () => {
