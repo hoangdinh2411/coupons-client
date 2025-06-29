@@ -1,14 +1,10 @@
 @tailwind utilities;
 
 @layer components {
-  .btn {
-    @apply text-sm h-fit lg:text-base relative h-10 w-full border-gray-500 flex items-center rounded-lg border-2 p-2 cursor-pointer  text-white justify-center;
-  }
-  .btn-primary{
-    @apply rounded-3xl mt-4 cursor-pointer hover:bg-light-green text-center font-bold py-2 text-white hover:text-slate-600 font-bold bg-green transition-all duration-300
+  .btn-primary {
+    @apply flex justify-center text-lg items-center hover:bg-light-green bg-green h-[44px] w-full min-w-30 cursor-pointer rounded-3xl p-2 text-center font-bold text-white transition-all duration-300 hover:text-slate-600;
   }
   .textfield {
-    @apply !border !border-slate-300 w-full px-2 h-11 rounded-none text-slate-600 mt-1
+    @apply mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2 text-slate-600;
   }
-  
 }

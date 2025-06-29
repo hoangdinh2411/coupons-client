@@ -170,10 +170,13 @@ export default function Menu() {
           </div>
         </div>
       </li>
-      <li className="relative font-semibold text-white">
-        <p className="cursor-pointer rounded-full border-1 border-transparent p-1 px-4 py-3 hover:bg-white/10 focus:border-white">
-          Coupons
-        </p>
+      <li className="relative flex items-end font-semibold text-white">
+        <Link
+          href={APP_ROUTERS.HOT_DEALS}
+          className="cursor-pointer rounded-full border-1 border-transparent px-4 py-3 hover:bg-white/10 focus:border-white"
+        >
+          Hot Deals
+        </Link>
       </li>
       <li className="relative font-semibold text-white">
         <p

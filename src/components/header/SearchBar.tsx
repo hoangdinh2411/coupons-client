@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { IoIosSearch } from 'react-icons/io'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
+import Link from 'next/link'
 export default function SearchBar() {
   const [isFocused, setIsFocused] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -44,30 +45,57 @@ export default function SearchBar() {
       />
       <div
         data-focused={isFocused}
-        className="fixed top-0 left-0 hidden h-auto w-full rounded-b-2xl bg-white data-[focused=true]:block lg:absolute lg:top-full lg:p-4"
+        className="fixed top-0 left-0 hidden h-full w-full rounded-b-2xl bg-white data-[focused=true]:block lg:absolute lg:top-full lg:h-auto"
       >
-        <div className="flex items-center gap-2 p-4 lg:hidden">
-          <HiOutlineArrowLeft
-            onClick={handleToggleFocused}
-            className="cursor-pointer"
-            size={24}
-          />
-          <div className="relative w-full rounded-full border-1 border-solid border-black">
-            <IoIosSearch
-              className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
+        <div className="lg:h-au flex h-full flex-col gap-1">
+          <div className="flex items-center gap-6 p-4 lg:hidden">
+            <HiOutlineArrowLeft
+              onClick={handleToggleFocused}
+              className="cursor-pointer"
               size={24}
             />
-            <input type="Search" className="h-10 w-full pl-10" />
+            <div className="relative w-full rounded-full border-1 border-solid border-black">
+              <IoIosSearch
+                className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
+                size={24}
+              />
+              <input type="Search" className="h-10 w-full pl-10" />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <p className="lg:text-md bg-light-gray px-4 py-2 text-xl font-semibold lg:bg-transparent lg:px-0 lg:text-lg">
+          <p className="bg-light-gray px-4 py-1 text-lg font-semibold lg:bg-transparent lg:px-4 lg:py-0 lg:text-sm">
             Recent
           </p>
-          <div className="flex flex-col gap-2 px-6 lg:px-2">
-            <p className="text-gray-600">Amazon</p>
-            <p className="text-gray-600">ABC</p>
-            <p className="text-gray-600">DEC</p>
+          <div className="flex flex-col gap-1 py-1">
+            <Link
+              href="#"
+              className="hover:bg-light-gray/30 px-6 py-1 text-sm text-gray-600 lg:px-8 lg:py-1"
+            >
+              Amazon
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-light-gray/30 px-6 py-1 text-sm text-gray-600 lg:px-8 lg:py-1"
+            >
+              AAAA
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-light-gray/30 px-6 py-1 text-sm text-gray-600 lg:px-8 lg:py-1"
+            >
+              BBB
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-light-gray/30 px-6 py-1 text-sm text-gray-600 lg:px-8 lg:py-1"
+            >
+              CCC
+            </Link>
+            <Link
+              href="#"
+              className="hover:bg-light-gray/30 px-6 py-1 text-sm text-gray-600 lg:px-8 lg:py-1"
+            >
+              DDD
+            </Link>
           </div>
         </div>
       </div>
