@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 //TODO: Typing & style
 export type AuthLoginSchemaType = z.infer<typeof signinSchema>
-export default function SiginTemplate() {
+export default function SiginPage() {
   const navigation = useRouter()
   const {
     register,
@@ -23,7 +23,7 @@ export default function SiginTemplate() {
   }
 
   return (
-    <div className="flex h-full md:mt-6 w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:h-[500px] md:w-[330px] md:bg-[#F3F4F6]">
+    <div className="flex h-full w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:mt-6 md:h-[500px] md:w-[330px] md:bg-[#F3F4F6]">
       <div className="w-full sm:mx-auto sm:w-sm md:mx-1 md:w-full">
         <div className="md:mb-4">
           <h3 className="text-center text-[40px] font-semibold">Log In</h3>

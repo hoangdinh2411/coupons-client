@@ -5,7 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-function VerifyTemplate() {
+
+function VerifyPage() {
   const navigation = useRouter()
   const {
     register,
@@ -59,4 +60,4 @@ function VerifyTemplate() {
   )
 }
 
-export default VerifyTemplate
+export default VerifyPage
