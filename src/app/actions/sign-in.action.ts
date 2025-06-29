@@ -1,8 +1,8 @@
 'use server'
 
 import { SignInSchema } from '@/helpers/schemas'
-import { UserData } from '@/models/auth.type'
 import { signInApi } from '@/services/authApi'
+import { UserData } from '@/types/auth.type'
 import { cookies } from 'next/headers'
 
 type SignInActionState = {
@@ -14,7 +14,7 @@ type SignInActionState = {
   error?: string
 }
 
-export async function loginAction(
+export async function SignInAction(
   _prevState: SignInActionState,
   formData: FormData,
 ): Promise<SignInActionState> {

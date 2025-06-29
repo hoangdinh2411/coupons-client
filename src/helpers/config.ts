@@ -5,7 +5,7 @@ export const APP_ROUTERS = {
   SIGN_UP: '/auth/sign-up',
   VERIFY: '/auth/verify',
   FORGOT_PASSWORD: '/auth/forgot-password',
-  SIGN_OUT: '/sign-out',
+  SIGN_OUT: '/auth/sign-out',
 
   STORES: '/stores',
   ALL_CATEGORIES: '/coupons',

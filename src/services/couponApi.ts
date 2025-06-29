@@ -1,4 +1,4 @@
-import { CouponData, CouponPayload } from '@/models/coupon.type'
+import { CouponData, CouponPayload } from '@/types/coupon.type'
 import customFetchWithToken from './customFetchWithToken'
 
 export async function createCoupon(payload: CouponPayload) {

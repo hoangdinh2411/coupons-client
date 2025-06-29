@@ -1,4 +1,4 @@
-import { UserData } from '@/models/auth.type'
+import { UserData } from '@/types/auth.type'
 import customFetchWithToken from './customFetchWithToken'
 
 export const getUserProfile = async () => {
