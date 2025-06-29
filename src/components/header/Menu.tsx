@@ -172,7 +172,7 @@ export default function Menu() {
       </li>
       <li className="relative font-semibold text-white">
         <p className="cursor-pointer rounded-full border-1 border-transparent p-1 px-4 py-3 hover:bg-white/10 focus:border-white">
-          Coupons
+          <Link href={APP_ROUTERS.ALL_CATEGORIES}>Coupons</Link>
         </p>
       </li>
       <li className="relative font-semibold text-white">
