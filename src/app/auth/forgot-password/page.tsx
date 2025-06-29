@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-function ForgotEmailTemplate() {
+function ForgotPasswordPage() {
   const navigation = useRouter()
   const {
     register,
@@ -31,7 +31,7 @@ function ForgotEmailTemplate() {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex w-full flex-col max-w-[358px] mx-auto gap-2 rounded-sm sm:bg-[#F3F4F6] md:bg-white md:p-6"
+          className="mx-auto flex w-full max-w-[358px] flex-col gap-2 rounded-sm sm:bg-[#F3F4F6] md:bg-white md:p-6"
         >
           <p className="mt-2 mb-4 text-center text-slate-800">
             Enter your email address below and we&apos;ll send you reset
@@ -73,4 +73,4 @@ function ForgotEmailTemplate() {
   )
 }
 
-export default ForgotEmailTemplate
+export default ForgotPasswordPage
