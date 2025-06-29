@@ -33,7 +33,7 @@ function CardCoupon({
         src={`${imgUrl}` || '/images/no-img.webp'}
       />
       <Link
-        className="h-10 sm:h-14 w-[160px] text-center text-sm font-bold uppercase group-hover:underline"
+        className="h-10 w-[160px] text-center text-sm font-bold uppercase group-hover:underline sm:h-14"
         href={href}
       >
         {typeof content === 'string' ? content : 'Invalid content'}
