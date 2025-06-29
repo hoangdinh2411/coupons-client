@@ -25,7 +25,7 @@ export default function AuthLayout({
           />
         </Link>
       </header>
-      <main className="flex w-full flex-1 items-center justify-between">
+      <main className="flex w-full flex-1 justify-between">
         {children}{' '}
       </main>
       <footer className="border-1 border-r-0 border-b-0 border-l-0 border-gray-300 p-5 text-center">
