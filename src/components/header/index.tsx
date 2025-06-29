@@ -18,14 +18,14 @@ export default function Header() {
         <nav className="relative m-auto flex w-full max-w-[1280px] items-center gap-4 p-4 py-4">
           <Link
             href={APP_ROUTERS.INDEX}
-            className="relative block aspect-auto h-12 w-10 lg:w-40"
+            className="relative block aspect-auto h-12 w-10 md:w-40"
           >
             <Image
               src="/images/logo-with-white-text-and-green-logo.png"
               alt="Logo"
               fill
               priority
-              className="hidden object-contain lg:block"
+              className="hidden object-contain md:block"
               sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
             />
             <Image
@@ -33,7 +33,7 @@ export default function Header() {
               alt="Logo"
               fill
               priority
-              className="block object-contain lg:hidden"
+              className="block object-contain md:hidden"
               sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
             />
           </Link>

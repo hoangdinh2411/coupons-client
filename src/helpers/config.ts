@@ -13,6 +13,7 @@ export const APP_ROUTERS = {
   BLOGS: '/blogs',
   PROFILE: '/me',
   MY_COUPONS: '/me/coupons',
+  HOT_DEALS: '/hot-deals',
 }
 
 const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://globy.ai'
