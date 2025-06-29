@@ -1,14 +1,14 @@
 'use client'
-import { signinSchema } from '@/helper/auth.validation.schema'
 import { APP_ROUTERS } from '@/helpers/config'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { SignInSchema } from '@/helpers/schemas'
 
 //TODO: Typing & style
-export type AuthLoginSchemaType = z.infer<typeof signinSchema>
+export type AuthLoginSchemaType = z.infer<typeof SignInSchema>
 export default function SiginPage() {
   const navigation = useRouter()
   const {
@@ -16,7 +16,7 @@ export default function SiginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<AuthLoginSchemaType>({
-    resolver: zodResolver(signinSchema),
+    resolver: zodResolver(SignInSchema),
   })
 
   const onSubmit = (data: AuthLoginSchemaType) => {

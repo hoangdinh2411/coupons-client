@@ -1,6 +1,6 @@
 'use client'
-import { forgetSchema } from '@/helper/auth.validation.schema'
 import { APP_ROUTERS } from '@/helpers/config'
+import { ForgetSchema } from '@/helpers/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -14,7 +14,7 @@ function ForgotPasswordPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<{ email: string }>({
-    resolver: zodResolver(forgetSchema),
+    resolver: zodResolver(ForgetSchema),
   })
 
   const onSubmit = (data: { email: string }) => {

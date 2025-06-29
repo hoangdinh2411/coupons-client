@@ -1,22 +1,24 @@
 'use client'
-import { verifyFormSchema } from '@/helper/auth.validation.schema'
 import { APP_ROUTERS } from '@/helpers/config'
+import { VerifyEmailSchema } from '@/helpers/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
+export type VerifySchemaType = z.infer<typeof VerifyEmailSchema>
 function VerifyPage() {
   const navigation = useRouter()
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ verificationCode: string }>({
-    resolver: zodResolver(verifyFormSchema),
+  } = useForm<VerifySchemaType>({
+    resolver: zodResolver(VerifyEmailSchema),
   })
 
-  const onSubmit = (data: { verificationCode: string }) => {
+  const onSubmit = (data: VerifySchemaType) => {
     alert(JSON.stringify(data))
     navigation.push(APP_ROUTERS.INDEX)
   }
@@ -26,16 +28,33 @@ function VerifyPage() {
         Verify Account
       </p>
       <form
-        className="mx-auto flex h-screen max-w-[358px] flex-col bg-white px-6 sm:mx-auto sm:max-h-[240px]"
+        className="mx-auto flex h-screen max-w-[358px] flex-col bg-white px-6 sm:mx-auto sm:h-full sm:max-h-[270px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <p className="mb-6 text-center leading-5 text-slate-600 sm:mt-4">
           Enter your verification code below and we&apos;ll send you reset
           instructions.
         </p>
+        {/* <label
+          htmlFor="Email-input"
+          className="form-label block text-base font-bold text-slate-800"
+        >
+          Email 
+        </label>
+        <input
+          id="Email-input"
+          placeholder="Email"
+          className="textfield"
+          {...register('email')}
+        />
+        {errors.code && (
+          <small className="font-500 mt-2 block text-sm text-red-600">
+            {errors.email?.message}
+          </small>
+        )} */}
         <label
           htmlFor="Verification-input"
-          className="form-label block text-base font-bold text-slate-800"
+          className="form-label block text-base font-bold text-slate-800 mt-2"
         >
           Verification code
         </label>
@@ -43,11 +62,11 @@ function VerifyPage() {
           id="Verification-input"
           placeholder="Verification code"
           className="textfield"
-          {...register('verificationCode')}
+          {...register('code')}
         />
-        {errors.verificationCode && (
+        {errors.code && (
           <small className="font-500 mt-2 block text-sm text-red-600">
-            {errors.verificationCode.message}
+            {errors.code.message}
           </small>
         )}
         <div className="mt-2"></div>
