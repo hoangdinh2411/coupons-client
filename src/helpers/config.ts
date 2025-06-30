@@ -8,7 +8,7 @@ export const APP_ROUTERS = {
   SIGN_OUT: '/auth/sign-out',
 
   STORES: '/stores',
-  ALL_CATEGORIES: '/coupons',
+  ALL_CATEGORIES: '/categories',
   ALL_TOPICS: '/topics',
   BLOGS: '/blogs',
   PROFILE: '/me',
