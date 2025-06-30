@@ -1,12 +1,15 @@
 import { APP_ROUTERS } from '@/helpers/config'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { use } from 'react'
 import Menu from './Menu'
 import SearchBar from './SearchBar'
 import Actions from './Actions'
 import MobileActions from './MobileActions'
+import { getMenu } from '@/services/clientApi'
 export default function Header() {
+  const res = use(getMenu())
+
   return (
     <header>
       <div className="bg-light-green">
@@ -37,7 +40,14 @@ export default function Header() {
               sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
             />
           </Link>
-          <Menu />
+          <Menu
+            data={
+              res.data || {
+                categories: [],
+                popular: [],
+              }
+            }
+          />
           <SearchBar />
           <Actions />
           <MobileActions />
