@@ -1,3 +1,4 @@
+import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Fragment, ReactNode } from 'react'
 
@@ -10,7 +11,7 @@ export default function MainLayout({
     <Fragment>
       <Header />
       <main>{children}</main>
-      <footer></footer>
+      <Footer />
     </Fragment>
   )
 }
