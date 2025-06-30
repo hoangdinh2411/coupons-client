@@ -91,9 +91,7 @@ const BottomFooter = () => {
           <a className="underline-offset-4 hover:underline" href="/ca/">
             TrustCoupon Canada
           </a>
-          <button
-            className="h-fit cursor-pointer underline-offset-4 hover:underline"
-          >
+          <button className="h-fit cursor-pointer underline-offset-4 hover:underline">
             <img
               className="mr-1 inline"
               src="https://cdn.ziffstatic.com/pub/icong1.png"

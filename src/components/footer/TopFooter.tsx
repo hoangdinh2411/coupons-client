@@ -80,10 +80,9 @@ const TopFooter = () => {
             <div className="space-y-3">
               <p className="text-sm">{column.content.description}</p>
 
-                <div className="flex h-20 w-20 items-center justify-center rounded border-2 border-gray-300 bg-white">
-                  <span className="text-xs text-gray-500">QR Here</span>
-                </div>
-
+              <div className="flex h-20 w-20 items-center justify-center rounded border-2 border-gray-300 bg-white">
+                <span className="text-xs text-gray-500">QR Here</span>
+              </div>
             </div>
           )}
         </div>
