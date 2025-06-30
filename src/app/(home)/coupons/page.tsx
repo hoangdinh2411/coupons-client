@@ -118,9 +118,9 @@ function CouponPage() {
               {items.map((item, index) => (
                 <li
                   key={index}
-                  className="mb-2 text-[16px] text-slate-700 sm:text-base"
+                  className="text-[16px] text-slate-700 sm:text-base"
                 >
-                  <Link className="hover:underline" href="/">
+                  <Link className="block w-full py-2 hover:underline" href="/">
                     {item}
                   </Link>
                 </li>

@@ -6,7 +6,7 @@
 html,
 body {
   font-family: var(--font-aptos);
-  background-color: var(--color-gray-100);
+  background-color: var(--color-gray-50);
 }
 /* 
 .loader {
