@@ -92,14 +92,11 @@ function CouponPage() {
         Top Coupons & Deals Categories
       </h2>
       <div className="mt-10 mb-4 flex flex-wrap items-center gap-1 gap-y-4 sm:mb-6">
-        {TOP_CATEGORIES.map((category, index) => (
-          <div
-            key={index}
-            className="flex w-[calc(50%-4px)] justify-center md:w-[calc(33%-4px)] lg:w-[calc(20%-4px)]"
-          >
-            <CardCoupon {...category} />
-          </div>
-        ))}
+        <div className="grid w-full grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {TOP_CATEGORIES.map((category, index) => (
+            <CardCoupon {...category} key={index} />
+          ))}
+        </div>
       </div>
       <div className="mb-6 w-full border-b border-slate-300 sm:mt-10 sm:mb-12" />
       <h2 className="text-[20px] font-[900] sm:text-3xl">

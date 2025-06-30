@@ -1,11 +1,11 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import Router from 'next/router'
+// import Router from 'next/router'
 import React, { memo } from 'react'
 
 interface CardCouponPropsType
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends React.ButtonHTMLAttributes<HTMLDivElement> {
   content: string
   href: string
   imgUrl: string
@@ -20,10 +20,10 @@ function CardCoupon({
   ...rest
 }: CardCouponPropsType) {
   return (
-    <button
+    <div
       {...rest}
       className={`${className} group flex flex-col items-center justify-center gap-2`}
-      onClick={() => Router.push(href)}
+      // onClick={() => Router.push(href)}
     >
       <Image
         width={144}
@@ -38,7 +38,7 @@ function CardCoupon({
       >
         {typeof content === 'string' ? content : 'Invalid content'}
       </Link>
-    </button>
+    </div>
   )
 }
 

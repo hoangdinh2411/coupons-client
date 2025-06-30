@@ -1,7 +1,7 @@
 'use server'
 import { cookies } from 'next/headers'
 import customFetch from './customFetch'
-import { IResponse } from '@/models/request.type'
+import { IResponse } from '@/types/share.type'
 
 export default async function customFetchWithToken<T>(
   url: string,
