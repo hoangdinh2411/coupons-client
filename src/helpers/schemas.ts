@@ -30,7 +30,6 @@ export const ResetPasswordSchema = z
     path: ['confirm_password'],
   })
 
-
 //
 export const SubmitFormSchema = z.object({
   title: z.string().min(1, 'Please enter a title'),
@@ -42,4 +41,4 @@ export const SubmitFormSchema = z.object({
   couponType: z.string().min(1, 'Please select a coupon type'),
   category: z.string().min(1, 'Please select a category'),
   store: z.string().min(1, 'Please select a store'),
-});
+})
