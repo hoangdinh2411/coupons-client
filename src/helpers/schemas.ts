@@ -32,3 +32,17 @@ export const ResetPasswordSchema = z
     message: 'Passwords do not match',
     path: ['confirm_password'],
   })
+
+
+//
+export const SubmitFormSchema = z.object({
+  title: z.string().min(1, 'Please enter a title'),
+  offerLink: z.string().url('Please enter a valid URL').optional(),
+  offerDetail: z.string().min(1, 'Please provide offer details'),
+  code: z.string().min(1, 'Please enter a code').optional(),
+  startDate: z.string().optional(),
+  expireDate: z.string().optional(),
+  couponType: z.string().min(1, 'Please select a coupon type'),
+  category: z.string().min(1, 'Please select a category'),
+  store: z.string().min(1, 'Please select a store'),
+});
