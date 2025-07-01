@@ -13,9 +13,8 @@ const SubmitPage = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
     watch,
-    trigger,
+    formState: { errors },
   } = useForm<SubmitFormType>({
     resolver: zodResolver(SubmitFormSchema),
   })
@@ -26,12 +25,7 @@ const SubmitPage = () => {
   const CATEGORIES = ['Electronics', 'Clothing', 'Books', 'Other']
   const STORES = ['Store A', 'Store B', 'Store C']
 
-  const watchFields = watch()
 
-  const handleChange = async (name: any, value: any) => {
-    console.log('💲💲💲 ~ handleChange ~ value:', value)
-    await trigger(name)
-  }
 
   return (
     <div className="flex justify-center bg-white">
@@ -50,7 +44,6 @@ const SubmitPage = () => {
               id="title"
               type="text"
               placeholder="Enter coupon title"
-              onChange={(e) => handleChange('title', e.target.value)}
             />
           </fieldset>
           {errors.title && (
@@ -65,7 +58,6 @@ const SubmitPage = () => {
               id="offerLink"
               type="url"
               placeholder="Enter offer link"
-              onChange={(e) => handleChange('offerLink', e.target.value)}
             />
           </fieldset>
           {errors.offerLink && (
@@ -79,7 +71,6 @@ const SubmitPage = () => {
               className={`textfield-${errors.offerDetail ? 'error' : 'primary'} min-h-[100px] w-full px-2`}
               id="offerDetail"
               placeholder="Enter store description"
-              onChange={(e) => handleChange('offerDetail', e.target.value)}
             />
           </fieldset>
           {errors.offerDetail && (
@@ -94,7 +85,6 @@ const SubmitPage = () => {
               id="code"
               type="text"
               placeholder="Enter coupon title"
-              onChange={(e) => handleChange('code', e.target.value)}
             />
           </fieldset>
           {errors.code && (
@@ -104,7 +94,7 @@ const SubmitPage = () => {
         <div className="form-control">
           <fieldset className="fieldset-container relative">
             <legend
-              className={`legend-placeholder ${watchFields.startDate ? 'filled' : ''}`}
+              className={`legend-placeholder`}
             >
               Start Date (optional)
             </legend>
@@ -114,7 +104,6 @@ const SubmitPage = () => {
               id="startDate"
               type="date"
               placeholder="dd/mm/yyyy"
-              onChange={(e) => handleChange('startDate', e.target.value)}
             />
           </fieldset>
           {errors.startDate && (
@@ -124,7 +113,7 @@ const SubmitPage = () => {
         <div className="form-control">
           <fieldset className="fieldset-container relative">
             <legend
-              className={`legend-placeholder ${watchFields.expireDate ? 'filled' : ''}`}
+              className={`legend-placeholder `}
             >
               Expire Date (optional)
             </legend>
@@ -134,7 +123,6 @@ const SubmitPage = () => {
               id="expireDate"
               type="date"
               placeholder="dd/mm/yyyy"
-              onChange={(e) => handleChange('expireDate', e.target.value)}
             />
           </fieldset>
           {errors.expireDate && (
@@ -147,7 +135,6 @@ const SubmitPage = () => {
               {...register('couponType')}
               className="textfield-primary w-full pt-4"
               id="couponType"
-              onChange={(e) => handleChange('couponType', e.target.value)}
             >
               <option value="">Select a type</option>
               {COUPON_TYPES.map((type) => (
@@ -167,7 +154,6 @@ const SubmitPage = () => {
               {...register('category')}
               className={`textfield-${errors.category ? 'error' : 'primary'} w-full pt-4`}
               id="category"
-              onChange={(e) => handleChange('category', e.target.value)}
             >
               <option value="">Select a category</option>
               {CATEGORIES.map((category) => (
@@ -187,7 +173,6 @@ const SubmitPage = () => {
               {...register('store')}
               className={`textfield-${errors.store ? 'error' : 'primary'} w-full pt-4`}
               id="store"
-              onChange={(e) => handleChange('store', e.target.value)}
             >
               <option value="">Please select a store</option>
               {STORES.map((store) => (
