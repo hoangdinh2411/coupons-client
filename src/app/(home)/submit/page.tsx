@@ -13,7 +13,7 @@ const SubmitPage = () => {
     register,
     handleSubmit,
     reset,
-    watch,
+
     formState: { errors },
   } = useForm<SubmitFormType>({
     resolver: zodResolver(SubmitFormSchema),
@@ -24,8 +24,6 @@ const SubmitPage = () => {
   const COUPON_TYPES = ['Online Code', 'In-Store Offer', 'Sale']
   const CATEGORIES = ['Electronics', 'Clothing', 'Books', 'Other']
   const STORES = ['Store A', 'Store B', 'Store C']
-
-
 
   return (
     <div className="flex justify-center bg-white">
@@ -93,9 +91,7 @@ const SubmitPage = () => {
         </div>
         <div className="form-control">
           <fieldset className="fieldset-container relative">
-            <legend
-              className={`legend-placeholder`}
-            >
+            <legend className={`legend-placeholder`}>
               Start Date (optional)
             </legend>
             <input
@@ -112,9 +108,7 @@ const SubmitPage = () => {
         </div>
         <div className="form-control">
           <fieldset className="fieldset-container relative">
-            <legend
-              className={`legend-placeholder `}
-            >
+            <legend className={`legend-placeholder`}>
               Expire Date (optional)
             </legend>
             <input
