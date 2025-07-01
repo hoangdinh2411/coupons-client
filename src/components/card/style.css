@@ -1,0 +1,17 @@
+@tailwind utilities;
+
+@layer components {
+  .card__coupon{
+    @apply rounded-lg flex gap-2
+  }
+  .card__coupon-img{
+    @apply w-[144px] h-[100px] object-cover
+  }
+  .card__coupon-title{
+   @apply text-xs font-bold uppercase tracking-wide md:mt-2
+  }
+  .card__coupon-description {
+    @apply my-2 line-clamp-2 font-proxima text-base capitalize leading-5 md:mb-auto md:line-clamp-3
+  }
+
+}
