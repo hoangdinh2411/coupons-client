@@ -5,7 +5,7 @@ import React from 'react'
 import Form from './Form'
 
 export const metadata: Metadata = {
-  title: 'Forgot password',
+  title: 'Change password',
 }
 
 function ForgotPasswordPage() {
@@ -14,7 +14,7 @@ function ForgotPasswordPage() {
       <div className="w-full sm:mx-auto md:w-full">
         <div className="md:mb-2">
           <h3 className="text-center text-[40px] font-semibold">
-            Forgot Password
+            Change new password
           </h3>
         </div>
         <Form />

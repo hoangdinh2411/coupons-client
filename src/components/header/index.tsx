@@ -29,7 +29,7 @@ export default function Header() {
               fill
               priority
               className="hidden object-contain md:block"
-              sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
+              sizes="(max-width: 1200px) 200px, 80px"
             />
             <Image
               src="/images/green-logo.png"
@@ -37,7 +37,7 @@ export default function Header() {
               fill
               priority
               className="block object-contain md:hidden"
-              sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
+              sizes="(max-width: 768px) 120px"
             />
           </Link>
           <Menu

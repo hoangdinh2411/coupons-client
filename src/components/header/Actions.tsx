@@ -44,7 +44,7 @@ export default function Actions() {
     const handleFetchProfile = async () => {
       const profileRes = await getUserProfile()
       if (!profileRes.success && user) {
-        handleSignOut()
+        await handleSignOut()
         return
       }
       if (!profileRes.data) {
