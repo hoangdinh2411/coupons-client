@@ -1,4 +1,3 @@
-
 export default function SpinnerLoading() {
   return (
     <div className="flex items-center justify-center">

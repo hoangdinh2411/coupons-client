@@ -24,7 +24,6 @@ export default function Form() {
       onSubmit={handleSubmit(onSubmit)}
       className="mx-auto flex w-full max-w-[358px] flex-col gap-3 rounded-sm sm:bg-[#F3F4F6] md:bg-white md:p-6"
     >
-      
       <fieldset className="form-group w-full">
         <label
           htmlFor="new-password"
