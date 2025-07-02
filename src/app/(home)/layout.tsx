@@ -1,6 +1,6 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
-import { Fragment, ReactNode, Suspense } from 'react'
+import { Fragment, ReactNode } from 'react'
 
 export default function MainLayout({
   children,
@@ -9,9 +9,7 @@ export default function MainLayout({
 }): JSX.Element {
   return (
     <Fragment>
-      <Suspense>
-        <Header />
-      </Suspense>
+      <Header />
       <main>{children}</main>
       <Footer />
     </Fragment>

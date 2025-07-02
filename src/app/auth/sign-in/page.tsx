@@ -40,7 +40,7 @@ export default function SignInPage() {
   }, [state])
 
   return (
-    <div className="flex h-full w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:mt-6 md:h-[500px] md:w-[330px] md:bg-[#F3F4F6]">
+    <div className="flex h-full w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:mt-6 md:h-[500px] md:w-[330px] md:bg-transparent">
       <div className="w-full sm:mx-auto sm:w-sm md:mx-1 md:w-full">
         <div className="md:mb-4">
           <h3 className="text-center text-[40px] font-semibold">Sign In</h3>
@@ -61,7 +61,7 @@ export default function SignInPage() {
             </span>
           </p> */}
 
-          <div className="form-group w-full">
+          <fieldset className="form-group w-full">
             <label
               htmlFor="email-input"
               className="form-label block text-base font-bold text-slate-800"
@@ -80,8 +80,8 @@ export default function SignInPage() {
                 {state?.errors.email}
               </small>
             )}
-          </div>
-          <div className="form-group w-full">
+          </fieldset>
+          <fieldset className="form-group w-full">
             <label
               htmlFor="email-input"
               className="form-label block text-base font-bold text-slate-800"
@@ -100,7 +100,7 @@ export default function SignInPage() {
                 {state?.errors.password}
               </small>
             )}{' '}
-          </div>
+          </fieldset>
           <p className="text-left text-sm">
             Don&#39;t have an account?{' '}
             <Link
