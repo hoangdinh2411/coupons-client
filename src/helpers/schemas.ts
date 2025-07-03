@@ -1,5 +1,7 @@
 import { VerifyCodeType } from '@/types/enum'
 import { z } from 'zod'
+import dayjs from 'dayjs'
+
 
 export const ForgetSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -33,15 +35,20 @@ export const ResetPasswordSchema = z
     path: ['confirm_password'],
   })
 
-//
-export const SubmitFormSchema = z.object({
-  title: z.string().min(1, 'Please enter a title'),
-  offerLink: z.string().url('Please enter a valid URL').optional(),
-  offerDetail: z.string().min(1, 'Please provide offer details'),
-  code: z.string().min(1, 'Please enter a code').optional(),
-  startDate: z.string().optional(),
-  expireDate: z.string().optional(),
-  couponType: z.string().min(1, 'Please select a coupon type'),
-  category: z.string().min(1, 'Please select a category'),
-  store: z.string().min(1, 'Please select a store'),
-})
+
+export const SubmitFormSchema = z
+  .object({
+    title: z.string().min(1, 'Title is required'),
+    offerLink: z.string().url('Invalid URL'),
+    offerDetail: z.string().min(1, 'Description is required'),
+    code: z.string().min(1, 'Code is required'),
+    startDate: z.string().min(1, 'Start date is required'),
+    expireDate: z.string().min(1, 'Expire date is required'),
+    couponType: z.string().min(1, 'Coupon type is required'),
+    category: z.string().min(1, 'Category is required'),
+    store: z.string().min(1, 'Store is required'),
+  })
+  .refine((data) => dayjs(data.startDate).isBefore(dayjs(data.expireDate)), {
+    path: ['expireDate'],
+    message: 'Expire date must be after start date',
+  })
