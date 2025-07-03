@@ -9,7 +9,7 @@
     @apply  mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2 text-slate-600;
   }
   .textfield-primary {
-    @apply  box-border !border-1 !border-gray-300  rounded-lg outline-0 p-4 w-full;
+    @apply  box-border !border-1 !border-gray-300  rounded-lg outline-0 p-2 w-full;
   }
   .textfield-error {
     @apply !border-red-600 rounded-lg !border-1 p-2 w-full;
