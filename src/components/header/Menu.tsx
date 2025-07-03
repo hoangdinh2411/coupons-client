@@ -1,77 +1,14 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
+import { MenuData } from '@/types/client.type'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
-const categories = [
-  {
-    name: 'clothes',
-    stores: [
-      {
-        name: 'store abc',
-        slug: 'store-abc',
-      },
-      {
-        name: 'Amazon',
-        slug: 'amazon',
-      },
-      {
-        name: 'Tik tok',
-        slug: 'tik-tok',
-      },
-      {
-        name: 'Globy',
-        slug: 'globy',
-      },
-    ],
-  },
-  {
-    name: 'Baby',
-    stores: [
-      {
-        name: 'store baby',
-        slug: 'store-abc',
-      },
-      {
-        name: 'Amazon baby',
-        slug: 'amazon',
-      },
-      {
-        name: 'Tik tok baby',
-        slug: 'tik-tok ',
-      },
-      {
-        name: 'Globy baby',
-        slug: 'globy',
-      },
-    ],
-  },
-  {
-    name: 'Travel',
-    stores: [
-      {
-        name: 'store abc Travel',
-        slug: 'store-abc',
-      },
-      {
-        name: 'Amazon Travel',
-        slug: 'amazon',
-      },
-      {
-        name: 'Tik tok Travel',
-        slug: 'tik-tok',
-      },
-      {
-        name: 'Globy Travel',
-        slug: 'globy',
-      },
-    ],
-  },
-]
-export default function Menu() {
-  const [category, setCategory] = useState<number | null>(0)
+const POPULAR_INDEX = -1
+export default function Menu({ data }: { data: MenuData }) {
+  const [category, setCategory] = useState<number | null>(POPULAR_INDEX)
   const [target, setTarget] = useState<string>('')
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)
@@ -129,8 +66,14 @@ export default function Menu() {
           className="border-light-gray absolute top-[60px] hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium text-black shadow-md data-[target=blog]:hidden data-[target=category]:flex"
         >
           <div className="flex min-w-36 flex-col gap-4 border-r-2 border-solid border-gray-200">
+            <p
+              className={`hover:text-green cursor-pointer ${category === POPULAR_INDEX ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
+              onClick={() => setCategory(POPULAR_INDEX)}
+            >
+              Popular
+            </p>
             <Fragment>
-              {categories.map((cat, idx) => (
+              {data.categories.map((cat, idx) => (
                 <p
                   key={idx}
                   className={`hover:text-green cursor-pointer ${category === idx ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
@@ -140,27 +83,51 @@ export default function Menu() {
                 </p>
               ))}
               <Link
-                className="hover:text-green font-semibold"
+                className="hover:text-green font-semibold hover:underline"
                 href={`${APP_ROUTERS.ALL_CATEGORIES}`}
               >
                 All categories
               </Link>
             </Fragment>
           </div>
-          <div className="min-w-40">
-            {categories.map((cat, idx) => (
+          <div className="min-w-50">
+            <div
+              className={`${category === POPULAR_INDEX ? 'flex' : 'hidden'} flex-col gap-3`}
+            >
+              {data.popular.map((s) => (
+                <Link
+                  key={s.id}
+                  href={`${APP_ROUTERS.STORES}/${s.slug}`}
+                  className="hover:underline"
+                >
+                  {s.name}
+                </Link>
+              ))}
+              <Link
+                href={`${APP_ROUTERS.STORES}`}
+                className="hover:text-green font-semibold hover:underline"
+              >
+                All stores
+              </Link>
+            </div>
+            {data.categories.map((cat, idx) => (
               <Fragment key={idx}>
                 <div
                   className={`${category === idx ? 'flex' : 'hidden'} flex-col gap-3`}
                 >
-                  {cat.stores.map((s, index) => (
-                    <Link key={index} href={`${APP_ROUTERS.STORES}/${s.slug}`}>
-                      {s.name}
-                    </Link>
-                  ))}
+                  {cat?.stores &&
+                    cat?.stores.map((s, index) => (
+                      <Link
+                        key={index}
+                        href={`${APP_ROUTERS.STORES}/${s.slug}`}
+                        className="hover:underline"
+                      >
+                        {s.name}
+                      </Link>
+                    ))}
                   <Link
                     href={`${APP_ROUTERS.STORES}`}
-                    className="font-semibold"
+                    className="hover:text-green font-semibold hover:underline"
                   >
                     All stores
                   </Link>
