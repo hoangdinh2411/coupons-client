@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import dayjs from 'dayjs'
 
-
 export const SignInSchema = z.object({
   email: z.string().email('Email is required'),
   password: z.string().min(1, 'Password is required'),
@@ -31,7 +30,6 @@ export const ResetPasswordSchema = z
     message: 'Passwords do not match',
     path: ['confirm_password'],
   })
-
 
 export const SubmitFormSchema = z
   .object({
