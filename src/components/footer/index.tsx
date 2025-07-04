@@ -23,7 +23,7 @@ const Footer = () => {
           />
         </Link>
       </div>
-      <div className="mx-auto max-w-screen-xl px-4 text-white md:px-8 lg:mt-10 xl:px-0">
+      <div className="mx-auto max-w-screen-xl px-4 text-white md:px-8 lg:mt-10">
         <TopFooter />
         <BottomFooter />
       </div>
