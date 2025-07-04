@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
 import CardCoupon from './CardCoupon'
 import CategoryList from './CategoryList'
+import { Metadata } from 'next'
 const TOP_CATEGORIES = [
   {
     content: 'Beauty and Personal Care',
@@ -28,7 +29,9 @@ const TOP_CATEGORIES = [
     href: '/pets',
   },
 ]
-
+export const metadata: Metadata = {
+  title: 'Categories and Stores',
+}
 async function CouponPage() {
   return (
     <div className="container mx-auto w-full max-w-[1280px] p-8">

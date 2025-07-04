@@ -1,4 +1,5 @@
 'use client'
+import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { APP_ROUTERS } from '@/helpers/config'
 import { ForgetSchema } from '@/helpers/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -63,9 +64,9 @@ export default function Form() {
         )}
       </fieldset>
 
-      <button type="submit" className="btn-primary mt-1">
-        Change password
-      </button>
+      <ButtonWithLoading type="submit" className="my-2">
+        Change password{' '}
+      </ButtonWithLoading>
     </form>
   )
 }
