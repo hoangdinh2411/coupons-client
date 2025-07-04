@@ -44,12 +44,10 @@ const SAMPLE_FOOTER_DATA = {
 
 const TopFooter = () => {
   return (
-    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 grid-rows-[180px_auto]">
+    <div className="grid grid-cols-1 grid-rows-[180px_auto] gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
       {SAMPLE_FOOTER_DATA.columns.map((column, index) => (
         <div key={index} className="space-y-3">
-          {column.title && (
-            <h3 className=" text-white">{column.title}</h3>
-          )}
+          {column.title && <h3 className="text-white">{column.title}</h3>}
 
           {column.links && (
             <ul className="space-y-3">
@@ -68,10 +66,10 @@ const TopFooter = () => {
 
           {column.content?.type === 'description' && column.content.link && (
             <div className="">
-              <p className='max-w-48'>{column.content.text}</p>
+              <p className="max-w-48">{column.content.text}</p>
               <a
                 href={column.content.link.href}
-                className="underline transition-colors max-w-20"
+                className="max-w-20 underline transition-colors"
               >
                 {column.content.link.label}
               </a>
