@@ -2,7 +2,6 @@ import { VerifyCodeType } from '@/types/enum'
 import { z } from 'zod'
 import dayjs from 'dayjs'
 
-
 export const ForgetSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
 })
@@ -34,7 +33,6 @@ export const ResetPasswordSchema = z
     message: 'Passwords do not match',
     path: ['confirm_password'],
   })
-
 
 export const SubmitFormSchema = z
   .object({

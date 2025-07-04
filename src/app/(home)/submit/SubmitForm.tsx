@@ -68,7 +68,7 @@ function SubmitForm() {
     <div className="flex justify-center bg-white">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mb-6 flex w-full max-w-md flex-col rounded-lg p-4 sm:max-w-2xl sm:p-6 lg:max-w-2xl"
+        className="mb-6 flex w-full max-w-md flex-col rounded-lg p-4 sm:max-w-3xl sm:p-6 md:max-w-4xl lg:max-w-3xl"
       >
         <h2 className="mt-8 mb-16 text-center text-4xl font-bold">
           Submit An Offer
