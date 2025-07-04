@@ -73,7 +73,7 @@ function SubmitForm() {
         <h2 className="mt-8 mb-16 text-center text-4xl font-bold">
           Submit An Offer
         </h2>
-        <div className="form-control mb-2">
+        <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
             <div className="relative w-full">
               <FaSearch className="absolute top-1/2 left-4 -translate-y-1/2 transform text-gray-300" />
@@ -109,7 +109,7 @@ function SubmitForm() {
             <p className="error-message">{errors.store.message}</p>
           )}
         </div>
-        <div className="form-control mb-2">
+        <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
             <input
               {...register('title')}
@@ -123,7 +123,7 @@ function SubmitForm() {
             <p className="error-message">{errors.title.message}</p>
           )}
         </div>
-        <div className="form-control mb-2">
+        <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
             <input
               {...register('code')}
@@ -137,7 +137,7 @@ function SubmitForm() {
             <p className="error-message">{errors.code.message}</p>
           )}
         </div>
-        <div className="form-control mb-2">
+        <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
             <input
               {...register('offerLink')}
@@ -151,22 +151,28 @@ function SubmitForm() {
             <p className="error-message">{errors.offerLink.message}</p>
           )}
         </div>
-        <div className="form-control mb-2">
-          <fieldset className="fieldset-container relative">
+        <div className="form-control mb-4">
+          <fieldset
+            style={{ paddingBottom: '0px', height: 'auto' }}
+            className="fieldset-container min-h-[180px]"
+          >
             <textarea
               {...register('offerDetail')}
-              className={`textfield-${errors.offerDetail ? 'error' : 'primary'} min-h-[100px] w-full px-2`}
+              className={`textarea-${errors.offerDetail ? 'error' : 'primary'} min-h-[180px] w-full px-2`}
               id="offerDetail"
               placeholder="Enter coupon description"
+              minLength={180}
             />
           </fieldset>
           {errors.offerDetail && (
-            <p className="error-message">{errors.offerDetail.message}</p>
+            <p className="error-message mt-[2px]">
+              {errors.offerDetail.message}
+            </p>
           )}
         </div>
-        <div className="form-control mb-2">
+        <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
-            <legend className={`legend-placeholder mt-[6px] ml-[6px]`}>
+            <legend className={`legend-placeholder mt-[6px] ml-[4px]`}>
               Start Date (optional)
             </legend>
             <input
@@ -174,6 +180,9 @@ function SubmitForm() {
               className={`textfield-${errors.startDate ? 'error' : 'primary'} w-full pt-6`}
               id="startDate"
               type="date"
+              onFocus={(e) =>
+                e.currentTarget.showPicker && e.currentTarget.showPicker()
+              }
               placeholder="dd/mm/yyyy"
             />
           </fieldset>
@@ -181,15 +190,18 @@ function SubmitForm() {
             <p className="error-message">{errors.startDate.message}</p>
           )}
         </div>
-        <div className="form-control mb-2">
+        <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
-            <legend className={`legend-placeholder mt-[6px] ml-[6px]`}>
+            <legend className={`legend-placeholder mt-[6px] ml-[4px]`}>
               Expire Date (optional)
             </legend>
             <input
               {...register('expireDate')}
               className={`textfield-${errors.expireDate ? 'error' : 'primary'} w-full pt-6`}
               id="expireDate"
+              onFocus={(e) =>
+                e.currentTarget.showPicker && e.currentTarget.showPicker()
+              }
               type="date"
               placeholder="dd/mm/yyyy"
             />
@@ -198,11 +210,11 @@ function SubmitForm() {
             <p className="error-message">{errors.expireDate.message}</p>
           )}
         </div>
-        <div className="form-control mb-2">
+        <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
             <select
               {...register('couponType')}
-              className="textfield-primary w-full py-2"
+              className="textfield-primary w-full py-3"
               id="couponType"
             >
               <option value="">Select a type</option>
@@ -217,11 +229,11 @@ function SubmitForm() {
             <p className="error-message">{errors.couponType.message}</p>
           )}
         </div>
-        <div className="form-control mb-2">
+        <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
             <select
               {...register('category')}
-              className={`textfield-${errors.category ? 'error' : 'primary'} w-full py-2`}
+              className={`textfield-${errors.category ? 'error' : 'primary'} w-full py-3`}
               id="category"
             >
               <option value="">Select a category</option>
