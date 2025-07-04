@@ -1,4 +1,5 @@
 npm run lint 
 eslint --fix
 npm run format
+git add .
 npm run checkFormat
