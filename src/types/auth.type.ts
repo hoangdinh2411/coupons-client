@@ -1,4 +1,4 @@
-import { ROLES } from './enum'
+import { ROLES, VerifyCodeType } from './enum'
 
 export interface LoginRequestPayload {
   email: string
@@ -17,10 +17,16 @@ export interface UserData extends RegisterRequestPayLoad {
 }
 export interface VerifyRequestPayload {
   email: string
-  code: string
+  code: number
+  type: VerifyCodeType
 }
 
 export interface UserRequestPayload {
   first_name: string
   last_name: string
+}
+
+export interface VerifyCodeData {
+  type: VerifyCodeType
+  token?: string
 }

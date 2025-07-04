@@ -8,17 +8,22 @@ import toast from 'react-hot-toast'
 import { UserData } from '@/types/auth.type'
 import UseAppStore from '@/stores/app.store'
 import { signOutApi } from '@/services/authApi'
+import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
+import { VerifyCodeType } from '@/types/enum'
 
 //TODO: Typing & style
 export default function SignInPage() {
-  const [state, action, isPending] = useActionState(SignInAction, {})
+  const [state, action] = useActionState(SignInAction, {})
   const router = useRouter()
   const { setUser } = UseAppStore((state) => state)
 
   async function handleSignOut(email: string) {
+    toast.success('Need to verify email')
     const res = await signOutApi()
     if (res.ok) {
-      router.push(APP_ROUTERS.VERIFY + '?email=' + email)
+      router.push(
+        `${APP_ROUTERS.VERIFY}?email=${email}&type=${VerifyCodeType.VERIFY_ACCOUNT}`,
+      )
     }
   }
   useEffect(() => {
@@ -110,10 +115,7 @@ export default function SignInPage() {
               Sign up
             </Link>
           </p>
-          <button type="submit" className="btn-primary" disabled={isPending}>
-            {' '}
-            Sign In
-          </button>
+          <ButtonWithLoading type="submit">Sign In</ButtonWithLoading>
           <Link
             href={APP_ROUTERS.FORGOT_PASSWORD}
             className="font-500 hover:text-green text-olive-green mt-2 text-center underline"
