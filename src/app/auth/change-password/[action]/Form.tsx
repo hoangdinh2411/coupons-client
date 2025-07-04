@@ -7,10 +7,9 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function Form() {
+export default function Form({ action }: { action: string }) {
   const navigation = useRouter()
   const {
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<{ email: string }>({
@@ -36,7 +35,8 @@ export default function Form() {
           id="new-password"
           placeholder="Email Address"
           className="textfield"
-          {...register('email')}
+          name="password"
+          type="password"
         />
         {errors.email && (
           <small className="font-500 mt-2 block text-sm text-red-600">
@@ -55,13 +55,17 @@ export default function Form() {
           id="confirm-password"
           placeholder="Email Address"
           className="textfield"
-          {...register('email')}
+          name="confirm_password"
+          type="password"
         />
         {errors.email && (
           <small className="font-500 mt-2 block text-sm text-red-600">
             {errors.email.message}
           </small>
         )}
+      </fieldset>
+      <fieldset className="form-group w-full">
+        <input hidden name="action" value={action} />
       </fieldset>
 
       <ButtonWithLoading type="submit" className="my-2">

@@ -1,28 +1,33 @@
 'use client'
+import { handleForgetPassAction } from '@/app/actions/forget-pass.action'
 import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { APP_ROUTERS } from '@/helpers/config'
-import { ForgetSchema } from '@/helpers/schemas'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { VerifyCodeType } from '@/types/enum'
 import { useRouter } from 'next/navigation'
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useActionState, useEffect } from 'react'
+import toast from 'react-hot-toast'
 
 export default function Form() {
-  const navigation = useRouter()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<{ email: string }>({
-    resolver: zodResolver(ForgetSchema),
+  const [state, action] = useActionState(handleForgetPassAction, {
+    success: false,
   })
+  const router = useRouter()
 
-  const onSubmit = ({ email }: { email: string }) => {
-    navigation.push(`${APP_ROUTERS.VERIFY}?email=${email}`)
-  }
+  useEffect(() => {
+    if (state.message) {
+      toast.error(state.message)
+      return
+    }
+
+    if (state.success && state.email) {
+      router.push(
+        `${APP_ROUTERS.VERIFY}/email=${state.email}&type=${VerifyCodeType.FORGET_PASSWORD}`,
+      )
+    }
+  }, [state])
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      action={action}
       className="mx-auto flex w-full max-w-[358px] flex-col gap-3 rounded-sm sm:bg-[#F3F4F6] md:bg-white md:p-6"
     >
       <p className="mt-2 mb-4 text-center text-slate-800">
@@ -40,11 +45,11 @@ export default function Form() {
           id="email-input"
           placeholder="Email Address"
           className="textfield"
-          {...register('email')}
+          name="email"
         />
-        {errors.email && (
+        {state.errors && (
           <small className="font-500 mt-2 block text-sm text-red-600">
-            {errors.email.message}
+            {state.errors.email}
           </small>
         )}
       </fieldset>
