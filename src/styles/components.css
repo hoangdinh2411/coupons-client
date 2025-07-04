@@ -9,20 +9,26 @@
     @apply  mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2 text-slate-600;
   }
   .textfield-primary {
-    @apply  box-border !border-1 !border-gray-300  rounded-lg outline-0 p-2 w-full;
+    @apply px-3 py-[12px]  box-border !border-1 !border-gray-300  rounded-lg outline-0  w-full;
+  }
+  .textarea-primary {
+    @apply  px-3 py-[12px] box-border !border-1 !border-gray-300  rounded-lg outline-0 w-full;
+  }
+  .textarea-error {
+    @apply px-3 py-[12px] !border-red-600 rounded-lg !border-1 h-full w-full !pb-0;
   }
   .textfield-error {
-    @apply !border-red-600 rounded-lg !border-1 p-2 w-full;
+    @apply px-3 py-[12px] !border-red-600 rounded-lg !border-1 h-full w-full ;
   }
   .error-message {
     @apply  ml-3 text-base text-red-500;
   }
   .fieldset-container {
-    @apply p-2 rounded-2xl relative;
+    @apply p-[6px] !border-2 !border-white rounded-xl relative;
   }
   .fieldset-container:focus,
   .fieldset-container:focus-within {
-    @apply !border-2 !border-green;
+    @apply  !border-green;
   }
   .legend-placeholder {
     @apply absolute text-sm text-gray-400 pointer-events-none transition-all duration-200 px-2;
