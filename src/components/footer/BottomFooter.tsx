@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { FaFacebook, FaInstagram, FaPinterest, FaTiktok } from 'react-icons/fa'
@@ -69,7 +68,8 @@ const BOTTOM_FOOTER_DATA = {
       isInternal: true,
     },
   ],
-  copyright: '©2006-2025 TrustCoupon, Inc., a Ziff Davis company. All rights reserved. TrustCoupon and RMN are registered trademarks of TrustCoupon, Inc. Third-party trademarks are the property of their respective third-party owners. Presence of a third-party trademark does not mean that TrustCoupon has any relationship with that third-party or that the third-party endorses TrustCoupon or its services.',
+  copyright:
+    '©2006-2025 TrustCoupon, Inc., a Ziff Davis company. All rights reserved. TrustCoupon and RMN are registered trademarks of TrustCoupon, Inc. Third-party trademarks are the property of their respective third-party owners. Presence of a third-party trademark does not mean that TrustCoupon has any relationship with that third-party or that the third-party endorses TrustCoupon or its services.',
 }
 
 const BottomFooter = () => {
