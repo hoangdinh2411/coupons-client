@@ -1,4 +1,8 @@
-import { UserData, VerifyRequestPayload } from '@/types/auth.type'
+import {
+  UserData,
+  VerifyCodeData,
+  VerifyRequestPayload,
+} from '@/types/auth.type'
 import customFetch from './customFetch'
 import customFetchWithToken from './customFetchWithToken'
 
@@ -15,10 +19,16 @@ export const signUpAi = async <T>(data: T) => {
   })
 }
 
-export const verifyEmailApi = async (data: VerifyRequestPayload) => {
-  return await customFetchWithToken<UserData>(`/auth/verify-account`, {
-    method: 'PATCH',
+export const verifyCode = async (data: VerifyRequestPayload) => {
+  return await customFetchWithToken<VerifyCodeData>(`/auth/verify-code`, {
+    method: 'POST',
     body: JSON.stringify(data),
+  })
+}
+export const forgetPasswordApi = async (email: string) => {
+  return await customFetchWithToken<UserData>(`/client/forget-password`, {
+    method: 'POST',
+    body: JSON.stringify({ email }),
   })
 }
 export const signOutApi = async () => {
