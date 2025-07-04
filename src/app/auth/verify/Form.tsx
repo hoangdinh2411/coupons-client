@@ -26,16 +26,13 @@ export default function Form({
     }
 
     if (state.success && state.data) {
+      toast.success('Verified success')
       switch (state.data.type as VerifyCodeType) {
         case VerifyCodeType.VERIFY_ACCOUNT:
-          toast.success('Verified success')
           router.push(APP_ROUTERS.SIGN_IN)
           return
         case VerifyCodeType.FORGET_PASSWORD:
-          toast.success('Verified success')
-          router.push(
-            `${APP_ROUTERS.CHANGE_PASSWORD}?action=${state.data.token}`,
-          )
+          router.push(`${APP_ROUTERS.CHANGE_PASSWORD}/${state.data.token}`)
           return
         default:
           toast.error('Not support this typ')

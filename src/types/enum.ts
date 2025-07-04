@@ -11,6 +11,6 @@ export enum CouponType {
 }
 
 export enum VerifyCodeType {
-  VERIFY_ACCOUNT = 'verify-account',
-  FORGET_PASSWORD = 'forget-password',
+  VERIFY_ACCOUNT = 'VERIFY_ACCOUNT',
+  FORGET_PASSWORD = 'FORGET_PASSWORD',
 }

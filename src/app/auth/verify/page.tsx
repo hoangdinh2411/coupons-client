@@ -5,7 +5,7 @@ import { Metadata } from 'next'
 import { VerifyCodeType } from '@/types/enum'
 
 export const metadata: Metadata = {
-  title: 'Verify account',
+  title: 'Verify code',
 }
 
 async function VerifyPage({
@@ -17,8 +17,8 @@ async function VerifyPage({
 
   const email = params?.email
   const type = params?.type
-  if (!email) {
-    redirect(APP_ROUTERS.SIGN_IN)
+  if (!email || !type) {
+    redirect(APP_ROUTERS.INDEX)
   }
   return (
     <div className="mx-auto flex w-screen flex-col gap-5 bg-white sm:w-[320px] sm:max-w-sm sm:bg-transparent">
