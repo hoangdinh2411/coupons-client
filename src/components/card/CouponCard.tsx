@@ -7,7 +7,7 @@ import Badge from '../badge'
 export interface CouponCardPropsType
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   title?: string
-  badgeIcon?: string
+  badgeIcon?: string | null
   badgeTitle?: string
   imgUrl?: string
   description: string
@@ -56,7 +56,7 @@ export default function CouponCard(props: CouponCardPropsType) {
           </div>
         </div>
         {actionBtn && (
-          <div className="mx-2 my-3 cursor-pointer">
+          <div className="mx-2 mt-3 md:mb-3 cursor-pointer">
             <span className="text-gray-800 font-bold rounded-2xl bg-gray-100 px-4 py-1 text-sm">
               Coupon code
             </span>
