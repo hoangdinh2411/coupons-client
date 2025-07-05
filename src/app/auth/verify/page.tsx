@@ -3,6 +3,7 @@ import Form from './Form'
 import { APP_ROUTERS } from '@/helpers/config'
 import { Metadata } from 'next'
 import { VerifyCodeType } from '@/types/enum'
+import { Fragment } from 'react'
 
 export const metadata: Metadata = {
   title: 'Verify code',
@@ -21,12 +22,12 @@ async function VerifyPage({
     redirect(APP_ROUTERS.INDEX)
   }
   return (
-    <div className="mx-auto flex w-screen flex-col gap-5 bg-white sm:w-[320px] sm:max-w-sm sm:bg-transparent">
+    <Fragment>
       <p className="mt-6 text-center text-[40px] font-bold text-slate-800">
         Verify {type === VerifyCodeType.VERIFY_ACCOUNT ? 'Account' : 'Code'}
       </p>
       <Form email={email} type={type as VerifyCodeType} />
-    </div>
+    </Fragment>
   )
 }
 

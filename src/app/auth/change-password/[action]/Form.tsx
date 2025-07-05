@@ -22,7 +22,7 @@ export default function Form({ token }: { token: string }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto flex w-full max-w-[358px] flex-col gap-3 rounded-sm sm:bg-[#F3F4F6] md:bg-white md:p-6"
+      className="m-auto flex w-full max-w-[358px] flex-col gap-3 rounded-sm sm:bg-white sm:p-6"
     >
       <fieldset className="form-group w-full">
         <label
@@ -69,7 +69,7 @@ export default function Form({ token }: { token: string }) {
       </fieldset>
 
       <ButtonWithLoading type="submit" className="my-2">
-        Change password{' '}
+        Update
       </ButtonWithLoading>
     </form>
   )
