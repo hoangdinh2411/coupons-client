@@ -6,7 +6,7 @@ interface Coupon {
   title: string
   description: string
   imgUrl: string
-  badgeIcon: string| null
+  badgeIcon: string | null
   badgeTitle: string
 }
 

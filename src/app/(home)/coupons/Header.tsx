@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import Glide from '@glidejs/glide'
 import '@glidejs/glide/dist/css/glide.core.min.css'
-import { IoChevronBackOutline } from 'react-icons/io5'
 
 function Header() {
   const glideRef = useRef<HTMLDivElement>(null)
