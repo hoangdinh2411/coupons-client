@@ -8,17 +8,22 @@ import toast from 'react-hot-toast'
 import { UserData } from '@/types/auth.type'
 import UseAppStore from '@/stores/app.store'
 import { signOutApi } from '@/services/authApi'
+import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
+import { VerifyCodeType } from '@/types/enum'
 
 //TODO: Typing & style
 export default function SignInPage() {
-  const [state, action, isPending] = useActionState(SignInAction, {})
+  const [state, action] = useActionState(SignInAction, {})
   const router = useRouter()
   const { setUser } = UseAppStore((state) => state)
 
   async function handleSignOut(email: string) {
+    toast.success('Need to verify email')
     const res = await signOutApi()
     if (res.ok) {
-      router.push(APP_ROUTERS.VERIFY + '?email=' + email)
+      router.push(
+        `${APP_ROUTERS.VERIFY}?email=${email}&type=${VerifyCodeType.VERIFY_ACCOUNT}`,
+      )
     }
   }
   useEffect(() => {
@@ -40,7 +45,7 @@ export default function SignInPage() {
   }, [state])
 
   return (
-    <div className="flex h-full w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:mt-6 md:h-[500px] md:w-[330px] md:bg-[#F3F4F6]">
+    <div className="flex h-full w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:mt-6 md:h-[500px] md:w-[330px] md:bg-transparent">
       <div className="w-full sm:mx-auto sm:w-sm md:mx-1 md:w-full">
         <div className="md:mb-4">
           <h3 className="text-center text-[40px] font-semibold">Sign In</h3>
@@ -61,7 +66,7 @@ export default function SignInPage() {
             </span>
           </p> */}
 
-          <div className="form-group w-full">
+          <fieldset className="form-group w-full">
             <label
               htmlFor="email-input"
               className="form-label block text-base font-bold text-slate-800"
@@ -80,8 +85,8 @@ export default function SignInPage() {
                 {state?.errors.email}
               </small>
             )}
-          </div>
-          <div className="form-group w-full">
+          </fieldset>
+          <fieldset className="form-group w-full">
             <label
               htmlFor="email-input"
               className="form-label block text-base font-bold text-slate-800"
@@ -100,7 +105,7 @@ export default function SignInPage() {
                 {state?.errors.password}
               </small>
             )}{' '}
-          </div>
+          </fieldset>
           <p className="text-left text-sm">
             Don&#39;t have an account?{' '}
             <Link
@@ -110,10 +115,7 @@ export default function SignInPage() {
               Sign up
             </Link>
           </p>
-          <button type="submit" className="btn-primary" disabled={isPending}>
-            {' '}
-            Sign In
-          </button>
+          <ButtonWithLoading type="submit">Sign In</ButtonWithLoading>
           <Link
             href={APP_ROUTERS.FORGOT_PASSWORD}
             className="font-500 hover:text-green text-olive-green mt-2 text-center underline"
