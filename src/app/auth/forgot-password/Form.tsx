@@ -26,10 +26,7 @@ export default function Form() {
     }
   }, [state])
   return (
-    <form
-      action={action}
-      className="mx-auto flex w-full max-w-[358px] flex-col gap-3 rounded-sm sm:bg-[#F3F4F6] md:bg-white md:p-6"
-    >
+    <form action={action} className="mx-auto flex flex-col bg-white p-6">
       <p className="mt-2 mb-4 text-center text-slate-800">
         Enter your email address below and we&apos;ll send you reset
         instructions.

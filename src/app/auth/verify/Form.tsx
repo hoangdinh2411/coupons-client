@@ -41,23 +41,14 @@ export default function Form({
     }
   }, [state])
   return (
-    <form
-      className="mx-auto flex h-screen max-w-[358px] flex-col bg-white p-6 sm:mx-auto sm:h-full sm:max-h-[270px]"
-      action={action}
-    >
+    <form className="mx-auto flex flex-col bg-white p-6" action={action}>
       <p className="mb-6 text-center leading-5 text-slate-600 sm:mt-4">
         Enter your verification code below and we&apos;ll send you reset
         instructions.
       </p>
-      <input type="text" value={email} hidden name="email" />
-      <input type="text" value={type} hidden name="type" />
+      <input type="text" defaultValue={email} hidden name="email" />
+      <input type="text" defaultValue={type} hidden name="type" />
       <fieldset>
-        <label
-          htmlFor="Verification-input"
-          className="form-label mt-2 block text-base font-bold text-slate-800"
-        >
-          Verification code
-        </label>
         <input
           id="Verification-input"
           placeholder="Verification code"
@@ -70,7 +61,7 @@ export default function Form({
           </small>
         )}
       </fieldset>
-      <ButtonWithLoading type="submit" className="my-2">
+      <ButtonWithLoading type="submit" className="mt-4">
         {type === VerifyCodeType.FORGET_PASSWORD ? 'Send code' : 'Verify email'}
       </ButtonWithLoading>
     </form>
