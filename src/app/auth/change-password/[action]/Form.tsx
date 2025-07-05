@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function Form({ action }: { action: string }) {
+export default function Form({ token }: { token: string }) {
   const navigation = useRouter()
   const {
     handleSubmit,
@@ -65,7 +65,7 @@ export default function Form({ action }: { action: string }) {
         )}
       </fieldset>
       <fieldset className="form-group w-full">
-        <input hidden name="action" value={action} />
+        <input hidden name="token" defaultValue={token ?? ''} />
       </fieldset>
 
       <ButtonWithLoading type="submit" className="my-2">

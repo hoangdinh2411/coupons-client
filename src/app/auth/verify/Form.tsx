@@ -35,7 +35,7 @@ export default function Form({
           router.push(`${APP_ROUTERS.CHANGE_PASSWORD}/${state.data.token}`)
           return
         default:
-          toast.error('Not support this typ')
+          toast.error('Not support this type: ' + state.data.type)
           break
       }
     }

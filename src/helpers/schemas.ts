@@ -13,7 +13,7 @@ export const SignInSchema = z
 
 export const VerifyCodeSchema = z
   .object({
-    code: z.number(),
+    code: z.string().min(1, 'Code is required'),
     type: z.enum(Object.values(VerifyCodeType) as [string, ...string[]]),
   })
   .merge(ForgetSchema)

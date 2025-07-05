@@ -1,23 +1,20 @@
+import { APP_ROUTERS } from '@/helpers/config'
 import React from 'react'
 
 const SAMPLE_FOOTER_DATA = {
   columns: [
     {
       links: [
-        { label: 'CASH BACK', href: '#' },
-        { label: 'BROWSE STORES', href: '#' },
-        { label: 'BROWSE CATEGORIES', href: '#' },
-        { label: 'THE REAL DEAL BLOG', href: '#' },
-        { label: 'BROWSER EXTENSION', href: '#' },
-        { label: 'CAREERS', href: '#' },
+        { label: 'BROWSE STORES', href: APP_ROUTERS.ALL_CATEGORIES },
+        { label: 'BROWSE CATEGORIES', href: APP_ROUTERS.STORES },
+        { label: 'THE REAL DEAL BLOG', href: APP_ROUTERS.ALL_TOPICS },
       ],
     },
     {
       links: [
-        { label: 'MY TrustCoupon', href: '#' },
-        { label: 'My Account + Rewards', href: '#' },
-        { label: 'TrustCoupon Community', href: '#' },
-        { label: 'Submit a Coupon', href: '#' },
+        { label: 'MY TrustCoupon', href: APP_ROUTERS.MY_COUPONS },
+        { label: 'My Account + Rewards', href: APP_ROUTERS.PROFILE },
+        { label: 'Submit a Coupon', href: APP_ROUTERS.SUBMIT_COUPON },
         { label: 'Get Help', href: '#' },
       ],
     },

@@ -11,12 +11,12 @@ const PROTECTED_URLS = [
   APP_ROUTERS.SIGN_OUT,
   APP_ROUTERS.PROFILE,
   APP_ROUTERS.MY_COUPONS,
+  APP_ROUTERS.CHANGE_PASSWORD,
 ]
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   const token = request.cookies.get('session')?.value || ''
-  console.log(token)
   if (AUTH_URLS.includes(pathname) && token) {
     return NextResponse.redirect(new URL(APP_ROUTERS.INDEX, request.nextUrl))
   }

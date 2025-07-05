@@ -26,7 +26,7 @@ export const verifyCode = async (data: VerifyRequestPayload) => {
   })
 }
 export const forgetPasswordApi = async (email: string) => {
-  return await customFetchWithToken<UserData>(`/client/forget-password`, {
+  return await customFetchWithToken<UserData>(`/auth/forget-password`, {
     method: 'POST',
     body: JSON.stringify({ email }),
   })

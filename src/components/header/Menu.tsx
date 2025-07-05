@@ -25,7 +25,6 @@ export default function Menu({ data }: { data: MenuData }) {
           !categoryRef.current.contains(event.target as Node) &&
           target === 'category'
         ) {
-          console.log(target)
           setTarget('')
         }
         if (
@@ -63,7 +62,7 @@ export default function Menu({ data }: { data: MenuData }) {
         <div
           ref={categoryRef}
           data-target={target}
-          className="border-light-gray absolute top-[60px] hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium text-black shadow-md data-[target=blog]:hidden data-[target=category]:flex"
+          className="border-light-gray absolute top-[60px] z-10 hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium text-black shadow-md data-[target=blog]:hidden data-[target=category]:flex"
         >
           <div className="flex min-w-36 flex-col gap-4 border-r-2 border-solid border-gray-200">
             <p

@@ -15,6 +15,7 @@ export const APP_ROUTERS = {
   PROFILE: '/me',
   MY_COUPONS: '/me/coupons',
   HOT_DEALS: '/hot-deals',
+  SUBMIT_COUPON: '/submit',
 }
 
 const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://globy.ai'
