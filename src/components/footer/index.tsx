@@ -8,7 +8,7 @@ import BottomFooter from './BottomFooter'
 const Footer = () => {
   return (
     <footer className="bg-olive-green max-w-screen overflow-clip">
-      <div className="relative flex flex-col items-center justify-center py-4">
+      <div className="justify-left relative flex items-center p-4">
         <Link
           href={APP_ROUTERS.INDEX}
           className="relative block aspect-auto h-[100px] w-[200px]"

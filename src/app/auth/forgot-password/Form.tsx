@@ -21,7 +21,7 @@ export default function Form() {
 
     if (state.success && state.email) {
       router.push(
-        `${APP_ROUTERS.VERIFY}/email=${state.email}&type=${VerifyCodeType.FORGET_PASSWORD}`,
+        `${APP_ROUTERS.VERIFY}?email=${state.email}&type=${VerifyCodeType.FORGET_PASSWORD}`,
       )
     }
   }, [state])

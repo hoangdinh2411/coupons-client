@@ -16,6 +16,7 @@ async function ForgotPasswordPage({
   params: Promise<{ action: string }>
 }) {
   const { action } = await params
+  console.log(action)
   if (!action) {
     redirect(APP_ROUTERS.INDEX)
   }
@@ -28,7 +29,7 @@ async function ForgotPasswordPage({
           </h3>
         </div>
         <Suspense fallback={<SpinnerLoading />}>
-          <Form action={action} />
+          <Form token={action} />
         </Suspense>
         <div className="mt-4 text-center">
           <Link
