@@ -13,6 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@glidejs/glide": "^3.7.1",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4.1.10",
     "dayjs": "^1.11.13",
@@ -29,6 +30,7 @@
     "zustand": "^5.0.5"
   },
   "devDependencies": {
+    "@types/glidejs__glide": "^3.6.6",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/next": "^8.0.7",
     "@types/node": "^20",
