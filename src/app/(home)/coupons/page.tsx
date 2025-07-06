@@ -48,7 +48,7 @@ export default function CouponsPage() {
       setIsMobile(window.innerWidth <= BREAKPOINT)
     }
 
-    checkMobile() // Gọi lần đầu
+    checkMobile()
     window.addEventListener('resize', checkMobile)
 
     return () => window.removeEventListener('resize', checkMobile)

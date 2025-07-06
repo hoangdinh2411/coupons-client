@@ -58,11 +58,11 @@ function TopDealCard(props: TopDealCardPropsType) {
           </div>
           {actionBtn && (
             <div>
-              <button className="mx-2 my-2 w-auto cursor-pointer rounded-2xl bg-gray-200 md:mt-3 md:mb-3">
+              <span className="mx-2 my-2 w-auto cursor-pointer rounded-2xl bg-gray-200 md:mt-3 md:mb-3">
                 <span className="px-4 py-2 text-sm text-[12px] font-bold text-gray-800">
                   Check price
                 </span>
-              </button>
+              </span>
             </div>
           )}
         </div>
