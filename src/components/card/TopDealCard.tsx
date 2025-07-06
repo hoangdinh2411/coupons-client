@@ -1,11 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import React, { ButtonHTMLAttributes, memo } from 'react'
+import React, { AnchorHTMLAttributes, memo } from 'react'
 import Badge from '../badge'
 
 export interface TopDealCardPropsType
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  extends AnchorHTMLAttributes<HTMLAnchorElement> {
   title?: string
   badgeIcon?: string | null
   badgeTitle?: string
@@ -13,6 +13,7 @@ export interface TopDealCardPropsType
   description: string
   actionBtn?: boolean
   className?: string
+  link?: string
 }
 
 function TopDealCard(props: TopDealCardPropsType) {
@@ -24,14 +25,18 @@ function TopDealCard(props: TopDealCardPropsType) {
     imgUrl = '',
     description,
     actionBtn,
+    link,
     ...rest
   } = props
 
   return (
-    <div className="hover:!border-green rounded-lg p-2  border-white border-2">
-      <button
-        className={` ${className} hover:shadow-xl shadow-lg relative cursor-pointer lg:min-h-[140px] w-full  md:h-auto  text-left flex gap-2 bg-white`}
-        {...rest}
+    <a
+      href={link ?? ''}
+      {...rest}
+      className={`${className} relative w-full rounded-2xl p-2`}
+    >
+      <div
+        className={`hover:border-green relative flex w-full cursor-pointer gap-2 rounded-md border-2 border-white bg-white text-left shadow-lg hover:shadow-xl md:h-auto lg:min-h-[140px]`}
       >
         <div className="relative md:mb-2">
           {badgeTitle && badgeIcon && (
@@ -39,7 +44,7 @@ function TopDealCard(props: TopDealCardPropsType) {
               <Badge imageIcon={badgeIcon} text={badgeTitle} />
             </div>
           )}
-          <div className="relative w-[100px] lg-[119px] h-[125px] md:h-[120px] lg:h-[125px] flex items-center justify-center overflow-hidden">
+          <div className="lg-[119px] relative flex h-[144px] w-[144px] items-center justify-center overflow-hidden md:h-[120px] lg:h-[125px]">
             <Image
               className="object-contain rounded-xl  bg-white px-2  md:rounded-none border  md:border-0  object-center size-full"
               height={125}
@@ -57,8 +62,8 @@ function TopDealCard(props: TopDealCardPropsType) {
             </div>
           </div>
           {actionBtn && (
-            <div>
-              <span className="mx-2 my-2 w-auto cursor-pointer rounded-2xl bg-gray-200 md:mt-3 md:mb-3">
+            <div className="flex">
+              <span className="mx-auto my-2 w-auto cursor-pointer rounded-2xl bg-gray-200 sm:mx-2 md:mt-3 md:mb-3">
                 <span className="px-4 py-2 text-sm text-[12px] font-bold text-gray-800">
                   Check price
                 </span>
@@ -66,8 +71,8 @@ function TopDealCard(props: TopDealCardPropsType) {
             </div>
           )}
         </div>
-      </button>
-    </div>
+      </div>
+    </a>
   )
 }
 export default memo(TopDealCard)

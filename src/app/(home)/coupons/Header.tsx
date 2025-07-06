@@ -1,11 +1,9 @@
 import '@glidejs/glide/dist/css/glide.core.min.css'
 import React, { useEffect, useRef } from 'react'
 import Glide from '@glidejs/glide'
-import { GrFormPrevious } from 'react-icons/gr'
-import { GrFormNext } from 'react-icons/gr'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import AnnouncementSlider from '@/components/slide/AnnouncementSlider'
 const NAVBARS = [
   {
     link: '/',
@@ -59,68 +57,27 @@ function Header({ isMobile }: { isMobile: boolean }) {
   return (
     <>
       {/** Gslide */}
-      <div className="bg-slate-100">
-        <div
-          className="glide  lg:py-2 flex justify-center items-center m-auto max-w-[1280px] "
-          ref={glideRef}
-        >
-          <div
-            className="glide__arrows flex  justify-between items-center w-full h-full  absolute"
-            data-glide-el="controls"
-          >
-            <button
-              className="glide__arrow glide__arrow--left"
-              data-glide-dir="<"
-            >
-              <GrFormPrevious
-                className="text-gray-700 cursor-pointer"
-                size={22}
-              />
-            </button>
-            <button
-              className="glide__arrow glide__arrow--right "
-              data-glide-dir=">"
-            >
-              <GrFormNext className="text-gray-700 cursor-pointer" size={22} />
-            </button>
-          </div>
-          <div
-            data-glide-el="track"
-            className="glide__track  mx-auto max-w-3xl text-center"
-          >
-            <ul className="glide__slides">
-              <li className="glide__slide  my-auto" data-glide-dir="=0">
-                <div className="justify-center gap-2 flex">
-                  <div className="uppercase font-bold text-sm py-[2px] text-purple-800 rounded-md bg-purple-100 px-2">
-                    NEW
-                  </div>
-                  <a
-                    href="/"
-                    className="mr-1 font-extrabold underline lg:font-bold"
-                    draggable="true"
-                  >
-                    Personalized Offers
-                  </a>
-                  Just For You
-                </div>
-              </li>
-              <li
-                className="glide__slide font-bold my-auto"
-                data-glide-dir="=1"
-              >
-                Automatically apply the best codes and cash back
-              </li>
-            </ul>
-          </div>
+
+      <AnnouncementSlider
+        visibleCount={1}
+        peekPercent={0}
+        autoSlideDelay={3000}
+      >
+        <div className="py-4 text-center text-sm font-semibold text-gray-800">
+          Automatically Apply The Best Codes And Cash Back Offers To Your Cart
         </div>
-      </div>
+        <div className="py-4 text-center text-sm font-semibold text-gray-800">
+          <u>Add To Your Browser! It&apos;s Free</u>
+        </div>
+      </AnnouncementSlider>
+
       {/**Banner */}
-      <div className="bg-[#3753AC] flex relative h-[170px] justify-center items-center">
+      <div className="relative flex h-[150px] items-center justify-center bg-[#3753AC]">
         <Image
           alt=""
           width={1280}
-          height={200}
-          className="w-full max-w-[1130px] hidden md:block absolute"
+          height={150}
+          className="absolute hidden h-[140px] w-full max-w-[1130px] object-contain md:block"
           src="/images/banner-coupon.webp"
         />
         <div className="content mx-auto my-auto flex-col  h-[50px] flex justify-center items-center">
@@ -133,17 +90,8 @@ function Header({ isMobile }: { isMobile: boolean }) {
         </div>
       </div>
       {/** Navbar */}
-      <div className="sticky top-0 z-40 py-4 bg-white shadow-md">
-        <div
-          className="overflow-x-auto 
-                    whitespace-nowrap 
-                    px-4 
-                    lg:px-0 
-                    max-w-[1280px] 
-                    mx-auto
-                    [scrollbar-width:none] 
-                    [-ms-overflow-style:none]"
-        >
+      <div className="sticky top-0 z-40 bg-white py-4 shadow-lg">
+        <div className="mx-auto max-w-[1280px] overflow-x-auto px-4 whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] lg:px-0">
           {NAVBARS.map((nav, index) => (
             <div
               key={index}
@@ -160,15 +108,16 @@ function Header({ isMobile }: { isMobile: boolean }) {
         </div>
       </div>
 
-      <p className="mt-4 mb-4 text-[12px] font-bold leading-5  md:font-semibold text-center">
-        When you buy through links on RetailMeNot we may earn a commission.
+      <p className="mt-4 mb-4 text-center text-[12px] leading-5 font-bold">
+        When you buy through links on RetailMeNot{' '}
+        <span className="underline-offset-2"> we may earn a commission.</span>
       </p>
       {!isMobile && (
         <Image
           width={1280}
-          height={50}
+          height={20}
           alt="coupon-banner-stack-cash"
-          className="bg-[#82F3FB] mx-auto mt-10 mb-8 shadow-md"
+          className="mx-auto mt-8 mb-8 bg-[#82F3FB] shadow-md"
           src={'/images/coupon-banner-stack-cash.webp'}
         />
       )}

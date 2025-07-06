@@ -1,11 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import React, { ButtonHTMLAttributes, memo } from 'react'
+import React, { memo } from 'react'
 import Badge from '../badge'
 
 export interface CouponCardPropsType
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   title?: string
   badgeIcon?: string | null
   badgeTitle?: string
@@ -28,42 +28,48 @@ function CouponCard(props: CouponCardPropsType) {
   } = props
 
   return (
-    <button
-      className={` ${className} focus:border-green focus:border-2 relative cursor-pointer lg:min-h-[278px] w-full  md:h-auto md:border-1 md:border-gray-300 rounded-xl  text-left flex md:flex-col gap-2 bg-white`}
+    <a
+      href="#"
+      className={`${className} focus:border-green rounded-2xl border-2 border-white p-2`}
       {...rest}
     >
-      <div className="relative md:mb-2">
-        {badgeTitle && badgeIcon && (
-          <div className="absolute !z-30  top-2 left-2">
-            <Badge imageIcon={badgeIcon} text={badgeTitle} />
-          </div>
-        )}
-        <div className="relative md:w-full w-[144px] border-b-[1px] border-slate-200 h-[108px] md:h-[102px] lg:h-[125px] flex items-center justify-center overflow-hidden md:rounded-t-xl md:rounded-none rounded-xl">
-          <Image
-            className="object-contain rounded-xl px-10  md:rounded-none border border-gray-200 md:border-0  object-center w-[100%] h-[100%]"
-            height={125}
-            width={300}
-            alt="coupon image"
-            src={imgUrl}
-          />
-        </div>
-      </div>
-      <div className="flex justify-between flex-col min-h-[120px]">
-        <div className=" space-y-1 md:p-[8px] lg:p-3">
-          <div className="text-[12px] mb-1 font-[800] uppercase">{title}</div>
-          <div className="text-[16px] leading-4 md:leading-5 font-[600] text-gray-800">
-            {description}
+      <div
+        className={`relative flex w-full cursor-pointer gap-2 rounded-xl bg-white text-left focus:border-2 md:h-auto md:flex-col md:border-1 md:border-gray-300 lg:min-h-[278px]`}
+      >
+        <div className="relative md:mb-2">
+          {badgeTitle && badgeIcon && (
+            <div className="absolute top-2 left-2 !z-30">
+              <Badge imageIcon={badgeIcon} text={badgeTitle} />
+            </div>
+          )}
+          <div className="relative flex h-[108px] w-[144px] items-center justify-center overflow-hidden rounded-xl border-b-[1px] border-slate-200 md:h-[102px] md:w-full md:rounded-none md:rounded-t-xl lg:h-[125px]">
+            <Image
+              className="h-[100%] w-[100%] rounded-xl border border-gray-200 object-contain object-center px-10 md:rounded-none md:border-0"
+              height={125}
+              width={300}
+              alt="coupon image"
+              src={imgUrl}
+            />
           </div>
         </div>
-        {actionBtn && (
-          <div className="mx-2 lg:mt-3 md:mb-3 cursor-pointer">
-            <span className="text-gray-800 font-bold rounded-2xl bg-gray-100 px-4 py-1 text-sm">
-              Coupon code
-            </span>
+        <div className="flex min-h-[120px] flex-col justify-between">
+          <div className="space-y-1 md:p-[8px] lg:p-3">
+            <div className="mb-1 text-[12px] font-[800] uppercase">{title}</div>
+            <div className="text-[16px] leading-4 font-[600] text-gray-800 md:leading-5">
+              {description}
+            </div>
           </div>
-        )}
+          {actionBtn && (
+            <div className="mx-2 cursor-pointer md:mb-3 lg:mt-3">
+              <span className="rounded-2xl bg-gray-100 px-4 py-1 text-sm font-bold text-gray-800">
+                Coupon code
+              </span>
+            </div>
+          )}
+        </div>
       </div>
-    </button>
+    </a>
   )
 }
+
 export default memo(CouponCard)
