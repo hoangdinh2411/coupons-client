@@ -90,8 +90,8 @@ function Header({ isMobile }: { isMobile: boolean }) {
         </div>
       </div>
       {/** Navbar */}
-      <div className="sticky top-0 z-40 bg-white py-4 shadow-lg">
-        <div className="mx-auto max-w-[1280px] overflow-x-auto px-4 whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] lg:px-0">
+      <div className="sticky top-0 z-40 bg-white p-4 shadow-lg">
+        <div className="mx-auto flex max-w-[1280px] flex-wrap gap-2 lg:px-0">
           {NAVBARS.map((nav, index) => (
             <div
               key={index}
