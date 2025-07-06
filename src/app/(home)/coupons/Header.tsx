@@ -1,5 +1,5 @@
 import '@glidejs/glide/dist/css/glide.core.min.css'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Glide from '@glidejs/glide'
 import { GrFormPrevious } from 'react-icons/gr'
 import { GrFormNext } from 'react-icons/gr'
@@ -38,21 +38,8 @@ const NAVBARS = [
   },
 ]
 
-const BREAKPOINT = 768
-function Header() {
+function Header({ isMobile }: { isMobile: boolean }) {
   const glideRef = useRef<HTMLDivElement>(null)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= BREAKPOINT)
-    }
-
-    checkMobile() // Gọi lần đầu
-    window.addEventListener('resize', checkMobile)
-
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [BREAKPOINT])
 
   useEffect(() => {
     let glide: Glide | null = null
