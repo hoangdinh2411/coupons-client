@@ -13,11 +13,12 @@ interface Coupon {
 interface CouponListProps {
   coupons: Coupon[]
 }
-function CouponList({ coupons }: CouponListProps) {
+function CouponList({ coupons, className = '' }: CouponListProps) {
   return (
     <div>
-      {' '}
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div
+        className={`mb-16 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-[28px] md:gap-4`}
+      >
         {coupons.map((coupon) => (
           <CouponCard
             key={coupon.id}
