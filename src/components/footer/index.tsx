@@ -1,31 +1,56 @@
-import { APP_ROUTERS } from '@/helpers/config'
-import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
-import TopFooter from './TopFooter'
-import BottomFooter from './BottomFooter'
+import RightFooter from './RightFooter'
+import LeftFooter from './LeftFooter'
+import Link from 'next/link'
 
+const footerLinks = [
+  {
+    label: 'AdChoices',
+    href: 'https://optout.aboutads.info/?c=2&lang=EN',
+  },
+  {
+    label: 'Terms of Service',
+    href: 'https://www.ziffdavis.com/terms-of-use',
+  },
+  {
+    label: 'Privacy Policy',
+    href: 'https://www.ziffdavis.com/shopping-privacy-policy',
+  },
+  {
+    label: 'Do Not Sell My Personal Information',
+    href: 'https://dsar.TrustCoupon.com/',
+  },
+  {
+    label: 'Accessibility',
+    href: 'https://www.ziffdavis.com/accessibility',
+  },
+  {
+    label: 'Sitemap',
+    href: '/sitemap/',
+  },
+]
 const Footer = () => {
   return (
-    <footer className="bg-olive-green max-w-screen overflow-clip">
-      <div className="justify-left relative flex items-center p-4">
-        <Link
-          href={APP_ROUTERS.INDEX}
-          className="relative block aspect-auto h-[100px] w-[200px]"
-        >
-          <Image
-            src="/images/logo-with-white-text-and-green-logo.png"
-            alt="Logo"
-            fill
-            priority
-            className="object-contain"
-            sizes="(max-width: 768px) 200px, (max-width: 1200px) 200px, 80px"
-          />
-        </Link>
+    <footer className="bg-olive-green max-w-screen overflow-clip px-4 py-8">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-10 py-8 text-white md:flex-row md:gap-15 lg:gap-20">
+        <LeftFooter />
+        <RightFooter />
       </div>
-      <div className="mx-auto max-w-screen-xl px-4 text-white md:px-8 lg:mt-10">
-        <TopFooter />
-        <BottomFooter />
+      <div className="mx-auto max-w-[1280px] py-4 text-center">
+        <div className="font-proxima mb-4 flex flex-wrap justify-center gap-4 text-white md:gap-6">
+          {footerLinks.map((link, index) => (
+            <Link
+              key={index}
+              className="text-xs underline-offset-4 hover:underline"
+              href={link.href}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+        <span className="text-white">
+          ©{new Date().getFullYear()} TrustCoupon, Inc. All rights reserved.
+        </span>
       </div>
     </footer>
   )

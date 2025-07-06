@@ -4,7 +4,7 @@
   "private": true,
   "author": "William Dinh",
   "scripts": {
-    "dev": "next dev -H 0.0.0.0",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint ",
