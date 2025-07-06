@@ -21,7 +21,7 @@ const CARDS = [
 
 function RealDeal() {
   return (
-    <div className="bg-[#EFFAFB] p-4 flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center justify-center bg-[#EFFAFB] p-4">
       <Image
         src={'/images/realdeal-logo.svg'}
         alt="Real Deal Logo"
@@ -31,11 +31,11 @@ function RealDeal() {
 
       <div className="flex w-full gap-7">
         {/* Large Card Left */}
-        <div className="w-4/5 mt-10">
+        <div className="mt-10 w-4/5">
           <Image
             src={'/images/open-blog-card.webp'}
             alt="Open Blog Card"
-            className="rounded-4xl w-full flex-1"
+            className="w-full flex-1 rounded-4xl"
             width={1400}
             height={1300}
           />
@@ -46,15 +46,15 @@ function RealDeal() {
           {CARDS.map((card, index) => (
             <div
               key={index}
-              className="overflow-hidden flex gap-2 duration-300"
+              className="flex gap-2 overflow-hidden duration-300"
             >
-              <div className="w-[144px]  h-[128px] rounded-xl">
+              <div className="h-[128px] w-[144px] rounded-xl">
                 <Image
                   src={card.imgUrl}
                   alt={card.title}
                   width={500}
                   height={500}
-                  className="size-full object-cover rounded-xl"
+                  className="size-full rounded-xl object-cover"
                 />
                 <div className="">
                   <p>Holiday Hours</p>
@@ -68,11 +68,11 @@ function RealDeal() {
                   </p>
                 </div>
               </div>
-              <div className="flex-1 p-4 flex flex-col justify-center">
+              <div className="flex flex-1 flex-col justify-center p-4">
                 <p className="text-md font-bold text-gray-800 uppercase">
                   {card.title}
                 </p>
-                <p className="text-lg  text-gray-400">{card.description}</p>
+                <p className="text-lg text-gray-400">{card.description}</p>
               </div>
             </div>
           ))}

@@ -28,20 +28,20 @@ function TopDealCard(props: TopDealCardPropsType) {
   } = props
 
   return (
-    <div className="hover:!border-green rounded-lg p-2  border-white border-2">
+    <div className="hover:!border-green rounded-lg border-2 border-white p-2">
       <button
-        className={` ${className} hover:shadow-xl shadow-lg relative cursor-pointer lg:min-h-[140px] w-full  md:h-auto  text-left flex gap-2 bg-white`}
+        className={` ${className} relative flex w-full cursor-pointer gap-2 bg-white text-left shadow-lg hover:shadow-xl md:h-auto lg:min-h-[140px]`}
         {...rest}
       >
         <div className="relative md:mb-2">
           {badgeTitle && badgeIcon && (
-            <div className="absolute !z-30  top-2 left-2">
+            <div className="absolute top-2 left-2 !z-30">
               <Badge imageIcon={badgeIcon} text={badgeTitle} />
             </div>
           )}
-          <div className="relative w-[100px] lg-[119px] h-[125px] md:h-[120px] lg:h-[125px] flex items-center justify-center overflow-hidden">
+          <div className="lg-[119px] relative flex h-[125px] w-[100px] items-center justify-center overflow-hidden md:h-[120px] lg:h-[125px]">
             <Image
-              className="object-contain rounded-xl  bg-white px-2  md:rounded-none border  md:border-0  object-center size-full"
+              className="size-full rounded-xl border bg-white object-contain object-center px-2 md:rounded-none md:border-0"
               height={125}
               width={80}
               alt="coupon image"
@@ -49,17 +49,17 @@ function TopDealCard(props: TopDealCardPropsType) {
             />
           </div>
         </div>
-        <div className="flex justify-between flex-col p-2 w-full bg-[#F7F7F7]">
-          <div className=" space-y-1 md:p-[8px] lg:p-3">
-            <div className="text-[12px] mb-1 font-[800] uppercase">{title}</div>
-            <div className="text-[12px] md:text-[16px] leading-4 md:leading-5 font-[600] text-gray-700">
+        <div className="flex w-full flex-col justify-between bg-[#F7F7F7] p-2">
+          <div className="space-y-1 md:p-[8px] lg:p-3">
+            <div className="mb-1 text-[12px] font-[800] uppercase">{title}</div>
+            <div className="text-[12px] leading-4 font-[600] text-gray-700 md:text-[16px] md:leading-5">
               {description}
             </div>
           </div>
           {actionBtn && (
             <div>
-              <button className="w-auto my-2 mx-2 md:mt-3 md:mb-3 cursor-pointer rounded-2xl bg-gray-200">
-                <span className="text-[12px] text-gray-800 font-bold  px-4 py-2 text-sm">
+              <button className="mx-2 my-2 w-auto cursor-pointer rounded-2xl bg-gray-200 md:mt-3 md:mb-3">
+                <span className="px-4 py-2 text-sm text-[12px] font-bold text-gray-800">
                   Check price
                 </span>
               </button>

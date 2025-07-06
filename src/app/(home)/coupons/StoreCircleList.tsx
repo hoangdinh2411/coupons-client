@@ -16,10 +16,10 @@ function StoreCircleList({ stores }: StoreCirclePropsType) {
       {stores.map((store: StoreCouponType, index: number) => (
         <div
           key={index}
-          className="flex w-[calc(33.33%-24px)] md:w-[calc(25%-8px)] lg:w-[calc(12.5%-8px)] group cursor-pointer  h-full items-center justify-center flex-col mb-4 md:gap-2"
+          className="group mb-4 flex h-full w-[calc(33.33%-24px)] cursor-pointer flex-col items-center justify-center md:w-[calc(25%-8px)] md:gap-2 lg:w-[calc(12.5%-8px)]"
         >
-          <div className=" mx-auto max-w-[120px] md:w-full ">
-            <div className="border-dynamic mb-3 transition-shadow duration-300 ease-out group-hover:shadow-xl md:h-32 md:w-32 p-4 md:p-5 overflow-hidden rounded-full border bg-dynamic">
+          <div className="mx-auto max-w-[120px] md:w-full">
+            <div className="border-dynamic bg-dynamic mb-3 overflow-hidden rounded-full border p-4 transition-shadow duration-300 ease-out group-hover:shadow-xl md:h-32 md:w-32 md:p-5">
               <Image
                 src={store.imgUrl}
                 className="aspect-square h-auto w-full object-contain"
@@ -28,11 +28,11 @@ function StoreCircleList({ stores }: StoreCirclePropsType) {
                 height={320}
               />
             </div>
-            <div className="flex flex-col sm:flex-row justify-center items-center lg:flex-col">
-              <div className="group-hover:underline  font-bold lg:w-full flex justify-center">
+            <div className="flex flex-col items-center justify-center sm:flex-row lg:flex-col">
+              <div className="flex justify-center font-bold group-hover:underline lg:w-full">
                 <Image
                   src={store.icon}
-                  className="w-6 "
+                  className="w-6"
                   alt=""
                   width={320}
                   height={320}
@@ -40,7 +40,7 @@ function StoreCircleList({ stores }: StoreCirclePropsType) {
                 {store.value}
                 {'%'}
               </div>
-              <div className="group-hover:underline text-slate-600">
+              <div className="text-slate-600 group-hover:underline">
                 {store.title}{' '}
               </div>
             </div>

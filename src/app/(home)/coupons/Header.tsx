@@ -61,11 +61,11 @@ function Header({ isMobile }: { isMobile: boolean }) {
       {/** Gslide */}
       <div className="bg-slate-100">
         <div
-          className="glide  lg:py-2 flex justify-center items-center m-auto max-w-[1280px] "
+          className="glide m-auto flex max-w-[1280px] items-center justify-center lg:py-2"
           ref={glideRef}
         >
           <div
-            className="glide__arrows flex  justify-between items-center w-full h-full  absolute"
+            className="glide__arrows absolute flex h-full w-full items-center justify-between"
             data-glide-el="controls"
           >
             <button
@@ -73,25 +73,25 @@ function Header({ isMobile }: { isMobile: boolean }) {
               data-glide-dir="<"
             >
               <GrFormPrevious
-                className="text-gray-700 cursor-pointer"
+                className="cursor-pointer text-gray-700"
                 size={22}
               />
             </button>
             <button
-              className="glide__arrow glide__arrow--right "
+              className="glide__arrow glide__arrow--right"
               data-glide-dir=">"
             >
-              <GrFormNext className="text-gray-700 cursor-pointer" size={22} />
+              <GrFormNext className="cursor-pointer text-gray-700" size={22} />
             </button>
           </div>
           <div
             data-glide-el="track"
-            className="glide__track  mx-auto max-w-3xl text-center"
+            className="glide__track mx-auto max-w-3xl text-center"
           >
             <ul className="glide__slides">
-              <li className="glide__slide  my-auto" data-glide-dir="=0">
-                <div className="justify-center gap-2 flex">
-                  <div className="uppercase font-bold text-sm py-[2px] text-purple-800 rounded-md bg-purple-100 px-2">
+              <li className="glide__slide my-auto" data-glide-dir="=0">
+                <div className="flex justify-center gap-2">
+                  <div className="rounded-md bg-purple-100 px-2 py-[2px] text-sm font-bold text-purple-800 uppercase">
                     NEW
                   </div>
                   <a
@@ -105,7 +105,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
                 </div>
               </li>
               <li
-                className="glide__slide font-bold my-auto"
+                className="glide__slide my-auto font-bold"
                 data-glide-dir="=1"
               >
                 Automatically apply the best codes and cash back
@@ -115,39 +115,30 @@ function Header({ isMobile }: { isMobile: boolean }) {
         </div>
       </div>
       {/**Banner */}
-      <div className="bg-[#3753AC] flex relative h-[170px] justify-center items-center">
+      <div className="relative flex h-[170px] items-center justify-center bg-[#3753AC]">
         <Image
           alt=""
           width={1280}
           height={200}
-          className="w-full max-w-[1130px] hidden md:block absolute"
+          className="absolute hidden w-full max-w-[1130px] md:block"
           src="/images/banner-coupon.webp"
         />
-        <div className="content mx-auto my-auto flex-col  h-[50px] flex justify-center items-center">
-          <div className="pb-2 text-white text-sm font-bold tracking-widest">
+        <div className="content mx-auto my-auto flex h-[50px] flex-col items-center justify-center">
+          <div className="pb-2 text-sm font-bold tracking-widest text-white">
             Up to 70% Off
           </div>
-          <div className="text-white text-2xl font-extrabold sm:pb-5 md:text-4xl">
+          <div className="text-2xl font-extrabold text-white sm:pb-5 md:text-4xl">
             4th of July Deals
           </div>
         </div>
       </div>
       {/** Navbar */}
-      <div className="sticky top-0 z-40 py-4 bg-white shadow-md">
-        <div
-          className="overflow-x-auto 
-                    whitespace-nowrap 
-                    px-4 
-                    lg:px-0 
-                    max-w-[1280px] 
-                    mx-auto
-                    [scrollbar-width:none] 
-                    [-ms-overflow-style:none]"
-        >
+      <div className="sticky top-0 z-40 bg-white py-4 shadow-md">
+        <div className="mx-auto max-w-[1280px] overflow-x-auto px-4 whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] lg:px-0">
           {NAVBARS.map((nav, index) => (
             <div
               key={index}
-              className={`${nav.isBold ? 'border-b-1' : ''} inline-block mr-4 last:mr-0 text-gray-800 cursor-pointer`}
+              className={`${nav.isBold ? 'border-b-1' : ''} mr-4 inline-block cursor-pointer text-gray-800 last:mr-0`}
             >
               <Link
                 className={`hover:underline hover:underline-offset-4 ${nav.isBold ? 'font-bold' : ''}`}
@@ -160,7 +151,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
         </div>
       </div>
 
-      <p className="mt-4 mb-4 text-[12px] font-bold leading-5  md:font-semibold text-center">
+      <p className="mt-4 mb-4 text-center text-[12px] leading-5 font-bold md:font-semibold">
         When you buy through links on RetailMeNot we may earn a commission.
       </p>
       {!isMobile && (
@@ -168,7 +159,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
           width={1280}
           height={50}
           alt="coupon-banner-stack-cash"
-          className="bg-[#82F3FB] mx-auto mt-10 mb-8 shadow-md"
+          className="mx-auto mt-10 mb-8 bg-[#82F3FB] shadow-md"
           src={'/images/coupon-banner-stack-cash.webp'}
         />
       )}
@@ -178,7 +169,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
             width={1280}
             height={50}
             alt="coupon-banner-stack-cash"
-            className="bg-[#82F3FB] px-8  mt-6 mb-8 shadow-lg"
+            className="mt-6 mb-8 bg-[#82F3FB] px-8 shadow-lg"
             src={'/images/banner-coupon-mobile.webp'}
           />
         </div>

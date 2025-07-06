@@ -1,13 +1,13 @@
 @import 'tailwindcss';
 @theme {
-  --font-aptos: 'Aptos, sans-serif';
-  --font-aptos-display: 'Aptos Display, sans-serif';
-  --font-aptos-narrow: 'Aptos Narrow, sans-serif';
+  --font-aptos: "Aptos", sans-serif;
+  --font-aptos-display: 'Aptos Display', sans-serif;
+  --font-aptos-narrow: 'Aptos Narrow', sans-serif;
 
   /* Colors */
-
   --color-olive-green: #434738;
   --color-light-green: #d9ef82;
   --color-green: #b5d43b;
   --color-light-gray: #eaeaea;
+  --color-angry: rgb(224, 31, 83);
 }

@@ -1,6 +1,5 @@
-import { IResponse } from '@/models/request.type'
+import { IResponse } from '@/types/share.type'
 
-// export const BASE_URL = "https://coupons-trov.onrender.com/api/v1";
 export const BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5173/api/v1'
 

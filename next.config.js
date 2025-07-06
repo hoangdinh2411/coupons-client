@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const { header, source } = require('framer-motion/client')
-const path = require('path')
 
 const nextConfig = {
   // output: 'export',
@@ -10,15 +8,17 @@ const nextConfig = {
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
   },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    })
+ 
+   images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+    ],
 
-    return config
   },
-
   async headers() {
     return [
       {

@@ -52,13 +52,13 @@ function TopDealList({
   }, [topDealList])
 
   return (
-    <div className=" mx-auto  py-6">
-      <section className="flex items-center gap-4 mb-6">
-        <div className="w-24 h-24 bg-gray-100 rounded-full overflow-hidden border-2 border-gray-200">
+    <div className="mx-auto py-6">
+      <section className="mb-6 flex items-center gap-4">
+        <div className="h-24 w-24 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-100">
           <Image
             src={bestDeal.imgUrl ?? ''}
             alt=""
-            className="w-full h-full object-contain"
+            className="h-full w-full object-contain"
             width={128}
             height={128}
           />
@@ -67,37 +67,37 @@ function TopDealList({
           <p className="text-xl font-bold text-gray-900 sm:text-2xl">
             {bestDeal.title}
           </p>
-          <p className="text-xs font-semibold uppercase tracking-wider text-gray-600">
+          <p className="text-xs font-semibold tracking-wider text-gray-600 uppercase">
             {bestDeal.description}
           </p>
-          <div className="flex items-center mt-2">
+          <div className="mt-2 flex items-center">
             <Image
               alt=""
               width={16}
               height={16}
-              className="w-4 h-4"
+              className="h-4 w-4"
               src={'/images/cashback-bolt.svg'}
             />
             <a
               href={bestDeal.link}
-              className="md:ml-2 text-slate-800 leading-4 font-semibold hover:underline"
+              className="leading-4 font-semibold text-slate-800 hover:underline md:ml-2"
             >
               {bestDeal.stringValueInfo}
             </a>
             <GrLinkNext
               size={20}
-              className="sm:ml-2 size-[20px] text-gray-600"
+              className="size-[20px] text-gray-600 sm:ml-2"
             />
           </div>
         </div>
         {!isMobile && (
-          <button className="border-1 cursor-pointer border-slate-700 text-gray-800 font-bold py-2 px-4 rounded-full">
+          <button className="cursor-pointer rounded-full border-1 border-slate-700 px-4 py-2 font-bold text-gray-800">
             View more deals
           </button>
         )}
       </section>
 
-      <section className="relative glide group" ref={glideRef}>
+      <section className="glide group relative" ref={glideRef}>
         {/* Slides */}
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides mt-2">
@@ -115,22 +115,22 @@ function TopDealList({
 
         {/* Navigation buttons */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 left-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute top-1/2 left-0 z-10 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           data-glide-el="controls"
         >
           <button
-            className="glide__arrow glide__arrow--left bg-white border border-gray-300 shadow-md rounded-full w-10 h-10 flex items-center justify-center ml-2 hover:bg-gray-100"
+            className="glide__arrow glide__arrow--left ml-2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md hover:bg-gray-100"
             data-glide-dir="<"
           >
             <GrFormPrevious size={20} />
           </button>
         </div>
         <div
-          className="absolute top-1/2 -translate-y-1/2 right-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute top-1/2 right-0 z-10 -translate-y-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           data-glide-el="controls"
         >
           <button
-            className="glide__arrow glide__arrow--right bg-white border border-gray-300 shadow-md rounded-full w-10 h-10 flex items-center justify-center mr-2 hover:bg-gray-100"
+            className="glide__arrow glide__arrow--right mr-2 flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md hover:bg-gray-100"
             data-glide-dir=">"
           >
             <MdNavigateNext size={20} />
@@ -138,19 +138,19 @@ function TopDealList({
         </div>
 
         {/* Pagination dots */}
-        <div className="flex justify-center mt-6" data-glide-el="controls[nav]">
+        <div className="mt-6 flex justify-center" data-glide-el="controls[nav]">
           {topDealList.map((_, i) => (
             <button
               key={i}
-              className="glide__bullet w-8 h-1 rounded-full bg-gray-300 mx-1 hover:bg-gray-500 transition-all duration-300"
+              className="glide__bullet mx-1 h-1 w-8 rounded-full bg-gray-300 transition-all duration-300 hover:bg-gray-500"
               data-glide-dir={`=${i}`}
             />
           ))}
         </div>
       </section>
-      <div className="w-full mb-10 flex justify-center">
+      <div className="mb-10 flex w-full justify-center">
         {isMobile && (
-          <button className="border-1 text-[12px] mx-auto mt-10 cursor-pointer border-slate-700 text-gray-800 font-bold py-[6px] px-[16px] rounded-full">
+          <button className="mx-auto mt-10 cursor-pointer rounded-full border-1 border-slate-700 px-[16px] py-[6px] text-[12px] font-bold text-gray-800">
             View more deals
           </button>
         )}

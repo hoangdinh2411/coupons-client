@@ -54,7 +54,7 @@ export default function CouponsPage() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [BREAKPOINT])
   return (
-    <div className="bg-white relative">
+    <div className="relative bg-white">
       {/** Title */}
       <Header isMobile={isMobile} />
       <div className="mx-auto w-full max-w-[1280px] px-4 2xl:px-0">
@@ -65,7 +65,7 @@ export default function CouponsPage() {
           />
           <CouponList coupons={COUPON_CARD} />
         </div>
-        <div className="pt-12 md:pt-16 mb-12">
+        <div className="mb-12 pt-12 md:pt-16">
           <TitleCoupon link="/" title="Best Stores for 4th of July " />
           <StoreCircleList stores={STORE_LIST} />
         </div>
