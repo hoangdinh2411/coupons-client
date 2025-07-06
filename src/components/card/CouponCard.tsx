@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import React, { ButtonHTMLAttributes } from 'react'
+import React, { ButtonHTMLAttributes, memo } from 'react'
 import Badge from '../badge'
 
 export interface CouponCardPropsType
@@ -15,7 +15,7 @@ export interface CouponCardPropsType
   className?: string
 }
 
-export default function CouponCard(props: CouponCardPropsType) {
+function CouponCard(props: CouponCardPropsType) {
   const {
     className = '',
     title,
@@ -38,9 +38,9 @@ export default function CouponCard(props: CouponCardPropsType) {
             <Badge imageIcon={badgeIcon} text={badgeTitle} />
           </div>
         )}
-        <div className="relative md:w-full w-[144px] h-[108px] md:h-[120px] lg:h-[125px] flex items-center justify-center overflow-hidden md:rounded-t-xl md:rounded-none rounded-xl">
+        <div className="relative md:w-full w-[144px] border-b-[1px] border-slate-200 h-[108px] md:h-[102px] lg:h-[125px] flex items-center justify-center overflow-hidden md:rounded-t-xl md:rounded-none rounded-xl">
           <Image
-            className="object-contain rounded-xl  px-10  md:rounded-none border border-gray-200 md:border-0  object-center w-[100%] h-[100%]"
+            className="object-contain rounded-xl px-10  md:rounded-none border border-gray-200 md:border-0  object-center w-[100%] h-[100%]"
             height={125}
             width={300}
             alt="coupon image"
@@ -48,15 +48,15 @@ export default function CouponCard(props: CouponCardPropsType) {
           />
         </div>
       </div>
-      <div className="flex justify-between flex-col">
+      <div className="flex justify-between flex-col min-h-[120px]">
         <div className=" space-y-1 md:p-[8px] lg:p-3">
           <div className="text-[12px] mb-1 font-[800] uppercase">{title}</div>
-          <div className="text-[16px] leading-5 font-[600] text-gray-800">
+          <div className="text-[16px] leading-4 md:leading-5 font-[600] text-gray-800">
             {description}
           </div>
         </div>
         {actionBtn && (
-          <div className="mx-2 mt-3 md:mb-3 cursor-pointer">
+          <div className="mx-2 lg:mt-3 md:mb-3 cursor-pointer">
             <span className="text-gray-800 font-bold rounded-2xl bg-gray-100 px-4 py-1 text-sm">
               Coupon code
             </span>
@@ -66,3 +66,4 @@ export default function CouponCard(props: CouponCardPropsType) {
     </button>
   )
 }
+export default memo(CouponCard)
