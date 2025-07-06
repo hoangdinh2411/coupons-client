@@ -45,7 +45,7 @@ export default function SignInPage() {
   }, [state])
 
   return (
-    <div className="flex h-full w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:mt-6 md:h-[500px] md:w-[330px] md:bg-transparent">
+    <div className="flex w-full max-w-screen flex-col items-center justify-center gap-4 bg-white md:mx-auto md:w-[400px] md:bg-transparent">
       <div className="w-full sm:mx-auto sm:w-sm md:mx-1 md:w-full">
         <div className="md:mb-4">
           <h3 className="text-center text-[40px] font-semibold">Sign In</h3>
@@ -88,7 +88,7 @@ export default function SignInPage() {
           </fieldset>
           <fieldset className="form-group w-full">
             <label
-              htmlFor="email-input"
+              htmlFor="password-input"
               className="form-label block text-base font-bold text-slate-800"
             >
               Password
