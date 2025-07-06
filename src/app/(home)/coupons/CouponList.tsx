@@ -13,7 +13,7 @@ interface Coupon {
 interface CouponListProps {
   coupons: Coupon[]
 }
-function CouponList({ coupons, className = '' }: CouponListProps) {
+function CouponList({ coupons }: CouponListProps) {
   return (
     <div>
       <div

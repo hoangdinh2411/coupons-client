@@ -60,10 +60,11 @@ function RealDeal() {
                   <p>Holiday Hours</p>
                   <p>
                     Stores Open 4th of July and Store Hours When and where to
-                    shop for July 4th sales this year (2025). Best Trader Joe's
-                    Best Trader Joe's Beauty Dupes We Love Shop Now Shop Now
-                    Exceptional American-Made Brands Swimwear Swimwear Beyond
-                    the Bikini Best Clothing, Shoes & Accessories Deals
+                    shop for July 4th sales this year (2025). Best Trader
+                    Joe&apos;s Best Trader Joe&apos;s Beauty Dupes We Love Shop
+                    Now Shop Now Exceptional American-Made Brands Swimwear
+                    Swimwear Beyond the Bikini Best Clothing, Shoes &
+                    Accessories Deals
                   </p>
                 </div>
               </div>
