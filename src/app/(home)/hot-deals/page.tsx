@@ -43,7 +43,7 @@ const BEST_DEAL = {
   stringValueInfo: '3% Cash Back on Amazon Devices',
 }
 const BREAKPOINT = 768
-export default function CouponsPage() {
+export default function HotDealsPage() {
   const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
     const checkMobile = () => {
@@ -66,7 +66,6 @@ export default function CouponsPage() {
           <CouponList coupons={COUPON_CARD} />
         </div>
         <div className="mb-12 pt-12 md:pt-16">
-          <TitleCoupon link="/" title="Best Stores for 4th of July " />
           <StoreCircleList stores={STORE_LIST} />
         </div>
         <div className="mb-12">

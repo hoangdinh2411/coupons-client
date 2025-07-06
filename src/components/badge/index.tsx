@@ -8,7 +8,7 @@ type BadgePropsType = {
 function Badge({ imageIcon, text = '', className = '' }: BadgePropsType) {
   return (
     <div
-      className={` ${className} flex rounded-md border-1 border-gray-200 bg-white py-[2px] pr-2 text-base`}
+      className={` ${className} flex items-center rounded-md border-1 border-gray-200 bg-white py-[2px] pr-2 text-xs md:text-base`}
     >
       <Image src={`${imageIcon}`} alt="" width={20} height={20} />
       <span className="font-bold">{text}</span>
