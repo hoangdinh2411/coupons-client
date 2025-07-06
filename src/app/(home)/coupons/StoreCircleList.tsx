@@ -1,5 +1,4 @@
 import React from 'react'
-import TitleCoupon from './TitleCoupon'
 import Image from 'next/image'
 type StoreCouponType = {
   title: string
