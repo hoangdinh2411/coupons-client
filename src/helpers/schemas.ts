@@ -11,6 +11,14 @@ export const SignInSchema = z
   })
   .merge(ForgetSchema)
 
+export const SignUpSchema = z
+  .object({
+    first_name: z.string().min(1, 'First name is required'),
+    last_name: z.string().min(1, 'Last name is required'),
+    confirm_password: z.string().min(1, 'Confirm password is required'),
+  })
+  .merge(SignInSchema)
+
 export const VerifyCodeSchema = z
   .object({
     code: z.string().min(1, 'Code is required'),

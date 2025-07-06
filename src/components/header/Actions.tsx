@@ -83,7 +83,7 @@ export default function Actions() {
         <Fragment>
           <Link
             className="cursor-pointer rounded-full p-1 px-8 py-3 font-bold text-white hover:bg-white/10"
-            href={APP_ROUTERS.SIGN_IN}
+            href={APP_ROUTERS.SIGN_UP}
           >
             Join for Free
           </Link>

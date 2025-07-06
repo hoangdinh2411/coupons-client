@@ -41,7 +41,10 @@ export default function Form({
     }
   }, [state])
   return (
-    <form className="mx-auto flex flex-col bg-white p-6" action={action}>
+    <form
+      className="mx-auto flex max-w-[400px] flex-col bg-white p-6"
+      action={action}
+    >
       <p className="mb-6 text-center leading-5 text-slate-600 sm:mt-4">
         Enter your verification code below and we&apos;ll send you reset
         instructions.
