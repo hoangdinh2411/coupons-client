@@ -44,12 +44,12 @@ export default function Form() {
 
       if (res.data) {
         toast.success('Sign up success')
-        if (res.data.email_verified) {
-          router.push(APP_ROUTERS.SIGN_IN)
-        } else {
+        if (res.data.email_verified === false) {
           router.push(
             `${APP_ROUTERS.VERIFY}?email=${res.data.email}&type=${VerifyCodeType.VERIFY_ACCOUNT}`,
           )
+        } else {
+          router.push(APP_ROUTERS.SIGN_IN)
         }
       }
     })
