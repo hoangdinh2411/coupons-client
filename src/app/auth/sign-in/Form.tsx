@@ -1,3 +1,4 @@
+'use client'
 import { SignInAction } from '@/app/actions/sign-in.action'
 import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { APP_ROUTERS } from '@/helpers/config'
@@ -6,7 +7,7 @@ import UseAppStore from '@/stores/app.store'
 import { UserData } from '@/types/auth.type'
 import { VerifyCodeType } from '@/types/enum'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useActionState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
@@ -44,7 +45,7 @@ export default function Form() {
   return (
     <form
       action={action}
-      className="flex w-full flex-col gap-3 rounded-sm bg-white p-6"
+      className="flex w-full flex-col gap-4 rounded-sm bg-white p-6"
     >
       {/* <p className="mb-6 text-center text-slate-500">
             By logging in you confirm that you are 16 years of age or older and

@@ -28,7 +28,7 @@ function SignOutPage() {
     handleSignOut()
   }, [])
   return (
-    <div className="flex w-full max-w-screen flex-col items-center justify-center gap-4 bg-white md:mx-auto md:w-[400px] md:bg-transparent">
+    <div className="flex w-full max-w-screen flex-col items-center justify-center gap-5 bg-white pb-10 md:mx-auto md:mt-6 md:w-[400px] md:bg-transparent">
       <p className="mt-6 flex flex-col items-center gap-4 text-[40px] font-bold text-slate-800">
         <FaUserCircle size={58} />
         Sign Out
