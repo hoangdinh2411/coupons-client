@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 function ForgotPasswordPage() {
   return (
-    <div className="flex h-full w-full max-w-screen flex-col items-center justify-center gap-5 bg-white py-6 md:mx-auto md:mt-6 md:h-[500px] md:w-[330px] md:bg-transparent">
+    <div className="flex w-full max-w-screen flex-col items-center justify-center gap-5 bg-white pb-10 md:mx-auto md:mt-6 md:w-[400px] md:bg-transparent">
       <div className="md:mb-2">
         <h3 className="text-center text-[40px] font-semibold">
           Forgot Password
