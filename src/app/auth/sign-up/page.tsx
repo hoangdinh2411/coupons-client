@@ -2,6 +2,10 @@ import { APP_ROUTERS } from '@/helpers/config'
 import Link from 'next/link'
 
 import Form from './Form'
+import { Metadata } from 'next'
+export const metadata: Metadata = {
+  title: 'Join for free',
+}
 
 //TODO: Typing & style
 export default function SignInPage() {
