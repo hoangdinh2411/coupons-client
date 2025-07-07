@@ -1,15 +1,16 @@
+'use client'
 import { APP_ROUTERS } from '@/helpers/config'
-import { getAllCategoriesWithAllStores } from '@/services/clientApi'
+import UseAppStore from '@/stores/app.store'
 import Link from 'next/link'
-import React, { use } from 'react'
+import React from 'react'
 
 export default function CategoryList() {
-  const res = use(getAllCategoriesWithAllStores())
-  const data = res.data
+  const categories = UseAppStore((state) => state.categories)
+
   return (
     <div className="w-full columns-1 gap-4 lg:columns-3">
-      {data &&
-        data.map((cat) => (
+      {categories &&
+        categories.map((cat) => (
           <div className="mb-8" key={cat.id}>
             <Link
               href="/"
