@@ -1,4 +1,6 @@
 import {
+  SignInPayload,
+  SignUpPayload,
   UserData,
   VerifyCodeData,
   VerifyRequestPayload,
@@ -6,13 +8,13 @@ import {
 import customFetch from './customFetch'
 import customFetchWithToken from './customFetchWithToken'
 
-export const signInApi = async <T>(data: T) => {
+export const signInApi = async (data: SignInPayload) => {
   return await customFetch<UserData>(`/auth/sign-in`, {
     method: 'POST',
     body: JSON.stringify(data),
   })
 }
-export const signUpAi = async <T>(data: T) => {
+export const signUpAi = async (data: SignUpPayload) => {
   return await customFetch<UserData>(`/auth/sign-up?type=user`, {
     method: 'POST',
     body: JSON.stringify(data),

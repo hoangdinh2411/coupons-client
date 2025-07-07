@@ -1,16 +1,16 @@
 import { ROLES, VerifyCodeType } from './enum'
 
-export interface LoginRequestPayload {
+export interface SignInPayload {
   email: string
   password: string
 }
-export interface RegisterRequestPayLoad extends LoginRequestPayload {
+export interface SignUpPayload extends SignInPayload {
   confirm_password: string
   first_name?: string
   last_name?: string
 }
 
-export interface UserData extends RegisterRequestPayLoad {
+export interface UserData extends SignUpPayload {
   email_verified: boolean
   role: ROLES
   token?: string

@@ -6,11 +6,13 @@ import SpinnerLoading from '../loading'
 interface ButtonWithLoadingProp
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
+  isPending?: boolean
 }
 
 export default function ButtonWithLoading({
   children,
   className = '',
+  isPending = false,
   ...rest
 }: ButtonWithLoadingProp) {
   const { pending } = useFormStatus()
@@ -18,9 +20,9 @@ export default function ButtonWithLoading({
     <button
       className={`btn-primary relative ${className} `}
       {...rest}
-      disabled={pending}
+      disabled={pending || isPending}
     >
-      {pending ? <SpinnerLoading className="h-6 w-6" /> : children}
+      {isPending || pending ? <SpinnerLoading className="h-6 w-6" /> : children}
     </button>
   )
 }

@@ -1,22 +1,31 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
-import { MenuData } from '@/types/client.type'
+import { MenuResponse } from '@/services/clientApi'
+import UseAppStore from '@/stores/app.store'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
 const POPULAR_INDEX = -1
-export default function Menu({ data }: { data: MenuData }) {
+const LIMIT = 10
+export default function Menu({ data }: { data: MenuResponse }) {
   const [category, setCategory] = useState<number | null>(POPULAR_INDEX)
   const [target, setTarget] = useState<string>('')
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
+  const { setCategories } = UseAppStore((state) => state)
+
   const handleToggleSubmenu = (value: string) => {
     setTarget((prev) => (prev === value ? '' : value))
   }
 
+  useEffect(() => {
+    if (data.categories) {
+      setCategories(data.categories)
+    }
+  }, [data])
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       setTimeout(() => {
@@ -109,30 +118,31 @@ export default function Menu({ data }: { data: MenuData }) {
                 All stores
               </Link>
             </div>
-            {data.categories.map((cat, idx) => (
-              <Fragment key={idx}>
-                <div
-                  className={`${category === idx ? 'flex' : 'hidden'} flex-col gap-3`}
-                >
-                  {cat?.stores &&
-                    cat?.stores.map((s, index) => (
-                      <Link
-                        key={index}
-                        href={`${APP_ROUTERS.STORES}/${s.slug}`}
-                        className="hover:underline"
-                      >
-                        {s.name}
-                      </Link>
-                    ))}
-                  <Link
-                    href={`${APP_ROUTERS.STORES}`}
-                    className="hover:text-green font-semibold hover:underline"
+            {data.categories &&
+              data.categories.slice(0, LIMIT).map((cat, idx) => (
+                <Fragment key={idx}>
+                  <div
+                    className={`${category === idx ? 'flex' : 'hidden'} flex-col gap-3`}
                   >
-                    All stores
-                  </Link>
-                </div>
-              </Fragment>
-            ))}
+                    {cat?.stores &&
+                      cat?.stores.slice(0, LIMIT).map((s, index) => (
+                        <Link
+                          key={index}
+                          href={`${APP_ROUTERS.STORES}/${s.slug}`}
+                          className="hover:underline"
+                        >
+                          {s.name}
+                        </Link>
+                      ))}
+                    <Link
+                      href={`${APP_ROUTERS.STORES}`}
+                      className="hover:text-green font-semibold hover:underline"
+                    >
+                      All stores
+                    </Link>
+                  </div>
+                </Fragment>
+              ))}
           </div>
         </div>
       </li>

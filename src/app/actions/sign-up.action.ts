@@ -27,7 +27,6 @@ export async function SignUpAction(
     }
   }
   const res = await signUpAi(validateResult.data)
-
   if (!res.success) {
     return { error: res.message }
   }

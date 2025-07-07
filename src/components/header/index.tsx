@@ -1,14 +1,20 @@
 import { APP_ROUTERS } from '@/helpers/config'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { use } from 'react'
+import React from 'react'
 import Menu from './Menu'
 import SearchBar from './SearchBar'
 import Actions from './Actions'
 import MobileActions from './MobileActions'
 import { getMenu } from '@/services/clientApi'
-export default function Header() {
-  const res = use(getMenu())
+export default async function Header() {
+  const res = await getMenu()
+
+  if (!res.success || !res.data) {
+    return {
+      message: res.message || 'cannot fetch menu',
+    }
+  }
 
   return (
     <header>
@@ -40,14 +46,7 @@ export default function Header() {
               sizes="(max-width: 768px) 120px"
             />
           </Link>
-          <Menu
-            data={
-              res.data || {
-                categories: [],
-                popular: [],
-              }
-            }
-          />
+          <Menu data={res.data} />
           <SearchBar />
           <Actions />
           <MobileActions />
