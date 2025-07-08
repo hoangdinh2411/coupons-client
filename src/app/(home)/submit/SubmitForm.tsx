@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { FaSearch } from 'react-icons/fa'
 import { SubmitFormSchema } from '@/helpers/schemas'
+import { searchStore } from '@/services/clientApi'
+import { StoreData } from '@/types/store.type'
 
 type SubmitFormType = z.infer<typeof SubmitFormSchema>
 
@@ -24,44 +26,47 @@ function SubmitForm() {
 
   const COUPON_TYPES = ['Online Code', 'In-Store Offer', 'Sale']
   const CATEGORIES = ['Electronics', 'Clothing', 'Books', 'Other']
-  const STORES = [
-    'Store A',
-    'Store B',
-    'Store C',
-    'Amazon',
-    'Walmart',
-    'Target',
-  ]
 
   // State for search input and suggestions
-  const [searchTerm, setSearchTerm] = useState('')
-  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [searchText, setSearchText] = useState('')
+  const [suggestions, setSuggestions] = useState<StoreData[]>([])
   const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false)
-
+  const [debouncedQuery, setDebouncedQuery] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
   // Handle store input change and filter suggestions
   const handleStoreInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    setSearchTerm(value)
-    setValue('store', value) // Update form value
-
-    if (value.length > 0) {
-      const filteredSuggestions = STORES.filter((store) =>
-        store.toLowerCase().includes(value.toLowerCase()),
-      )
-      setSuggestions(filteredSuggestions)
-      setIsSuggestionsVisible(true)
-    } else {
-      setSuggestions([])
-      setIsSuggestionsVisible(false)
-    }
+    setSearchText(value)
+    setIsTyping(true)
   }
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchText)
+    }, 1000)
+
+    return () => clearTimeout(handler)
+  }, [searchText])
+
+  useEffect(() => {
+    if (debouncedQuery && isTyping) {
+      searchStore('', debouncedQuery).then((res) => {
+        if (!res.data) return
+        setSuggestions(res?.data)
+        if (res.data) {
+          setIsSuggestionsVisible(true)
+        }
+      }) // gọi API ở đây
+    } else {
+      setSuggestions([])
+    }
+  }, [debouncedQuery])
+
   // Handle suggestion click
-  const handleSuggestionClick = (suggestion: string) => {
-    setSearchTerm(suggestion)
-    setValue('store', suggestion) // Update form value
-    setSuggestions([])
-    setIsSuggestionsVisible(false)
+  const handleSelectStore = (suggestion: StoreData) => {
+    setIsTyping(false)
+    setValue('store_id', suggestion.id) // Update form value
+    setSearchText(suggestion.url)
   }
 
   return (
@@ -78,35 +83,31 @@ function SubmitForm() {
             <div className="relative w-full">
               <FaSearch className="absolute top-1/2 left-4 -translate-y-1/2 transform text-gray-300" />
               <input
-                {...register('store')}
-                className={`textfield-${errors.store ? 'error' : 'primary'} w-full pl-10`}
+                {...register('store_id')}
+                className={`textfield-${errors.store_id ? 'error' : 'primary'} w-full pl-10`}
                 id="store"
                 type="text"
                 placeholder="Enter store name"
-                value={searchTerm}
+                value={searchText}
                 onChange={handleStoreInputChange}
-                onBlur={() =>
-                  setTimeout(() => setIsSuggestionsVisible(false), 200)
-                }
-                onFocus={() => searchTerm && setIsSuggestionsVisible(true)}
               />
             </div>
-            {isSuggestionsVisible && suggestions.length > 0 && (
+            {isTyping && isSuggestionsVisible && suggestions.length > 0 && (
               <ul className="absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md border border-gray-300 bg-white">
-                {suggestions.map((suggestion) => (
+                {suggestions.map((store) => (
                   <li
-                    key={suggestion}
+                    key={store.id}
                     className="cursor-pointer px-3 py-2 hover:bg-gray-100"
-                    onClick={() => handleSuggestionClick(suggestion)}
+                    onClick={() => handleSelectStore(store)}
                   >
-                    {suggestion}
+                    {store.url}
                   </li>
                 ))}
               </ul>
             )}
           </fieldset>
-          {errors.store && (
-            <p className="error-message">{errors.store.message}</p>
+          {errors.store_id && (
+            <p className="error-message">{errors.store_id.message}</p>
           )}
         </div>
         <div className="form-control mb-4">
@@ -140,15 +141,15 @@ function SubmitForm() {
         <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
             <input
-              {...register('offerLink')}
-              className={`textfield-${errors.offerLink ? 'error' : 'primary'} w-full`}
-              id="offerLink"
+              {...register('offer_link')}
+              className={`textfield-${errors.offer_link ? 'error' : 'primary'} w-full`}
+              id="offer_link"
               type="url"
               placeholder="Enter offer link"
             />
           </fieldset>
-          {errors.offerLink && (
-            <p className="error-message">{errors.offerLink.message}</p>
+          {errors.offer_link && (
+            <p className="error-message">{errors.offer_link.message}</p>
           )}
         </div>
         <div className="form-control mb-4">
@@ -157,16 +158,15 @@ function SubmitForm() {
             className="fieldset-container min-h-[180px]"
           >
             <textarea
-              {...register('offerDetail')}
-              className={`textarea-${errors.offerDetail ? 'error' : 'primary'} min-h-[180px] w-full px-2`}
-              id="offerDetail"
+              {...register('offer_detail')}
+              className={`textarea-${errors.offer_detail ? 'error' : 'primary'} min-h-[180px] w-full px-2`}
+              id="offer_detail"
               placeholder="Enter coupon description"
-              minLength={180}
             />
           </fieldset>
-          {errors.offerDetail && (
+          {errors.offer_detail && (
             <p className="error-message mt-[2px]">
-              {errors.offerDetail.message}
+              {errors.offer_detail.message}
             </p>
           )}
         </div>
@@ -176,9 +176,9 @@ function SubmitForm() {
               Start Date (optional)
             </legend>
             <input
-              {...register('startDate')}
-              className={`textfield-${errors.startDate ? 'error' : 'primary'} w-full pt-6`}
-              id="startDate"
+              {...register('start_date')}
+              className={`textfield-${errors.start_date ? 'error' : 'primary'} w-full pt-6`}
+              id="start_date"
               type="date"
               onFocus={(e) =>
                 e.currentTarget.showPicker && e.currentTarget.showPicker()
@@ -186,8 +186,8 @@ function SubmitForm() {
               placeholder="dd/mm/yyyy"
             />
           </fieldset>
-          {errors.startDate && (
-            <p className="error-message">{errors.startDate.message}</p>
+          {errors.start_date && (
+            <p className="error-message">{errors.start_date.message}</p>
           )}
         </div>
         <div className="form-control mb-4">
@@ -196,9 +196,9 @@ function SubmitForm() {
               Expire Date (optional)
             </legend>
             <input
-              {...register('expireDate')}
-              className={`textfield-${errors.expireDate ? 'error' : 'primary'} w-full pt-6`}
-              id="expireDate"
+              {...register('expire_date')}
+              className={`textfield-${errors.expire_date ? 'error' : 'primary'} w-full pt-6`}
+              id="expire_date"
               onFocus={(e) =>
                 e.currentTarget.showPicker && e.currentTarget.showPicker()
               }
@@ -206,16 +206,16 @@ function SubmitForm() {
               placeholder="dd/mm/yyyy"
             />
           </fieldset>
-          {errors.expireDate && (
-            <p className="error-message">{errors.expireDate.message}</p>
+          {errors.expire_date && (
+            <p className="error-message">{errors.expire_date.message}</p>
           )}
         </div>
         <div className="form-control mb-4">
           <fieldset className="fieldset-container relative">
             <select
-              {...register('couponType')}
+              {...register('type')}
               className="textfield-primary w-full py-3"
-              id="couponType"
+              id="type"
             >
               <option value="">Select a type</option>
               {COUPON_TYPES.map((type) => (
@@ -225,8 +225,8 @@ function SubmitForm() {
               ))}
             </select>
           </fieldset>
-          {errors.couponType && (
-            <p className="error-message">{errors.couponType.message}</p>
+          {errors.type && (
+            <p className="error-message">{errors.type.message}</p>
           )}
         </div>
         <div className="form-control mb-4">
@@ -255,7 +255,7 @@ function SubmitForm() {
         <button
           onClick={() => {
             reset()
-            setSearchTerm('')
+            setSearchText('')
             setSuggestions([])
             setIsSuggestionsVisible(false)
           }}

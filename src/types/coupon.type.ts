@@ -1,7 +1,7 @@
 import { UserData } from './auth.type'
 import { CategoryData } from './category.type'
 import { CouponType } from './enum'
-import { TimestampedEntity } from './share.type'
+import { BaseData } from './share.type'
 import { StoreData } from './store.type'
 
 export interface CouponPayload {
@@ -17,7 +17,7 @@ export interface CouponPayload {
   rating?: number
 }
 
-export interface CouponData extends TimestampedEntity {
+export interface CouponData extends BaseData {
   title: string
   code: string
   offer_detail: string
@@ -27,7 +27,6 @@ export interface CouponData extends TimestampedEntity {
   start_date: string
   type: CouponType
   rating: number
-  id: number
   store?: StoreData
   categories?: CategoryData[]
   // meta_data?: MetaData;
