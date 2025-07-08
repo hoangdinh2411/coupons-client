@@ -10,7 +10,8 @@ export interface IResponseWithTotal<T> {
   total: number
 }
 
-export interface TimestampedEntity {
+export interface BaseData {
+  id: number
   created_at?: string
   updated_at?: string
   deleted_at?: string
