@@ -1,21 +1,11 @@
-import { ImageType, MetaData, TimestampedEntity } from './share.type'
+import { ImageType, MetaData, BaseData } from './share.type'
 import { TopicData } from './topic.type'
 
-export interface BlogPayload {
-  title?: string
-  content?: string
-  keywords?: string[]
-  topic_id?: number
-  rating?: number
-  images?: ImageType
-  meta_data?: MetaData
-}
-export interface BlogData extends TimestampedEntity {
+export interface BlogData extends BaseData {
   title: string
   content: string
   keywords: string[]
   topic_id: number
-  id: number
   slug: string
   topic?: TopicData
   meta_data?: MetaData

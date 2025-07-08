@@ -49,16 +49,16 @@ export const ResetPasswordSchema = z
 export const SubmitFormSchema = z
   .object({
     title: z.string().min(1, 'Title is required'),
-    offerLink: z.string().url('Invalid URL'),
-    offerDetail: z.string().min(1, 'Description is required'),
+    offer_link: z.string().url('Invalid URL'),
+    offer_detail: z.string().min(1, 'Description is required'),
     code: z.string().min(1, 'Code is required'),
-    startDate: z.string().min(1, 'Start date is required'),
-    expireDate: z.string().min(1, 'Expire date is required'),
-    couponType: z.string().min(1, 'Coupon type is required'),
+    start_date: z.string().min(1, 'Start date is required'),
+    expire_date: z.string().min(1, 'Expire date is required'),
+    type: z.string().min(1, 'Coupon type is required'),
     category: z.string().min(1, 'Category is required'),
-    store: z.string().min(1, 'Store is required'),
+    store_id: z.number(),
   })
-  .refine((data) => dayjs(data.startDate).isBefore(dayjs(data.expireDate)), {
-    path: ['expireDate'],
+  .refine((data) => dayjs(data.start_date).isBefore(dayjs(data.expire_date)), {
+    path: ['expire_date'],
     message: 'Expire date must be after start date',
   })
