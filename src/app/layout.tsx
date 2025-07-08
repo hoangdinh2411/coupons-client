@@ -1,6 +1,7 @@
 import '../styles/global.css'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
+import ToastProvider from '@/context/ToastProvider'
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: {
@@ -58,7 +59,10 @@ export default function RootLayout({
         {/* <meta property="og:url" content={METADATA.APP_URL} /> */}
         {/* ✅ Google Tag Manager (head) */}
       </head>
-      <body suppressHydrationWarning={true}>{children}</body>
+      <body suppressHydrationWarning={true}>
+        {children}
+        <ToastProvider />
+      </body>
     </html>
   )
 }

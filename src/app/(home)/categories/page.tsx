@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 import CardCoupon from './CardCoupon'
 import CategoryList from './CategoryList'
 import { Metadata } from 'next'
+import SpinnerLoading from '@/components/loading'
 const TOP_CATEGORIES = [
   {
     content: 'Beauty and Personal Care',
@@ -32,7 +33,7 @@ const TOP_CATEGORIES = [
 export const metadata: Metadata = {
   title: 'Categories and Stores',
 }
-async function CouponPage() {
+function CouponPage() {
   return (
     <div className="container mx-auto w-full max-w-[1280px] p-8">
       <h2 className="mb-4 text-xl font-bold md:text-2xl">
@@ -48,7 +49,7 @@ async function CouponPage() {
       <h2 className="mb-4 text-xl font-[900] md:text-2xl">
         All Coupons & Deals Categories
       </h2>
-      <Suspense>
+      <Suspense fallback={<SpinnerLoading />}>
         <CategoryList />
       </Suspense>
     </div>

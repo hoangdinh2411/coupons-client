@@ -21,7 +21,7 @@ async function ForgotPasswordPage({
     redirect(APP_ROUTERS.INDEX)
   }
   return (
-    <div className="w-full sm:mx-auto md:w-full">
+    <div className="flex w-full max-w-screen flex-col items-center justify-center gap-5 bg-white pb-10 md:mx-auto md:mt-6 md:w-[400px] md:bg-transparent">
       <div className="md:mb-2">
         <h3 className="text-center text-[40px] font-semibold">
           Change password
