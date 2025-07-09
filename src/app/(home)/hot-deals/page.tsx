@@ -1,13 +1,9 @@
-'use client'
-import { useEffect, useState } from 'react'
 import CouponList from './CouponList'
 import Header from './Header'
 import ShoppingEvents from './ShoppingEvents'
 import StoreCircleList from './StoreCircleList'
 import TitleCoupon from './TitleCoupon'
 import TopDealList from './TopDealList'
-import ElementSlider from '@/components/slide/Slide'
-import CouponCard from '@/components/card/CouponCard'
 
 const COUPON_CARD = Array.from({ length: 5 }, (_, i) => ({
   id: `coupon-${i + 1}`,
@@ -42,22 +38,12 @@ const BEST_DEAL = {
   icon: '/images/cashback-bolt.svg',
   stringValueInfo: '3% Cash Back on Amazon Devices',
 }
-const BREAKPOINT = 768
-export default function HotDealsPage() {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= BREAKPOINT)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [BREAKPOINT])
+export default function CouponsPage() {
   return (
     <div className="relative bg-white">
       {/** Title */}
-      <Header isMobile={isMobile} />
-      <div className="mx-auto w-full max-w-[1280px] px-4 2xl:px-0">
+      <Header />
+      <div className="mx-auto w-full max-w-(--max-width) px-4 2xl:px-0">
         <div className="">
           <TitleCoupon
             title="Best 4th of July Sales &amp; Deals 2025"
@@ -69,11 +55,7 @@ export default function HotDealsPage() {
           <StoreCircleList stores={STORE_LIST} />
         </div>
         <div className="mb-12">
-          <TopDealList
-            isMobile={isMobile}
-            bestDeal={BEST_DEAL}
-            topDealList={TOP_DEAL_LIST}
-          />
+          <TopDealList bestDeal={BEST_DEAL} topDealList={TOP_DEAL_LIST} />
         </div>
         {/* <RealDeal /> */}
         <div className="">
@@ -101,12 +83,6 @@ export default function HotDealsPage() {
           <CouponList coupons={COUPON_CARD} />
         </div>
         <ShoppingEvents />
-        <ElementSlider visibleCount={2} className="my-6">
-          <CouponCard title="Deal 1" description="Mô tả 1" imgUrl="/img1.png" />
-          <CouponCard title="Deal 4" description="Mô tả 4" imgUrl="/img4.png" />
-          <CouponCard title="Deal 4" description="Mô tả 4" imgUrl="/img4.png" />
-          <CouponCard title="Deal 4" description="Mô tả 4" imgUrl="/img4.png" />
-        </ElementSlider>
       </div>
     </div>
   )

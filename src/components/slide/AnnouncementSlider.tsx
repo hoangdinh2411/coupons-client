@@ -40,18 +40,21 @@ export default function AnnouncementSlider({
   peekPercent = 0,
   autoSlideDelay = 5000,
 }: AnnouncementSliderProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
   const [itemsPerView, setItemsPerView] = useState(
     typeof visibleCount === 'number' ? visibleCount : 1,
   )
 
+  const [index, setIndex] = useState(1) // bắt đầu ở phần tử thật
   const sliderRef = useRef<HTMLDivElement>(null)
-  const isDragging = useRef(false)
-  const startX = useRef(0)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const totalItems = children.length
-  const maxIndex = Math.ceil(totalItems - itemsPerView)
+  const peek = peekPercent
+  const baseWidth = 100 / itemsPerView
+  const itemWidth = baseWidth + peek / itemsPerView
+
+  // Clone đầu + cuối để loop mượt
+  const loopedChildren = [children[totalItems - 1], ...children, children[0]]
 
   // Responsive
   useEffect(() => {
@@ -65,106 +68,96 @@ export default function AnnouncementSlider({
     return () => window.removeEventListener('resize', handleResize)
   }, [visibleCount])
 
-  // Slide handlers
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
+    if (!sliderRef.current) return
+    sliderRef.current.style.transition = 'transform 0.6s ease'
+    setIndex((prev) => prev + 1)
   }
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
+    if (!sliderRef.current) return
+    sliderRef.current.style.transition = 'transform 0.6s ease'
+    setIndex((prev) => prev - 1)
   }
 
-  // Auto Slide
+  // Reset index khi đến clone
+  useEffect(() => {
+    const slider = sliderRef.current
+    if (!slider) return
+
+    const handleTransitionEnd = () => {
+      slider.style.transition = 'none'
+      if (index === 0) {
+        setIndex(totalItems)
+        slider.style.transform = `translateX(-${baseWidth * totalItems}%)`
+      } else if (index === totalItems + 1) {
+        setIndex(1)
+        slider.style.transform = `translateX(-${baseWidth}%)`
+      }
+    }
+
+    slider.addEventListener('transitionend', handleTransitionEnd)
+    return () => {
+      slider.removeEventListener('transitionend', handleTransitionEnd)
+    }
+  }, [index, totalItems, baseWidth])
+
+  // Update transform mỗi khi index thay đổi
+  useEffect(() => {
+    if (!sliderRef.current) return
+    sliderRef.current.style.transform = `translateX(-${baseWidth * index}%)`
+  }, [index, baseWidth])
+
+  // Auto slide
   useEffect(() => {
     if (autoSlideDelay > 0) {
       intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
+        nextSlide()
       }, autoSlideDelay)
     }
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [autoSlideDelay, maxIndex])
-
-  // Mouse drag
-  const handleMouseDown = (e: React.MouseEvent) => {
-    isDragging.current = true
-    startX.current = e.clientX
-    if (sliderRef.current) sliderRef.current.style.cursor = 'grabbing'
-  }
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!isDragging.current) return
-    const deltaX = e.clientX - startX.current
-    if (deltaX > 50) {
-      prevSlide()
-      isDragging.current = false
-    } else if (deltaX < -50) {
-      nextSlide()
-      isDragging.current = false
-    }
-  }
-
-  const handleMouseUp = () => {
-    isDragging.current = false
-    if (sliderRef.current) sliderRef.current.style.cursor = 'grab'
-  }
-
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseup', handleMouseUp)
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseup', handleMouseUp)
-    }
-  }, [currentIndex])
-
-  // Layout calculation
-  const peek = peekPercent
-  const baseWidth = 100 / itemsPerView
-  const itemWidth = baseWidth + peek / itemsPerView
+  }, [autoSlideDelay])
 
   return (
-    <div className={`group relative w-full ${className}`}>
-      <div className="overflow-hidden">
-        <div
-          ref={sliderRef}
-          className="flex cursor-grab transition-transform duration-700 ease-in-out"
-          onMouseDown={handleMouseDown}
-          style={{
-            transform: `translateX(-${baseWidth * currentIndex}%)`,
-            width: `${itemWidth * totalItems}%`,
-          }}
-        >
-          {children.map((child, idx) => (
-            <div
-              key={idx}
-              className="flex-shrink-0 px-2"
-              style={{
-                width: `${100 / totalItems}%`,
-              }}
-            >
-              <div className="flex h-full w-full items-center justify-center">
-                {child}
-              </div>
+    <div className={`group relative w-full overflow-hidden ${className}`}>
+      <div
+        ref={sliderRef}
+        className="flex"
+        style={{
+          width: `${itemWidth * loopedChildren.length}%`,
+        }}
+      >
+        {loopedChildren.map((child, idx) => (
+          <div
+            key={idx}
+            className="px-2"
+            style={{
+              width: `${100 / loopedChildren.length}%`,
+              flexShrink: 0,
+            }}
+          >
+            <div className="flex h-full w-full items-center justify-center">
+              {child}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
-      {/* Navigation inside slide */}
+      {/* Navigation */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-between px-2">
         <button
           onClick={prevSlide}
           className="pointer-events-auto bg-transparent p-1 text-xl"
         >
-          <MdNavigateBefore size={20} className="size-[20px]" />
+          <MdNavigateBefore size={20} />
         </button>
         <button
           onClick={nextSlide}
           className="pointer-events-auto bg-transparent p-1 text-xl"
         >
-          <MdNavigateNext size={20} className="size-[20px]" />
+          <MdNavigateNext size={20} />
         </button>
       </div>
     </div>

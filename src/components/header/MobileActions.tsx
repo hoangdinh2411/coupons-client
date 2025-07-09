@@ -22,7 +22,7 @@ export default function MobileActions() {
       </label>
       <div className="fixed top-0 left-0 z-100 hidden h-full w-full overflow-y-scroll bg-white peer-checked:block">
         <div className="relative shadow-lg">
-          <div className="relative m-auto flex w-full max-w-[1280px] items-center justify-around gap-4 p-4 py-4">
+          <div className="relative m-auto flex w-full max-w-(--max-width) items-center justify-around gap-4 p-4 py-4">
             <Link
               href={APP_ROUTERS.INDEX}
               className="relative mr-auto aspect-auto h-12 w-40"

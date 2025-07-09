@@ -33,4 +33,7 @@
   .legend-placeholder {
     @apply pointer-events-none absolute px-2 text-sm text-gray-400 transition-all duration-200;
   }
+  .card-outline {
+    @apply focus:outline-green hover:outline-green outline-1 outline-transparent;
+  }
 }
