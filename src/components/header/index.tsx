@@ -11,9 +11,7 @@ export default async function Header() {
   const res = await getMenu()
 
   if (!res.success || !res.data) {
-    return {
-      message: res.message || 'cannot fetch menu',
-    }
+    throw new Error(res.message || 'Cannot fetch menu  ')
   }
 
   return (

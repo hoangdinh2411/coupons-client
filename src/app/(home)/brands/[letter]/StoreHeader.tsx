@@ -33,11 +33,7 @@ const listLetters = [
   '0-9',
 ]
 
-interface StoreHeaderProps {
-  currentLetter: string
-}
-
-const StoreHeader = ({ currentLetter }: StoreHeaderProps) => {
+const StoreHeader = ({ currentLetter }: { currentLetter: string }) => {
   const router = useRouter()
 
   const handleLinkChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -47,8 +43,8 @@ const StoreHeader = ({ currentLetter }: StoreHeaderProps) => {
 
   return (
     <div className="shadow-xl">
-      <div className="container mx-auto px-4">
-        <h2 className="my-8 text-xl leading-tight font-bold md:text-2xl md:leading-normal">
+      <div className="container mx-auto w-full max-w-[1280px]">
+        <h2 className="my-8 text-xl leading-tight font-extrabold md:text-2xl md:leading-normal">
           Browse Stores Starting with {currentLetter}
         </h2>
 
@@ -57,7 +53,7 @@ const StoreHeader = ({ currentLetter }: StoreHeaderProps) => {
             <Link
               key={letter}
               href={`/stores/${letter}`}
-              className={`border-b-4 px-4 pb-1 hover:font-semibold ${currentLetter === letter ? 'border-black font-semibold' : 'border-transparent'}`}
+              className={`border-b-4 px-4 pb-1 hover:font-extrabold ${currentLetter === letter ? 'border-black font-extrabold' : 'border-transparent'}`}
             >
               {letter}
             </Link>

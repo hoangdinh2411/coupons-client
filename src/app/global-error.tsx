@@ -1,13 +1,13 @@
 'use client'
 
-export default function GlobalError(
-  { error, reset } = {
-    error: {
-      message: 'Something wrong',
-    },
-    reset: () => {},
-  },
-) {
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string }
+  reset: () => void
+}) {
+  console.log(error)
   return (
     <html>
       <body className="error-page">
