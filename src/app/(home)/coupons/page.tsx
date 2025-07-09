@@ -1,5 +1,4 @@
 'use client'
-import { useEffect, useState } from 'react'
 import CouponList from './CouponList'
 import Header from './Header'
 import ShoppingEvents from './ShoppingEvents'
@@ -42,21 +41,11 @@ const BEST_DEAL = {
   icon: '/images/cashback-bolt.svg',
   stringValueInfo: '3% Cash Back on Amazon Devices',
 }
-const BREAKPOINT = 768
 export default function CouponsPage() {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= BREAKPOINT)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [BREAKPOINT])
   return (
     <div className="relative bg-white">
       {/** Title */}
-      <Header isMobile={isMobile} />
+      <Header />
       <div className="mx-auto w-full max-w-[1280px] px-4 2xl:px-0">
         <div className="">
           <TitleCoupon
@@ -70,11 +59,7 @@ export default function CouponsPage() {
           <StoreCircleList stores={STORE_LIST} />
         </div>
         <div className="mb-12">
-          <TopDealList
-            isMobile={isMobile}
-            bestDeal={BEST_DEAL}
-            topDealList={TOP_DEAL_LIST}
-          />
+          <TopDealList bestDeal={BEST_DEAL} topDealList={TOP_DEAL_LIST} />
         </div>
         {/* <RealDeal /> */}
         <div className="">
