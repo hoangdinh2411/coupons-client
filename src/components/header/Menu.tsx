@@ -16,7 +16,7 @@ export default function Menu({ data }: { data: MenuResponse }) {
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const { setCategories } = UseAppStore((state) => state)
-
+  console.log(data)
   const handleToggleSubmenu = (value: string) => {
     setTarget((prev) => (prev === value ? '' : value))
   }
@@ -103,16 +103,12 @@ export default function Menu({ data }: { data: MenuResponse }) {
               className={`${category === POPULAR_INDEX ? 'flex' : 'hidden'} flex-col gap-3`}
             >
               {data.popular.map((s) => (
-                <Link
-                  key={s.id}
-                  href={`${APP_ROUTERS.STORES}/${s.slug}`}
-                  className="hover:underline"
-                >
+                <Link key={s.id} href={`${s.slug}`} className="hover:underline">
                   {s.name}
                 </Link>
               ))}
               <Link
-                href={`${APP_ROUTERS.STORES}`}
+                href={`${APP_ROUTERS.ALL_STORES}`}
                 className="hover:text-green font-semibold hover:underline"
               >
                 All stores
@@ -128,14 +124,14 @@ export default function Menu({ data }: { data: MenuResponse }) {
                       cat?.stores.slice(0, LIMIT).map((s, index) => (
                         <Link
                           key={index}
-                          href={`${APP_ROUTERS.STORES}/${s.slug}`}
+                          href={`/stores/${s.slug}`}
                           className="hover:underline"
                         >
                           {s.name}
                         </Link>
                       ))}
                     <Link
-                      href={`${APP_ROUTERS.STORES}`}
+                      href={`${APP_ROUTERS.ALL_STORES}`}
                       className="hover:text-green font-semibold hover:underline"
                     >
                       All stores
