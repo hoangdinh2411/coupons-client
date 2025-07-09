@@ -38,7 +38,7 @@ export default function Form() {
       setUser(state.data)
       toast.success('Welcome back!')
       setTimeout(() => {
-        router.push(APP_ROUTERS.INDEX)
+        router.back()
       }, 2000)
     }
   }, [state])
@@ -108,7 +108,9 @@ export default function Form() {
           Sign up
         </Link>
       </p>
-      <ButtonWithLoading type="submit">Sign In</ButtonWithLoading>
+      <ButtonWithLoading type="submit" disabled={Boolean(state.data?.id)}>
+        Sign In
+      </ButtonWithLoading>
       <Link
         href={APP_ROUTERS.FORGOT_PASSWORD}
         className="font-500 hover:text-green text-olive-green mt-2 text-center underline"

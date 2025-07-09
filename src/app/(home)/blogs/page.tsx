@@ -155,7 +155,7 @@ export default function Page() {
       <nav className="pt-5">
         <CategoryList categories={BLOG_CATEGORIES} />
         <div className="my-1.5 text-center text-xs">
-          <p className="text-[10px] text-[#323232]">
+          <p className="text-olive-green text-sm">
             Every product and brand is selected by RetailMeNot&apos;s editors.
             We may earn a commission on the items you choose to buy.{' '}
             <Link className="font-bold" href="/blogs/about">
@@ -166,9 +166,9 @@ export default function Page() {
       </nav>
 
       <div className="mt-10">
-        <div className="mx-auto max-w-[1162px] px-[15px]">
-          <div className="flex flex-col md:flex-row">
-            <div className="-mx-[15px] w-full px-[15px] md:w-2/3">
+        <div className="mx-auto max-w-[1162px]">
+          <div className="flex flex-col gap-[30px] md:flex-row">
+            <div className="w-full md:w-2/3">
               <div className="mb-10">
                 {/* post image */}
                 <div>
@@ -201,10 +201,10 @@ export default function Page() {
                       </span>
                     </div>
                     <div>
-                      <h2 className="mb-2 text-4xl font-bold text-[#323232] group-hover:text-white">
+                      <h2 className="text-olive-green mb-2 text-4xl font-bold group-hover:text-white">
                         Prime Day 2025 Is Tomorrow — Here’s What Will Be On…
                       </h2>
-                      <span className="text-[#323232] group-hover:text-white">
+                      <span className="text-olive-green group-hover:text-white">
                         Published July 7, 2025
                       </span>
                     </div>
@@ -212,10 +212,10 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <div className="w-full px-[15px] md:w-1/3">
+            <div className="w-full md:w-1/3">
               <div className="pt-[26px]">
                 <div className="flex flex-col">
-                  <h5 className="mb-[18px] text-lg font-bold tracking-widest text-[#323232] uppercase">
+                  <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
                     Trending
                   </h5>
                   <TrendingPost posts={POST_PREVIEWS} />

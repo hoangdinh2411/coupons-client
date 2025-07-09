@@ -28,8 +28,8 @@ export default function ListPost({ posts }: ListPostProps) {
             />
           </Link>
           {/* post details */}
-          <div className="group relative border-2 border-[#741fa233] bg-[#fefefe] px-10 py-[30px] text-left transition-all duration-300 ease-out hover:bg-[#653297]">
-            <span className="absolute -top-[10%] size-[46px] rounded-full border-2 border-[#fefefe]">
+          <div className="group border-light-green bg-gray-border-gray-200 relative border-2 px-10 py-[30px] text-left transition-all duration-300 ease-out hover:bg-[#653297]">
+            <span className="absolute -top-[10%] size-[46px] rounded-full border-2 border-gray-200">
               <Image
                 src={post.post_category_image}
                 alt=""
@@ -39,15 +39,15 @@ export default function ListPost({ posts }: ListPostProps) {
             </span>
             <Link href={`/blogs/${post.post_id}`}>
               <div className="mt-3">
-                <span className="text-md font-bold tracking-wide text-[#741fa2] uppercase group-hover:text-white">
+                <span className="text-md text-olive-green font-bold tracking-wide uppercase group-hover:text-white">
                   {post.post_category}
                 </span>
               </div>
               <div>
-                <h3 className="mb-2 min-h-[195px] text-[28px] font-bold text-[#323232] group-hover:text-white">
+                <h3 className="text-olive-green mb-2 min-h-[195px] text-[28px] font-bold group-hover:text-white">
                   {post.post_title}
                 </h3>
-                <span className="text-[#323232] group-hover:text-white">
+                <span className="text-olive-green group-hover:text-white">
                   {post.post_published_date}
                 </span>
               </div>

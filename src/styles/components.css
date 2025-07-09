@@ -2,36 +2,38 @@
 
 @layer components {
   .btn-primary {
-    @apply  disabled:bg-gray-300 flex justify-center text-lg items-center hover:bg-light-green bg-green h-[44px] w-full min-w-30 cursor-pointer rounded-3xl p-2 text-center font-bold text-white transition-all duration-300 hover:text-slate-600;
+    @apply hover:bg-light-green bg-green flex h-[44px] w-full min-w-30 cursor-pointer items-center justify-center rounded-3xl p-2 text-center text-lg font-bold text-white transition-all duration-300 hover:text-slate-600 disabled:bg-gray-300;
   }
   /**textfield*/
   .textfield {
-    @apply  mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2 text-slate-600;
+    @apply mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2 text-slate-600;
   }
   .textfield-primary {
-    @apply px-3 py-[12px]  box-border !border-1 !border-gray-300  rounded-lg outline-0  w-full;
+    @apply box-border w-full rounded-lg !border-1 !border-gray-300 px-3 py-[12px] outline-0;
   }
   .textarea-primary {
-    @apply  px-3 py-[12px] box-border !border-1 !border-gray-300  rounded-lg outline-0 w-full;
+    @apply box-border w-full rounded-lg !border-1 !border-gray-300 px-3 py-[12px] outline-0;
   }
   .textarea-error {
-    @apply px-3 py-[12px] !border-red-600 rounded-lg !border-1 h-full w-full !pb-0;
+    @apply h-full w-full rounded-lg !border-1 !border-red-600 px-3 py-[12px] !pb-0;
   }
   .textfield-error {
-    @apply px-3 py-[12px] !border-red-600 rounded-lg !border-1 h-full w-full ;
+    @apply h-full w-full rounded-lg !border-1 !border-red-600 px-3 py-[12px];
   }
   .error-message {
-    @apply  ml-3 text-base text-red-500;
+    @apply ml-3 text-base text-red-500;
   }
   .fieldset-container {
-    @apply p-[6px] !border-2 !border-white rounded-xl relative;
+    @apply relative rounded-xl !border-2 !border-white p-[6px];
   }
   .fieldset-container:focus,
   .fieldset-container:focus-within {
-    @apply  !border-green;
+    @apply !border-green;
   }
   .legend-placeholder {
-    @apply absolute text-sm text-gray-400 pointer-events-none transition-all duration-200 px-2;
+    @apply pointer-events-none absolute px-2 text-sm text-gray-400 transition-all duration-200;
   }
-
+  .card-outline {
+    @apply focus:outline-green hover:outline-green outline-1 outline-transparent;
+  }
 }

@@ -24,9 +24,9 @@ export default function CategoryList({ categories }: CategoryListProps) {
               alt={category.category_name}
               width={124}
               height={124}
-              className="h-auto w-full max-w-[62px] rounded-full border border-gray-300 group-hover:border-[#741fa2]"
+              className="group-hover:border-green h-auto w-full max-w-[62px] rounded-full border border-gray-300"
             />
-            <span className="text-md mt-1.5 text-center font-semibold text-[#323232] group-hover:text-[#741fa2]">
+            <span className="text-md group-hover:text-green text-olive-green mt-1.5 text-center font-semibold">
               {category.category_name}
             </span>
           </Link>

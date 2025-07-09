@@ -22,13 +22,13 @@ export default function CategoryHeader({
           height={160}
           className="size-10"
         />
-        <h5 className="text-lg font-bold tracking-widest text-[#323232] uppercase">
+        <h5 className="text-olive-green text-lg font-bold tracking-widest uppercase">
           {title}
         </h5>
       </div>
       <Link
         href={href}
-        className="text-lg font-bold tracking-widest text-[#323232] uppercase"
+        className="text-olive-green text-lg font-bold tracking-widest uppercase"
       >
         view all {'>'}
       </Link>

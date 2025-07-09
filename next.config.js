@@ -10,7 +10,7 @@ const nextConfig = {
     silenceDeprecations: ['legacy-js-api'],
   },
 
-   images: {
+  images: {
     remotePatterns: [
       {
         protocol: 'https',
@@ -23,7 +23,6 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-
   },
   async headers() {
     return [
