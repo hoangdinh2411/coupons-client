@@ -1,9 +1,10 @@
+'use client'
+
 import TopDealCard from '@/components/card/TopDealCard'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { GrLinkNext } from 'react-icons/gr'
-import ElementSlider from '@/components/slide/Slide'
-
+import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
 type TopDetalItemType = {
   title?: string
   icon?: string | null
@@ -18,14 +19,18 @@ type TopDetalItemType = {
 interface TopDealListPropsType {
   topDealList: TopDetalItemType[]
   bestDeal: TopDetalItemType
-  isMobile: boolean
 }
 
-function TopDealList({
-  topDealList,
-  bestDeal,
-  isMobile,
-}: TopDealListPropsType) {
+function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [768])
   return (
     <div className="mx-auto py-6">
       {/* Best Deal Section */}
@@ -74,25 +79,50 @@ function TopDealList({
       </section>
 
       {/* Slider Section */}
-      <ElementSlider
-        visibleCount={{
-          base: 2,
-          lg: 3,
-          md: 3,
-          sm: 2,
-          xl: 4,
+      <Splide
+        options={{
+          autoWidth: false,
+          perPage: 5,
+          perMove: 1,
+          breakpoints: {
+            0: {
+              perPage: 1,
+            },
+            320: {
+              perPage: 2,
+            },
+            640: {
+              perPage: 2,
+            },
+            768: {
+              perPage: 3,
+            },
+            1024: {
+              perPage: 4,
+            },
+            1280: {
+              perPage: 5,
+            },
+          },
         }}
+        hasTrack={false}
       >
-        {topDealList.map((dealItem, index) => (
-          <TopDealCard
-            key={index}
-            {...dealItem}
-            description={dealItem.description ?? ''}
-            actionBtn={true}
-          />
-        ))}
-      </ElementSlider>
-
+        <SplideTrack>
+          {topDealList.map((dealItem, index) => (
+            <SplideSlide
+              className="!w-[288px] sm:!w-[320px] md:!w-[300px] lg:!w-[270px] xl:!w-[270px]"
+              key={index}
+            >
+              <TopDealCard
+                key={index}
+                {...dealItem}
+                description={dealItem.description ?? ''}
+                actionBtn={true}
+              />
+            </SplideSlide>
+          ))}
+        </SplideTrack>
+      </Splide>
       <div className="mb-10 flex w-full justify-center">
         {isMobile && (
           <button className="mx-auto mt-10 cursor-pointer rounded-full border border-slate-700 px-[16px] py-[6px] text-[12px] font-bold text-gray-800">

@@ -1,9 +1,9 @@
+'use client'
 import '@glidejs/glide/dist/css/glide.core.min.css'
-import React, { useEffect, useRef } from 'react'
-import Glide from '@glidejs/glide'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import AnnouncementSlider from '@/components/slide/AnnouncementSlider'
+import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
 const NAVBARS = [
   {
     link: '/',
@@ -36,40 +36,54 @@ const NAVBARS = [
   },
 ]
 
-function Header({ isMobile }: { isMobile: boolean }) {
-  const glideRef = useRef<HTMLDivElement>(null)
-
+function Header() {
+  const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
-    let glide: Glide | null = null
-    if (glideRef.current) {
-      glide = new Glide(glideRef.current, {
-        type: 'carousel',
-        perView: 1,
-      })
-      glide.mount()
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
     }
-    return () => {
-      if (glide) {
-        glide.destroy()
-      }
-    }
-  }, [])
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [768])
   return (
     <>
       {/** Gslide */}
-
-      <AnnouncementSlider
-        visibleCount={1}
-        peekPercent={0}
-        autoSlideDelay={3000}
+      <Splide
+        options={{
+          type: 'loop',
+          autoWidth: false,
+          pagination: false,
+          autoplay: true,
+          perPage: 1,
+          breakpoints: {
+            0: {
+              perPage: 1,
+            },
+            1024: {
+              perPage: 1,
+            },
+          },
+          autoScroll: {
+            speed: 1,
+          },
+        }}
+        hasTrack={false}
       >
-        <div className="py-4 text-center text-sm font-semibold text-gray-800">
-          Automatically Apply The Best Codes And Cash Back Offers To Your Cart
-        </div>
-        <div className="py-4 text-center text-sm font-semibold text-gray-800">
-          <u>Add To Your Browser! It&apos;s Free</u>
-        </div>
-      </AnnouncementSlider>
+        <SplideTrack>
+          <SplideSlide className="">
+            <div className="py-4 text-center text-sm font-semibold text-gray-800">
+              Automatically Apply The Best Codes And Cash Back Offers To Your
+              Cart
+            </div>
+          </SplideSlide>
+          <SplideSlide className="">
+            <div className="py-4 text-center text-sm font-semibold text-gray-800">
+              <u>Add To Your Browser! It&apos;s Free</u>
+            </div>
+          </SplideSlide>
+        </SplideTrack>
+      </Splide>
 
       {/**Banner */}
       <div className="relative flex h-[150px] items-center justify-center bg-[#3753AC]">

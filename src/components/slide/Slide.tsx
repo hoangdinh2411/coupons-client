@@ -47,7 +47,7 @@ export default function ElementSlider({
   const startX = useRef(0)
 
   const totalItems = children.length
-  const maxIndex = Math.ceil(totalItems - itemsPerView)
+  const maxIndex = Math.max(0, totalItems - itemsPerView)
 
   // Responsive setup
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function ElementSlider({
 
   // Navigation
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? maxIndex : prev + 1))
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
   }
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev <= 0 ? 0 : prev - 1))
