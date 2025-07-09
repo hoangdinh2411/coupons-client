@@ -1,3 +1,4 @@
+'use client'
 import CouponCard from '@/components/card/CouponCard'
 import React from 'react'
 

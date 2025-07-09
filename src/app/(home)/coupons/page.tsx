@@ -1,12 +1,9 @@
-'use client'
 import CouponList from './CouponList'
 import Header from './Header'
 import ShoppingEvents from './ShoppingEvents'
 import StoreCircleList from './StoreCircleList'
 import TitleCoupon from './TitleCoupon'
 import TopDealList from './TopDealList'
-import ElementSlider from '@/components/slide/Slide'
-import CouponCard from '@/components/card/CouponCard'
 
 const COUPON_CARD = Array.from({ length: 5 }, (_, i) => ({
   id: `coupon-${i + 1}`,
@@ -87,12 +84,6 @@ export default function CouponsPage() {
           <CouponList coupons={COUPON_CARD} />
         </div>
         <ShoppingEvents />
-        <ElementSlider visibleCount={2} className="my-6">
-          <CouponCard title="Deal 1" description="Mô tả 1" imgUrl="/img1.png" />
-          <CouponCard title="Deal 4" description="Mô tả 4" imgUrl="/img4.png" />
-          <CouponCard title="Deal 4" description="Mô tả 4" imgUrl="/img4.png" />
-          <CouponCard title="Deal 4" description="Mô tả 4" imgUrl="/img4.png" />
-        </ElementSlider>
       </div>
     </div>
   )

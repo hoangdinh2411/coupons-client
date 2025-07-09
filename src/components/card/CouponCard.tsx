@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import React, { memo } from 'react'
 import Badge from '../badge'
+import Link from 'next/link'
 
 export interface CouponCardPropsType
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -28,7 +29,7 @@ function CouponCard(props: CouponCardPropsType) {
   } = props
 
   return (
-    <a
+    <Link
       href="#"
       className={`${className} focus:border-green rounded-2xl border-2 border-white p-2`}
       {...rest}
@@ -68,7 +69,7 @@ function CouponCard(props: CouponCardPropsType) {
           )}
         </div>
       </div>
-    </a>
+    </Link>
   )
 }
 
