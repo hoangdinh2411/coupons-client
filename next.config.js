@@ -2,7 +2,7 @@
 
 const nextConfig = {
   // output: 'export',
-  
+
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -15,6 +15,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.retailmenot.com',
         pathname: '/**',
       },
     ],

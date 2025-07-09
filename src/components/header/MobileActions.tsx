@@ -49,7 +49,7 @@ export default function MobileActions() {
             ) : (
               <Fragment>
                 <Link
-                  className="btn-primary h-12 max-w-[320px] border-1 border-solid border-gray-300 bg-white font-extrabold text-black"
+                  className="btn-primary text-olive-green h-12 max-w-[320px] border-1 border-solid border-gray-300 bg-white font-extrabold"
                   href={APP_ROUTERS.SIGN_IN}
                 >
                   Sign In
