@@ -84,6 +84,7 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
           autoWidth: false,
           perPage: 5,
           perMove: 1,
+
           breakpoints: {
             0: {
               perPage: 1,
