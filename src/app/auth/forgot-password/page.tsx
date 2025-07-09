@@ -20,7 +20,7 @@ function ForgotPasswordPage() {
       <div className="mt-4 text-center">
         <Link
           href={APP_ROUTERS.SIGN_IN}
-          className="font-500 hover:text-green text-center text-black underline"
+          className="font-500 hover:text-green text-olive-green text-center underline"
         >
           Go Back to Login
         </Link>
