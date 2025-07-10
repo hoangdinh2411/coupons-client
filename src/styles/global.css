@@ -35,9 +35,20 @@ button {
   outline: none;
 }
 
+select {
+  appearance: none;
+  position: relative;
+}
+
 fieldset {
   outline: none;
   border: none;
+}
+
+*:not(fieldset):disabled {
+  cursor: not-allowed;
+  background-color: rgba(0, 0, 0, 0.05);
+  opacity: 0.5;
 }
 
 input[type='search']::-webkit-search-decoration,
@@ -57,6 +68,9 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.react-datepicker-wrapper {
+  width: 100%;
+}
 .splide__pagination li {
   border-radius: 10px !important;
   width: 40px;

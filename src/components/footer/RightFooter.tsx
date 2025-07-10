@@ -8,7 +8,7 @@ const SAMPLE_FOOTER_DATA = {
       title: 'Discover More',
       links: [
         { label: 'BROWSE STORES', href: APP_ROUTERS.ALL_CATEGORIES },
-        { label: 'BROWSE CATEGORIES', href: APP_ROUTERS.STORES },
+        { label: 'BROWSE CATEGORIES', href: APP_ROUTERS.ALL_STORES },
         { label: 'THE REAL DEAL BLOG', href: APP_ROUTERS.ALL_TOPICS },
       ],
     },

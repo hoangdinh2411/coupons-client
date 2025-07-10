@@ -24,7 +24,7 @@ export default function CategoryList() {
                   <li key={store.id} className="text-sm text-slate-700">
                     <Link
                       className="block w-full py-2 hover:underline"
-                      href={`${APP_ROUTERS.STORES}/${store.slug}`}
+                      href={`${APP_ROUTERS.ALL_STORES}/${store.slug}`}
                     >
                       {store.name}
                     </Link>
