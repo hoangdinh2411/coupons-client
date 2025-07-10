@@ -11,18 +11,18 @@ export default async function Header() {
   const res = await getMenu()
 
   if (!res.success || !res.data) {
-    throw new Error(res.message || 'Cannot fetch menu  ')
+    throw new Error(res.message || 'cannot fetch menu')
   }
 
   return (
     <header>
       <div className="bg-light-green">
-        <p className="m-auto flex h-10 max-w-[1280px] items-center justify-center text-sm text-black">
+        <p className="text-olive-green m-auto flex h-10 max-w-(--max-width) items-center justify-center text-sm">
           Save up to 20% on all Coupons & Accessories with “FG6556KD” code
         </p>
       </div>
       <div className="bg-olive-green w-full">
-        <nav className="relative m-auto flex w-full max-w-[1280px] items-center gap-4 p-4 py-4">
+        <nav className="relative m-auto flex w-full max-w-(--max-width) items-center gap-4 p-4 py-4">
           <Link
             href={APP_ROUTERS.INDEX}
             className="relative block aspect-auto h-12 w-10 md:w-40"

@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 }
 function CouponPage() {
   return (
-    <div className="container mx-auto w-full max-w-[1280px] p-8">
+    <div className="container mx-auto w-full max-w-(--max-width) p-8">
       <h2 className="mb-4 text-xl font-bold md:text-2xl">
         Top Coupons & Deals Categories
       </h2>

@@ -84,7 +84,7 @@ export default function Actions() {
           </Link>
 
           <Link
-            className="cursor-pointer rounded-full bg-white p-1 px-8 py-3 font-bold text-black"
+            className="text-olive-green cursor-pointer rounded-full bg-white p-1 px-8 py-3 font-bold"
             href={APP_ROUTERS.SIGN_IN}
           >
             Sign In
@@ -104,7 +104,7 @@ export default function Actions() {
           />
           <div
             data-open={isOpen}
-            className="border-light-gray absolute top-[60px] left-0 hidden w-full flex-col gap-2 rounded-sm border-1 bg-white p-2 font-medium text-black shadow-md data-[open=true]:flex"
+            className="border-light-gray text-olive-green absolute top-[60px] left-0 hidden w-full flex-col gap-2 rounded-sm border-1 bg-white p-2 font-medium shadow-md data-[open=true]:flex"
           >
             <Link
               className="p-1 font-semibold hover:underline"

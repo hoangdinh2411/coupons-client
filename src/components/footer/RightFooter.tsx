@@ -50,7 +50,7 @@ const RightFooter = () => {
         <fieldset className="flex gap-8 overflow-hidden rounded-full bg-white px-4 py-2">
           <input
             placeholder="Enter your email"
-            className="w-full bg-white text-black"
+            className="text-olive-green w-full bg-white"
           />
           <button
             type="button"

@@ -32,11 +32,11 @@ const footerLinks = [
 const Footer = () => {
   return (
     <footer className="bg-olive-green max-w-screen overflow-clip px-4 py-8">
-      <div className="mx-auto flex max-w-[1280px] flex-col gap-10 py-8 text-white md:flex-row md:gap-15 lg:gap-20">
+      <div className="mx-auto flex max-w-(--max-width) flex-col gap-10 py-8 text-white md:flex-row md:gap-15 lg:gap-20">
         <LeftFooter />
         <RightFooter />
       </div>
-      <div className="mx-auto max-w-[1280px] py-4 text-center">
+      <div className="mx-auto max-w-(--max-width) py-4 text-center">
         <div className="font-proxima mb-4 flex flex-wrap justify-center gap-4 text-white md:gap-6">
           {footerLinks.map((link, index) => (
             <Link

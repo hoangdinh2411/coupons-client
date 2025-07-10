@@ -2,23 +2,27 @@
 
 const nextConfig = {
   // output: 'export',
-  
+
   eslint: {
     ignoreDuringBuilds: true,
   },
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
   },
- 
-   images: {
+
+  images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.retailmenot.com',
+        pathname: '/**',
+      },
     ],
-
   },
   async headers() {
     return [

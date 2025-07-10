@@ -2,7 +2,8 @@
 @import './components.css';
 @import './font.css';
 @import './themes/base.css';
-
+@import '@splidejs/splide/css';
+@import '@splidejs/splide/css/core';
 html,
 body {
   font-family: var(--font-aptos);
@@ -34,9 +35,20 @@ button {
   outline: none;
 }
 
+select {
+  appearance: none;
+  position: relative;
+}
+
 fieldset {
   outline: none;
   border: none;
+}
+
+*:not(fieldset):disabled {
+  cursor: not-allowed;
+  background-color: rgba(0, 0, 0, 0.05);
+  opacity: 0.5;
 }
 
 input[type='search']::-webkit-search-decoration,
@@ -56,6 +68,32 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.react-datepicker-wrapper{
+.react-datepicker-wrapper {
   width: 100%;
+}
+.splide__pagination li {
+  border-radius: 10px !important;
+  width: 40px;
+  margin-left: 20px;
+  height: 4px;
+}
+
+.splide__pagination li button {
+  border-radius: 10px !important;
+
+  height: 4px;
+  background-color: gray;
+  border-radius: 0px;
+  width: 40px;
+}
+.splide__pagination li button:focus {
+  border: 2px solid #b5d43b;
+  padding: 2px;
+}
+.splide__pagination__page.is-active {
+  background-color: black;
+  border-radius: 10px !important;
+
+  width: 40px !important;
+  height: 4px;
 }

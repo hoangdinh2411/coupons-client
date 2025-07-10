@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @theme {
-  --font-aptos: "Aptos", sans-serif;
+  --font-aptos: 'Aptos', sans-serif;
   --font-aptos-display: 'Aptos Display', sans-serif;
   --font-aptos-narrow: 'Aptos Narrow', sans-serif;
 
@@ -10,4 +10,6 @@
   --color-green: #b5d43b;
   --color-light-gray: #eaeaea;
   --color-angry: rgb(224, 31, 83);
+
+  --max-width: 1280px;
 }
