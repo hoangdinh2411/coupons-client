@@ -38,7 +38,7 @@ const StoreHeader = ({ currentLetter }: { currentLetter: string }) => {
 
   const handleLinkChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedLetter = event.target.value
-    router.push(`/stores/${selectedLetter}`)
+    router.push(`/brands/${selectedLetter}`)
   }
 
   return (
@@ -52,7 +52,7 @@ const StoreHeader = ({ currentLetter }: { currentLetter: string }) => {
           {listLetters.map((letter) => (
             <Link
               key={letter}
-              href={`/stores/${letter}`}
+              href={`/brands/${letter}`}
               className={`border-b-4 px-4 pb-1 hover:font-extrabold ${currentLetter === letter ? 'border-black font-extrabold' : 'border-transparent'}`}
             >
               {letter}
