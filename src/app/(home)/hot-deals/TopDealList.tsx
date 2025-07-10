@@ -2,7 +2,6 @@
 
 import TopDealCard from '@/components/card/TopDealCard'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
 import { GrLinkNext } from 'react-icons/gr'
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
 type TopDetalItemType = {
@@ -22,15 +21,6 @@ interface TopDealListPropsType {
 }
 
 function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [768])
   return (
     <div className="mx-auto py-6">
       {/* Best Deal Section */}
@@ -71,11 +61,9 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
             />
           </div>
         </div>
-        {!isMobile && (
-          <button className="cursor-pointer rounded-full border border-slate-700 px-4 py-2 font-bold text-gray-800">
-            View more deals
-          </button>
-        )}
+        <button className="hidden cursor-pointer rounded-full border border-slate-700 px-4 py-2 font-bold text-gray-800 md:block">
+          View more deals
+        </button>
       </section>
 
       {/* Slider Section */}
@@ -127,12 +115,10 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
           ))}
         </SplideTrack>
       </Splide>
-      <div className="mb-10 flex w-full justify-center">
-        {isMobile && (
-          <button className="mx-auto mt-10 cursor-pointer rounded-full border border-slate-700 px-[16px] py-[6px] text-[12px] font-bold text-gray-800">
-            View more deals
-          </button>
-        )}
+      <div className="mb-10 flex w-full justify-center md:hidden">
+        <button className="mx-auto mt-10 cursor-pointer rounded-full border border-slate-700 px-[16px] py-[6px] text-[12px] font-bold text-gray-800">
+          View more deals
+        </button>
       </div>
     </div>
   )

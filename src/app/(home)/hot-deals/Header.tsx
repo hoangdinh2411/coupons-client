@@ -1,6 +1,4 @@
 'use client'
-import '@glidejs/glide/dist/css/glide.core.min.css'
-import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
@@ -37,18 +35,8 @@ const NAVBARS = [
 ]
 
 function Header() {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [768])
   return (
     <>
-      {/** Gslide */}
       <Splide
         className="mx-auto max-w-(--max-width)"
         options={{
@@ -122,26 +110,25 @@ function Header() {
         When you buy through links on RetailMeNot{' '}
         <span className="underline-offset-2"> we may earn a commission.</span>
       </p>
-      {!isMobile && (
+      {/* Desktop banner */}
+      <Image
+        width={1280}
+        height={20}
+        alt="coupon-banner-stack-cash"
+        className="mx-auto mt-8 mb-8 hidden bg-[#82F3FB] shadow-md md:block"
+        src="/images/coupon-banner-stack-cash.webp"
+      />
+
+      {/* Mobile banner */}
+      <div className="mx-4 block md:hidden">
         <Image
           width={1280}
-          height={20}
+          height={50}
           alt="coupon-banner-stack-cash"
-          className="mx-auto mt-8 mb-8 bg-[#82F3FB] shadow-md"
-          src={'/images/coupon-banner-stack-cash.webp'}
+          className="mt-6 mb-8 bg-[#82F3FB] px-8 shadow-lg"
+          src="/images/banner-coupon-mobile.webp"
         />
-      )}
-      {isMobile && (
-        <div className="mx-4">
-          <Image
-            width={1280}
-            height={50}
-            alt="coupon-banner-stack-cash"
-            className="mt-6 mb-8 bg-[#82F3FB] px-8 shadow-lg"
-            src={'/images/banner-coupon-mobile.webp'}
-          />
-        </div>
-      )}
+      </div>
     </>
   )
 }
