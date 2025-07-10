@@ -2,34 +2,26 @@
 
 @layer components {
   .btn-primary {
-    @apply hover:bg-light-green bg-green flex h-[44px] w-full min-w-30 cursor-pointer items-center justify-center rounded-3xl p-2 text-center text-lg font-bold text-white transition-all duration-300 hover:text-slate-600 disabled:bg-gray-300;
+    @apply hover:bg-light-green bg-green flex h-[44px] w-full min-w-30 cursor-pointer items-center justify-center rounded-3xl p-2 text-center text-lg font-bold text-white transition-all duration-300 hover:text-olive-green disabled:bg-gray-300;
   }
   /**textfield*/
   .textfield {
-    @apply mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2 text-slate-600;
+    @apply mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2 text-olive-green;
   }
   .textfield-primary {
-    @apply box-border w-full rounded-lg !border-1 !border-gray-300 px-3 py-[12px] outline-0;
+    @apply box-border w-full rounded-lg !border-1 !border-gray-300 px-3 py-3 outline-0;
   }
-  .textarea-primary {
-    @apply box-border w-full rounded-lg !border-1 !border-gray-300 px-3 py-[12px] outline-0;
-  }
-  .textarea-error {
-    @apply h-full w-full rounded-lg !border-1 !border-red-600 px-3 py-[12px] !pb-0;
-  }
+
   .textfield-error {
-    @apply h-full w-full rounded-lg !border-1 !border-red-600 px-3 py-[12px];
+    @apply h-full w-full rounded-lg !border-1 !border-red-600 px-3 py-3;
   }
   .error-message {
-    @apply ml-3 text-base text-red-500;
+    @apply ml-3 text-base text-red-600;
   }
   .fieldset-container {
-    @apply relative rounded-xl !border-2 !border-white p-[6px];
+    @apply focus:!border-green relative rounded-xl !border-2 !border-white p-2;
   }
-  .fieldset-container:focus,
-  .fieldset-container:focus-within {
-    @apply !border-green;
-  }
+
   .legend-placeholder {
     @apply pointer-events-none absolute px-2 text-sm text-gray-400 transition-all duration-200;
   }

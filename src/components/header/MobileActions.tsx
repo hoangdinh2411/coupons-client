@@ -123,7 +123,7 @@ export default function MobileActions() {
                 <div className="w-full font-bold">
                   <div className="flex w-full cursor-pointer items-center gap-2 py-2 text-sm">
                     <Link
-                      href={APP_ROUTERS.STORES}
+                      href={APP_ROUTERS.ALL_STORES}
                       className="font-bold hover:underline"
                     >
                       All Stores{' '}
