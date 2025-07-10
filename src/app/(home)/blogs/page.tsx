@@ -2,65 +2,13 @@ import { Metadata } from 'next'
 import { Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import CategoryList from './_components/category-list'
-import TrendingPost from './_components/trending-post'
-import CategoryHeader from './_components/category-header'
-import ListPost from './_components/latest-post'
+import TrendingPost from './_components/TrendingPost'
+import CategoryHeader from './_components/CategoryHeader'
+import ListPost from './_components/LatestPost'
 
 export const metadata: Metadata = {
   title: 'Blogs',
 }
-
-const BLOG_CATEGORIES = [
-  {
-    category_id: '1',
-    category_name: 'Budget',
-    category_slug: '',
-    category_image: '/images/blog-budget-124x124.webp',
-  },
-  {
-    category_id: '2',
-    category_name: 'Beauty',
-    category_slug: '',
-    category_image: '/images/blog-beauty-124x124.webp',
-  },
-  {
-    category_id: '3',
-    category_name: 'Fashion',
-    category_slug: '',
-    category_image: '/images/blog-fashion-124x124.webp',
-  },
-  {
-    category_id: '4',
-    category_name: 'Home',
-    category_slug: '',
-    category_image: '/images/blog-home-124x124.webp',
-  },
-  {
-    category_id: '5',
-    category_name: 'Tech',
-    category_slug: '',
-    category_image: '/images/blog-tech-124x124.webp',
-  },
-  {
-    category_id: '6',
-    category_name: 'Travel',
-    category_slug: '',
-    category_image: '/images/blog-travel-124x124.webp',
-  },
-  {
-    category_id: '7',
-    category_name: 'Deals',
-    category_slug: '',
-    category_image: '/images/blog-deals-124x124.webp',
-  },
-  {
-    category_id: '8',
-    category_name: 'Calendar',
-    category_slug: '',
-    category_image: '/images/blog-calendar-124x124.webp',
-  },
-]
 
 const POST_PREVIEWS = [
   {
@@ -152,23 +100,10 @@ const LIST_POST = [
 export default function Page() {
   return (
     <Fragment>
-      <nav className="pt-5">
-        <CategoryList categories={BLOG_CATEGORIES} />
-        <div className="my-1.5 text-center text-xs">
-          <p className="text-olive-green text-sm">
-            Every product and brand is selected by RetailMeNot&apos;s editors.
-            We may earn a commission on the items you choose to buy.{' '}
-            <Link className="font-bold" href="/blogs/about">
-              Learn more
-            </Link>
-          </p>
-        </div>
-      </nav>
-
       <div className="mt-10">
         <div className="mx-auto max-w-[1162px]">
           <div className="flex flex-col gap-[30px] md:flex-row">
-            <div className="w-full md:w-2/3">
+            <div className="w-full lg:w-2/3">
               <div className="mb-10">
                 {/* post image */}
                 <div>
@@ -212,14 +147,12 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-1/3">
-              <div className="pt-[26px]">
-                <div className="flex flex-col">
-                  <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
-                    Trending
-                  </h5>
-                  <TrendingPost posts={POST_PREVIEWS} />
-                </div>
+            <div className="hidden w-full md:w-1/3 lg:block">
+              <div className="flex flex-col">
+                <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
+                  Trending
+                </h5>
+                <TrendingPost posts={POST_PREVIEWS} />
               </div>
             </div>
           </div>
@@ -230,66 +163,13 @@ export default function Page() {
           <div>
             <ListPost posts={LIST_POST} />
           </div>
-
-          <div className="mt-10">
+          <div className="my-10">
             <CategoryHeader
               title="Daily Deals"
               image="/images/blog-news.webp"
               href="/"
             />
             <ListPost posts={LIST_POST} />
-          </div>
-        </div>
-      </div>
-      <div
-        className="mt-[100px] hidden h-[508px] w-full bg-cover bg-center px-[100px] py-[50px] md:block"
-        style={{
-          backgroundImage: `url('/images/retailmenot-content.webp')`,
-        }}
-      >
-        <div className="h-full max-w-[800px] rounded-[35px] bg-[#f9c7d0] p-[70px]">
-          <div className="relative px-5">
-            <h2 className="relative z-10 mb-2 text-5xl font-extrabold uppercase">
-              Deals delivered to your inbox.
-            </h2>
-            <h3 className="mb-2 text-lg font-normal">
-              Subscribe now for top-notch shopping advice
-            </h3>
-            <div>
-              <form>
-                <input
-                  type="email"
-                  className="mb-3 h-[50px] w-full rounded-full bg-white pl-5"
-                  placeholder="Your email"
-                />
-                <div className="mt-[10px] flex items-center gap-4">
-                  <button
-                    type="submit"
-                    className="w-[160px] cursor-pointer rounded-full bg-black px-6 py-[10px] font-bold text-white transition-all duration-300 ease-out hover:bg-[#653297]"
-                  >
-                    Subscribe
-                  </button>
-                  <Link href={''} className="hover:underline">
-                    Privacy Policy
-                  </Link>
-                </div>
-              </form>
-            </div>
-            <div
-              style={{
-                backgroundImage: `url(/images/texture-bg2.svg)`,
-                backgroundPosition: 'center 0',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: '100%',
-                content: '',
-                height: '100%',
-                left: '0',
-                position: 'absolute',
-                top: '0',
-                width: '100%',
-                zIndex: 0,
-              }}
-            ></div>
           </div>
         </div>
       </div>
