@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import StoreList from './StoreList'
 
 async function StoreListPage({
@@ -10,11 +10,7 @@ async function StoreListPage({
 }) {
   const { letter } = await params
 
-  return (
-    <Suspense>
-      <StoreList letter={letter} />
-    </Suspense>
-  )
+  return <StoreList letter={letter} />
 }
 
 export default StoreListPage
