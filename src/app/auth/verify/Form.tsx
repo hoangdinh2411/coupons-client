@@ -29,7 +29,9 @@ export default function Form({
       toast.success('Verified success')
       switch (state.data.type as VerifyCodeType) {
         case VerifyCodeType.VERIFY_ACCOUNT:
-          router.push(APP_ROUTERS.SIGN_IN)
+          setTimeout(() => {
+            router.push(APP_ROUTERS.SIGN_IN)
+          }, 1000)
           return
         case VerifyCodeType.FORGET_PASSWORD:
           router.push(`${APP_ROUTERS.CHANGE_PASSWORD}/${state.data.token}`)

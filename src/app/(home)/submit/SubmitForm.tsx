@@ -11,18 +11,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { FaSearch } from 'react-icons/fa'
 import { SubmitFormSchema } from '@/helpers/schemas'
-import { searchStore } from '@/services/clientApi'
 import { StoreData } from '@/types/store.type'
 import UseAppStore from '@/stores/app.store'
 import { CouponType } from '@/types/enum'
 import DatePicker from 'react-datepicker'
 import dayjs from 'dayjs'
 import { IoIosArrowDown } from 'react-icons/io'
-import { useRouter } from 'next/navigation'
 import { CouponPayload } from '@/types/coupon.type'
 import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { createCoupon } from '@/services/couponApi'
 import toast from 'react-hot-toast'
+import { searchStore } from '@/services/storeApi'
 type SubmitFormType = z.infer<typeof SubmitFormSchema>
 
 const defaultValues: SubmitFormType = {
@@ -65,7 +64,7 @@ function SubmitForm() {
   const multiSelectorSef = useRef<HTMLDivElement>(null)
   const [isPending, startTransition] = useTransition()
   const [done, setDone] = useState(false)
-  const router = useRouter()
+  const submitRef = useRef<HTMLDivElement>(null)
   // Handle store input change and filter suggestions
   const handleStoreInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -107,6 +106,9 @@ function SubmitForm() {
         setSuggestions(res?.data)
         if (res.data) {
           setIsSuggestionsVisible(true)
+          if (submitRef.current) {
+            submitRef.current.scrollIntoView({ behavior: 'smooth' })
+          }
         }
       }) // gọi API ở đây
     } else {
@@ -154,9 +156,11 @@ function SubmitForm() {
   }, [open])
 
   const store = watch('store_id')
-
+  const handleReset = () => {
+    window.location.reload()
+  }
   return (
-    <div className="flex justify-center bg-white">
+    <div className="flex justify-center bg-white" ref={submitRef}>
       {done ? (
         <div className="my-20 flex w-full max-w-md flex-col gap-8 rounded-lg p-4 sm:max-w-2xl sm:p-6 md:max-w-2xl">
           <h3 className="text-center text-3xl font-bold">
@@ -171,7 +175,7 @@ function SubmitForm() {
           </p>
           <button
             type="button"
-            onClick={() => router.refresh()}
+            onClick={handleReset}
             className="btn-primary mx-auto w-fit px-3"
           >
             Post another coupon
@@ -231,20 +235,28 @@ function SubmitForm() {
                   value={searchText}
                   onChange={handleStoreInputChange}
                 />
+                {isTyping && isSuggestionsVisible && (
+                  <div className="absolute z-10 mt-1 max-h-40 min-h-20 w-full overflow-y-auto rounded-md border border-gray-300 bg-white">
+                    {suggestions.length > 0 ? (
+                      <ul>
+                        {suggestions.map((store) => (
+                          <li
+                            key={store.id}
+                            className="cursor-pointer px-3 py-2 hover:bg-gray-100"
+                            onClick={() => handleSelectStore(store)}
+                          >
+                            {store.name}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="absolute top-1/2 left-1/2 -translate-1/2">
+                        Store not found
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
-              {isTyping && isSuggestionsVisible && suggestions.length > 0 && (
-                <ul className="absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md border border-gray-300 bg-white">
-                  {suggestions.map((store) => (
-                    <li
-                      key={store.id}
-                      className="cursor-pointer px-3 py-2 hover:bg-gray-100"
-                      onClick={() => handleSelectStore(store)}
-                    >
-                      {store.name}
-                    </li>
-                  ))}
-                </ul>
-              )}
             </fieldset>
             {errors.store_id && (
               <p className="error-message">{errors.store_id.message}</p>
