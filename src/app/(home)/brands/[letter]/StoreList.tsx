@@ -1,7 +1,7 @@
 import React from 'react'
 import StoreHeader from './StoreHeader'
-import { searchStore } from '@/services/clientApi'
 import Link from 'next/link'
+import { searchStore } from '@/services/storeApi'
 
 type Props = {
   letter?: string

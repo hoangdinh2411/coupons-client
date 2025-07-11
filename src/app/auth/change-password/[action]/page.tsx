@@ -16,7 +16,6 @@ async function ForgotPasswordPage({
   params: Promise<{ action: string }>
 }) {
   const { action } = await params
-  console.log(action)
   if (!action) {
     redirect(APP_ROUTERS.INDEX)
   }

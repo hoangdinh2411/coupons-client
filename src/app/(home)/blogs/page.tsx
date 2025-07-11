@@ -5,7 +5,7 @@ import Image from 'next/image'
 import TrendingPost from './_components/TrendingPost'
 import CategoryHeader from './_components/CategoryHeader'
 import ListPost from './_components/LatestPost'
-import { formatDate } from '@/helpers/format'
+import { getLatestBlogsAndBlogPerTopics } from '@/services/blogApi'
 
 export const metadata: Metadata = {
   title: 'Blogs',
@@ -157,7 +157,15 @@ const LIST_POST = [
   },
 ]
 
-export default function Page() {
+export default async function Page() {
+  const res = await getLatestBlogsAndBlogPerTopics()
+  if (!res.success || !res.data) {
+    throw new Error(res.message ?? 'cannot get latest blogs')
+  }
+  // const trending = res.data.latest.slice(1, res.data.latest.length / 2)
+  // const trending = res.data.latest.slice(1, res.data.latest.length / 2)
+  // const blogs_per_topic = res.data.blogs_per_topic
+  const newest = res.data.latest && res.data.latest[0]
   return (
     <Fragment>
       <nav className="pt-5">
@@ -174,51 +182,55 @@ export default function Page() {
       </nav>
 
       <div className="mt-10">
-        <div className="mx-auto max-w-[1162px] px-[15px]">
-          <div className="flex flex-col md:flex-row">
-            <div className="-mx-[15px] w-full px-[15px] md:w-2/3">
-              <div className="mb-10">
-                {/* post image */}
-                <div>
-                  <div className="min-h-full">
-                    <Link href={''}>
+        <div className="mx-auto max-w-[1162px]">
+          <div className="flex flex-col gap-[30px] md:flex-row">
+            <div className="w-full lg:w-2/3">
+              {newest ? (
+                <div className="mb-10">
+                  {/* post image */}
+                  <div>
+                    <div className="min-h-full">
+                      <Link href={''}>
+                        <Image
+                          src={newest.image.url || '/images/no-img.webp'}
+                          alt={newest.title}
+                          width={765}
+                          height={453}
+                          className="h-auto w-full"
+                        />
+                      </Link>
+                    </div>
+                  </div>
+                  {/* post details */}
+                  <div className="group relative mb-[10px] border-2 border-[#741fa233] bg-[#fefefe] px-10 py-[30px] text-left transition-all duration-300 ease-out hover:bg-[#653297]">
+                    <span className="absolute -top-[10%] size-[46px] rounded-full border-2 border-[#fefefe]">
                       <Image
-                        src={'/images/amazon-prime-day-1.webp'}
-                        alt={''}
-                        width={765}
-                        height={453}
-                        className="h-auto w-full"
+                        src={newest.topic?.image.url || '/images/no-img.webp'}
+                        alt={newest.topic?.name ?? newest.title}
+                        width={46}
+                        height={46}
                       />
+                    </span>
+                    <Link href="">
+                      <div className="mt-3">
+                        <span className="text-md font-bold tracking-wide text-[#741fa2] uppercase group-hover:text-white">
+                          {newest.title}
+                        </span>
+                      </div>
+                      <div>
+                        <h2 className="text-olive-green mb-2 text-4xl font-bold group-hover:text-white">
+                          {newest.content}
+                        </h2>
+                        <span className="text-olive-green group-hover:text-white">
+                          Published July 7, 2025
+                        </span>
+                      </div>
                     </Link>
                   </div>
                 </div>
-                {/* post details */}
-                <div className="group relative mb-[10px] border-2 border-[#741fa233] bg-[#fefefe] px-10 py-[30px] text-left transition-all duration-300 ease-out hover:bg-[#653297]">
-                  <span className="absolute -top-[10%] size-[46px] rounded-full border-2 border-[#fefefe]">
-                    <Image
-                      src={'/images/blog-news.webp'}
-                      alt={''}
-                      width={46}
-                      height={46}
-                    />
-                  </span>
-                  <Link href="">
-                    <div className="mt-3">
-                      <span className="text-md font-bold tracking-wide text-[#741fa2] uppercase group-hover:text-white">
-                        News
-                      </span>
-                    </div>
-                    <div>
-                      <h2 className="mb-2 text-4xl font-bold text-[#323232] group-hover:text-white">
-                        Prime Day 2025 Is Tomorrow — Here’s What Will Be On…
-                      </h2>
-                      <span className="text-olive-green group-hover:text-white">
-                        {formatDate('2025/07/07')}
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
+              ) : (
+                <p>Blogs not found </p>
+              )}
             </div>
             <div className="w-full px-[15px] md:w-1/3">
               <div className="pt-[26px]">

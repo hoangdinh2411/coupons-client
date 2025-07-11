@@ -16,7 +16,6 @@ export default function Menu({ data }: { data: MenuResponse }) {
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const { setCategories } = UseAppStore((state) => state)
-  console.log(data)
   const handleToggleSubmenu = (value: string) => {
     setTarget((prev) => (prev === value ? '' : value))
   }
@@ -74,12 +73,12 @@ export default function Menu({ data }: { data: MenuResponse }) {
           className="border-light-gray absolute top-[60px] z-10 hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium text-black shadow-md data-[target=blog]:hidden data-[target=category]:flex"
         >
           <div className="flex min-w-36 flex-col gap-4 border-r-2 border-solid border-gray-200">
-            <p
+            <div
               className={`hover:text-green cursor-pointer ${category === POPULAR_INDEX ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
               onClick={() => setCategory(POPULAR_INDEX)}
             >
               Popular
-            </p>
+            </div>
             <Fragment>
               {data.categories.map((cat, idx) => (
                 <p
@@ -103,7 +102,11 @@ export default function Menu({ data }: { data: MenuResponse }) {
               className={`${category === POPULAR_INDEX ? 'flex' : 'hidden'} flex-col gap-3`}
             >
               {data.popular.map((s) => (
-                <Link key={s.id} href={`${s.slug}`} className="hover:underline">
+                <Link
+                  key={s.id}
+                  href={`/stores/${s.slug}`}
+                  className="hover:underline"
+                >
                   {s.name}
                 </Link>
               ))}

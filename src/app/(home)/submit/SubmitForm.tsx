@@ -5,12 +5,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { FaSearch } from 'react-icons/fa'
 import { SubmitFormSchema } from '@/helpers/schemas'
-import { searchStore } from '@/services/clientApi'
 import { StoreData } from '@/types/store.type'
 import UseAppStore from '@/stores/app.store'
 import { CouponType } from '@/types/enum'
 import DatePicker from 'react-datepicker'
 import dayjs from 'dayjs'
+import { IoIosArrowDown } from 'react-icons/io'
+import { CouponPayload } from '@/types/coupon.type'
+import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
+import { createCoupon } from '@/services/couponApi'
+import toast from 'react-hot-toast'
+import { searchStore } from '@/services/storeApi'
 type SubmitFormType = z.infer<typeof SubmitFormSchema>
 
 const defaultValues: SubmitFormType = {
@@ -53,7 +58,9 @@ function SubmitForm() {
   const categories = UseAppStore((state) => state.categories)
   const [open, setOpen] = useState(false)
   const multiSelectorSef = useRef<HTMLDivElement>(null)
-
+  const [isPending, startTransition] = useTransition()
+  const [done, setDone] = useState(false)
+  const submitRef = useRef<HTMLDivElement>(null)
   // Handle store input change and filter suggestions
   const handleStoreInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -77,6 +84,9 @@ function SubmitForm() {
         setSuggestions(res?.data)
         if (res.data) {
           setIsSuggestionsVisible(true)
+          if (submitRef.current) {
+            submitRef.current.scrollIntoView({ behavior: 'smooth' })
+          }
         }
       }) // gọi API ở đây
     } else {
@@ -122,68 +132,129 @@ function SubmitForm() {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [open])
-  // const payload: CouponPayload = {
-  //     ...data,
-  //     is_exclusive: Number(data.is_exclusive) === 0,
-  //     expire_date: dayjs(data.expire_date).format('YYYY/MM/DD'),
-  //     start_date: dayjs(data.start_date).format('YYYY/MM/DD'),
-  //     type: data.type as CouponType,
-  //   };
+
+  const store = watch('store_id')
+  const handleReset = () => {
+    window.location.reload()
+  }
   return (
-    <div className="flex justify-center bg-white">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mb-6 flex w-full max-w-md flex-col rounded-lg p-4 sm:max-w-3xl sm:p-6 md:max-w-4xl lg:max-w-3xl"
-      >
-        <h2 className="mt-8 mb-16 text-center text-4xl font-bold">
-          Submit An Offer
-        </h2>
-        <div className="form-control mb-4">
-          <fieldset className="fieldset-container relative">
-            <div className="relative w-full">
-              <FaSearch className="absolute top-1/2 left-4 -translate-y-1/2 transform text-gray-300" />
-              <input
-                className={`textfield-${errors.store_id ? 'error' : 'primary'} w-full pl-10`}
-                type="text"
-                placeholder="Search store..."
-                value={searchText}
-                onChange={handleStoreInputChange}
-              />
-            </div>
-            {isTyping && isSuggestionsVisible && suggestions.length > 0 && (
-              <ul className="absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md border border-gray-300 bg-white">
-                {suggestions.map((store) => (
-                  <li
-                    key={store.id}
-                    className="cursor-pointer px-3 py-2 hover:bg-gray-100"
-                    onClick={() => handleSelectStore(store)}
-                  >
-                    {store.name}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </fieldset>
-          {errors.store_id && (
-            <p className="error-message">{errors.store_id.message}</p>
-          )}
+    <div className="flex justify-center bg-white" ref={submitRef}>
+      {done ? (
+        <div className="my-20 flex w-full max-w-md flex-col gap-8 rounded-lg p-4 sm:max-w-2xl sm:p-6 md:max-w-2xl">
+          <h3 className="text-center text-3xl font-bold">
+            🎉 Your coupon has been successfully submitted!
+          </h3>
+          <p className="text-center">
+            Thank you for sharing your offer with the community.<br></br> Your
+            coupon is now live and ready to help others save! <br></br>We
+            appreciate your contribution — together, we make smart shopping
+            easier for everyone. If you have more great deals, feel free to post
+            them anytime.
+          </p>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="btn-primary mx-auto w-fit px-3"
+          >
+            Post another coupon
+          </button>
         </div>
-        <div className="form-control mb-4">
-          <fieldset className="fieldset-container relative">
-            <input
-              {...register('title')}
-              className={`textfield-${errors.title ? 'error' : 'primary'} w-full`}
-              id="title"
-              type="text"
-              placeholder="Enter coupon title"
+      ) : (
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="my-12 flex w-full max-w-md flex-col rounded-lg p-4 sm:max-w-3xl sm:p-6 md:max-w-4xl lg:max-w-3xl"
+        >
+          <h2 className="mb-28 text-center text-4xl font-bold">
+            Submit An Offer
+          </h2>
+          <div className="form-control mb-2">
+            <Controller
+              control={control}
+              name="is_exclusive"
+              render={({ field }) => {
+                return (
+                  <fieldset className="relative flex w-full justify-center gap-8">
+                    <div className="flex gap-1">
+                      <input
+                        type="radio"
+                        id="exclusive"
+                        name={field.name}
+                        value="true"
+                        checked={field.value === true}
+                        onChange={() => field.onChange(true)}
+                      />
+                      <label htmlFor="exclusive">Is Exclusive</label>
+                    </div>
+
+                    <div className="flex gap-1">
+                      <input
+                        type="radio"
+                        id="not-exclusive"
+                        name={field.name}
+                        value="false"
+                        checked={field.value === false}
+                        onChange={() => field.onChange(false)}
+                      />
+                      <label htmlFor="not-exclusive">Is not exclusive</label>
+                    </div>
+                  </fieldset>
+                )
+              }}
             />
-          </fieldset>
-          {errors.title && (
-            <p className="error-message">{errors.title.message}</p>
-          )}
-        </div>
-        <div className="form-control mb-4">
-          <fieldset className="fieldset-container relative">
+          </div>
+          <div className="form-control mb-2">
+            <fieldset className="fieldset-container relative">
+              <div className="relative w-full">
+                <FaSearch className="absolute top-1/2 left-4 -translate-y-1/2 transform text-gray-300" />
+                <input
+                  className={`textfield-${errors.store_id ? 'error' : 'primary'} w-full pl-10`}
+                  type="text"
+                  placeholder="Search store..."
+                  value={searchText}
+                  onChange={handleStoreInputChange}
+                />
+                {isTyping && isSuggestionsVisible && (
+                  <div className="absolute z-10 mt-1 max-h-40 min-h-20 w-full overflow-y-auto rounded-md border border-gray-300 bg-white">
+                    {suggestions.length > 0 ? (
+                      <ul>
+                        {suggestions.map((store) => (
+                          <li
+                            key={store.id}
+                            className="cursor-pointer px-3 py-2 hover:bg-gray-100"
+                            onClick={() => handleSelectStore(store)}
+                          >
+                            {store.name}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="absolute top-1/2 left-1/2 -translate-1/2">
+                        Store not found
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </fieldset>
+            {errors.store_id && (
+              <p className="error-message">{errors.store_id.message}</p>
+            )}
+          </div>
+          <div className="form-control mb-2">
+            <fieldset className="fieldset-container relative">
+              <input
+                {...register('title')}
+                className={`textfield-${errors.title ? 'error' : 'primary'} w-full`}
+                id="title"
+                type="text"
+                placeholder="Enter coupon title"
+              />
+            </fieldset>
+            {errors.title && (
+              <p className="error-message">{errors.title.message}</p>
+            )}
+          </div>
+          <div className="form-control mb-2">
             <Controller
               control={control}
               name="type"
