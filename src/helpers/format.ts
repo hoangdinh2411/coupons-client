@@ -10,3 +10,13 @@ export const formatDisplayName = (user: UserData) => {
     ? ` ${user.first_name} ${user.last_name}`
     : user.email
 }
+
+export function formatDate(dateString: string): string {
+  const [year, month, day] = dateString.split('/').map(Number)
+  const date = new Date(year, month - 1, day)
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date)
+}

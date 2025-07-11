@@ -5,6 +5,7 @@ import Image from 'next/image'
 import TrendingPost from './_components/TrendingPost'
 import CategoryHeader from './_components/CategoryHeader'
 import ListPost from './_components/LatestPost'
+import { formatDate } from '@/helpers/format'
 
 export const metadata: Metadata = {
   title: 'Blogs',
@@ -15,33 +16,33 @@ const POST_PREVIEWS = [
     post_id: '1',
     post_title:
       'The Anklet Is Back: Why This Throwback Jewelry Trend Is Taking…',
-    post_published_date: 'Published June 19, 2025',
+    post_published_date: '2025/06/19',
     post_image: '/images/anklet_hero-367x280.webp',
   },
   {
     post_id: '2',
     post_title:
       'LoveShackFancy x Havaianas Just Dropped the Prettiest Flip-Flops of Summer',
-    post_published_date: 'Published June 18, 2025',
+    post_published_date: '2025/06/18',
     post_image: '/images/loveshack_havaianas_hero-200x152.webp',
   },
   {
     post_id: '3',
     post_title:
       'Daily Deals: Prime Day Revealed, Plus Sales from Stanley & Shark',
-    post_published_date: 'Published June 17, 2025',
+    post_published_date: '2025/06/17',
     post_image: '/images/deal-of-the-day-4-200x152.webp',
   },
   {
     post_id: '4',
     post_title: 'The 6 Summer Trends That’ll Instantly Refresh Your Wardrobe',
-    post_published_date: 'Published July 7, 2025',
+    post_published_date: '2025/07/07',
     post_image: '/images/summer-trends-hero-367x280.webp',
   },
   {
     post_id: '5',
     post_title: 'Prime Day 2025 Is Tomorrow — Here’s What Will Be On…',
-    post_published_date: 'Published July 7, 2025',
+    post_published_date: '2025/07/07',
     post_image: '/images/amazon-prime-day-1-200x152.webp',
   },
 ]
@@ -50,50 +51,56 @@ const LIST_POST = [
   {
     post_id: '1',
     post_title: 'Best Prime Day Tech Deals to Shop Right Now',
-    post_published_date: 'Published June 19, 2025',
+    post_published_date: '2025/06/19',
     post_image: '/images/tech-prime-day-deals-1363-x-807-px-367x280.webp',
     post_category: 'Tech',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '2',
     post_title: '12 Best Prime Day Home Deals to Shop Right Now',
-    post_published_date: 'Published June 18, 2025',
+    post_published_date: '2025/06/18',
     post_image: '/images/home-prime-day-deals-367x280.webp',
     post_category: 'Home',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '3',
     post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-    post_published_date: 'Published June 17, 2025',
+    post_published_date: '2025/06/17',
     post_image: '/images/sharp-367x280.webp',
     post_category: 'Deals',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '4',
     post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-    post_published_date: 'Published June 17, 2025',
+    post_published_date: '2025/06/17',
     post_image: '/images/sharp-367x280.webp',
     post_category: 'Deals',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '5',
     post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-    post_published_date: 'Published June 17, 2025',
+    post_published_date: '2025/06/17',
     post_image: '/images/sharp-367x280.webp',
     post_category: 'Deals',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '6',
     post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-    post_published_date: 'Published June 17, 2025',
+    post_published_date: '2025/06/17',
     post_image: '/images/sharp-367x280.webp',
     post_category: 'Deals',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
 ]
 
@@ -140,7 +147,7 @@ export default function Page() {
                         Prime Day 2025 Is Tomorrow — Here’s What Will Be On…
                       </h2>
                       <span className="text-olive-green group-hover:text-white">
-                        Published July 7, 2025
+                        {formatDate('2025/07/07')}
                       </span>
                     </div>
                   </Link>
@@ -161,7 +168,7 @@ export default function Page() {
             The Latest
           </h5>
           <div>
-            <ListPost posts={LIST_POST} />
+            <ListPost type="grid" posts={LIST_POST} />
           </div>
           <div className="my-10">
             <CategoryHeader
@@ -169,7 +176,7 @@ export default function Page() {
               image="/images/blog-news.webp"
               href="/"
             />
-            <ListPost posts={LIST_POST} />
+            <ListPost type="grid" posts={LIST_POST} />
           </div>
         </div>
       </div>
