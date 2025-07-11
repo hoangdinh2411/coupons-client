@@ -106,6 +106,7 @@ const LIST_POST = [
     post_image: '/images/tech-prime-day-deals-1363-x-807-px-367x280.webp',
     post_category: 'Tech',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '2',
@@ -114,6 +115,7 @@ const LIST_POST = [
     post_image: '/images/home-prime-day-deals-367x280.webp',
     post_category: 'Home',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '3',
@@ -122,6 +124,7 @@ const LIST_POST = [
     post_image: '/images/sharp-367x280.webp',
     post_category: 'Deals',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '4',
@@ -130,6 +133,7 @@ const LIST_POST = [
     post_image: '/images/sharp-367x280.webp',
     post_category: 'Deals',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '5',
@@ -138,6 +142,7 @@ const LIST_POST = [
     post_image: '/images/sharp-367x280.webp',
     post_category: 'Deals',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
   {
     post_id: '6',
@@ -146,6 +151,7 @@ const LIST_POST = [
     post_image: '/images/sharp-367x280.webp',
     post_category: 'Deals',
     post_category_image: '/images/blog-news.webp',
+    post_slug: 'best-laneige-prime-day-deals',
   },
 ]
 
