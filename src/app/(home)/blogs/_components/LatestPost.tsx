@@ -8,6 +8,7 @@ interface ListPostProps {
     post_image: string
     post_category: string
     post_category_image: string
+    post_slug: string
   }[]
 }
 
@@ -17,12 +18,12 @@ export default function ListPost({ posts }: ListPostProps) {
       {posts.map((post) => (
         <BlogCard
           key={post.post_id}
-          post_id={post.post_id}
           post_title={post.post_title}
           post_published_date={post.post_published_date}
           post_image={post.post_image}
           post_category={post.post_category}
           post_category_image={post.post_category_image}
+          post_slug={post.post_slug}
         />
       ))}
     </div>

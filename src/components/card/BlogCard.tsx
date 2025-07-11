@@ -2,27 +2,27 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 interface BlogCardProps {
-  post_id: string
   post_title: string
   post_published_date: string
   post_image: string
   post_category?: string
   post_category_image?: string
+  post_slug: string
 }
 
 export default function BlogCard({
-  post_id,
   post_title,
   post_published_date,
   post_image,
   post_category,
   post_category_image,
+  post_slug,
 }: BlogCardProps) {
   return (
     <div>
       <div className="group border-light-green bg-gray-border-gray-200 relative flex flex-row border-2 md:flex-col">
         {/* post image */}
-        <Link href={`/blogs/${post_id}`} className="w-1/4 shrink-0 md:w-full">
+        <Link href={`/blogs/${post_slug}`} className="w-1/4 shrink-0 md:w-full">
           <Image
             src={post_image}
             alt={post_title}
@@ -39,7 +39,7 @@ export default function BlogCard({
               <Image src={post_category_image} alt="" width={46} height={46} />
             </span>
           )}
-          <Link href={`/blogs/${post_id}`}>
+          <Link href={`/blogs/${post_slug}`}>
             {post_category && (
               <div className="flex h-full flex-col justify-between gap-2">
                 <div>
