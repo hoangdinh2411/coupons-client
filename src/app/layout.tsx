@@ -22,16 +22,12 @@ export async function generateMetadata(): Promise<Metadata> {
       description: METADATA.OG.DESCRIPTION,
       url: METADATA.APP_URL,
       siteName: METADATA.NAME,
-      countryName: 'Sweden',
+      countryName: 'Viet nam',
       emails: METADATA.CONTACT_EMAIL,
-      locale: 'sv_SE',
+      locale: 'vn_Vn',
       type: 'website',
     },
-    icons: {
-      icon: '/favicon.ico',
-      shortcut: '/images/favicon-16x16.png',
-      apple: '/images/favicon-16x16.png',
-    },
+    icons: [],
     manifest: 'manifest.json',
   }
 }
