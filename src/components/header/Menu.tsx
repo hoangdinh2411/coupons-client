@@ -1,7 +1,7 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
-import { MenuResponse } from '@/services/clientApi'
 import UseAppStore from '@/stores/app.store'
+import { MenuData } from '@/types/client.type'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
@@ -9,20 +9,20 @@ import { IoIosArrowDown } from 'react-icons/io'
 
 const POPULAR_INDEX = -1
 const LIMIT = 10
-export default function Menu({ data }: { data: MenuResponse }) {
+export default function Menu({ data }: { data: MenuData }) {
   const [category, setCategory] = useState<number | null>(POPULAR_INDEX)
   const [target, setTarget] = useState<string>('')
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  const { setCategories } = UseAppStore((state) => state)
+  const { setMenu } = UseAppStore((state) => state)
   const handleToggleSubmenu = (value: string) => {
     setTarget((prev) => (prev === value ? '' : value))
   }
 
   useEffect(() => {
-    if (data.categories) {
-      setCategories(data.categories)
+    if (data) {
+      setMenu(data)
     }
   }, [data])
   useEffect(() => {

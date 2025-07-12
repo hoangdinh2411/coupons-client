@@ -1,9 +1,16 @@
 import customFetch from './customFetch'
-import { MenuData } from '@/types/client.type'
+import { MenuData, SearchData } from '@/types/client.type'
 
-export type MenuResponse = MenuData
 export const getMenu = async () => {
-  return await customFetch<MenuResponse>(`/client/menu`, {
+  return await customFetch<MenuData>(`/client/menu`, {
     cache: 'no-cache',
   })
+}
+export const search = async (search_text: string) => {
+  return await customFetch<SearchData>(
+    `/client/search?search_text=${search_text}`,
+    {
+      cache: 'no-cache',
+    },
+  )
 }

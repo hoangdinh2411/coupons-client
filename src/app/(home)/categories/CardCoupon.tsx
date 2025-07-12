@@ -1,4 +1,5 @@
 'use client'
+import { CategoryData } from '@/types/category.type'
 import Image from 'next/image'
 import Link from 'next/link'
 // import Router from 'next/router'
@@ -6,34 +7,30 @@ import React, { memo } from 'react'
 
 interface CardCouponPropsType
   extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
-  content: string
-  href: string
-  imgUrl: string
-  className?: string
+  category: CategoryData
 }
 
 function CardCoupon({
-  content,
+  category,
   className = '',
-  href,
-  imgUrl,
   ...rest
 }: CardCouponPropsType) {
   return (
     <Link
-      href={href}
+      href={'/categories/' + category.slug}
       {...rest}
       className={`${className} group flex flex-col items-center justify-center gap-2`}
     >
       <Image
         width={144}
         height={144}
-        alt={content}
+        alt={category.name}
         className="h-[126px] w-[126px] rounded-full sm:h-[144px] sm:w-[144px]"
-        src={`${imgUrl}` || '/images/no-img.webp'}
+        src={`${category.image.url}` || '/images/no-img.webp'}
+        objectFit="contain"
       />
-      <p className="h-10 w-[160px] text-center text-sm font-bold uppercase group-hover:underline sm:h-14">
-        {typeof content === 'string' ? content : 'Invalid content'}
+      <p className="h-10 max-w-[128px] text-center text-sm font-bold break-all uppercase group-hover:underline sm:h-14">
+        {category.name}
       </p>
     </Link>
   )
