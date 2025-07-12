@@ -11,7 +11,7 @@ export default async function Header() {
   const res = await getMenu()
 
   if (!res.success || !res.data) {
-    throw new Error(res.message || 'Cannot fetch menu  ')
+    throw new Error(res?.message ?? 'cannot fetch menu')
   }
 
   return (
@@ -45,7 +45,7 @@ export default async function Header() {
             />
           </Link>
           <Menu data={res.data} />
-          <SearchBar />
+          <SearchBar popularStores={res.data.popular} />
           <Actions />
           <MobileActions />
         </nav>
