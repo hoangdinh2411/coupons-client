@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { formatDate } from '@/helpers/format'
 
 interface TrendingPostProps {
   posts: {
@@ -35,7 +36,7 @@ export default function TrendingPost({ posts }: TrendingPostProps) {
                 {post.post_title}
               </h3>
               <span className="text-olive-green group-hover:text-green text-xs">
-                {post.post_published_date}
+                {formatDate(post.post_published_date)}
               </span>
             </div>
           </Link>

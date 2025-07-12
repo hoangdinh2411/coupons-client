@@ -3,6 +3,9 @@ import TrendingPost from '../_components/TrendingPost'
 import Link from 'next/link'
 import CategoryHeader from '../_components/CategoryHeader'
 import ListPost from '../_components/LatestPost'
+import CommentSection from '@/components/comment/CommentSection'
+import { formatDate } from '@/helpers/format'
+import Image from 'next/image'
 
 export default async function BlogDetailPage({
   params,
@@ -14,42 +17,43 @@ export default async function BlogDetailPage({
       post_id: '1',
       post_title:
         'The Anklet Is Back: Why This Throwback Jewelry Trend Is Taking…',
-      post_published_date: 'Published June 19, 2025',
+      post_published_date: '2025/06/19',
       post_image: '/images/anklet_hero-367x280.webp',
     },
     {
       post_id: '2',
       post_title:
         'LoveShackFancy x Havaianas Just Dropped the Prettiest Flip-Flops of Summer',
-      post_published_date: 'Published June 18, 2025',
+      post_published_date: '2025/06/18',
       post_image: '/images/loveshack_havaianas_hero-200x152.webp',
     },
     {
       post_id: '3',
       post_title:
         'Daily Deals: Prime Day Revealed, Plus Sales from Stanley & Shark',
-      post_published_date: 'Published June 17, 2025',
+      post_published_date: '2025/06/17',
       post_image: '/images/deal-of-the-day-4-200x152.webp',
     },
     {
       post_id: '4',
       post_title: 'The 6 Summer Trends That’ll Instantly Refresh Your Wardrobe',
-      post_published_date: 'Published July 7, 2025',
+      post_published_date: '2025/07/07',
       post_image: '/images/summer-trends-hero-367x280.webp',
     },
     {
       post_id: '5',
       post_title: 'Prime Day 2025 Is Tomorrow — Here’s What Will Be On…',
-      post_published_date: 'Published July 7, 2025',
+      post_published_date: '2025/07/07',
       post_image: '/images/amazon-prime-day-1-200x152.webp',
     },
   ]
 
   const BLOG_POSTS = [
     {
+      post_id: '1',
       post_title: 'Celeb-Fave Laneige Lip Mask Is on Major Sale for Prime Day',
       post_category: 'Beauty',
-      post_published_date: 'July 10, 2025',
+      post_published_date: '2025/07/10',
       post_author: 'Esther Carlstone',
       slug: 'best-laneige-prime-day-deals',
       content: `
@@ -109,7 +113,7 @@ export default async function BlogDetailPage({
     {
       post_id: '1',
       post_title: 'Best Prime Day Tech Deals to Shop Right Now',
-      post_published_date: 'Published June 19, 2025',
+      post_published_date: '2025/06/19',
       post_image: '/images/tech-prime-day-deals-1363-x-807-px-367x280.webp',
       post_category: 'Tech',
       post_category_image: '/images/blog-news.webp',
@@ -118,7 +122,7 @@ export default async function BlogDetailPage({
     {
       post_id: '2',
       post_title: '12 Best Prime Day Home Deals to Shop Right Now',
-      post_published_date: 'Published June 18, 2025',
+      post_published_date: '2025/06/18',
       post_image: '/images/home-prime-day-deals-367x280.webp',
       post_category: 'Home',
       post_category_image: '/images/blog-news.webp',
@@ -127,34 +131,7 @@ export default async function BlogDetailPage({
     {
       post_id: '3',
       post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-      post_published_date: 'Published June 17, 2025',
-      post_image: '/images/sharp-367x280.webp',
-      post_category: 'Deals',
-      post_category_image: '/images/blog-news.webp',
-      post_slug: 'best-laneige-prime-day-deals',
-    },
-    {
-      post_id: '4',
-      post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-      post_published_date: 'Published June 17, 2025',
-      post_image: '/images/sharp-367x280.webp',
-      post_category: 'Deals',
-      post_category_image: '/images/blog-news.webp',
-      post_slug: 'best-laneige-prime-day-deals',
-    },
-    {
-      post_id: '5',
-      post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-      post_published_date: 'Published June 17, 2025',
-      post_image: '/images/sharp-367x280.webp',
-      post_category: 'Deals',
-      post_category_image: '/images/blog-news.webp',
-      post_slug: 'best-laneige-prime-day-deals',
-    },
-    {
-      post_id: '6',
-      post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-      post_published_date: 'Published June 17, 2025',
+      post_published_date: '2025/06/17',
       post_image: '/images/sharp-367x280.webp',
       post_category: 'Deals',
       post_category_image: '/images/blog-news.webp',
@@ -187,7 +164,7 @@ export default async function BlogDetailPage({
                       </Link>
                       <span className="px-2">·</span>
                       <span className="text-gray-600">
-                        {post.post_published_date}
+                        {formatDate(post.post_published_date)}
                       </span>
                       <span className="px-2">·</span>
                       <span className="text-gray-600">
@@ -201,7 +178,7 @@ export default async function BlogDetailPage({
                       </span>
                     </div>
                     <span className="absolute size-[42px] rounded-full shadow-md">
-                      <img
+                      <Image
                         width="160"
                         height="160"
                         src="https://www.retailmenot.com/blog/wp-content/uploads/sites/2/2024/12/Blog-Beauty.png"
@@ -211,6 +188,7 @@ export default async function BlogDetailPage({
                   </div>
                 </section>
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <CommentSection post_id={post.post_id} />
               </>
             ) : (
               <div>
@@ -228,11 +206,17 @@ export default async function BlogDetailPage({
               </h5>
               <TrendingPost posts={POST_PREVIEWS} />
             </div>
+            <section>
+              <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
+                The Latest
+              </h5>
+              <ListPost type="vertical" posts={LIST_POST} />
+            </section>
           </div>
         </div>
         <div className="my-10">
           <CategoryHeader title="Read More" href="/" />
-          <ListPost posts={LIST_POST} />
+          <ListPost type="grid" posts={LIST_POST} />
         </div>
       </div>
     </div>
