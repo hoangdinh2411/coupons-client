@@ -5,12 +5,12 @@ import Link from 'next/link'
 import React from 'react'
 
 export default function CategoryList() {
-  const categories = UseAppStore((state) => state.categories)
+  const menu = UseAppStore((state) => state.menu)
 
   return (
     <div className="w-full columns-1 gap-4 lg:columns-3">
-      {categories &&
-        categories.map((cat) => (
+      {menu.categories &&
+        menu.categories.map((cat) => (
           <div className="mb-8" key={cat.id}>
             <Link
               href="/"

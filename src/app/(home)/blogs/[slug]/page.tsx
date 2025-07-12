@@ -1,8 +1,7 @@
 import React from 'react'
-import TrendingPost from '../_components/TrendingPost'
 import Link from 'next/link'
 import CategoryHeader from '../_components/CategoryHeader'
-import ListPost from '../_components/LatestPost'
+import ListBlogs from '../_components/LatestBlog'
 import CommentSection from '@/components/comment/CommentSection'
 import { formatDate } from '@/helpers/format'
 import Image from 'next/image'
@@ -12,42 +11,6 @@ export default async function BlogDetailPage({
 }: {
   params: Promise<{ slug: string }>
 }) {
-  const POST_PREVIEWS = [
-    {
-      post_id: '1',
-      post_title:
-        'The Anklet Is Back: Why This Throwback Jewelry Trend Is Taking…',
-      post_published_date: '2025/06/19',
-      post_image: '/images/anklet_hero-367x280.webp',
-    },
-    {
-      post_id: '2',
-      post_title:
-        'LoveShackFancy x Havaianas Just Dropped the Prettiest Flip-Flops of Summer',
-      post_published_date: '2025/06/18',
-      post_image: '/images/loveshack_havaianas_hero-200x152.webp',
-    },
-    {
-      post_id: '3',
-      post_title:
-        'Daily Deals: Prime Day Revealed, Plus Sales from Stanley & Shark',
-      post_published_date: '2025/06/17',
-      post_image: '/images/deal-of-the-day-4-200x152.webp',
-    },
-    {
-      post_id: '4',
-      post_title: 'The 6 Summer Trends That’ll Instantly Refresh Your Wardrobe',
-      post_published_date: '2025/07/07',
-      post_image: '/images/summer-trends-hero-367x280.webp',
-    },
-    {
-      post_id: '5',
-      post_title: 'Prime Day 2025 Is Tomorrow — Here’s What Will Be On…',
-      post_published_date: '2025/07/07',
-      post_image: '/images/amazon-prime-day-1-200x152.webp',
-    },
-  ]
-
   const BLOG_POSTS = [
     {
       post_id: '1',
@@ -199,24 +162,18 @@ export default async function BlogDetailPage({
               </div>
             )}
           </div>
-          <div className="hidden w-full md:w-1/3 lg:block">
-            <div className="flex flex-col">
-              <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
-                Trending
-              </h5>
-              <TrendingPost posts={POST_PREVIEWS} />
-            </div>
-            <section>
-              <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
-                The Latest
-              </h5>
-              <ListPost type="vertical" posts={LIST_POST} />
-            </section>
-          </div>
+
+          {/* <TrendingBlogs blogs={POST_PREVIEWS} /> */}
+          <section>
+            <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
+              The Latest
+            </h5>
+            <ListBlogs type="vertical" blogs={LIST_POST} />
+          </section>
         </div>
         <div className="my-10">
           <CategoryHeader title="Read More" href="/" />
-          <ListPost type="grid" posts={LIST_POST} />
+          {/* <ListBlogs type="grid" posts={LIST_POST} /> */}
         </div>
       </div>
     </div>

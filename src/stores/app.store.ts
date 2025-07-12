@@ -1,11 +1,11 @@
 'use client'
 import { UserData } from '@/types/auth.type'
-import { CategoryData } from '@/types/category.type'
+import { MenuData } from '@/types/client.type'
 import { create, useStore } from 'zustand'
 
 export type AppStoreType = {
-  categories: CategoryData[]
-  setCategories: (data: CategoryData[]) => void
+  menu: MenuData
+  setMenu: (data: MenuData) => void
   user: UserData | null
   setUser: (data: UserData | null) => void
   isLoading: boolean
@@ -13,8 +13,12 @@ export type AppStoreType = {
 }
 
 export const AppStore = create<AppStoreType>((set) => ({
-  categories: [],
-  setCategories: (data: CategoryData[]) => set({ categories: data }),
+  menu: {
+    top_categories: [],
+    categories: [],
+    popular: [],
+  },
+  setMenu: (data: MenuData) => set({ menu: data }),
   user: null,
   setUser: (data: UserData | null) => set({ user: data }),
   isLoading: false,
