@@ -3,6 +3,8 @@ import customFetch from './customFetch'
 
 export const getTopics = async () => {
   return await customFetch<TopicData[]>(`/client/topics`, {
-    cache: 'no-cache',
+    next: {
+      revalidate: 3600,
+    },
   })
 }
