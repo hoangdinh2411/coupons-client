@@ -8,6 +8,8 @@ export const getLatestBlogsAndBlogPerTopics = async () => {
       [key: number]: BlogData[]
     }
   }>(`/client/blogs`, {
-    cache: 'no-cache',
+    next: {
+      revalidate: 3600,
+    },
   })
 }

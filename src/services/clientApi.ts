@@ -3,7 +3,9 @@ import { MenuData, SearchData } from '@/types/client.type'
 
 export const getMenu = async () => {
   return await customFetch<MenuData>(`/client/menu`, {
-    cache: 'no-cache',
+    next: {
+      revalidate: 3600,
+    },
   })
 }
 export const search = async (search_text: string) => {

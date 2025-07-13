@@ -1,8 +1,8 @@
 import React from 'react'
 import TrendingPost from '../_components/TrendingPost'
 import Link from 'next/link'
-import CategoryHeader from '../_components/CategoryHeader'
-import ListPost from '../_components/LatestPost'
+import CategoryHeader from '../components/CategoryHeader'
+// import ListBlogs from '../_components/LatestBlog'
 import CommentSection from '@/components/comment/CommentSection'
 import { formatDate } from '@/helpers/format'
 
@@ -108,35 +108,35 @@ export default async function BlogDetailPage({
     },
   ]
 
-  const LIST_POST = [
-    {
-      post_id: '1',
-      post_title: 'Best Prime Day Tech Deals to Shop Right Now',
-      post_published_date: '2025/06/19',
-      post_image: '/images/tech-prime-day-deals-1363-x-807-px-367x280.webp',
-      post_category: 'Tech',
-      post_category_image: '/images/blog-news.webp',
-      post_slug: 'best-laneige-prime-day-deals',
-    },
-    {
-      post_id: '2',
-      post_title: '12 Best Prime Day Home Deals to Shop Right Now',
-      post_published_date: '2025/06/18',
-      post_image: '/images/home-prime-day-deals-367x280.webp',
-      post_category: 'Home',
-      post_category_image: '/images/blog-news.webp',
-      post_slug: 'best-laneige-prime-day-deals',
-    },
-    {
-      post_id: '3',
-      post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
-      post_published_date: '2025/06/17',
-      post_image: '/images/sharp-367x280.webp',
-      post_category: 'Deals',
-      post_category_image: '/images/blog-news.webp',
-      post_slug: 'best-laneige-prime-day-deals',
-    },
-  ]
+  // const LIST_POST = [
+  //   {
+  //     post_id: '1',
+  //     post_title: 'Best Prime Day Tech Deals to Shop Right Now',
+  //     post_published_date: '2025/06/19',
+  //     post_image: '/images/tech-prime-day-deals-1363-x-807-px-367x280.webp',
+  //     post_category: 'Tech',
+  //     post_category_image: '/images/blog-news.webp',
+  //     post_slug: 'best-laneige-prime-day-deals',
+  //   },
+  //   {
+  //     post_id: '2',
+  //     post_title: '12 Best Prime Day Home Deals to Shop Right Now',
+  //     post_published_date: '2025/06/18',
+  //     post_image: '/images/home-prime-day-deals-367x280.webp',
+  //     post_category: 'Home',
+  //     post_category_image: '/images/blog-news.webp',
+  //     post_slug: 'best-laneige-prime-day-deals',
+  //   },
+  //   {
+  //     post_id: '3',
+  //     post_title: 'Our 16 Favorite Amazon Prime Day Deals (So Far)',
+  //     post_published_date: '2025/06/17',
+  //     post_image: '/images/sharp-367x280.webp',
+  //     post_category: 'Deals',
+  //     post_category_image: '/images/blog-news.webp',
+  //     post_slug: 'best-laneige-prime-day-deals',
+  //   },
+  // ]
 
   const { slug } = await params
   const post = BLOG_POSTS.find((p) => p.slug === slug)
@@ -198,20 +198,14 @@ export default async function BlogDetailPage({
               </div>
             )}
           </div>
-          <div className="hidden w-full md:w-1/3 lg:block">
-            <div className="flex flex-col">
-              <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
-                Trending
-              </h5>
-              <TrendingPost posts={POST_PREVIEWS} />
-            </div>
-            <section>
-              <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
-                The Latest
-              </h5>
-              <ListPost type="vertical" posts={LIST_POST} />
-            </section>
-          </div>
+
+          {/* <TrendingBlogs blogs={POST_PREVIEWS} /> */}
+          <section>
+            <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
+              The Latest
+            </h5>
+            {/* <ListBlogs type="vertical" blogs={LIST_POST} /> */}
+          </section>
         </div>
         <div className="my-10">
           <CategoryHeader title="Read More" href="/" />

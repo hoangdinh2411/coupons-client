@@ -2,9 +2,10 @@ import { Metadata } from 'next'
 import { Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import TrendingPost from './_components/TrendingPost'
-import CategoryHeader from './_components/CategoryHeader'
-import ListPost from './_components/LatestPost'
+import TrendingPost from './components/TrendingBlogs'
+import CategoryHeader from './components/CategoryHeader'
+import ListPost from './components/LatestBlog'
+import { formatDate } from '@/helpers/format'
 import { getLatestBlogsAndBlogPerTopics } from '@/services/blogApi'
 
 export const metadata: Metadata = {

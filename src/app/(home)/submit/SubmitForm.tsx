@@ -55,7 +55,7 @@ function SubmitForm() {
   const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false)
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const categories = UseAppStore((state) => state.categories)
+  const menu = UseAppStore((state) => state.menu)
   const [open, setOpen] = useState(false)
   const multiSelectorSef = useRef<HTMLDivElement>(null)
   const [isPending, startTransition] = useTransition()
@@ -382,61 +382,65 @@ function SubmitForm() {
           )}
         </div>
 
-        <div className="form-control mb-4">
-          <fieldset className="fieldset-container relative">
-            <Controller
-              name="categories"
-              control={control}
-              render={({ field }) => {
-                const selectedLabels = categories
-                  .filter((opt) => field.value?.includes(opt.id))
-                  .map((opt) => opt.name)
-                  .join(', ')
-                return (
-                  <div className="relative w-full" ref={multiSelectorSef}>
-                    <button
-                      type="button"
-                      onClick={() => setOpen(!open)}
-                      className="textfield-primary flex h-[50px] w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm shadow-sm"
-                    >
-                      <span className="truncate">
-                        {selectedLabels || 'Select...'}
-                      </span>
-                      {/* <ChevronDownIcon className="ml-2 h-4 w-4 text-gray-400" /> */}
-                    </button>
-
-                    {open && (
-                      <div className="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
-                        {categories.map((opt) => (
-                          <label
-                            key={opt.id}
-                            className="flex cursor-pointer items-center px-3 py-2 hover:bg-gray-50"
-                          >
-                            <input
-                              type="checkbox"
-                              checked={field.value?.includes(opt.id)}
-                              onChange={() => {
-                                const newValue = field.value?.includes(opt.id)
-                                  ? field.value.filter((v: any) => v !== opt.id)
-                                  : [...(field.value || []), opt.id]
-                                field.onChange(newValue)
-                              }}
-                              className="mr-2 rounded"
-                            />
-                            {opt.name}
-                          </label>
-                        ))}
+          <div className="form-control mb-2">
+            <fieldset className="fieldset-container relative">
+              <Controller
+                name="categories"
+                control={control}
+                render={({ field }) => {
+                  const selectedLabels = menu.categories
+                    .filter((opt) => field.value?.includes(opt.id))
+                    .map((opt) => opt.name)
+                    .join(', ')
+                  return (
+                    <div className="relative w-full" ref={multiSelectorSef}>
+                      <button
+                        type="button"
+                        onClick={() => setOpen(!open)}
+                        className="textfield-primary flex h-[50px] w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm shadow-sm"
+                      >
+                        <span className="truncate text-base">
+                          {selectedLabels || 'Select categories'}
+                        </span>
+                        {/* <ChevronDownIcon className="ml-2 h-4 w-4 text-gray-400" /> */}
+                      </button>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                        <IoIosArrowDown />
                       </div>
-                    )}
-                  </div>
-                )
-              }}
-            />
-          </fieldset>
-          {errors.categories && (
-            <p className="error-message">{errors.categories.message}</p>
-          )}
-        </div>
+                      {open && (
+                        <div className="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
+                          {menu.categories.map((opt) => (
+                            <label
+                              key={opt.id}
+                              className="flex cursor-pointer items-center px-3 py-2 hover:bg-gray-50"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={field.value?.includes(opt.id)}
+                                onChange={() => {
+                                  const newValue = field.value?.includes(opt.id)
+                                    ? field.value.filter(
+                                        (v: any) => v !== opt.id,
+                                      )
+                                    : [...(field.value || []), opt.id]
+                                  field.onChange(newValue)
+                                }}
+                                className="mr-2 rounded"
+                              />
+                              {opt.name}
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )
+                }}
+              />
+            </fieldset>
+            {errors.categories && (
+              <p className="error-message">{errors.categories.message}</p>
+            )}
+          </div>
 
         <button type="submit" className="btn-primary mx-auto mt-2 w-44">
           Submit
