@@ -1,7 +1,7 @@
 import { IResponse } from '@/types/share.type'
 
 export const BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5173/api/v1'
+  process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5173/api/v1'
 
 export default function customFetch<T>(
   url: string,

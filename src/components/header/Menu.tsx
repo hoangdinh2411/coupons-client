@@ -1,7 +1,7 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
-import { MenuResponse } from '@/services/clientApi'
 import UseAppStore from '@/stores/app.store'
+import { MenuData } from '@/types/client.type'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
@@ -9,21 +9,20 @@ import { IoIosArrowDown } from 'react-icons/io'
 
 const POPULAR_INDEX = -1
 const LIMIT = 10
-export default function Menu({ data }: { data: MenuResponse }) {
+export default function Menu({ data }: { data: MenuData }) {
   const [category, setCategory] = useState<number | null>(POPULAR_INDEX)
   const [target, setTarget] = useState<string>('')
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  const { setCategories } = UseAppStore((state) => state)
-  console.log(data)
+  const { setMenu } = UseAppStore((state) => state)
   const handleToggleSubmenu = (value: string) => {
     setTarget((prev) => (prev === value ? '' : value))
   }
 
   useEffect(() => {
-    if (data.categories) {
-      setCategories(data.categories)
+    if (data) {
+      setMenu(data)
     }
   }, [data])
   useEffect(() => {
@@ -74,12 +73,12 @@ export default function Menu({ data }: { data: MenuResponse }) {
           className="border-light-gray text-olive-green absolute top-[60px] z-10 hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium shadow-md data-[target=blog]:hidden data-[target=category]:flex"
         >
           <div className="flex min-w-36 flex-col gap-4 border-r-2 border-solid border-gray-200">
-            <p
+            <div
               className={`hover:text-green cursor-pointer ${category === POPULAR_INDEX ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
               onClick={() => setCategory(POPULAR_INDEX)}
             >
               Popular
-            </p>
+            </div>
             <Fragment>
               {data.categories.map((cat, idx) => (
                 <p
@@ -103,7 +102,11 @@ export default function Menu({ data }: { data: MenuResponse }) {
               className={`${category === POPULAR_INDEX ? 'flex' : 'hidden'} flex-col gap-3`}
             >
               {data.popular.map((s) => (
-                <Link key={s.id} href={`${s.slug}`} className="hover:underline">
+                <Link
+                  key={s.id}
+                  href={`/stores/${s.slug}`}
+                  className="hover:underline"
+                >
                   {s.name}
                 </Link>
               ))}

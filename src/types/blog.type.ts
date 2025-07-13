@@ -7,10 +7,11 @@ export interface BlogData extends BaseData {
   keywords: string[]
   topic_id: number
   slug: string
-  topic?: TopicData
+  topic: TopicData
   meta_data?: MetaData
   rating: number
   image: ImageType
   is_published: boolean
   is_indexed: boolean
+  created_at: string
 }
