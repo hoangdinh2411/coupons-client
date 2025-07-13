@@ -18,13 +18,14 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
       {/* post image */}
       <Link
         href={`/blogs/${blog.slug}`}
-        className={isVertical ? 'w-full' : 'w-1/4 shrink-0 md:w-full'}
+        className={`${isVertical ? 'w-full' : 'w-1/4'} relative aspect-[1] max-h-[280px] max-w-[368px] md:w-full`}
       >
         <Image
           src={blog.image.url || '/images/no-img.webp'}
           alt={blog.title}
-          width={368}
-          height={280}
+          fill
+          priority
+          sizes="auto"
           className={`h-full w-full object-cover ${!isVertical ? 'md:h-auto' : ''}`}
         />
       </Link>

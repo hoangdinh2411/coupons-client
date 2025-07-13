@@ -8,6 +8,18 @@ export const getLatestBlogsAndBlogPerTopics = async () => {
       [key: number]: BlogData[]
     }
   }>(`/client/blogs`, {
-    cache: 'no-cache',
+    next: {
+      revalidate: 3600,
+    },
+  })
+}
+export const getBlogBySlug = async (slug: string) => {
+  return await customFetch<{
+    latest: BlogData[]
+    blog: BlogData
+  }>(`/client/blogs/${slug}`, {
+    next: {
+      tags: [slug],
+    },
   })
 }
