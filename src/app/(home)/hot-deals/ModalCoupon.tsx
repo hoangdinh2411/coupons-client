@@ -40,7 +40,7 @@ function ModalCoupon({ handleCloseCouponModal, openCoupon }: ModalCouponProps) {
   return (
     <div>
       <Modal onClose={handleCloseCouponModal} isOpen={isOpen} maxWidth="xl">
-        <div className="relative flex flex-col items-center text-center md:p-6">
+        <div className="relative flex flex-col items-center py-10 text-center md:p-6">
           {/* Logo or Image */}
           <div className="mb-4">
             <Image

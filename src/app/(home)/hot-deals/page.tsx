@@ -40,7 +40,7 @@ const BEST_DEAL = {
 }
 export default function CouponsPage() {
   return (
-    <div className="relative">
+    <div className="relative bg-white">
       {/** Title */}
       <Header />
       <div className="mx-auto w-full max-w-(--max-width) px-4 2xl:px-0">

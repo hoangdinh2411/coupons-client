@@ -39,7 +39,7 @@ function CouponCard(props: CouponCardPropsType) {
       >
         <div className="relative aspect-[1/0.8] h-full w-[140px] md:mb-2 md:aspect-[2/1.1] md:w-full">
           {badgeTitle && badgeIcon && (
-            <div className="absolute top-2 left-2 !z-30">
+            <div className="absolute top-2 left-2">
               <Badge imageIcon={badgeIcon} text={badgeTitle} />
             </div>
           )}

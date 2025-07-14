@@ -101,7 +101,7 @@ function Header() {
       </div>
       {/** Navbar */}
       <div className="sticky top-0 z-10 bg-white p-4 shadow-lg">
-        <div className="mx-auto flex max-w-(--max-width) flex-wrap gap-2 lg:px-0">
+        <div className="hide-scrollbar px-auto mx-auto flex max-w-screen justify-center gap-2 overflow-x-auto whitespace-nowrap lg:px-0">
           {NAVBARS.map((nav, index) => (
             <div
               key={index}
