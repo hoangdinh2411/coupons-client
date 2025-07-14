@@ -55,7 +55,7 @@ export default function Menu({ data }: { data: MenuData }) {
     }
   }, [pathname])
   return (
-    <ul className="hidden gap-4 lg:flex">
+    <ul className="z-20 hidden gap-4 lg:flex">
       <li className="relative font-semibold text-white">
         <p
           className={`flex cursor-pointer items-center gap-1 rounded-full border-1 border-transparent p-1 px-4 py-3 hover:bg-white/10 ${target === 'category' ? 'border-white' : ''}`}

@@ -100,7 +100,7 @@ function Header() {
         </div>
       </div>
       {/** Navbar */}
-      <div className="sticky top-0 z-40 bg-white p-4 shadow-lg">
+      <div className="sticky top-0 z-10 bg-white p-4 shadow-lg">
         <div className="mx-auto flex max-w-(--max-width) flex-wrap gap-2 lg:px-0">
           {NAVBARS.map((nav, index) => (
             <div

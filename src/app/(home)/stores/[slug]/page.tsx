@@ -195,7 +195,7 @@ export default async function StoreDetailPage({
     return notFound()
   }
   return (
-    <>
+    <div>
       <TopSplide />{' '}
       <div className="absolute right-0 left-0 hidden min-h-16 py-6 shadow-sm lg:block lg:bg-white">
         <div className="mx-auto flex max-w-(--max-width) gap-10">
@@ -233,6 +233,6 @@ export default async function StoreDetailPage({
           <FAQs />
         </section>
       </section>
-    </>
+    </div>
   )
 }

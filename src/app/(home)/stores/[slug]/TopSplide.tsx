@@ -17,7 +17,7 @@ function TopSplide() {
             speed: 1,
           },
           classes: {
-            arrow: 'splide__arrow !bg-transparent !size-1',
+            arrow: 'splide__arrow !bg-transparent !size-4',
           },
         }}
         hasTrack={false}
