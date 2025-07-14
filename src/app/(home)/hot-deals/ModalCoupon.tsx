@@ -4,6 +4,7 @@
 import Modal from '@/components/modal'
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export interface ModalCouponProps {
   handleCloseCouponModal: () => void
@@ -14,7 +15,7 @@ export interface ModalCouponProps {
     badgeTitle?: string
     imgUrl?: string
     description?: string
-    name?: string
+    slug?: string
     actionBtn?: boolean
     couponCode?: string
   }
@@ -26,9 +27,9 @@ function ModalCoupon({ handleCloseCouponModal, openCoupon }: ModalCouponProps) {
     title = 'Up to 30% Off with Ebay Coupon',
     imgUrl = '/images/brandCard2.webp',
     description = 'Copy and paste this code at ',
-    name = 'Ebay',
+    slug = 'Ebay.com',
     actionBtn = true,
-    couponCode = 'Ebay30',
+    couponCode = 'JSKAJQA',
   } = openCoupon
 
   const handleCopyCode = () => {
@@ -71,12 +72,15 @@ function ModalCoupon({ handleCloseCouponModal, openCoupon }: ModalCouponProps) {
           )}
           <p className="mt-2 text-xs text-gray-900">
             {description}
-            <span className="text-green text-xs underline">{name}</span>
+            <span className="text-green text-xs underline">{slug}</span>
           </p>
           {/* Additional Info */}
-          <p className="mt-4 cursor-pointer text-sm text-gray-900 underline">
+          <Link
+            href={`/stores/${slug}`}
+            className="mt-4 cursor-pointer text-sm text-gray-900 underline"
+          >
             How does it work?
-          </p>
+          </Link>
         </div>
       </Modal>
     </div>
