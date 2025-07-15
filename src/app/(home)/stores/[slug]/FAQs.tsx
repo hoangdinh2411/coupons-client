@@ -4,7 +4,7 @@ import React from 'react'
 function FAQs() {
   return (
     <div className="mx-auto mb-10 w-full">
-      <h2 className="mb-4 text-2xl font-bold">
+      <h2 className="mb-4 text-3xl font-semibold">
         A Pea in the Pod Frequently Asked Questions
       </h2>
       <TextAccordion

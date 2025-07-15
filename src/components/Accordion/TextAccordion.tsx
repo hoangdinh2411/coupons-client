@@ -23,7 +23,7 @@ function TextAccordion({
           }`}
         >
           <div className="flex items-center justify-between">
-            <summary className="mt-2 mb-[10px] w-4/5 list-none text-left font-[500] font-medium lg:my-5">
+            <summary className="mt-2 mb-[10px] w-4/5 list-none text-left font-medium lg:my-5">
               {summary}
             </summary>
             <div className="icon text-xl text-gray-500 transition-transform duration-300">

@@ -46,8 +46,8 @@ function StoreInfo({ className = '' }: { className: string }) {
     // TODO: Send rating to backend
   }
   return (
-    <div className={`${className}`}>
-      <div className="relative xl:mt-28 xl:mr-10">
+    <div className={`${className} `}>
+      <div className="relative xl:mt-28 xl:mr-24">
         <p className="mt-20 mb-12 hidden text-sm font-bold lg:block">
           When you buy through links on
           <p>
@@ -81,6 +81,49 @@ function StoreInfo({ className = '' }: { className: string }) {
               <span className="ml-auto">0</span>
             </p>
           </div>
+          {/* === Updated‑by block === */}
+          <section className="my-6 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+            {/* Heading */}
+            <p className="mb-2 text-center text-sm font-bold tracking-wide uppercase">
+              This page has been updated by
+            </p>
+
+            {/* Avatar + name/title */}
+            <div className="mb-4 flex items-center gap-x-3.5 pt-3.5 pl-2">
+              <Image
+                src="/images/female.webp"
+                alt="Kelly Rose avatar"
+                width={56}
+                height={56}
+                className="h-14 w-14 rounded-[100%] object-cover"
+              />
+              <div>
+                <h3 className="text-base leading-tight font-bold text-gray-900">
+                  Kelly Rose
+                </h3>
+                <p className="pt-0.5 text-sm font-medium text-gray-700">
+                  Content Writer
+                </p>
+              </div>
+            </div>
+
+            {/* Bio */}
+            <p className="tracking-tight">
+              Kelly is a writer and editor for RetailMeNot based in California.
+              When she’s not online shopping, you can find her at her gymnastics
+              gym, skating at an ice rink, or doing agility with her Border
+              Collie, Frankenstein.
+            </p>
+
+            {/* “See Bio” link */}
+            <Link
+              href="/blog/author/kellyrose"
+              className="hover:text-green mt-4 inline-block underline underline-offset-2 transition-colors"
+            >
+              See Bio
+            </Link>
+          </section>
+
           <h3 className="mb-4 text-sm font-bold uppercase">
             A PEA IN THE POD FEATURED ARTICLES
           </h3>

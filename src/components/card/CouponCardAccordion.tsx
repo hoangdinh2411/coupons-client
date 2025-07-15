@@ -8,7 +8,7 @@ function CouponCardAccordion(coupon: CouponData) {
     <div className="mb-2 min-h-[75px] rounded-lg border-1 border-gray-200 bg-white px-3 py-3 md:px-6 md:hover:shadow-lg md:hover:shadow-gray-200/50 lg:mb-4 lg:px-6">
       <Link
         href={coupon.offer_link ?? ''}
-        className="card-top focus:border-green flex gap-2 focus-within:border-2 focus:border-2 lg:gap-8 lg:px-2 lg:py-2"
+        className="card-top focus:border-green flex gap-2 border-2 border-white focus-within:border-2 lg:gap-8 lg:px-2 lg:py-2"
       >
         <div className="text-green col-start-1 row-span-3 row-start-1 mx-0 flex w-fit flex-col self-center text-center text-xl font-extrabold tracking-tight uppercase sm:row-span-3 sm:row-start-1 sm:mx-auto sm:pt-1 sm:pb-2 md:mx-0 md:text-3xl lg:tracking-wide">
           <p className="leading-none">

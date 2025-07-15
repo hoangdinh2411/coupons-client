@@ -199,7 +199,7 @@ export default async function StoreDetailPage({
       <TopSplide />{' '}
       <div className="absolute right-0 left-0 hidden min-h-16 py-6 shadow-sm lg:block lg:bg-white">
         <div className="mx-auto flex max-w-(--max-width) gap-10">
-          <div className="bg-white lg:w-92 xl:w-[368px]">.</div>
+          <div className="bg-white lg:w-92 xl:w-[336px]"></div>
           <div className="">
             <p className="font-sans-bold mb-3 hidden items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
               {STORES?.name} {' Coupons & promo codes'}
@@ -210,7 +210,7 @@ export default async function StoreDetailPage({
           </div>
         </div>
       </div>
-      <section className="mx-auto flex max-w-(--max-width) flex-col gap-4 lg:flex-row lg:gap-14 xl:gap-20">
+      <section className="mx-auto flex max-w-(--max-width) flex-col gap-4 lg:flex-row lg:gap-14 xl:gap-2">
         <div className="z-20 lg:block lg:h-32">
           <BrandImg
             name={STORES?.name}

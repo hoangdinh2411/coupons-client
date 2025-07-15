@@ -34,7 +34,7 @@ const OffersTable = () => {
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse bg-[#F9FAFB]">
           <thead>
-            <tr className="bg-[#F9FAFB]">
+            <tr className="bg-gray-100">
               <th className="border-b-slate-600 px-4 py-4 text-start text-sm text-gray-700 uppercase">
                 Discount
               </th>
