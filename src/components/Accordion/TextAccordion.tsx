@@ -2,26 +2,28 @@
 import { useState } from 'react'
 import { FiPlus, FiMinus } from 'react-icons/fi'
 
-function Accordion({
+function TextAccordion({
   content,
   summary,
+  className = '',
 }: {
   content: React.ReactElement
   summary: string
+  className?: string
 }) {
   const [active, setActive] = useState<boolean>(false)
 
   return (
-    <div>
-      <div className="accordion w-full">
+    <div className={`${className}`}>
+      <div className="TextAccordion w-full">
         <button
           onClick={() => setActive((prev) => !prev)}
-          className={`accordion_summary focus-within:border-green w-full cursor-pointer focus-within:border-2 ${
+          className={`TextAccordion_summary focus-within:border-green w-full cursor-pointer focus-within:border-2 ${
             !active && 'border-b-1 border-gray-200'
           }`}
         >
           <div className="flex items-center justify-between">
-            <summary className="mt-2 mb-[10px] w-4/5 list-none text-left text-sm font-[600] lg:my-5">
+            <summary className="mt-2 mb-[10px] w-4/5 list-none text-left font-[500] font-medium lg:my-5">
               {summary}
             </summary>
             <div className="icon text-xl text-gray-500 transition-transform duration-300">
@@ -56,4 +58,4 @@ function Accordion({
   )
 }
 
-export default Accordion
+export default TextAccordion

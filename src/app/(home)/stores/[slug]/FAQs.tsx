@@ -1,4 +1,4 @@
-import Accordion from '@/components/Accordion/TextAccordion'
+import TextAccordion from '@/components/Accordion/TextAccordion'
 import React from 'react'
 
 function FAQs() {
@@ -7,7 +7,8 @@ function FAQs() {
       <h2 className="mb-4 text-2xl font-bold">
         A Pea in the Pod Frequently Asked Questions
       </h2>
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="Are there any deals available for A Pea in the Pod today?"
         content={
           <p>
@@ -17,15 +18,18 @@ function FAQs() {
           </p>
         }
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="How many verified promo codes are currently available for A Pea in the Pod?"
         content={<p>There are 12 verified coupon codes currently available.</p>}
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="What is the best offer available today at A Pea in the Pod?"
         content={<p>The best offer today is 40% off sitewide.</p>}
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="How do I get A Pea In the Pod coupons?"
         content={
           <p>
@@ -34,7 +38,8 @@ function FAQs() {
           </p>
         }
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="Can you stack coupons at A Pea in the Pod?"
         content={
           <p>
@@ -43,7 +48,8 @@ function FAQs() {
           </p>
         }
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="Does A Pea in the Pod have in-store or curbside pickup?"
         content={
           <p>
@@ -52,7 +58,8 @@ function FAQs() {
           </p>
         }
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="How do I sign up for rewards with A Pea in the Pod?"
         content={
           <p>
@@ -61,7 +68,8 @@ function FAQs() {
           </p>
         }
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="What is A Pea in the Pod's shipping policy?"
         content={
           <p>
@@ -70,7 +78,8 @@ function FAQs() {
           </p>
         }
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="How do I get free shipping at A Pea in the Pod?"
         content={
           <p>
@@ -79,7 +88,8 @@ function FAQs() {
           </p>
         }
       />
-      <Accordion
+      <TextAccordion
+        className="lg:my-6"
         summary="What is A Pea in the Pod's return policy?"
         content={
           <p>
