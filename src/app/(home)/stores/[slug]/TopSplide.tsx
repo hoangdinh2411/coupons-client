@@ -39,7 +39,7 @@ function TopSplide() {
           </SplideTrack>
         </Splide>
       </div>
-      <div className="font-proxima mt-1 mb-4 block text-center text-xs [grid-area:disclaimer] lg:mx-0 lg:mt-3 lg:mr-16 lg:mb-8 lg:hidden lg:text-left lg:text-sm">
+      <div className="mt-1 mb-4 block text-center text-xs [grid-area:disclaimer] lg:mx-0 lg:mt-3 lg:mr-16 lg:mb-8 lg:hidden lg:text-left lg:text-sm">
         When you buy through links on RetailMeNot
         <Link className="underline" href={'/'}>
           {' '}

@@ -210,7 +210,7 @@ export default async function StoreDetailPage({
           </div>
         </div>
       </div>
-      <section className="mx-auto flex max-w-(--max-width) flex-col gap-4 lg:flex-row lg:gap-14 xl:gap-2">
+      <section className="mx-auto flex max-w-(--max-width) flex-col gap-4 lg:flex-row lg:gap-14 xl:gap-0">
         <div className="z-20 lg:block lg:h-32">
           <BrandImg
             name={STORES?.name}

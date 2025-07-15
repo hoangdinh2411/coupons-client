@@ -47,7 +47,7 @@ function StoreInfo({ className = '' }: { className: string }) {
   }
   return (
     <div className={`${className} `}>
-      <div className="relative xl:mt-28 xl:mr-24">
+      <div className="relative xl:mt-28 xl:pr-26">
         <p className="mt-20 mb-12 hidden text-sm font-bold lg:block">
           When you buy through links on
           <p>
