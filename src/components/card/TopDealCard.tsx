@@ -31,11 +31,11 @@ function TopDealCard(props: TopDealCardPropsType) {
   } = props
 
   return (
-    <div className="hover:border-green my-2 rounded-xl border-2 border-white p-[12px] hover:shadow-lg">
+    <div className="card-outline my-2 rounded-xl p-2 hover:shadow-md">
       <Link
         href={link ?? ''}
         {...rest}
-        className={`${className} ! relative !max-w-[300px]`}
+        className={`${className} relative !max-w-[270px]`}
       >
         <div
           className={`relative flex w-full cursor-pointer gap-2 text-left shadow-lg md:h-auto lg:min-h-[140px]`}

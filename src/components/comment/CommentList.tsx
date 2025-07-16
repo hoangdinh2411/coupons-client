@@ -1,3 +1,4 @@
+import { MdOutlineArrowRightAlt } from 'react-icons/md'
 import CommentItem from './CommentItem'
 
 interface CommentListProps {
@@ -23,18 +24,21 @@ export default function CommentList({ comments }: CommentListProps) {
       </div>
       <ul className="rounded-md bg-white p-6">
         {comments.map((comment) => (
-          <li key={comment.comment_id} className="flex flex-col gap-4">
-            <CommentItem
-              comment_author={comment.comment_author}
-              comment_content={comment.comment_content}
-              comment_published_date={comment.comment_published_date}
-              comment_rating={comment.comment_rating}
-              comment_like={comment.comment_like}
-              comment_image={comment.comment_image}
-            />
-          </li>
+          <CommentItem
+            key={comment.comment_id}
+            comment_author={comment.comment_author}
+            comment_content={comment.comment_content}
+            comment_published_date={comment.comment_published_date}
+            comment_rating={comment.comment_rating}
+            comment_like={comment.comment_like}
+            comment_image={comment.comment_image}
+          />
         ))}
       </ul>
+      <button className="bg-green hover:bg-green/80 mt-8 flex w-fit cursor-pointer items-center gap-2 rounded-full px-7 py-2 text-lg text-white transition-colors duration-300 ease-out">
+        See All
+        <MdOutlineArrowRightAlt />
+      </button>
     </div>
   )
 }

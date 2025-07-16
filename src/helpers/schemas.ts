@@ -1,5 +1,7 @@
 import { CouponType, VerifyCodeType } from '@/types/enum'
+import { CouponType, VerifyCodeType } from '@/types/enum'
 import { z } from 'zod'
+import dayjs from 'dayjs'
 import dayjs from 'dayjs'
 
 export const ForgetSchema = z.object({
@@ -52,20 +54,24 @@ export const SubmitFormSchema = z
     code: z.string().trim(),
     offer_detail: z.string().min(1, 'Offer detail is required').trim(),
     is_exclusive: z.boolean(),
-    expire_date: z.string({
-      message: 'Expire date is required',
+    expire_date: z.string().min(1, {
+      message: 'Start date is required',
     }),
-    start_date: z.string({
+    start_date: z.string().min(1, {
       message: 'Start date is required',
     }),
     categories: z
       .array(z.number())
       .min(1, 'Need to select at least one category'),
-    store_id: z.number({
-      message: 'Select store',
+    store_id: z
+      .number({
+        message: 'Select store',
+      })
+      .min(0, 'Store is required'),
+    offer_link: z.string().min(1, 'Offer link is required').trim(),
+    type: z.enum(Object.values(CouponType) as [string, ...string[]], {
+      message: 'Select type for coupon',
     }),
-    offer_link: z.string().trim().optional(),
-    type: z.enum(Object.values(CouponType) as [string, ...string[]]),
   })
   .refine((data) => dayjs(data.expire_date).isAfter(dayjs(data.start_date)), {
     message: 'Expire date must be after start date',

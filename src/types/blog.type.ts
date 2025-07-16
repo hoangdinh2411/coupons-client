@@ -13,4 +13,5 @@ export interface BlogData extends BaseData {
   image: ImageType
   is_published: boolean
   is_indexed: boolean
+  created_at: string
 }

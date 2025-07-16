@@ -18,7 +18,7 @@ export default function CommentItem({
   comment_image,
 }: CommentItemProps) {
   return (
-    <>
+    <li className="flex flex-col gap-4">
       <div className="text-base font-medium text-gray-600">
         {comment_published_date}
       </div>
@@ -91,23 +91,6 @@ export default function CommentItem({
           <span>Reply</span>
         </span>
       </div>
-      <button className="bg-green hover:bg-green/80 mt-8 flex w-fit cursor-pointer items-center gap-2 rounded-full px-7 py-2 text-lg text-white transition-colors duration-300 ease-out">
-        See All
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="size-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-          />
-        </svg>
-      </button>
-    </>
+    </li>
   )
 }

@@ -39,7 +39,7 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
           <Image
             src={bestDeal.imgUrl ?? ''}
             alt=""
-            className="w-full h-full object-contain"
+            className="h-full w-full object-contain"
             width={128}
             height={128}
           />
@@ -48,26 +48,26 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
           <p className="text-xl font-bold text-gray-900 sm:text-2xl">
             {bestDeal.title}
           </p>
-          <p className="text-xs font-semibold uppercase tracking-wider text-gray-600">
+          <p className="text-xs font-semibold tracking-wider text-gray-600 uppercase">
             {bestDeal.description}
           </p>
-          <div className="flex items-center mt-2">
+          <div className="mt-2 flex items-center">
             <Image
               alt=""
               width={16}
               height={16}
-              className="w-4 h-4"
+              className="h-4 w-4"
               src={'/images/cashback-bolt.svg'}
             />
             <a
               href={bestDeal.link}
-              className="md:ml-2 text-slate-800 leading-4 font-semibold hover:underline"
+              className="leading-4 font-semibold text-slate-800 hover:underline md:ml-2"
             >
               {bestDeal.stringValueInfo}
             </a>
             <GrLinkNext
               size={20}
-              className="sm:ml-2 size-[20px] text-gray-600"
+              className="size-[20px] text-gray-600 sm:ml-2"
             />
           </div>
         </div>
@@ -81,10 +81,13 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
       {/* Slider Section */}
       <Splide
         options={{
+          type: 'loop',
           autoWidth: false,
           perPage: 5,
           perMove: 1,
-
+          classes: {
+            pagination: 'splide__pagination !bottom-0 !top-full',
+          },
           breakpoints: {
             0: {
               perPage: 1,
@@ -108,7 +111,7 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
         }}
         hasTrack={false}
       >
-        <SplideTrack>
+        <SplideTrack className="!px-1">
           {topDealList.map((dealItem, index) => (
             <SplideSlide
               className="!w-[288px] sm:!w-[320px] md:!w-[300px] lg:!w-[270px] xl:!w-[270px]"

@@ -50,22 +50,18 @@ function Header() {
     <>
       {/** Gslide */}
       <Splide
+        className="mx-auto max-w-(--max-width)"
         options={{
           type: 'loop',
           autoWidth: false,
           pagination: false,
           autoplay: true,
           perPage: 1,
-          breakpoints: {
-            0: {
-              perPage: 1,
-            },
-            1024: {
-              perPage: 1,
-            },
-          },
           autoScroll: {
             speed: 1,
+          },
+          classes: {
+            arrow: 'splide__arrow !bg-transparent !size-3',
           },
         }}
         hasTrack={false}
@@ -94,22 +90,22 @@ function Header() {
           className="absolute hidden h-[140px] w-full max-w-[1130px] object-contain md:block"
           src="/images/banner-coupon.webp"
         />
-        <div className="content mx-auto my-auto flex-col  h-[50px] flex justify-center items-center">
-          <div className="pb-2 text-white text-sm font-bold tracking-widest">
+        <div className="content mx-auto my-auto flex h-[50px] flex-col items-center justify-center">
+          <div className="pb-2 text-sm font-bold tracking-widest text-white">
             Up to 70% Off
           </div>
-          <div className="text-white text-2xl font-extrabold sm:pb-5 md:text-4xl">
+          <div className="text-2xl font-extrabold text-white sm:pb-5 md:text-4xl">
             4th of July Deals
           </div>
         </div>
       </div>
       {/** Navbar */}
       <div className="sticky top-0 z-40 bg-white p-4 shadow-lg">
-        <div className="mx-auto flex max-w-[1280px] flex-wrap gap-2 lg:px-0">
+        <div className="mx-auto flex max-w-(--max-width) flex-wrap gap-2 lg:px-0">
           {NAVBARS.map((nav, index) => (
             <div
               key={index}
-              className={`${nav.isBold ? 'border-b-1' : ''} inline-block mr-4 last:mr-0 text-gray-800 cursor-pointer`}
+              className={`${nav.isBold ? 'border-b-1' : ''} mr-4 inline-block cursor-pointer text-gray-800 last:mr-0`}
             >
               <Link
                 className={`hover:underline hover:underline-offset-4 ${nav.isBold ? 'font-bold' : ''}`}
@@ -141,7 +137,7 @@ function Header() {
             width={1280}
             height={50}
             alt="coupon-banner-stack-cash"
-            className="bg-[#82F3FB] px-8  mt-6 mb-8 shadow-lg"
+            className="mt-6 mb-8 bg-[#82F3FB] px-8 shadow-lg"
             src={'/images/banner-coupon-mobile.webp'}
           />
         </div>

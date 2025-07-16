@@ -1,6 +1,6 @@
 export const APP_ROUTERS = {
   INDEX: '/',
-  FORGOT_PASSWORD: '/auth/forgot-password',
+  //TODO: AUTH
   SIGN_IN: '/auth/sign-in',
   SIGN_UP: '/auth/sign-up',
   VERIFY: '/auth/verify',

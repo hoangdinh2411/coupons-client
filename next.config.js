@@ -10,8 +10,6 @@ const nextConfig = {
     silenceDeprecations: ['legacy-js-api'],
   },
 
-   images: {
-
   images: {
     remotePatterns: [
       {

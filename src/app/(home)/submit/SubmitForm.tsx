@@ -1,5 +1,11 @@
 'use client'
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, {
+  ChangeEvent,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -45,8 +51,6 @@ function SubmitForm() {
     defaultValues,
   })
 
-  const onSubmit = (data: SubmitFormType) => console.log(data)
-
   const COUPON_TYPES = Object.values(CouponType)
 
   // State for search input and suggestions
@@ -66,6 +70,24 @@ function SubmitForm() {
     const value = e.target.value
     setSearchText(value)
     setIsTyping(true)
+  }
+  const onSubmit = (data: SubmitFormType) => {
+    const payload: CouponPayload = {
+      ...data,
+      expire_date: dayjs(data.expire_date).format('YYYY/MM/DD'),
+      start_date: dayjs(data.start_date).format('YYYY/MM/DD'),
+      type: data.type as CouponType,
+    }
+
+    startTransition(async () => {
+      const res = await createCoupon(payload)
+      if (!res.success && res.message) {
+        toast.error(res.message)
+      }
+      if (res.success) {
+        setDone(true)
+      }
+    })
   }
 
   useEffect(() => {
@@ -260,87 +282,119 @@ function SubmitForm() {
               name="type"
               render={({ field: { onChange, value, ref } }) => {
                 return (
-                  <select
-                    className="textfield-primary w-full py-3"
-                    id="type"
-                    ref={ref}
-                    value={value}
-                    onChange={(e) => handleChange(e, onChange)}
-                  >
-                    <option value="">Select a type</option>
-                    {COUPON_TYPES.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
+                  <fieldset className="fieldset-container relative">
+                    <select
+                      disabled={store < 0}
+                      className="textfield-primary w-full py-3"
+                      id="type"
+                      ref={ref}
+                      value={value}
+                      onChange={(e) => handleChange(e, onChange)}
+                    >
+                      <option value="" className="hover:bg-light-green">
+                        Select a type
                       </option>
-                    ))}
-                  </select>
+                      {COUPON_TYPES.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                      <IoIosArrowDown />
+                    </div>
+                  </fieldset>
                 )
               }}
             />
-          </fieldset>
-          {errors.type && (
-            <p className="error-message">{errors.type.message}</p>
-          )}
-        </div>
-        {selectedType === CouponType.CODE && (
-          <div className="form-control mb-4">
-            <fieldset className="fieldset-container relative">
-              <input
-                {...register('code')}
-                className={`textfield-${errors.code ? 'error' : 'primary'} w-full`}
-                id="code"
-                type="text"
-                placeholder="Enter coupon code"
-              />
-            </fieldset>
-            {errors.code && (
-              <p className="error-message">{errors.code.message}</p>
+            {errors.type && (
+              <p className="error-message">{errors.type.message}</p>
             )}
           </div>
-        )}
+          {selectedType === CouponType.CODE && (
+            <div className="form-control mb-2">
+              <fieldset className="fieldset-container relative">
+                <input
+                  {...register('code')}
+                  className={`textfield-${errors.code ? 'error' : 'primary'} w-full`}
+                  id="code"
+                  type="text"
+                  placeholder="Enter coupon code"
+                />
+              </fieldset>
+              {errors.code && (
+                <p className="error-message">{errors.code.message}</p>
+              )}
+            </div>
+          )}
 
-        <div className="form-control mb-4">
-          <fieldset className="fieldset-container relative">
-            <input
-              {...register('offer_link')}
-              className={`textfield-${errors.offer_link ? 'error' : 'primary'} w-full`}
-              id="offer_link"
-              type="url"
-              placeholder="Enter offer link"
+          <div className="form-control mb-2">
+            <fieldset className="fieldset-container relative">
+              <input
+                {...register('offer_link')}
+                className={`textfield-${errors.offer_link ? 'error' : 'primary'} w-full`}
+                id="offer_link"
+                type="url"
+                placeholder="Enter offer link"
+              />
+            </fieldset>
+            {errors.offer_link && (
+              <p className="error-message">{errors.offer_link.message}</p>
+            )}
+          </div>
+          <div className="form-control mb-2">
+            <fieldset
+              style={{ paddingBottom: '0px', height: 'auto' }}
+              className="fieldset-container min-h-[180px]"
+            >
+              <textarea
+                {...register('offer_detail')}
+                className={`textfield-${errors.offer_detail ? 'error' : 'primary'} min-h-[180px] w-full px-2`}
+                id="offer_detail"
+                placeholder="Enter coupon description"
+              />
+            </fieldset>
+            {errors.offer_detail && (
+              <p className="error-message mt-[2px]">
+                {errors.offer_detail.message}
+              </p>
+            )}
+          </div>
+          <div className="form-control mb-2">
+            <Controller
+              control={control}
+              name="start_date"
+              render={({ field }) => {
+                return (
+                  <fieldset className="fieldset-container relative w-full">
+                    <DatePicker
+                      ref={field.ref}
+                      placeholderText="When does the coupon start?"
+                      dateFormat={'dd/MM/yyyy'}
+                      className={`textfield-${errors.expire_date ? 'error' : 'primary'} w-full`}
+                      selected={field.value ? new Date(field.value) : null}
+                      onChange={(date) =>
+                        field.onChange(dayjs(date).format('YYYY/MM/DD'))
+                      }
+                    />
+                  </fieldset>
+                )
+              }}
             />
-          </fieldset>
-          {errors.offer_link && (
-            <p className="error-message">{errors.offer_link.message}</p>
-          )}
-        </div>
-        <div className="form-control mb-4">
-          <fieldset
-            style={{ paddingBottom: '0px', height: 'auto' }}
-            className="fieldset-container min-h-[180px]"
-          >
-            <textarea
-              {...register('offer_detail')}
-              className={`textarea-${errors.offer_detail ? 'error' : 'primary'} min-h-[180px] w-full px-2`}
-              id="offer_detail"
-              placeholder="Enter coupon description"
-            />
-          </fieldset>
-          {errors.offer_detail && (
-            <p className="error-message mt-[2px]">
-              {errors.offer_detail.message}
-            </p>
-          )}
-        </div>
-        <div className="form-control mb-4">
-          <Controller
-            control={control}
-            name="start_date"
-            render={({ field }) => {
-              return (
-                <fieldset className="fieldset-container relative w-full">
+
+            {errors.start_date && (
+              <p className="error-message">{errors.start_date.message}</p>
+            )}
+          </div>
+          <div className="form-control mb-2">
+            <Controller
+              control={control}
+              name="expire_date"
+              render={({ field }) => (
+                <fieldset className="fieldset-container relative">
                   <DatePicker
                     ref={field.ref}
-                    placeholderText="When does the coupon start?"
+                    placeholderText="When does the coupon end?"
                     dateFormat={'dd/MM/yyyy'}
                     className={`textfield-${errors.expire_date ? 'error' : 'primary'} w-full`}
                     selected={field.value ? new Date(field.value) : null}
@@ -349,38 +403,13 @@ function SubmitForm() {
                     }
                   />
                 </fieldset>
-              )
-            }}
-          />
+              )}
+            />
 
-          {errors.start_date && (
-            <p className="error-message">{errors.start_date.message}</p>
-          )}
-        </div>
-        <div className="form-control mb-4">
-          <Controller
-            control={control}
-            name="expire_date"
-            render={({ field }) => (
-              <fieldset className="fieldset-container relative">
-                <DatePicker
-                  ref={field.ref}
-                  placeholderText="When does the coupon end?"
-                  dateFormat={'dd/MM/yyyy'}
-                  className={`textfield-${errors.expire_date ? 'error' : 'primary'} w-full`}
-                  selected={field.value ? new Date(field.value) : null}
-                  onChange={(date) =>
-                    field.onChange(dayjs(date).format('YYYY/MM/DD'))
-                  }
-                />
-              </fieldset>
+            {errors.expire_date && (
+              <p className="error-message">{errors.expire_date.message}</p>
             )}
-          />
-
-          {errors.expire_date && (
-            <p className="error-message">{errors.expire_date.message}</p>
-          )}
-        </div>
+          </div>
 
           <div className="form-control mb-2">
             <fieldset className="fieldset-container relative">
@@ -442,28 +471,33 @@ function SubmitForm() {
             )}
           </div>
 
-        <button type="submit" className="btn-primary mx-auto mt-2 w-44">
-          Submit
-        </button>
-        <button
-          onClick={() => {
-            reset(defaultValues)
-            setSearchText('')
-            setSuggestions([])
-            setIsSuggestionsVisible(false)
-          }}
-          type="reset"
-          className="mx-auto mt-4 w-44 cursor-pointer text-gray-600 underline"
-        >
-          Clear Form
-        </button>
-        <div className="mt-2 text-[12px] text-slate-400">
-          Please only submit publicly available coupon codes and not private or
-          internal company codes. When in doubt, please obtain permission from
-          the merchant first. See our Terms and Conditions for more information
-          regarding user generated content. Thank you very much!
-        </div>
-      </form>
+          <ButtonWithLoading
+            isPending={isPending}
+            type="submit"
+            className="btn-primary mx-auto mt-2 w-44"
+          >
+            Submit
+          </ButtonWithLoading>
+          <button
+            onClick={() => {
+              reset(defaultValues)
+              setSearchText('')
+              setSuggestions([])
+              setIsSuggestionsVisible(false)
+            }}
+            type="reset"
+            className="mx-auto mt-4 w-44 cursor-pointer text-gray-600 underline"
+          >
+            Clear Form
+          </button>
+          <div className="mt-2 text-[12px] text-slate-400">
+            Please only submit publicly available coupon codes and not private
+            or internal company codes. When in doubt, please obtain permission
+            from the merchant first. See our Terms and Conditions for more
+            information regarding user generated content. Thank you very much!
+          </div>
+        </form>
+      )}
     </div>
   )
 }

@@ -1,3 +1,5 @@
+import { MdOutlineArrowRightAlt } from 'react-icons/md'
+
 export default function CommentForm() {
   return (
     <div className="space-y-4">
@@ -21,22 +23,9 @@ export default function CommentForm() {
             required
           />
         </div>
-        <button className="bg-green hover:bg-green/80 mt-8 flex w-fit cursor-pointer items-center gap-2 rounded-full px-7 py-2 text-lg text-white transition-colors duration-300 ease-out">
+        <button className="bg-green hover:bg-green/80 mt-8 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full px-7 py-2 text-lg text-white transition-colors duration-300 ease-out md:w-fit md:justify-start">
           Submit Comment
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-            />
-          </svg>
+          <MdOutlineArrowRightAlt />
         </button>
       </form>
     </div>

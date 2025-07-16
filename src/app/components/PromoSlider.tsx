@@ -30,6 +30,7 @@ export default function PromoSlider({
           pauseOnHover: true,
           pauseOnFocus: true,
           arrows: true,
+          focus: 'center',
         }}
         aria-label="Promo Slider"
       >
@@ -59,7 +60,7 @@ export default function PromoSlider({
                 </picture>
               </div>
               <div className="absolute right-0 bottom-0 left-0 z-10 flex w-full flex-col bg-gradient-to-t from-gray-900 px-6 py-2.5 font-bold text-white md:left-[25%] md:h-[360px] md:w-72 md:bg-black md:bg-none">
-                <h2 className="mt-auto mb-3 text-xs leading-tight tracking-wide uppercase md:mb-5 md:tracking-widest">
+                <h2 className="mt-auto mb-3 text-xl leading-tight font-medium tracking-wide uppercase md:mb-5 md:tracking-widest">
                   {banner.banner_title}
                 </h2>
                 <p className="tracking-none mb-3 text-lg font-semibold md:text-xl md:font-normal md:tracking-normal">
