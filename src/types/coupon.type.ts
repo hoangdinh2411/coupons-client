@@ -21,6 +21,7 @@ export interface CouponData extends BaseData {
   title: string
   code: string
   offer_detail: string
+  offer_link?: string
   store_id: number
   is_exclusive: boolean
   expire_date: string

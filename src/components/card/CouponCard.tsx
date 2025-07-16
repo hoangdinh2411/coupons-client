@@ -35,11 +35,11 @@ function CouponCard(props: CouponCardPropsType) {
       {...rest}
     >
       <div
-        className={`relative flex w-full cursor-pointer gap-2 rounded-xl bg-white text-left focus:border-2 md:h-auto md:flex-col md:border-1 md:border-gray-300 lg:min-h-[278px]`}
+        className={`relative flex h-full w-full cursor-pointer gap-2 rounded-xl bg-white text-left focus:border-2 md:h-auto md:flex-col md:border-1 md:border-gray-300`}
       >
         <div className="relative aspect-[1/0.8] h-full w-[140px] md:mb-2 md:aspect-[2/1.1] md:w-full">
           {badgeTitle && badgeIcon && (
-            <div className="absolute top-2 left-2 !z-30">
+            <div className="absolute top-2 left-2">
               <Badge imageIcon={badgeIcon} text={badgeTitle} />
             </div>
           )}
@@ -52,18 +52,20 @@ function CouponCard(props: CouponCardPropsType) {
             />
           </div>
         </div>
-        <div className="flex flex-col justify-between">
+        <div className="flex h-full flex-col justify-between">
           <div className="space-y-1 md:p-[8px] lg:p-3">
-            <div className="mb-1 text-[12px] font-[800] uppercase">{title}</div>
-            <div className="text-[16px] leading-4 font-[600] text-gray-800 md:leading-5">
+            <div className="mb-1 text-[12px] font-[800] tracking-widest uppercase">
+              {title}
+            </div>
+            <div className="text-[16px] leading-4 font-[600] text-gray-800 md:leading-5 lg:min-h-10">
               {description}
             </div>
           </div>
           {actionBtn && (
-            <div className="cursor-pointer md:mb-3 lg:mt-3">
-              <span className="rounded-2xl bg-gray-100 px-4 py-1 text-xs font-bold text-gray-800">
+            <div className="cursor-pointer justify-end md:mb-3 lg:mt-2 lg:ml-2">
+              <button className="rounded-2xl bg-gray-100 px-4 py-1 text-xs font-[900] text-gray-800">
                 Coupon code
-              </span>
+              </button>
             </div>
           )}
         </div>

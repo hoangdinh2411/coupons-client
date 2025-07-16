@@ -74,7 +74,7 @@ export default function SearchBar({
     <div
       ref={containerRef}
       data-focused={isFocused}
-      className="bg-light-green relative w-full flex-1 rounded-t-2xl rounded-b-2xl lg:max-w-[450px] data-[focused=true]:lg:rounded-b-none data-[focused=true]:lg:bg-white"
+      className="bg-light-green relative z-20 w-full flex-1 rounded-t-2xl rounded-b-2xl lg:max-w-[450px] data-[focused=true]:lg:rounded-b-none data-[focused=true]:lg:bg-white"
     >
       <IoIosSearch
         className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
