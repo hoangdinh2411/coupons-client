@@ -1,13 +1,24 @@
 import customFetch from './customFetch'
 import { BlogData } from '@/types/blog.type'
 
-export const getLatestBlogsAndBlogPerTopics = async () => {
+export const getLatestBlogs = async () => {
+  return await customFetch<BlogData[]>(`/client/blogs/latest`, {
+    next: {
+      revalidate: 3600,
+    },
+  })
+}
+export const getTrendingBlogs = async () => {
+  return await customFetch<BlogData[]>(`/client/blogs/trending`, {
+    next: {
+      revalidate: 3600,
+    },
+  })
+}
+export const getBlogsPerTopic = async () => {
   return await customFetch<{
-    latest: BlogData[]
-    blogs_per_topic: {
-      [key: number]: BlogData[]
-    }
-  }>(`/client/blogs`, {
+    [key: string]: BlogData[]
+  }>(`/client/blogs/topics`, {
     next: {
       revalidate: 3600,
     },
@@ -15,9 +26,9 @@ export const getLatestBlogsAndBlogPerTopics = async () => {
 }
 export const getBlogBySlug = async (slug: string) => {
   return await customFetch<{
-    latest: BlogData[]
     blog: BlogData
-  }>(`/client/blogs/${slug}`, {
+    read_more: BlogData[]
+  }>(`/client/blogs?slug=${slug}`, {
     next: {
       tags: [slug],
     },

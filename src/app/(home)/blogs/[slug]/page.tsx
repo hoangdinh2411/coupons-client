@@ -4,11 +4,12 @@ import CategoryHeader from '../components/CategoryHeader'
 import CommentSection from '@/components/comment/CommentSection'
 import { formatDate, formatDisplayName } from '@/helpers/format'
 import Image from 'next/image'
-import { getBlogBySlug } from '@/services/blogApi'
+import { getBlogBySlug, getLatestBlogs } from '@/services/blogApi'
 import { APP_ROUTERS } from '@/helpers/config'
 import { notFound, redirect } from 'next/navigation'
-import ListBlog from '../components/ListBlog'
-import SpinnerLoading from '@/components/loading'
+import ListBlog from '../components/ListBlogs'
+import TrendingBlogs from '../components/TrendingBlogs'
+import ListBlogs from '../components/ListBlogs'
 
 export default async function BlogDetailPage({
   params,
@@ -19,16 +20,21 @@ export default async function BlogDetailPage({
   if (!slug) {
     redirect(APP_ROUTERS.BLOGS)
   }
-  const res = await getBlogBySlug(slug)
+  const [blogRes, latestRes] = await Promise.all([
+    getBlogBySlug(slug),
+    getLatestBlogs(),
+  ])
 
-  if (!res.success || !res.data?.blog) {
+  if (!blogRes.success || !blogRes.data?.blog) {
     notFound()
   }
-  const blog = res.data.blog
+  const blog = blogRes.data.blog
+  const latest = latestRes.data || []
+  const readMore = blogRes.data.read_more
   return (
     <div className="mt-10">
       <div className="mx-auto max-w-[1162px]">
-        <div className="flex flex-col gap-[30px] md:flex-row">
+        <div className="mb-10 flex flex-col gap-[30px] md:flex-row">
           <div className="flex-1">
             <section className="">
               <div className="relative px-8 py-6 font-semibold">
@@ -89,22 +95,26 @@ export default async function BlogDetailPage({
                 </b>
               </p>
             </div>
-            <Suspense fallback={<SpinnerLoading />}>
+            <Suspense>
               <CommentSection blog_id={blog.id} />
             </Suspense>
           </div>
-
-          {/* <TrendingBlogs blogs={POST_PREVIEWS} /> */}
-          <section className="hidden max-w-[358px] lg:block">
-            <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
-              The Latest
-            </h5>
-            <ListBlog type="vertical" blogs={res.data.latest} />
-          </section>
+          <div className="hidden w-full md:w-1/3 lg:block">
+            <Suspense>
+              <TrendingBlogs />
+            </Suspense>
+            <section className="my-10 hidden max-w-[358px] lg:block">
+              <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
+                The Latest
+              </h5>
+              <ListBlog type="vertical" blogs={latest} />
+            </section>
+          </div>
         </div>
+
         <div className="my-10">
           <CategoryHeader title="Read More" href="/" />
-          {/* <ListBlogs type="grid" posts={LIST_POST} /> */}
+          <ListBlogs type="grid" blogs={readMore} />
         </div>
       </div>
     </div>

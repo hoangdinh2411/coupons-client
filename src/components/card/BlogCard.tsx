@@ -28,19 +28,17 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           sizes="auto"
           className={`h-full w-full object-cover ${!isVertical ? 'md:h-auto' : ''}`}
         />
-        {blog.topic.image && (
-          <span
-            className={`absolute -bottom-2 ${isVertical ? 'left-6' : 'right-6'} hidden size-[40px] rounded-full border-2 border-gray-200 lg:block`}
-          >
-            <Image
-              src={blog.topic.image.url || '/images/no-img.webp'}
-              alt={blog.topic.name}
-              fill
-              sizes="auto"
-              priority
-            />
-          </span>
-        )}
+        <span
+          className={`absolute -bottom-2 ${isVertical ? 'left-6' : 'right-6'} hidden size-[40px] rounded-full border-2 border-gray-200 lg:block`}
+        >
+          <Image
+            src={blog.topic?.image.url || '/images/no-img.webp'}
+            alt={blog.topic?.name}
+            fill
+            sizes="auto"
+            priority
+          />
+        </span>
       </Link>
 
       {/* post details */}

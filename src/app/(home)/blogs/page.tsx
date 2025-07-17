@@ -1,27 +1,33 @@
 import { Metadata } from 'next'
-import { Fragment } from 'react'
+import { Fragment, Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import TrendingPost from './components/TrendingBlogs'
 import CategoryHeader from './components/CategoryHeader'
-import ListPost from './components/ListBlog'
+import ListPost from './components/ListBlogs'
 import { formatDate } from '@/helpers/format'
-import { getLatestBlogsAndBlogPerTopics } from '@/services/blogApi'
+import { getBlogsPerTopic, getLatestBlogs } from '@/services/blogApi'
 
 export const metadata: Metadata = {
   title: 'Blogs',
 }
 
 export default async function Page() {
-  const res = await getLatestBlogsAndBlogPerTopics()
-  if (!res.success || !res.data) {
-    throw new Error(res.message ?? 'cannot get latest blogs')
+  const [latestRes, blogPerTopicRes] = await Promise.all([
+    getLatestBlogs(),
+    getBlogsPerTopic(),
+  ])
+
+  if (!latestRes.success || !latestRes.data) {
+    throw new Error(latestRes.message || 'cannot get latest blogs')
+  }
+  if (!blogPerTopicRes.success || !blogPerTopicRes.data) {
+    throw new Error(blogPerTopicRes.message || 'cannot get blogs per topic')
   }
   // const blogs_per_topic = res.data.blogs_per_topic
-  const newest = res.data.latest && res.data.latest[0]
-  const latest = res.data.latest.slice(6, res.data.latest.length)
-  const trending = res.data.latest.slice(1, 6)
-  const blogs_per_topic = Object.values(res.data.blogs_per_topic) || []
+  const newest = latestRes.data[0]
+  const latest = latestRes.data.slice(1, latestRes.data.length - 1)
+  const blogs_per_topic = Object.values(blogPerTopicRes.data)
   return (
     <Fragment>
       <div className="mt-10">
@@ -74,7 +80,11 @@ export default async function Page() {
               )}
             </div>
 
-            <TrendingPost blogs={trending} />
+            <div className="hidden w-1/3 lg:block">
+              <Suspense>
+                <TrendingPost />
+              </Suspense>
+            </div>
           </div>
           <h5 className="mb-[30px] text-xl font-bold tracking-[.2em] uppercase">
             The Latest
