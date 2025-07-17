@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Link from 'next/link'
 import CategoryHeader from '../components/CategoryHeader'
 import CommentSection from '@/components/comment/CommentSection'
@@ -8,6 +8,7 @@ import { getBlogBySlug } from '@/services/blogApi'
 import { APP_ROUTERS } from '@/helpers/config'
 import { notFound, redirect } from 'next/navigation'
 import ListBlog from '../components/ListBlog'
+import SpinnerLoading from '@/components/loading'
 
 export default async function BlogDetailPage({
   params,
@@ -28,22 +29,22 @@ export default async function BlogDetailPage({
     <div className="mt-10">
       <div className="mx-auto max-w-[1162px]">
         <div className="flex flex-col gap-[30px] md:flex-row">
-          <div className="w-full lg:w-2/3">
+          <div className="flex-1">
             <section className="">
-              <div className="relative px-8 py-6">
-                <h1 className="text-5xl leading-16 font-bold text-[#323232]">
+              <div className="relative px-8 py-6 font-semibold">
+                <h1 className="text-olive-green text-5xl leading-16 font-bold">
                   {blog.title}
                 </h1>
-                <div className="mt-2 text-sm">
+                <div className="mt-2 flex items-center gap-1 text-sm">
                   <Link
                     href=""
                     className="hover:text-green font-bold uppercase transition-all duration-300 ease-out"
                     style={{ letterSpacing: '2px' }}
                   >
-                    {blog.topic.name}
+                    {blog.topic?.name}
                   </Link>
                   <span className="px-2">·</span>
-                  <span className="text-gray-600">
+                  <span className="text-gray-500">
                     {formatDate(blog.created_at)}
                   </span>
                   <span className="px-2">·</span>
@@ -51,28 +52,50 @@ export default async function BlogDetailPage({
                     By{' '}
                     <Link
                       href=""
-                      className="hover:text-green font-semibold text-black transition-all duration-300 ease-out"
+                      className="hover:text-green text-oliver-green font-semibold transition-all duration-300 ease-out"
                     >
                       {formatDisplayName(blog.user)}
                     </Link>
                   </span>
+                  <span className="border-light-green relative ml-4 block h-[40px] w-[40px] overflow-hidden rounded-full border-1 border-solid">
+                    <Image
+                      fill
+                      sizes="auto"
+                      priority
+                      src={blog.topic.image.url || '/images/no-img.webp'}
+                      alt={blog.topic.name}
+                    />
+                  </span>
                 </div>
-                <span className="absolute size-[42px] rounded-full shadow-md">
-                  <Image
-                    width="160"
-                    height="160"
-                    src="https://www.retailmenot.com/blog/wp-content/uploads/sites/2/2024/12/Blog-Beauty.png"
-                    alt="Beauty Category Icon"
-                  />
-                </span>
               </div>
             </section>
-            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-            <CommentSection blog_id={blog.id} />
+            <div
+              className="mt-10 px-10"
+              dangerouslySetInnerHTML={{ __html: blog.content }}
+            />
+            <div className="my-10 flex gap-4">
+              <span className="relative size-[90px] overflow-hidden rounded-full">
+                <Image
+                  fill
+                  sizes="auto"
+                  priority
+                  src={'/images/no-img.webp'}
+                  alt={formatDisplayName(blog.user)}
+                />
+              </span>
+              <p>
+                <b className="text-green text-lg font-bold">
+                  {formatDisplayName(blog.user)}
+                </b>
+              </p>
+            </div>
+            <Suspense fallback={<SpinnerLoading />}>
+              <CommentSection blog_id={blog.id} />
+            </Suspense>
           </div>
 
           {/* <TrendingBlogs blogs={POST_PREVIEWS} /> */}
-          <section>
+          <section className="hidden max-w-[358px] lg:block">
             <h5 className="text-olive-green mb-[18px] text-lg font-bold tracking-widest uppercase">
               The Latest
             </h5>

@@ -1,5 +1,4 @@
 'use client'
-import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
 import Link from 'next/link'
 import React from 'react'
@@ -24,7 +23,7 @@ export default function CategoryList() {
                   <li key={store.id} className="text-sm text-slate-700">
                     <Link
                       className="block w-full py-2 hover:underline"
-                      href={`${APP_ROUTERS.ALL_STORES}/${store.slug}`}
+                      href={`/stores/${store.slug}`}
                     >
                       {store.name}
                     </Link>
