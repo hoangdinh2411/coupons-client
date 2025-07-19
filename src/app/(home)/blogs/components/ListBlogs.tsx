@@ -6,7 +6,7 @@ interface ListBlogProps {
   type: 'grid' | 'vertical'
 }
 
-export default function ListBlog({ blogs, type }: ListBlogProps) {
+export default function ListBlogs({ blogs, type }: ListBlogProps) {
   return (
     <div
       className={

@@ -20,6 +20,7 @@ export default function PromoSlider({
   return (
     <div className="my-4 w-full">
       <Splide
+        className="custom-splide"
         options={{
           type: 'loop',
           perPage: 1,
@@ -31,6 +32,11 @@ export default function PromoSlider({
           pauseOnFocus: true,
           arrows: true,
           focus: 'center',
+          classes: {
+            arrow: 'splide__arrow',
+            prev: 'splide__arrow--prev !left-0 lg:!left-[6%] 2xl:!left-[16%] !size-10',
+            next: 'splide__arrow--next !right-0 lg:!right-[6%] 2xl:!right-[16%] !size-10',
+          },
         }}
         aria-label="Promo Slider"
       >

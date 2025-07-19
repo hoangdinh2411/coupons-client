@@ -1,3 +1,4 @@
+import { UserData } from './auth.type'
 import { ImageType, MetaData, BaseData } from './share.type'
 import { TopicData } from './topic.type'
 
@@ -14,4 +15,5 @@ export interface BlogData extends BaseData {
   is_published: boolean
   is_indexed: boolean
   created_at: string
+  user: UserData
 }

@@ -2,7 +2,7 @@
 
 @layer components {
   .btn-primary {
-    @apply hover:bg-light-green bg-green flex h-[44px] w-full min-w-30 cursor-pointer items-center justify-center rounded-3xl p-2 text-center text-lg font-bold text-white transition-all duration-300 hover:text-olive-green disabled:bg-gray-300;
+    @apply hover:bg-light-green bg-green flex h-[44px] w-full min-w-30 cursor-pointer items-center justify-center rounded-3xl py-2 px-4 text-center text-lg font-bold text-white transition-all duration-300 hover:text-olive-green disabled:bg-gray-300;
   }
   /**textfield*/
   .textfield {
@@ -28,4 +28,41 @@
   .card-outline {
     @apply focus:outline-green hover:outline-green outline-1 outline-transparent;
   }
+}
+
+/* custom slide homepage */
+.custom-splide .splide__pagination li {
+  width: 20px;
+}
+
+.custom-splide .splide__arrow {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background-color: black;
+}
+.custom-splide:hover .splide__arrow {
+  opacity: 1;
+}
+
+.custom-splide .splide__arrow svg {
+  fill: white ;
+}
+
+.custom-splide .splide__pagination__page {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.custom-splide .splide__pagination__page.is-active  {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background-color: black !important;
+  transform: scale(1);
+}
+
+.custom-splide .splide__pagination li button:focus {
+  padding: 0 !important;
+  border: none !important;
 }

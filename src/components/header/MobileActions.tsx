@@ -11,9 +11,8 @@ import {
   // MdOutlineKeyboardArrowUp,
 } from 'react-icons/md'
 export default function MobileActions() {
-  const { user } = UseAppStore((state) => state)
-  // const [selectedStore, setSelectedStore] = useState('')
-  // const [selectedTopic, setSelectedTopic] = useState('')
+  const { user, menu } = UseAppStore((state) => state)
+
   return (
     <div className="block lg:hidden">
       <input type="checkbox" name="" id="mobile-menu" className="peer" hidden />
@@ -25,7 +24,7 @@ export default function MobileActions() {
           <div className="relative m-auto flex w-full max-w-(--max-width) items-center justify-around gap-4 p-4 py-4">
             <Link
               href={APP_ROUTERS.INDEX}
-              className="relative mr-auto aspect-auto h-12 w-40"
+              className="relative mr-auto aspect-auto h-20 w-60"
             >
               <Image
                 src="/images/logo-with-text-and-green-logo.png"
@@ -42,10 +41,21 @@ export default function MobileActions() {
           </div>
           <div className="flex items-center justify-center gap-4 px-4 py-8 sm:px-8">
             {user ? (
-              <Fragment>
-                <p>Welcome back: </p>
-                <p> {formatDisplayName(user)}</p>
-              </Fragment>
+              <div className="flex w-full items-center justify-around">
+                <p>
+                  Welcome:{' '}
+                  <b className="font-semibold">
+                    {' '}
+                    {formatDisplayName(user)}
+                  </b>{' '}
+                </p>
+                <Link
+                  className="btn-primary text-olive-green h-12 max-w-[320px] border-1 border-solid border-gray-300 bg-white font-extrabold"
+                  href={APP_ROUTERS.MY_COUPONS}
+                >
+                  My Coupons
+                </Link>
+              </div>
             ) : (
               <Fragment>
                 <Link
@@ -75,42 +85,69 @@ export default function MobileActions() {
             {/* Stores */}
             <div className="w-full px-4">
               <p className="w-full py-3 font-bold uppercase">Browser Stores</p>
-              <div className="w-full pl-4 font-bold">
-                <div>
-                  <div className="flex w-full cursor-pointer items-center gap-2 py-2 text-sm">
-                    <span className="font-bold">Popular </span>
+              <div className="ml-4 flex flex-col gap-3">
+                <div className="w-full font-bold">
+                  <input type="checkbox" className="peer" id="popular" hidden />
+                  <label
+                    htmlFor="popular"
+                    className="flex cursor-pointer items-center gap-2 font-bold"
+                  >
+                    Popular
                     <MdOutlineKeyboardArrowDown className="block" />
-                    {/* <MdOutlineKeyboardArrowUp className="block" /> */}
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 pl-4">
-                    <Link
-                      href="#"
-                      className="py-1 text-sm font-semibold hover:underline"
-                    >
-                      AAA
-                    </Link>
-                    <Link
-                      href="#"
-                      className="py-1 text-sm font-semibold hover:underline"
-                    >
-                      BBB
-                    </Link>
-                    <Link
-                      href="#"
-                      className="py-1 text-sm font-semibold hover:underline"
-                    >
-                      CCC
-                    </Link>
-                    <Link
-                      href="#"
-                      className="py-1 text-sm font-semibold hover:underline"
-                    >
-                      DDD
-                    </Link>
+                  </label>
+                  {/* <MdOutlineKeyboardArrowUp className="block" /> */}
+                  <div className="hidden peer-checked:block">
+                    <div className="grid grid-cols-2 gap-2 pl-4">
+                      {menu.popular &&
+                        menu.popular.map((s) => (
+                          <Link
+                            key={s.id}
+                            href={'/stores' + s.slug}
+                            className="py-1 text-sm font-semibold hover:underline"
+                          >
+                            {s.name}
+                          </Link>
+                        ))}
+                    </div>
                   </div>
                 </div>
-                {/*  All */}
+                {/*  All categories*/}
                 <div className="w-full font-bold">
+                  {menu.categories &&
+                    menu.categories.map((c) => (
+                      <div className="w-full py-2" key={c.id}>
+                        <input
+                          type="checkbox"
+                          className="peer"
+                          id={c.id.toString()}
+                          hidden
+                        />
+                        <label
+                          htmlFor={c.id.toString()}
+                          className="flex cursor-pointer items-center gap-2 font-bold"
+                        >
+                          {c.name}
+                          <MdOutlineKeyboardArrowDown />
+                        </label>
+
+                        <div className="hidden peer-checked:block">
+                          <div className="grid grid-cols-2 gap-2 pl-4">
+                            {c.stores &&
+                              c.stores.map((s) => (
+                                <div className="flex flex-col gap-2" key={s.id}>
+                                  <Link
+                                    href="#"
+                                    className="py-1 text-sm font-semibold hover:underline"
+                                  >
+                                    {s.name}
+                                  </Link>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
                   <div className="flex w-full cursor-pointer items-center gap-2 py-2 text-sm">
                     <Link
                       href={APP_ROUTERS.ALL_CATEGORIES}
@@ -119,15 +156,15 @@ export default function MobileActions() {
                       All Categories{' '}
                     </Link>
                   </div>
-                </div>
-                <div className="w-full font-bold">
-                  <div className="flex w-full cursor-pointer items-center gap-2 py-2 text-sm">
-                    <Link
-                      href={APP_ROUTERS.ALL_STORES}
-                      className="font-bold hover:underline"
-                    >
-                      All Stores{' '}
-                    </Link>
+                  <div className="w-full font-bold">
+                    <div className="flex w-full cursor-pointer items-center gap-2 py-2 text-sm">
+                      <Link
+                        href={APP_ROUTERS.ALL_STORES}
+                        className="font-bold hover:underline"
+                      >
+                        All Stores{' '}
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -138,7 +175,7 @@ export default function MobileActions() {
               <input type="checkbox" className="peer" id="blogs" hidden />
               <label
                 htmlFor="blogs"
-                className="flex w-full gap-2 py-3 font-bold uppercase"
+                className="flex w-full cursor-pointer items-center gap-2 py-3 font-bold uppercase"
               >
                 Blogs
                 <MdOutlineKeyboardArrowDown />
@@ -150,7 +187,7 @@ export default function MobileActions() {
                     href={APP_ROUTERS.ALL_TOPICS}
                     className="font-bold hover:underline"
                   >
-                    All Topics{' '}
+                    All Topics
                   </Link>
                 </div>
                 <div className="flex w-full cursor-pointer items-center gap-2 py-2 text-sm">
@@ -164,15 +201,8 @@ export default function MobileActions() {
                   >
                     AAA
                   </Link>
-                  <Link
-                    href="#"
-                    className="py-1 text-sm font-semibold hover:underline"
-                  >
-                    BBB
-                  </Link>
                 </div>
               </div>
-              {/*  All */}
             </div>
           </div>
         </nav>

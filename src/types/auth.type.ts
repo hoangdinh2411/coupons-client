@@ -1,5 +1,5 @@
 import { ROLES, VerifyCodeType } from './enum'
-import { BaseData } from './share.type'
+import { BaseData, ImageType } from './share.type'
 
 export interface SignInPayload {
   email: string
@@ -18,6 +18,7 @@ export interface UserData extends BaseData {
   token?: string
   first_name?: string
   last_name?: string
+  image: ImageType
 }
 export interface VerifyRequestPayload {
   email: string

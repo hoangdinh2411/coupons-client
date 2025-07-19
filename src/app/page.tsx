@@ -2,13 +2,13 @@ import Footer from '../components/footer'
 import Header from '../components/header'
 import PromoSlider from './components/PromoSlider'
 import ListSale from './components/ListSale'
-import CashBackDealList from './components/CashBackDealList'
-import Accordion from '../components/accordion/Accordion'
 import Link from 'next/link'
 import BestDeals from './components/BestDeals'
 import Image from 'next/image'
 import TopDealList from './(home)/hot-deals/TopDealList'
 import SpotlightList from './components/SpotlightList'
+import CategoryDealList from './components/CategoryDealList'
+import BaseAccordion from '../components/accordion/BaseAccordion'
 
 const POPULAR_CATEGORIES = [
   { name: 'Baby', href: '/coupons/baby' },
@@ -92,13 +92,13 @@ const BEST_DEALS = [
   },
 ]
 
-const STORE_LIST = Array.from({ length: 8 }, (_, i) => ({
-  store_id: `store-${i + 1}`,
-  store_title: 'Cash Back',
-  store_value: i + 2,
-  store_link: '/',
-  store_imgUrl: '/images/brandCard2.webp',
-  store_icon: '/images/cashback-bolt.svg',
+const CATEGORIES_LIST = Array.from({ length: 10 }, (_, i) => ({
+  category_id: `category-${i + 1}`,
+  category_title: 'Cash Back',
+  category_value: i + 2,
+  category_link: '/',
+  category_imgUrl: '/images/brandCard2.webp',
+  category_icon: '/images/cashback-bolt.svg',
 }))
 
 const LIST_SALE = Array.from({ length: 10 }, (_, i) => ({
@@ -173,10 +173,10 @@ export default function LandingPage() {
                 href="/cashback"
                 className="block text-xs font-semibold tracking-widest uppercase underline underline-offset-4"
               >
-                All Cash Back
+                all category
               </Link>
             </div>
-            <CashBackDealList stores={STORE_LIST} />
+            <CategoryDealList categories={CATEGORIES_LIST} />
           </section>
           <section className="mb-12 flex flex-col md:mb-20 md:flex-row md:border md:border-gray-200 md:shadow-md">
             <div className="w-full bg-gray-200 drop-shadow md:w-2/3 md:drop-shadow-none">
@@ -202,7 +202,7 @@ export default function LandingPage() {
           <div className="mb-16 md:mb-20">
             <Link
               href="/"
-              className="scrollbar-hide flex items-center justify-between gap-8 overflow-x-scroll rounded bg-white px-8 text-black shadow-md"
+              className="flex items-center justify-between gap-8 rounded bg-white px-8 text-black shadow-md"
             >
               <Image
                 src={'/images/dream_bar_1.webp'}
@@ -300,10 +300,13 @@ export default function LandingPage() {
           </section>
 
           <details className="group mb-8 border-b border-gray-200 pb-8 md:mt-20">
-            <Accordion data={POPULAR_CATEGORIES} title="Popular Categories" />
+            <BaseAccordion
+              data={POPULAR_CATEGORIES}
+              title="Popular Categories"
+            />
           </details>
           <details className="group mb-8 border-b border-gray-200 pb-8 md:mt-20">
-            <Accordion data={POPULAR_CATEGORIES} title="Popular Stores" />
+            <BaseAccordion data={POPULAR_CATEGORIES} title="Popular Stores" />
           </details>
 
           <section className="mb-16 md:mb-20">
@@ -393,7 +396,7 @@ export default function LandingPage() {
               Frequently Asked Questions
             </h2>
             <details className="group my-9 mt-9 border-b border-gray-200 pb-9">
-              <Accordion
+              <BaseAccordion
                 type="prose"
                 data={FAQ}
                 title="How can RetailMeNot save me money when shopping online?"
