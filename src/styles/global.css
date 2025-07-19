@@ -93,12 +93,14 @@ button:disabled {
 .splide__pagination__page.is-active {
   background-color: black;
   border-radius: 10px !important;
-
   width: 40px !important;
   height: 4px;
 }
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE & Edge */
+}
 
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }

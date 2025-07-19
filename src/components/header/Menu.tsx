@@ -55,7 +55,7 @@ export default function Menu({ data }: { data: MenuData }) {
     }
   }, [pathname])
   return (
-    <ul className="hidden gap-4 lg:flex">
+    <ul className="z-20 hidden gap-4 lg:flex">
       <li className="relative font-semibold text-white">
         <p
           className={`flex cursor-pointer items-center gap-1 rounded-full border-1 border-transparent p-1 px-4 py-3 hover:bg-white/10 ${target === 'category' ? 'border-white' : ''}`}
@@ -70,7 +70,7 @@ export default function Menu({ data }: { data: MenuData }) {
         <div
           ref={categoryRef}
           data-target={target}
-          className="border-light-gray text-olive-green absolute top-[60px] z-10 hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium shadow-md data-[target=blog]:hidden data-[target=category]:flex"
+          className="border-light-gray text-olive-green absolute top-[60px] z-[100] hidden min-w-80 gap-2 rounded-sm border-1 bg-white p-2 font-medium shadow-md data-[target=blog]:hidden data-[target=category]:flex"
         >
           <div className="flex min-w-36 flex-col gap-4 border-r-2 border-solid border-gray-200">
             <div

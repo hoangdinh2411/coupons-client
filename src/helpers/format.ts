@@ -6,7 +6,7 @@ export function formatDiscountPct(value: number): number | string {
 }
 
 export const formatDisplayName = (user: UserData) => {
-  if (!user) return ''
+  if (!user) return 'User'
   return user.first_name && user.last_name
     ? ` ${user.first_name} ${user.last_name}`
     : user.email
