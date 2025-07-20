@@ -42,12 +42,12 @@ export async function SignInAction(
   }
 
   const isProd = process.env.NODE_ENV === 'production'
-  cookieStore.set('session', data.token || '', {
+  cookieStore.set('token', data.token || '', {
     httpOnly: true,
     secure: isProd,
-    sameSite: isProd ? 'none' : 'lax',
+    sameSite: 'lax',
     path: '/',
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: 60 * 60 * 24,
   })
 
   delete data.token

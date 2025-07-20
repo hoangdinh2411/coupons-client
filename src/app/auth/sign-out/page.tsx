@@ -1,29 +1,25 @@
 'use client'
 import SpinnerLoading from '@/components/loading'
 import { APP_ROUTERS } from '@/helpers/config'
-import { signOutApi } from '@/services/authApi'
 import UseAppStore from '@/stores/app.store'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 function SignOutPage() {
-  const { setUser } = UseAppStore((state) => state)
+  const { signOut } = UseAppStore((state) => state)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
   useEffect(() => {
     async function handleSignOut() {
       setLoading(true)
-      const res = await signOutApi()
-      if (res.ok) {
-        setUser(null)
-        setTimeout(() => {
-          router.push(APP_ROUTERS.INDEX)
-        }, 5000)
-        setTimeout(() => {
-          setLoading(false)
-        }, 2000)
-      }
+      await signOut()
+      setTimeout(() => {
+        router.push(APP_ROUTERS.INDEX)
+      }, 5000)
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000)
     }
     handleSignOut()
   }, [])

@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import Link from 'next/link'
 import CategoryHeader from '../components/CategoryHeader'
-import CommentSection from '@/components/comment/CommentSection'
+import CommentSection from '@/app/(home)/blogs/[slug]/comment/CommentSection'
 import { formatDate, formatDisplayName } from '@/helpers/format'
 import Image from 'next/image'
 import { getBlogBySlug, getLatestBlogs } from '@/services/blogApi'

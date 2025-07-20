@@ -1,15 +1,47 @@
 'use client'
+import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { APP_ROUTERS } from '@/helpers/config'
 import { formatDisplayName } from '@/helpers/format'
+import { sendComment } from '@/services/commentApi'
 import UseAppStore from '@/stores/app.store'
+import { CommentData } from '@/types/comment.type'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRef } from 'react'
+import { Dispatch, SetStateAction, useRef, useTransition } from 'react'
+import toast from 'react-hot-toast'
 import { MdOutlineArrowRightAlt } from 'react-icons/md'
 
-export default function CommentForm() {
+export default function CommentForm({
+  blog_id,
+  setComments,
+}: {
+  blog_id: number
+  setComments: Dispatch<SetStateAction<CommentData[]>>
+}) {
   const user = UseAppStore((state) => state.user)
   const commentRef = useRef<HTMLTextAreaElement | null>(null)
+  const [isPending, startTransition] = useTransition()
+  const handleSubmitComment = () => {
+    startTransition(async () => {
+      if (commentRef.current) {
+        const content = commentRef.current.value.trim()
+        if (!content) {
+          toast.error('Please, write something')
+          return
+        }
+
+        const res = await sendComment({
+          blog_id,
+          content,
+        })
+        if (res.success && res.data) {
+          setComments((prev) => [res.data as CommentData, ...prev])
+          return
+        }
+        toast.error(res.message || 'Cannot comment this blog')
+      }
+    })
+  }
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -50,10 +82,14 @@ export default function CommentForm() {
               required
             />
           </div>
-          <button className="btn-primary w-fit">
+          <ButtonWithLoading
+            isPending={isPending}
+            className="w-fit"
+            onClick={handleSubmitComment}
+          >
             Submit Comment
             <MdOutlineArrowRightAlt />
-          </button>
+          </ButtonWithLoading>
         </form>
       ) : (
         <Link href={APP_ROUTERS.SIGN_IN} className="btn-primary w-fit">
