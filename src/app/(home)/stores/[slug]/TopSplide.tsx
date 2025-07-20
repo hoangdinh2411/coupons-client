@@ -5,7 +5,7 @@ import React from 'react'
 
 function TopSplide() {
   return (
-    <div className="">
+    <div className="bg-white lg:bg-transparent">
       <div className="hidden lg:block">
         <Splide
           className="mx-auto max-w-(--max-width)"
