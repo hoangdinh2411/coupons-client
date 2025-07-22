@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import Link from 'next/link'
 import CategoryHeader from '../components/CategoryHeader'
-import CommentSection from '@/components/comment/CommentSection'
+import CommentSection from '@/app/(home)/blogs/[slug]/comment/CommentSection'
 import { formatDate, formatDisplayName } from '@/helpers/format'
 import Image from 'next/image'
 import { getBlogBySlug, getLatestBlogs } from '@/services/blogApi'
@@ -10,6 +10,7 @@ import { notFound, redirect } from 'next/navigation'
 import ListBlog from '../components/ListBlogs'
 import TrendingBlogs from '../components/TrendingBlogs'
 import ListBlogs from '../components/ListBlogs'
+import SpinnerLoading from '@/components/loading'
 
 export default async function BlogDetailPage({
   params,
@@ -95,7 +96,7 @@ export default async function BlogDetailPage({
                 </b>
               </p>
             </div>
-            <Suspense>
+            <Suspense fallback={<SpinnerLoading />}>
               <CommentSection blog_id={blog.id} />
             </Suspense>
           </div>
@@ -113,7 +114,10 @@ export default async function BlogDetailPage({
         </div>
 
         <div className="my-10">
-          <CategoryHeader title="Read More" href="/" />
+          <CategoryHeader
+            title="Read More"
+            href={`/topic/${blog.topic.slug}`}
+          />
           <ListBlogs type="grid" blogs={readMore} />
         </div>
       </div>
