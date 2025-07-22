@@ -4,15 +4,13 @@ const CouponsHeader = () => {
   return (
     <>
       <div className="absolute right-0 left-0 mt-10 hidden min-h-16 py-6 shadow-sm lg:block lg:bg-white">
-        <div className="container mx-auto flex max-w-screen-xl gap-10">
-          <div className="">
-            <p className="font-sans-bold mb-3 hidden text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:self-start lg:pl-0 lg:text-4xl">
-              {'Baby'} {' Sales & Deals'}
-            </p>
-            <p className="mt-4 text-sm font-[600] tracking-wider uppercase">
-              Top offers for July, 12th 2025
-            </p>
-          </div>
+        <div className="container mx-4 flex max-w-screen-xl flex-col xl:mx-auto">
+          <p className="font-sans-bold mb-3 hidden text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:self-start lg:pl-0 lg:text-4xl">
+            {'Baby'} {' Sales & Deals'}
+          </p>
+          <p className="mt-4 text-sm font-[600] tracking-wider uppercase">
+            Top offers for July, 12th 2025
+          </p>
         </div>
       </div>
 

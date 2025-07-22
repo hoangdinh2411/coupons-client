@@ -1,4 +1,3 @@
-'use client'
 import React from 'react'
 import TopSplide from '../../stores/[slug]/TopSplide'
 import CouponsHeader from './CouponHeader'
@@ -6,12 +5,20 @@ import Link from 'next/link'
 import ListCoupons from './ListCoupons'
 import SideSection from './SideSection'
 
-const CouponsByCategoryPage = () => {
+const CouponsByCategoryPage = async ({
+  params,
+}: {
+  params: Promise<{ categorySlug: string }>
+}) => {
+  const { categorySlug } = await params
+  console.log(categorySlug)
+
   return (
     <>
-      <div className="-my-10">
+      <div className="-my-9 md:-my-10">
         <TopSplide />
       </div>
+
       <CouponsHeader />
 
       <div className="container mx-auto grid max-w-screen-xl grid-cols-[theme(spacing.24)_auto] lg:mt-4 lg:grid-cols-[theme(spacing.80)_auto] lg:pt-40">

@@ -6,7 +6,7 @@ import React from 'react'
 function TopSplide() {
   return (
     <div className="bg-white lg:bg-transparent">
-      <div className="hidden lg:block">
+      <div className="hidden md:block">
         <Splide
           className="mx-auto max-w-(--max-width)"
           options={{
@@ -19,7 +19,7 @@ function TopSplide() {
               speed: 1,
             },
             classes: {
-              arrow: 'splide__arrow !bg-transparent !size-4',
+              arrow: 'splide__arrow !bg-transparent !size-3',
             },
           }}
           hasTrack={false}
