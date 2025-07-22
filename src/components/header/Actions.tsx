@@ -95,7 +95,7 @@ export default function Actions() {
           ref={containerRef}
           onClick={handleToggle}
           data-open={isOpen}
-          className="relative flex min-w-8 cursor-pointer items-center gap-1 rounded-full border-1 border-solid border-transparent p-1 px-6 py-3 text-white hover:bg-white/10 data-[open=true]:border-white"
+          className="relative z-100 flex min-w-8 cursor-pointer items-center gap-1 rounded-full border-1 border-solid border-transparent p-1 px-6 py-3 text-white hover:bg-white/10 data-[open=true]:border-white"
         >
           {formatDisplayName(user)}
           <IoIosArrowDown

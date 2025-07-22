@@ -4,7 +4,8 @@ import { BaseData } from './share.type'
 
 export interface CommentPayload {
   content: string
-  blog_id: number
+  blog_id?: number
+  comment_id?: number
 }
 export interface CommentData extends BaseData {
   content: string

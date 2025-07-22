@@ -36,12 +36,15 @@ export const sendComment = async (data: CommentPayload) => {
   return res
 }
 export const updateComment = async (data: CommentPayload) => {
-  const res = await customFetchWithToken<CommentData>(`/comments`, {
-    method: 'PATCH',
-    body: JSON.stringify({
-      content: data.content,
-    }),
-  })
+  const res = await customFetchWithToken<CommentData>(
+    `/comments/${data.comment_id}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify({
+        content: data.content,
+      }),
+    },
+  )
 
   if (res.success) {
     revalidateTag('comments-' + data.blog_id)

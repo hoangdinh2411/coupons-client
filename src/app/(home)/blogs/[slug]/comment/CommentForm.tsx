@@ -29,16 +29,15 @@ export default function CommentForm({
           toast.error('Please, write something')
           return
         }
-
         const res = await sendComment({
           blog_id,
           content,
         })
+        toast.error(res.message || 'Cannot comment this blog')
         if (res.success && res.data) {
           setComments((prev) => [res.data as CommentData, ...prev])
           return
         }
-        toast.error(res.message || 'Cannot comment this blog')
       }
     })
   }

@@ -1,13 +1,21 @@
+'use client'
+import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { formatDisplayName } from '@/helpers/format'
-import { deleteComment } from '@/services/commentApi'
+import { deleteComment, updateComment } from '@/services/commentApi'
 import UseAppStore from '@/stores/app.store'
 import { CommentData } from '@/types/comment.type'
 import dayjs from 'dayjs'
 import Image from 'next/image'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from 'react'
 import toast from 'react-hot-toast'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
-import {} from 'react-icons/md'
 
 export default function CommentItem({
   comment,
@@ -18,9 +26,15 @@ export default function CommentItem({
 }) {
   const [open, setOpen] = useState<boolean>(false)
   const user = UseAppStore((state) => state.user)
+  const [isEditing, setIsEditing] = useState(false)
+  const commentRef = useRef<HTMLTextAreaElement | null>(null)
+  const [isPending, startTransition] = useTransition()
 
   const handleToggle = () => {
     setOpen(!open)
+  }
+  const handleToggleEdit = () => {
+    setIsEditing(!isEditing)
   }
   useEffect(() => {
     function handleClickOutside() {
@@ -33,7 +47,34 @@ export default function CommentItem({
       document.removeEventListener('mouseup', handleClickOutside)
     }
   }, [open])
-
+  const handleSubmitComment = () => {
+    let content = ''
+    if (commentRef.current) {
+      content = commentRef.current.value.trim()
+      if (!content) {
+        toast.error('Please, write something')
+        return
+      }
+      if (content !== comment.content) {
+        startTransition(async () => {
+          const res = await updateComment({
+            content,
+            comment_id: comment.id,
+          })
+          if (res.success && res.data) {
+            setComments((prev) =>
+              prev.map((c) => (c.id === comment.id ? { ...c, content } : c)),
+            )
+            handleToggleEdit()
+            return
+          }
+          toast.error(res.message || 'Cannot comment this blog')
+        })
+      } else {
+        handleToggleEdit()
+      }
+    }
+  }
   const handleDelete = async () => {
     const res = await deleteComment(comment.id, comment.blog.id)
     if (res.success) {
@@ -52,11 +93,16 @@ export default function CommentItem({
               <HiOutlineDotsVertical />
             </span>
             <div
-              className={`absolute top-full right-0 ${open ? 'flex' : 'hidden'} z-10 flex-col gap-2 rounded-md bg-white shadow-md`}
+              className={`absolute top-full right-0 min-w-20 ${open ? 'flex' : 'hidden'} z-10 flex-col gap-2 rounded-md bg-white shadow-lg`}
             >
-              <p className="hover:bg-light-green w-full cursor-pointer p-2">
-                Edit
-              </p>
+              {!isEditing && (
+                <p
+                  className="hover:bg-light-green w-full cursor-pointer p-2"
+                  onClick={handleToggleEdit}
+                >
+                  Edit
+                </p>
+              )}
               <p
                 className="hover:bg-light-green w-full cursor-pointer p-2"
                 onClick={handleDelete}
@@ -99,7 +145,38 @@ export default function CommentItem({
             ))}
           </div>
         </div> */}
-        <p className="text-olive-green">{comment.content}</p>
+        {isEditing ? (
+          <form className="space-y-6">
+            <div className="border-green flex w-full flex-col gap-3 rounded border border-solid">
+              <textarea
+                ref={commentRef}
+                className="w-full rounded-lg bg-white p-4 transition-all duration-200"
+                rows={4}
+                defaultValue={comment.content}
+                placeholder="Write your comment here..."
+                required
+              />
+            </div>
+            <div className="flex items-center justify-end gap-2">
+              <ButtonWithLoading
+                isPending={isPending}
+                className="w-fit"
+                onClick={handleSubmitComment}
+                type="button"
+              >
+                Save
+              </ButtonWithLoading>
+              <ButtonWithLoading
+                className="w-fit bg-gray-300 text-black"
+                onClick={handleToggleEdit}
+              >
+                Cancel
+              </ButtonWithLoading>
+            </div>
+          </form>
+        ) : (
+          <p className="text-olive-green">{comment.content}</p>
+        )}
       </div>
     </li>
   )

@@ -48,13 +48,13 @@ function StoreInfo({ className = '' }: { className: string }) {
   return (
     <div className={`${className} `}>
       <div className="relative xl:mt-28 xl:pr-26">
-        <p className="mt-20 mb-12 hidden text-sm font-bold lg:block">
+        <div className="mt-20 mb-12 hidden text-sm font-bold lg:block">
           When you buy through links on
           <p>
             RetailMeNot{' '}
             <span className="underline">we may earn a commission.</span>
           </p>
-        </p>
+        </div>
         <div className="w-full rounded-lg lg:mx-auto lg:max-w-md">
           <h3 className="mb-4 text-sm font-bold uppercase">
             TODAY&apos;S TOP A PEA IN THE POD OFFERS:

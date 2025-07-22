@@ -2,8 +2,9 @@
 import { getComments } from '@/services/commentApi'
 import CommentForm from './CommentForm'
 import CommentList from './CommentList'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { CommentData } from '@/types/comment.type'
+import SpinnerLoading from '@/components/loading'
 
 interface CommentSectionProps {
   blog_id: number
@@ -33,7 +34,9 @@ export default function CommentSection({ blog_id }: CommentSectionProps) {
   return (
     <div className="flex flex-col gap-6">
       <section className="border-green grid gap-4 rounded-md border bg-green-50 px-4 py-6 sm:gap-6 sm:px-6 sm:py-8 lg:px-8">
-        <CommentForm blog_id={blog_id} setComments={setComments} />
+        <Suspense fallback={<SpinnerLoading />}>
+          <CommentForm blog_id={blog_id} setComments={setComments} />
+        </Suspense>
       </section>
       <section className="border-green grid gap-4 rounded-md border bg-green-50 px-4 py-6 sm:gap-6 sm:px-6 sm:py-8 lg:px-8">
         <CommentList
