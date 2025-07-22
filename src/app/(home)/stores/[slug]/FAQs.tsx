@@ -1,4 +1,4 @@
-import TextAccordion from '@/components/Accordion/TextAccordion'
+import TextAccordion from '@/components/accordion/TextAccordion'
 import React from 'react'
 
 function FAQs() {

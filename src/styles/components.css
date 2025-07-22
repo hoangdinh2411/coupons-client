@@ -29,3 +29,40 @@
     @apply focus:outline-green hover:outline-green outline-1 outline-transparent;
   }
 }
+
+/* custom slide homepage */
+.custom-splide .splide__pagination li {
+  width: 20px;
+}
+
+.custom-splide .splide__arrow {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background-color: black;
+}
+.custom-splide:hover .splide__arrow {
+  opacity: 1;
+}
+
+.custom-splide .splide__arrow svg {
+  fill: white ;
+}
+
+.custom-splide .splide__pagination__page {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.custom-splide .splide__pagination__page.is-active  {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background-color: black !important;
+  transform: scale(1);
+}
+
+.custom-splide .splide__pagination li button:focus {
+  padding: 0 !important;
+  border: none !important;
+}

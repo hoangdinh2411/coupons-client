@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-interface AccordionProps {
+interface BaseAccordionProps {
   data: {
     name: string
     href: string
@@ -9,7 +9,11 @@ interface AccordionProps {
   type?: 'grid' | 'prose'
 }
 
-export default function Accordion({ data, title, type }: AccordionProps) {
+export default function BaseAccordion({
+  data,
+  title,
+  type,
+}: BaseAccordionProps) {
   return (
     <>
       <summary

@@ -31,7 +31,7 @@ function CouponCard(props: CouponCardPropsType) {
   return (
     <Link
       href="#"
-      className={`${className} focus:outline-green mb-5 rounded-2xl border-white p-2 outline-1 outline-transparent md:mb-0`}
+      className={`${className} focus:outline-green mb-5 rounded-2xl border-white py-2 outline-1 outline-transparent md:mb-0`}
       {...rest}
     >
       <div
