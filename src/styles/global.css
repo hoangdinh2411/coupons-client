@@ -9,7 +9,7 @@ body {
   font-family: var(--font-aptos);
   background-color: var(--color-gray-50);
 }
-/* 
+/*
 .loader {
   width: 60px;
   aspect-ratio: 1;
@@ -93,7 +93,6 @@ button:disabled {
 .splide__pagination__page.is-active {
   background-color: black;
   border-radius: 10px !important;
-
   width: 40px !important;
   height: 4px;
 }

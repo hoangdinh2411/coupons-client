@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import CardAccordion from '../Accordion/CardAccordion'
+import CardAccordion from '../accordion/CardAccordion'
 import { CouponData } from '@/types/coupon.type'
 
 function CouponCardAccordion(coupon: CouponData) {
