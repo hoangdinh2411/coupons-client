@@ -45,7 +45,7 @@ export default function CategoryDealList({
           },
         },
       }}
-      className="splide-container"
+      className="splide-container custom-splide"
     >
       {categories.map((category) => (
         <SplideSlide key={category.category_id}>
