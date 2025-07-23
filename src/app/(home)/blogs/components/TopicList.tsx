@@ -5,7 +5,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
 import { TopicData } from '@/types/topic.type'
 
-export default function CategoryList({ topics }: { topics: TopicData[] }) {
+export default function TopicList({ topics }: { topics: TopicData[] }) {
   return (
     <Splide
       className="hidden lg:block"

@@ -1,7 +1,8 @@
 'use client'
+import { signOutApi } from '@/services/authApi'
 import { UserData } from '@/types/auth.type'
 import { MenuData } from '@/types/client.type'
-import { create, useStore } from 'zustand'
+import { create } from 'zustand'
 
 export type AppStoreType = {
   menu: MenuData
@@ -10,9 +11,10 @@ export type AppStoreType = {
   setUser: (data: UserData | null) => void
   isLoading: boolean
   setIsLoading: (status: boolean) => void
+  signOut: () => Promise<void>
 }
 
-export const AppStore = create<AppStoreType>((set) => ({
+const UseAppStore = create<AppStoreType>((set) => ({
   menu: {
     top_categories: [],
     categories: [],
@@ -23,8 +25,11 @@ export const AppStore = create<AppStoreType>((set) => ({
   setUser: (data: UserData | null) => set({ user: data }),
   isLoading: false,
   setIsLoading: (status: boolean) => set({ isLoading: status }),
+  signOut: async () => {
+    await signOutApi()
+    set({ user: null })
+    window.location.reload()
+  },
 }))
 
-const UseAppStore = <T>(selector: (state: AppStoreType) => T) =>
-  useStore(AppStore, selector)
 export default UseAppStore

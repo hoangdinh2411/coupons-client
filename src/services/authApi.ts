@@ -34,8 +34,19 @@ export const forgetPasswordApi = async (email: string) => {
   })
 }
 export const signOutApi = async () => {
-  return await fetch('/api/sign-out', {
+  return await fetch(process.env.NEXT_PUBLIC_APP_DOMAIN + '/api/sign-out', {
     method: 'DELETE',
     credentials: 'include',
   })
+}
+export const getTokenApi = async () => {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_APP_DOMAIN + '/api/get-token',
+    {
+      method: 'GET',
+    },
+  )
+
+  const data = await res.json()
+  return data.token
 }

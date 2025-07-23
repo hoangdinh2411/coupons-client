@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <Fragment>
       <Header />
-      <main className="my-10 px-4">{children}</main>
+      <main className="px-4">{children}</main>
       <Footer />
     </Fragment>
   )

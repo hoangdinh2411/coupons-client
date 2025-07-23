@@ -80,6 +80,7 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
 
       {/* Slider Section */}
       <Splide
+        className="custom-splide"
         options={{
           type: 'loop',
           autoWidth: false,

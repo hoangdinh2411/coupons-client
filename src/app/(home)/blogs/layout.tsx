@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from 'react'
-import CategoryList from './components/CategoryList'
+import TopicList from './components/TopicList'
 import Link from 'next/link'
 import { getTopics } from '@/services/topicApi'
 
@@ -15,7 +15,7 @@ export default async function BlogLayout({
   return (
     <Fragment>
       <nav className="mx-auto max-w-[1162px] pt-10">
-        <CategoryList topics={res.data} />
+        <TopicList topics={res.data} />
         <div className="mt-4 text-center text-xs">
           <p className="text-olive-green text-xs">
             Every product and brand is selected by RetailMeNot&apos;s editors.

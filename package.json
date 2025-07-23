@@ -4,7 +4,7 @@
   "private": true,
   "author": "William Dinh",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint ",
@@ -13,6 +13,10 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@glidejs/glide": "^3.7.1",
+    "@hookform/resolvers": "^5.1.1",
+    "@splidejs/react-splide": "^0.7.12",
+    "@splidejs/splide": "^4.1.4",
     "@glidejs/glide": "^3.7.1",
     "@hookform/resolvers": "^5.1.1",
     "@splidejs/react-splide": "^0.7.12",
