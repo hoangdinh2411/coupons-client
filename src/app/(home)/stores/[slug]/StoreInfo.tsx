@@ -141,9 +141,9 @@ function StoreInfo({ className = '' }: { className: string }) {
             <p className="text-sm font-[600]">
               Members earn guaranteed savings on every purchase. Sign in now to
               stack rewards, promo codes, and offers automatically.
-              <p className="mt-2">
-                By <span className="underline">RetailMeNot</span>
-              </p>
+              <span className="mt-2">
+                By <small className="underline">RetailMeNot</small>
+              </span>
             </p>
           </div>
           <h3 className="mt-6 mb-4 text-xs font-bold tracking-wider uppercase">

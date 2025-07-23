@@ -2,7 +2,7 @@
 import { signOutApi } from '@/services/authApi'
 import { UserData } from '@/types/auth.type'
 import { MenuData } from '@/types/client.type'
-import { create, useStore } from 'zustand'
+import { create } from 'zustand'
 
 export type AppStoreType = {
   menu: MenuData
@@ -14,7 +14,7 @@ export type AppStoreType = {
   signOut: () => Promise<void>
 }
 
-export const AppStore = create<AppStoreType>((set) => ({
+const UseAppStore = create<AppStoreType>((set) => ({
   menu: {
     top_categories: [],
     categories: [],
@@ -32,6 +32,4 @@ export const AppStore = create<AppStoreType>((set) => ({
   },
 }))
 
-const UseAppStore = <T>(selector: (state: AppStoreType) => T) =>
-  useStore(AppStore, selector)
 export default UseAppStore
