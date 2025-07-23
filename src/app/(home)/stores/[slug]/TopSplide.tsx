@@ -5,7 +5,7 @@ import React from 'react'
 
 function TopSplide() {
   return (
-    <div className="bg-white lg:bg-transparent">
+    <div className="bg-transparent">
       <div className="hidden md:block">
         <Splide
           className="mx-auto max-w-(--max-width)"
@@ -39,7 +39,7 @@ function TopSplide() {
           </SplideTrack>
         </Splide>
       </div>
-      <div className="mt-1 mb-4 block text-center text-xs [grid-area:disclaimer] lg:mx-0 lg:mt-3 lg:mr-16 lg:mb-8 lg:hidden lg:text-left lg:text-sm">
+      <div className="block bg-white pt-1 text-center text-xs [grid-area:disclaimer] lg:mx-0 lg:mt-3 lg:mr-16 lg:mb-8 lg:hidden lg:text-left lg:text-sm">
         When you buy through links on RetailMeNot
         <Link className="underline" href={'/'}>
           {' '}

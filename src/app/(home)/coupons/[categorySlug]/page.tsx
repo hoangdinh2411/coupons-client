@@ -15,7 +15,7 @@ const CouponsByCategoryPage = async ({
 
   return (
     <>
-      <div className="-my-9 md:-my-10">
+      <div className="">
         <TopSplide />
       </div>
 
