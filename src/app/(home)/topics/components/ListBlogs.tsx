@@ -3,7 +3,7 @@ import { BlogData } from '@/types/blog.type'
 
 interface ListBlogProps {
   blogs: BlogData[]
-  type: 'grid' | 'vertical' | 'row'
+  type: 'grid' | 'vertical'
 }
 
 export default function ListBlogs({ blogs, type }: ListBlogProps) {

@@ -1,9 +1,9 @@
 import { Fragment, ReactNode } from 'react'
-import TopicList from '../../../components/topic/TopicList'
-import Link from 'next/link'
 import { getTopics } from '@/services/topicApi'
+import Link from 'next/link'
+import TopicList from '@/components/topic/TopicList'
 
-export default async function BlogLayout({
+export default async function TopicLayout({
   children,
 }: {
   children: ReactNode

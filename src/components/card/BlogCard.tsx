@@ -5,20 +5,116 @@ import { BlogData } from '@/types/blog.type'
 
 interface BlogCardProps {
   blog: BlogData
-  post_variant: 'vertical' | 'grid'
+  post_variant: 'vertical' | 'grid' | 'row'
 }
 
 export default function BlogCard({ blog, post_variant }: BlogCardProps) {
-  const isVertical = post_variant === 'vertical'
+  if (post_variant === 'row') {
+    return (
+      <div className="group relative flex flex-row">
+        {/* Image - Left side */}
+        <Link
+          href={`/blogs/${blog.slug}`}
+          className="relative aspect-[1] max-h-[280px] w-1/4 max-w-[368px]"
+        >
+          <Image
+            src={blog.image.url || '/images/no-img.webp'}
+            alt={blog.title}
+            fill
+            priority
+            sizes="auto"
+            className="h-full w-full object-cover"
+          />
+          <span className="absolute right-6 -bottom-2 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
+            <Image
+              src={blog.topic?.image.url || '/images/no-img.webp'}
+              alt={blog.topic?.name}
+              fill
+              sizes="auto"
+              priority
+            />
+          </span>
+        </Link>
 
+        {/* Content - Right side */}
+        <div className="group-hover:bg-green relative flex-1 px-6 py-4 text-left transition-all duration-300 ease-out lg:px-10 lg:py-[30px]">
+          <Link href={`/blogs/${blog.slug}`}>
+            {blog.topic && (
+              <div className="flex h-full flex-col justify-between gap-2">
+                <div>
+                  <span className="text-md text-olive-green font-bold tracking-wide uppercase group-hover:text-white">
+                    {blog.topic.name}
+                  </span>
+                  <h3 className="text-olive-green mt-2 line-clamp-2 text-base font-bold group-hover:text-white md:text-xl lg:line-clamp-none lg:min-h-[195px] lg:text-[28px]">
+                    {blog.title}
+                  </h3>
+                </div>
+              </div>
+            )}
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  if (post_variant === 'grid') {
+    return (
+      <div className="group border-light-green bg-gray-border-gray-200 relative flex flex-col border-2 md:flex-col">
+        {/* Image */}
+        <Link
+          href={`/blogs/${blog.slug}`}
+          className="relative aspect-[1] max-h-[280px] w-full max-w-[368px]"
+        >
+          <Image
+            src={blog.image.url || '/images/no-img.webp'}
+            alt={blog.title}
+            fill
+            priority
+            sizes="auto"
+            className="h-full w-full object-cover md:h-auto"
+          />
+          <span className="absolute -bottom-2 left-6 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
+            <Image
+              src={blog.topic?.image.url || '/images/no-img.webp'}
+              alt={blog.topic?.name}
+              fill
+              sizes="auto"
+              priority
+            />
+          </span>
+        </Link>
+
+        {/* Content */}
+        <div className="group-hover:bg-green relative flex-1 px-6 py-4 text-left transition-all duration-300 ease-out lg:px-10 lg:py-[30px]">
+          <Link href={`/blogs/${blog.slug}`}>
+            {blog.topic && (
+              <div className="flex h-full flex-col justify-between gap-2">
+                <div>
+                  <span className="text-md text-olive-green font-bold tracking-wide uppercase group-hover:text-white">
+                    {blog.topic.name}
+                  </span>
+                  <h3 className="text-olive-green mt-2 line-clamp-2 text-base font-bold group-hover:text-white md:text-xl lg:line-clamp-none lg:min-h-[195px] lg:text-[28px]">
+                    {blog.title}
+                  </h3>
+                </div>
+                <span className="text-olive-green group-hover:text-green text-sm md:text-base">
+                  Published {formatDate(blog.created_at)}
+                </span>
+              </div>
+            )}
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  // Default: vertical variant
   return (
-    <div
-      className={`group relative flex ${isVertical ? 'flex-col' : 'border-light-green bg-gray-border-gray-200 flex-row border-2 md:flex-col'}`}
-    >
-      {/* post image */}
+    <div className="group relative flex flex-col">
+      {/* Image */}
       <Link
         href={`/blogs/${blog.slug}`}
-        className={`${isVertical ? 'w-full' : 'w-1/4'} relative aspect-[1] max-h-[280px] max-w-[368px] md:w-full`}
+        className="relative aspect-[1] max-h-[280px] w-full max-w-[368px]"
       >
         <Image
           src={blog.image.url || '/images/no-img.webp'}
@@ -26,11 +122,9 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           fill
           priority
           sizes="auto"
-          className={`h-full w-full object-cover ${!isVertical ? 'md:h-auto' : ''}`}
+          className="h-full w-full object-cover"
         />
-        <span
-          className={`absolute -bottom-2 ${isVertical ? 'left-6' : 'right-6'} hidden size-[40px] rounded-full border-2 border-gray-200 lg:block`}
-        >
+        <span className="absolute -bottom-2 left-6 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
           <Image
             src={blog.topic?.image.url || '/images/no-img.webp'}
             alt={blog.topic?.name}
@@ -41,38 +135,20 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
         </span>
       </Link>
 
-      {/* post details */}
-      <div
-        className={`relative flex-1 text-left ${isVertical ? '' : 'group-hover:bg-green px-6 py-4 transition-all duration-300 ease-out lg:px-10 lg:py-[30px]'}`}
-      >
+      {/* Content */}
+      <div className="relative flex-1 text-left">
         <Link href={`/blogs/${blog.slug}`}>
           {blog.topic && (
-            <div
-              className={`flex h-full flex-col justify-between gap-2 ${isVertical ? 'mt-6' : ''}`}
-            >
+            <div className="mt-6 flex h-full flex-col justify-between gap-2">
               <div>
-                <span
-                  className={`text-md font-bold tracking-wide uppercase ${
-                    isVertical
-                      ? 'text-green'
-                      : 'text-olive-green group-hover:text-white'
-                  }`}
-                >
+                <span className="text-md text-green font-bold tracking-wide uppercase">
                   {blog.topic.name}
                 </span>
-                <h3
-                  className={`mt-2 line-clamp-2 text-base font-bold md:text-xl lg:line-clamp-none ${
-                    isVertical
-                      ? 'text-olive-green hover:text-green transition-all duration-300 ease-out lg:text-[22px]'
-                      : 'text-olive-green group-hover:text-white lg:min-h-[195px] lg:text-[28px]'
-                  }`}
-                >
+                <h3 className="text-olive-green hover:text-green mt-2 line-clamp-2 text-base font-bold transition-all duration-300 ease-out md:text-xl lg:line-clamp-none lg:text-[22px]">
                   {blog.title}
                 </h3>
               </div>
-              <span
-                className={`text-olive-green group-hover:text-green text-sm md:text-base`}
-              >
+              <span className="text-olive-green group-hover:text-green text-sm md:text-base">
                 Published {formatDate(blog.created_at)}
               </span>
             </div>
