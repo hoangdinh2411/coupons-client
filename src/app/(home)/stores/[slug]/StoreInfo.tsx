@@ -1,57 +1,28 @@
 'use client'
+import { APP_ROUTERS } from '@/helpers/config'
+import UseAppStore from '@/stores/app.store'
+import { StoreData } from '@/types/store.type'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
-const OFFERS = {
-  title: 'SIMILAR STORES',
-  viewAll: 'VIEW ALL',
-  allStores: 'ALL STORES',
-  popularTitle: 'POPULAR STORES',
-}
+import React from 'react'
 
-const STORES = {
-  similar: [
-    'Motherhood Maternity',
-    'Hatch Collection',
-    'Ingrid & Isabel',
-    'Kindred Bravely',
-    'Kipdip',
-    'Cake Maternity',
-    'Blanqi',
-    'Gap',
-    'Old Navy',
-    'Show Me Your Mumu',
-    'Club L London US',
-    'Ministry of Supply',
-    "The Children's Place",
-    'Stitch Fix',
-    'Fab Kids',
-    'Sparkle in Pink',
-    'Lou Lou & Company',
-    'Little Me',
-    'Jacadi',
-    'H&M',
-    'PinkBlush Maternity',
-    'Momcozy Nursing Bras',
-    'Bravado Designs',
-  ],
-  popular: ['Amazon', 'Best Buy', 'Chewy.com', 'eBay', 'Hotels.com'],
-}
-function StoreInfo({ className = '' }: { className: string }) {
-  const [rating, setRating] = useState(1)
-  const [hovered, setHovered] = useState(0)
+function StoreInfo({
+  store,
+  similar_store,
+}: {
+  store: StoreData
+  similar_store: StoreData[]
+}) {
+  const menu = UseAppStore((state) => state.menu)
+  const totalRating = Array.from({ length: 5 }, (_, i) => i + 1)
 
-  const handleRating = (value: number) => {
-    setRating(value)
-    // TODO: Send rating to backend
-  }
   return (
-    <div className={`${className} `}>
+    <div>
       <div className="relative xl:mt-28 xl:pr-26">
         <div className="mt-20 mb-12 hidden text-sm font-bold lg:block">
           When you buy through links on
           <p>
-            RetailMeNot{' '}
+            TrustCoupon{' '}
             <span className="underline">we may earn a commission.</span>
           </p>
         </div>
@@ -60,69 +31,30 @@ function StoreInfo({ className = '' }: { className: string }) {
             TODAY&apos;S TOP A PEA IN THE POD OFFERS:
           </h3>
           <ul className="mb-4 list-inside list-disc">
-            <li className="text-md text-gray-900">15% Off Your Order</li>
-            <li className="text-md text-gray-900">40% Off Sitewide</li>
+            <li className="text-md text-gray-900">
+              {store.max_discount_pct}% Off Your Order
+            </li>
           </ul>
           <div className="mb-4">
             <p className="justify-betwee mr-2 flex">
               <span className=""> Total Offers:</span>
-              <span className="ml-auto">18</span>
+              <span className="ml-auto">{store.total_coupons ?? 0}</span>
             </p>
             <p className="justify-betwee mr-2 flex">
               <span className="">Coupon Codes:</span>
-              <span className="ml-auto">12</span>
+              <span className="ml-auto">{store.total_coupon_codes ?? 0}</span>
             </p>
             <p className="justify-betwee mr-2 flex">
               <span className=""> In-Store Coupons:</span>
-              <span className="ml-auto">0</span>
+              <span className="ml-auto">
+                {store.total_in_store_coupons ?? 0}
+              </span>
             </p>
             <p className="justify-betwee mr-2 flex">
-              <span className="list-disc"> Free Shipping Deals:</span>
-              <span className="ml-auto">0</span>
+              <span className="list-disc"> Sale Coupons:</span>
+              <span className="ml-auto">{store.total_sale_coupons ?? 0}</span>
             </p>
           </div>
-          {/* === Updated‑by block === */}
-          <section className="my-6 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
-            {/* Heading */}
-            <p className="mb-2 text-center text-sm font-bold tracking-wide uppercase">
-              This page has been updated by
-            </p>
-
-            {/* Avatar + name/title */}
-            <div className="mb-4 flex items-center gap-x-3.5 pt-3.5 pl-2">
-              <Image
-                src="/images/female.webp"
-                alt="Kelly Rose avatar"
-                width={56}
-                height={56}
-                className="h-14 w-14 rounded-[100%] object-cover"
-              />
-              <div>
-                <h3 className="text-base leading-tight font-bold text-gray-900">
-                  Kelly Rose
-                </h3>
-                <p className="pt-0.5 text-sm font-medium text-gray-700">
-                  Content Writer
-                </p>
-              </div>
-            </div>
-
-            {/* Bio */}
-            <p className="tracking-tight">
-              Kelly is a writer and editor for RetailMeNot based in California.
-              When she’s not online shopping, you can find her at her gymnastics
-              gym, skating at an ice rink, or doing agility with her Border
-              Collie, Frankenstein.
-            </p>
-
-            {/* “See Bio” link */}
-            <Link
-              href="/blog/author/kellyrose"
-              className="hover:text-green mt-4 inline-block underline underline-offset-2 transition-colors"
-            >
-              See Bio
-            </Link>
-          </section>
 
           <h3 className="mb-4 text-sm font-bold uppercase">
             A PEA IN THE POD FEATURED ARTICLES
@@ -167,8 +99,8 @@ function StoreInfo({ className = '' }: { className: string }) {
         </div>
         <div className="relative top-0 transition-all duration-700">
           {/* Submit a Coupon */}
-          <a
-            href="/submit"
+          <Link
+            href={APP_ROUTERS.SUBMIT_COUPON}
             className="text-green my-6 flex items-center border-t-1 border-b-1 border-gray-300 py-6 text-sm font-bold tracking-wider uppercase hover:underline"
           >
             Submit a Coupon
@@ -179,22 +111,19 @@ function StoreInfo({ className = '' }: { className: string }) {
             >
               <path d="M15.375 12.875a.625.625 0 1 1 0 1.25h-1.25v1.25a.625.625 0 1 1-1.25 0v-1.25h-1.25a.625.625 0 1 1 0-1.25h1.25v-1.25a.625.625 0 1 1 1.25 0v1.25zM11.5 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3m2.25 3.657a.34.34 0 0 1-.1.24L6.896 13.65a.347.347 0 0 1-.48 0L1.349 8.584a.34.34 0 0 1 0-.481L8.102 1.35a.34.34 0 0 1 .24-.1h5.068a.34.34 0 0 1 .34.34z"></path>
             </svg>
-          </a>
+          </Link>
 
           {/* About Section */}
           <h2 className="text-xs font-bold tracking-wider uppercase">
-            About ABCya
+            Rating {store.name}
           </h2>
 
           <div className="relative my-3 min-h-10">
             {/* Stars */}
             <div className="flex items-center space-x-1">
-              {[1, 2, 3, 4, 5].map((i) => (
+              {totalRating.map((i) => (
                 <button
                   key={i}
-                  onClick={() => handleRating(i)}
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(0)}
                   className="relative h-4 w-4 text-slate-100"
                   aria-label={`star rating ${i}`}
                 >
@@ -207,7 +136,7 @@ function StoreInfo({ className = '' }: { className: string }) {
                   </svg>
                   <svg
                     className={`absolute top-0 h-4 w-4 transition-all ${
-                      (hovered || rating) >= i
+                      (store.rating ?? 1 >= i)
                         ? 'text-yellow-400'
                         : 'text-gray-300'
                     }`}
@@ -218,16 +147,6 @@ function StoreInfo({ className = '' }: { className: string }) {
                   </svg>
                 </button>
               ))}
-              <div>
-                {' '}
-                <span className="ml-1 font-semibold">Rate ABCya Offers</span>
-                <Link
-                  href={'/'}
-                  className="font-proxima ml-1 block font-semibold underline"
-                >
-                  Log&nbsp;In
-                </Link>
-              </div>
             </div>
           </div>
         </div>
@@ -235,38 +154,48 @@ function StoreInfo({ className = '' }: { className: string }) {
         {/**LIST */}
         <div className="rounded-lg lg:mx-auto lg:max-w-md">
           <h3 className="mt-14 mb-4 hidden text-sm font-bold uppercase lg:block">
-            {OFFERS.title}
+            SIMILAR STORES
           </h3>
-          <ul className="hidden list-inside list-disc space-y-2 lg:block">
-            {STORES.similar.map((store, index) => (
+          <ul className="hidden list-inside space-y-2 lg:block">
+            {similar_store.map((store) => (
               <li
-                key={index}
+                key={store.id}
                 className="cursor-pointer list-none text-sm font-[600] hover:underline"
               >
-                {store}
+                <Link href={'/store/' + store.slug}>{store.name}</Link>
               </li>
             ))}
-          </ul>
-          <p className="mt-2 hidden cursor-pointer text-sm font-[600] underline lg:block">
-            {OFFERS.viewAll}
-          </p>
-          <h3 className="mt-14 mb-4 text-sm font-bold uppercase">
-            {OFFERS.popularTitle}
-          </h3>
-          <ul className="grid list-inside list-disc grid-cols-2 space-y-1 lg:grid-cols-1">
-            {STORES.popular.map((store, index) => (
-              <li
-                key={index}
-                className="cursor-pointer list-none text-sm font-[600] hover:underline"
+            <li className="list-none">
+              <Link
+                href={APP_ROUTERS.ALL_STORES}
+                className="cursor-pointer text-sm font-[600] underline"
               >
-                {store}
-              </li>
-            ))}
+                View all
+              </Link>
+            </li>
           </ul>
 
-          <p className="mt-1 mb-4 cursor-pointer text-sm font-[600] underline">
-            {OFFERS.allStores}
-          </p>
+          <h3 className="mt-14 mb-4 text-sm font-bold uppercase">
+            Popular Stores
+          </h3>
+          <ul className="hidden list-inside space-y-2 lg:block">
+            {menu.popular.map((store) => (
+              <li
+                key={store.id}
+                className="cursor-pointer list-none text-sm font-[600] hover:underline"
+              >
+                <Link href={'/store/' + store.slug}>{store.name}</Link>
+              </li>
+            ))}
+            <li className="list-none">
+              <Link
+                href={APP_ROUTERS.ALL_STORES}
+                className="cursor-pointer list-none text-sm font-[600] underline"
+              >
+                All stores
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
