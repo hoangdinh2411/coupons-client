@@ -21,7 +21,7 @@ function CouponList({ coupons }: CouponListProps) {
     id: '',
     isOpen: false,
   })
-  const handleOpenCouponModal = (id?: string) => {
+  const handleOpenCouponModal = (id: string) => {
     setOpenCoupon({ id, isOpen: true })
   }
   const handleCloseCouponModal = () => {
