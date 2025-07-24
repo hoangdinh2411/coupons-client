@@ -2,7 +2,6 @@
 import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
 import { StoreData } from '@/types/store.type'
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -56,28 +55,6 @@ function StoreInfo({
             </p>
           </div>
 
-          <h3 className="mb-4 text-sm font-bold uppercase">
-            A PEA IN THE POD FEATURED ARTICLES
-          </h3>
-          <Image
-            alt=""
-            width={300}
-            height={300}
-            className="mb-4 w-full rounded-lg"
-            src={'/images/store-detail-info.webp'}
-          />
-          <div className="px-4">
-            <h3 className="mb-4 text-sm font-bold uppercase">
-              Cash Back at nearly 3,800 Retailers
-            </h3>
-            <p className="text-sm font-[600]">
-              Members earn guaranteed savings on every purchase. Sign in now to
-              stack rewards, promo codes, and offers automatically.
-              <span className="mt-2">
-                By <small className="underline">RetailMeNot</small>
-              </span>
-            </p>
-          </div>
           <h3 className="mt-6 mb-4 text-xs font-bold tracking-wider uppercase">
             Why trust us?
           </h3>

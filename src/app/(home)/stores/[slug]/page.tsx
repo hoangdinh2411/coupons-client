@@ -41,24 +41,25 @@ export default async function StoreDetailPage({
           </div>
         </div>
       </div>
-      <section className="mx-auto grid max-w-(--max-width) grid-cols-3 flex-col gap-4 lg:flex-row lg:gap-14 xl:gap-0">
-        <div className="z-1 col-span-1 lg:block">
+      <section className="mx-auto flex max-w-(--max-width) flex-col gap-4 lg:flex-row lg:gap-14 xl:gap-0">
+        <div className="z-1 bg-white py-4 lg:bg-transparent lg:py-0">
           <div className={`w-full lg:h-32 lg:bg-none lg:shadow-none`}>
             <div className="flex flex-row items-center gap-4 lg:flex-col lg:items-start">
               <div className="focus-within:border-green rounded-[100%] border-2 border-white p-1">
                 <Link href={store.url} target="_blank">
-                  <div className="relative block size-[300px] rounded-[100%] bg-white shadow-xl lg:size-[208px]">
+                  <div className="relative block size-[64px] rounded-[100%] bg-white shadow-xl lg:size-[208px]">
                     <Image
                       fill
                       priority
                       src={store.image?.url || '/images/female.webp'}
                       alt={store.name}
+                      sizes="auto"
                       className="size-full rounded-[100%] object-cover"
                     />
                   </div>
                 </Link>
               </div>
-              <p className="font-sans-bold mb-3 flex min-h-16 items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:hidden lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
+              <p className="font-sans-bold flex min-h-16 items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:hidden lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
                 {store.name} {' Coupons & promo codes'}
               </p>
             </div>
@@ -69,7 +70,7 @@ export default async function StoreDetailPage({
         </div>
 
         <section className="col-span-2 mt-2 w-full lg:mt-36">
-          {store.unexpired_coupons && (
+          {store.unexpired_coupons && store.unexpired_coupons.length > 0 && (
             <Fragment>
               <p className="mt-2 mb-2 block text-[12px] font-[600] tracking-wider uppercase lg:hidden">
                 Top offers for {dayjs().format('MMMM D, YYYY')}
@@ -77,7 +78,7 @@ export default async function StoreDetailPage({
               <CouponList coupons={store?.unexpired_coupons ?? []} />
             </Fragment>
           )}
-          {store.expired_coupons && (
+          {store.expired_coupons && store.expired_coupons?.length > 0 && (
             <Fragment>
               <p className="mt-2 mb-2 block text-[12px] font-[600] tracking-wider uppercase lg:hidden">
                 Expired coupons
@@ -94,7 +95,7 @@ export default async function StoreDetailPage({
               dangerouslySetInnerHTML={{ __html: store.description || '' }}
             />
           </div>
-          <FAQs store={store} />
+          {store.faqs && store.faqs.length > 0 && <FAQs store={store} />}
         </section>
       </section>
     </div>

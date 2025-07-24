@@ -59,13 +59,13 @@ const Modal: React.FC<ModalProps> = ({
       onClick={handleBackdropClick}
     >
       <div
-        className={`relative mx-auto flex w-full flex-col ${maxWidthClasses[maxWidth]} h-auto rounded-lg bg-white shadow-lg md:p-4`}
+        className={`relative mx-auto flex w-full flex-col ${maxWidthClasses[maxWidth]} h-auto rounded-xl bg-white shadow-lg md:p-4`}
       >
         {showCloseButton && (
           <div className="absolute top-2 right-2 z-10">
             <div className="hover:border-green cursor-pointer rounded-[100%] border-2 border-white">
               <button
-                className="cursor-pointer rounded-full p-2 hover:bg-gray-100 focus:outline-none"
+                className="cursor-pointer rounded-full p-2 hover:bg-gray-50 focus:outline-none"
                 onClick={onClose}
                 aria-label="Close modal"
               >
@@ -88,7 +88,7 @@ const Modal: React.FC<ModalProps> = ({
         {title && (
           <div className="px-4 py-2 text-center text-lg font-bold">{title}</div>
         )}
-        <div className="p-4">{children}</div>
+        <div className="rounded-xl p-4">{children}</div>
       </div>
     </div>,
     wrapper,
