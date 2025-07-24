@@ -1,24 +1,29 @@
-import Link from 'next/link'
+'use client'
 import React from 'react'
 import CardAccordion from '../accordion/CardAccordion'
 import { CouponData } from '@/types/coupon.type'
 import { CouponType } from '@/types/enum'
+import { usePathname } from 'next/navigation'
 
 function CouponCardAccordion(coupon: CouponData) {
+  const pathname = usePathname()
   const handleClick = () => {
-    // grab the full current URL
-    const currentUrl = window.location.href
-
     // open a new tab/window at the same URL
-    window.open(currentUrl, '_blank', 'noopener,noreferrer')
+    window.open(
+      `${pathname}?outClicked=true&referenceId=${coupon.id}`,
+      '_blank',
+      'noopener,noreferrer',
+    )
+    if (coupon?.offer_link || coupon?.store?.url) {
+      window.location.href = coupon?.offer_link || coupon?.store?.url || ''
+    }
 
     // update the current tab’s URL to just “#”
     // (this keeps you on the same page but changes the URL in the address bar)
   }
   return (
     <div className="mb-2 min-h-[75px] rounded-lg border-1 border-gray-200 bg-white px-3 py-3 md:px-6 md:hover:shadow-lg md:hover:shadow-gray-200/50 lg:mb-4 lg:px-6">
-      <Link
-        href={coupon.offer_link ?? ''}
+      <div
         onClick={handleClick}
         className="card-top focus:border-green flex gap-2 border-2 border-white focus-within:border-2 lg:gap-8 lg:px-2 lg:py-2"
       >
@@ -46,7 +51,7 @@ function CouponCardAccordion(coupon: CouponData) {
             Show code
           </button>
         </div>
-      </Link>
+      </div>
       <CardAccordion
         className="hidden md:block"
         content={<p>{coupon.offer_detail}</p>}

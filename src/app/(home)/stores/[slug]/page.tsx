@@ -51,7 +51,7 @@ export default async function StoreDetailPage({
                     <Image
                       fill
                       priority
-                      src={store.image?.url ?? '/images/female.webp'}
+                      src={store.image?.url || '/images/female.webp'}
                       alt={store.name}
                       className="size-full rounded-[100%] object-cover"
                     />
