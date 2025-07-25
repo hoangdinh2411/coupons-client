@@ -1,6 +1,6 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
-import { Fragment, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 export default function MainLayout({
   children,
@@ -8,10 +8,10 @@ export default function MainLayout({
   children: ReactNode
 }): JSX.Element {
   return (
-    <Fragment>
+    <div className="grid grid-cols-1">
       <Header />
       <main className="px-4">{children}</main>
       <Footer />
-    </Fragment>
+    </div>
   )
 }

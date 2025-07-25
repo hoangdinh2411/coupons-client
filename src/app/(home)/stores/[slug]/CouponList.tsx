@@ -1,3 +1,4 @@
+'use client'
 import CouponCardAccordion from '@/components/card/CouponCardAccordion'
 import { CouponData } from '@/types/coupon.type'
 import React from 'react'

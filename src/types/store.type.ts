@@ -11,33 +11,21 @@ export interface StoreData extends BaseData {
   slug: string
   image?: ImageType
   categories?: CategoryData[]
-  coupons: []
+  coupons: CouponData[]
   meta_data?: MetaData
   rating: number
+  total_coupons?: number
+  total_coupon_codes?: number
+  total_sale_coupons?: number
+  total_in_store_coupons?: number
+  faqs: FAQData[]
+  expired_coupons?: CouponData[]
+  unexpired_coupons?: CouponData[]
 }
 
-export interface StoreDetailData extends BaseData {
-  meta_data: {
-    title: string
-    description: string
-    keywords: string[]
-    image: string
-    slug: string
-  }
-
-  id: number
-  name: string
-  image: {
-    url: string
-    file_name: string
-    public_id: string
-  }
-  description: string
-  rating: number
-  max_discount_pct: number
-  keywords: string[]
-  url: string
-  slug: string
-  coupons: CouponData[]
-  categories: CategoryData[]
+export interface FAQData extends BaseData {
+  question: string
+  answer: string
+  order: number
+  store: StoreData
 }

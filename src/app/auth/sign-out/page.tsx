@@ -1,8 +1,6 @@
 'use client'
 import SpinnerLoading from '@/components/loading'
-import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
@@ -15,14 +13,18 @@ function SignOutPage() {
       setLoading(true)
       await signOut()
       setTimeout(() => {
-        router.push(APP_ROUTERS.INDEX)
-      }, 5000)
+        router.back()
+      }, 3000)
       setTimeout(() => {
         setLoading(false)
-      }, 2000)
+      }, 1000)
     }
     handleSignOut()
   }, [])
+
+  const handelContinue = () => {
+    router.back()
+  }
   return (
     <div className="flex w-full max-w-screen flex-col items-center justify-center gap-5 bg-white pb-10 md:mx-auto md:mt-6 md:w-[400px] md:bg-transparent">
       <p className="mt-6 flex flex-col items-center gap-4 text-[40px] font-bold text-slate-800">
@@ -40,12 +42,12 @@ function SignOutPage() {
                 Hang tight to be automatically redirected, or tap below to
                 continue
               </p>
-              <Link
-                href={APP_ROUTERS.SIGN_IN}
+              <button
+                onClick={handelContinue}
                 className="text-green hover:text-olive-green text-lg underline"
               >
                 Continue
-              </Link>
+              </button>
             </div>
           )}
         </div>

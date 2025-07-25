@@ -33,10 +33,11 @@ export default function CommentForm({
           blog_id,
           content,
         })
-        toast.error(res.message || 'Cannot comment this blog')
         if (res.success && res.data) {
           setComments((prev) => [res.data as CommentData, ...prev])
           return
+        } else {
+          toast.error(res.message || 'Cannot comment this blog')
         }
       }
     })

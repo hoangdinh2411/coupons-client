@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-
+'use client'
+import React, { useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 interface ModalProps {
   isOpen: boolean
   onClose: () => void
@@ -18,7 +19,19 @@ const Modal: React.FC<ModalProps> = ({
   showCloseButton = true,
 }) => {
   const dialogRef = useRef<HTMLDivElement>(null)
+  const [wrapper, setWrapper] = useState<HTMLElement | null>(null)
+  useLayoutEffect(() => {
+    let element = document.getElementById('modal-root')
 
+    if (!element) {
+      const wrapper = document.createElement('div')
+      wrapper.setAttribute('id', 'modal-root')
+      document.body.appendChild(wrapper)
+      element = wrapper
+    }
+
+    setWrapper(element)
+  }, [])
   const maxWidthClasses = {
     xs: 'max-w-xs',
     sm: 'max-w-sm',
@@ -30,41 +43,29 @@ const Modal: React.FC<ModalProps> = ({
     full: 'max-w-screen',
   }
 
-  // Prevent background scroll when modal is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isOpen])
-
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === dialogRef.current) {
       onClose()
     }
   }
 
-  if (!isOpen) return null
-
-  return (
+  if (!wrapper) {
+    return null
+  }
+  return createPortal(
     <div
       ref={dialogRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
+      className={`${isOpen ? 'flex' : 'hidden'} fixed inset-0 z-50 items-center justify-center bg-black/30 backdrop-blur-sm`}
       onClick={handleBackdropClick}
     >
       <div
-        className={`relative mx-auto flex w-full flex-col ${maxWidthClasses[maxWidth]} h-auto rounded-lg bg-white shadow-lg md:p-4`}
+        className={`relative mx-auto flex w-full flex-col ${maxWidthClasses[maxWidth]} h-auto rounded-xl bg-white shadow-lg md:p-4`}
       >
         {showCloseButton && (
           <div className="absolute top-2 right-2 z-10">
             <div className="hover:border-green cursor-pointer rounded-[100%] border-2 border-white">
               <button
-                className="cursor-pointer rounded-full p-2 hover:bg-gray-100 focus:outline-none"
+                className="cursor-pointer rounded-full p-2 hover:bg-gray-50 focus:outline-none"
                 onClick={onClose}
                 aria-label="Close modal"
               >
@@ -87,9 +88,10 @@ const Modal: React.FC<ModalProps> = ({
         {title && (
           <div className="px-4 py-2 text-center text-lg font-bold">{title}</div>
         )}
-        <div className="p-4">{children}</div>
+        <div className="rounded-xl p-4">{children}</div>
       </div>
-    </div>
+    </div>,
+    wrapper,
   )
 }
 

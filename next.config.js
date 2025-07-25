@@ -2,7 +2,9 @@
 
 const nextConfig = {
   // output: 'export',
-
+  experimental: {
+    authInterrupts: true,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
