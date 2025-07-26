@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React from 'react'
 import { FaArrowRight } from 'react-icons/fa'
 import TopDealsSplide from './TopDealsSplide'
+import Badge from '@/components/badge'
 
 const ListCoupons = () => {
   return (
@@ -33,6 +34,13 @@ const ListCoupons = () => {
             className="mt-3 flex items-center text-xs font-bold tracking-wider uppercase underline underline-offset-2"
             rel="nofollow sponsored"
           >
+            <div className="relative h-5 w-5">
+              <Image
+                src={'/images/cashback-bolt.svg'}
+                alt="Cashback Bolt"
+                fill
+              />
+            </div>
             1% Cash Back on Amazon Devices
             <FaArrowRight className="ml-1 h-3 w-3" />
           </Link>
@@ -87,9 +95,11 @@ const ListCoupons = () => {
               </p>
             </div>
 
-            <p className="absolute top-2 left-2 flex rounded border border-solid border-[#E0E0E0] bg-white px-2 py-[3px] text-xs font-bold">
-              +2% Back
-            </p>
+            <Badge
+              className="absolute top-2 left-2 !text-sm"
+              imageIcon="/images/cashback-bolt.svg"
+              text="+2% Back"
+            />
           </Link>
         ))}
       </div>

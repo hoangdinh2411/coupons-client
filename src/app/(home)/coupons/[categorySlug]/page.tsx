@@ -1,7 +1,7 @@
-import React from 'react'
+import { getCategoryBySlug } from '@/services/categoryApi'
+import Link from 'next/link'
 import TopSplide from '../../stores/[slug]/TopSplide'
 import CouponsHeader from './CouponHeader'
-import Link from 'next/link'
 import ListCoupons from './ListCoupons'
 import SideSection from './SideSection'
 
@@ -13,15 +13,18 @@ const CouponsByCategoryPage = async ({
   const { categorySlug } = await params
   console.log(categorySlug)
 
+  const res = await getCategoryBySlug(categorySlug)
+  console.log(res)
+
   return (
-    <>
-      <div className="">
+    <div className="">
+      <div className="px-4">
         <TopSplide />
       </div>
 
       <CouponsHeader />
 
-      <div className="container mx-auto grid max-w-screen-xl grid-cols-[theme(spacing.24)_auto] lg:mt-4 lg:grid-cols-[theme(spacing.80)_auto] lg:pt-40">
+      <div className="container mx-auto grid max-w-screen-xl grid-cols-[theme(spacing.24)_auto] px-4 lg:mt-4 lg:grid-cols-[theme(spacing.80)_auto] lg:pt-40">
         <SideSection />
 
         <ListCoupons />
@@ -33,7 +36,7 @@ const CouponsByCategoryPage = async ({
           </Link>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

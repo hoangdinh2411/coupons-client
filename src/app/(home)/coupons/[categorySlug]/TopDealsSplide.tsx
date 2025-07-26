@@ -7,7 +7,7 @@ const TopDealsSplide = () => {
   return (
     <>
       <Splide
-        className="mx-auto max-w-(--max-width)"
+        className="top-deals-splide mx-auto max-w-(--max-width)"
         options={{
           type: 'loop',
           autoWidth: true,
@@ -19,8 +19,9 @@ const TopDealsSplide = () => {
           },
           classes: {
             arrow:
-              'splide__arrow !bg-white rounded-full border border-gray-300 !p-2 !opacity-100',
-            pagination: 'splide__pagination !-bottom-4',
+              'splide__arrow !bg-white rounded-full border border-gray-300 !p-2',
+            pagination:
+              ' splide__pagination !-bottom-4 !outline-none !border-none',
           },
         }}
         hasTrack={false}
@@ -28,7 +29,7 @@ const TopDealsSplide = () => {
         <SplideTrack className="">
           {[...Array(10).keys()].map((index) => (
             <SplideSlide
-              className="!mx-2 w-[100%] shadow-lg lg:w-[28%] lg:hover:shadow-xl"
+              className="!mx-2 w-[80%] shadow-lg md:w-[40%] lg:hover:shadow-xl xl:w-[28%]"
               key={index}
             >
               <Link href="#" className="block rounded-lg">
@@ -46,6 +47,9 @@ const TopDealsSplide = () => {
                   <div className="col-span-5 flex h-36 flex-col gap-y-2 bg-[#F7F7F7] p-3">
                     <div className="inline-flex">
                       <span className="inline-flex h-6 items-center rounded-md border border-[#E0E0E0] bg-white py-1 pr-1 text-xs leading-none font-semibold tracking-widest uppercase">
+                        <div className="relative h-6 w-6">
+                          <Image src={'/images/fire.svg'} alt="Fire" fill />
+                        </div>
                         <span className="pt-px">37% Off</span>
                       </span>
                     </div>
@@ -55,9 +59,9 @@ const TopDealsSplide = () => {
                         Play Mat
                       </p>
                       <div className="flex items-center justify-center gap-x-1 sm:justify-normal">
-                        <button className="rounded-full bg-gray-200 px-2.5 py-2 text-xs font-bold whitespace-nowrap text-black sm:px-4">
+                        <div className="rounded-full bg-gray-200 px-2.5 py-2 text-xs font-bold whitespace-nowrap text-black sm:px-4">
                           Check price
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
