@@ -51,6 +51,8 @@ export default function CommentItem({
     let content = ''
     if (commentRef.current) {
       content = commentRef.current.value.trim()
+      commentRef.current.value = ''
+
       if (!content) {
         toast.error('Please, write something')
         return
@@ -66,9 +68,9 @@ export default function CommentItem({
               prev.map((c) => (c.id === comment.id ? { ...c, content } : c)),
             )
             handleToggleEdit()
-            return
+          } else {
+            toast.error(res.message || 'Cannot comment this blog')
           }
-          toast.error(res.message || 'Cannot comment this blog')
         })
       } else {
         handleToggleEdit()
@@ -76,12 +78,14 @@ export default function CommentItem({
     }
   }
   const handleDelete = async () => {
-    const res = await deleteComment(comment.id, comment.blog.id)
-    if (res.success) {
-      setComments((prev) => prev.filter((c) => c.id !== comment.id))
-    } else {
-      toast.error(res.message ?? 'Cannot delete the comment. Try again later')
-    }
+    startTransition(async () => {
+      const res = await deleteComment(comment.id, comment.blog.id)
+      if (res.success) {
+        setComments((prev) => prev.filter((c) => c.id !== comment.id))
+      } else {
+        toast.error(res.message ?? 'Cannot delete the comment. Try again later')
+      }
+    })
   }
   return (
     <li className="flex flex-col gap-4 rounded-md bg-white p-4">

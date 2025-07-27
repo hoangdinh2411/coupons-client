@@ -1,7 +1,7 @@
 import customFetch from './customFetch'
 import { IResponse } from '@/types/share.type'
-import UseAppStore from '@/stores/app.store'
 import { getToken } from '@/app/actions/getTokenFromCookie'
+import { unauthorized } from 'next/navigation'
 
 export default async function customFetchWithToken<T>(
   url: string,
@@ -13,9 +13,8 @@ export default async function customFetchWithToken<T>(
     ['Authorization']: `Bearer ${token}`,
   }
   const res = await customFetch<T>(url, config)
-  if (!res.success && res.status === 401) {
-    const signOut = UseAppStore((state) => state.signOut)
-    await signOut()
+  if (!res.success && res.status === 401 && !url.includes('/users/profile')) {
+    unauthorized()
   }
   return res
 }

@@ -3,10 +3,10 @@
 import Image from 'next/image'
 import React, { memo } from 'react'
 import Badge from '../badge'
-import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export interface CouponCardPropsType
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
   badgeIcon?: string | null
   badgeTitle?: string
@@ -27,10 +27,18 @@ function CouponCard(props: CouponCardPropsType) {
     actionBtn,
     ...rest
   } = props
+  const pathname = usePathname()
+  const handleClick = () => {
+    // open a new tab/window at the same URL
+    window.open(`${pathname}?outClicked=true`, '_blank', 'noopener,noreferrer')
+    window.location.href = 'https://google.com'
 
+    // update the current tab’s URL to just “#”
+    // (this keeps you on the same page but changes the URL in the address bar)
+  }
   return (
-    <Link
-      href="#"
+    <div
+      onClick={handleClick}
       className={`${className} focus:outline-green mb-5 rounded-2xl border-white py-2 outline-1 outline-transparent md:mb-0`}
       {...rest}
     >
@@ -70,7 +78,7 @@ function CouponCard(props: CouponCardPropsType) {
           )}
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
 

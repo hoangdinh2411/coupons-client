@@ -35,6 +35,7 @@ const defaultValues: SubmitFormType = {
   store_id: -1,
   type: '',
   offer_link: '',
+  discount: 0,
 }
 
 function SubmitForm() {
@@ -340,6 +341,20 @@ function SubmitForm() {
             </fieldset>
             {errors.offer_link && (
               <p className="error-message">{errors.offer_link.message}</p>
+            )}
+          </div>
+          <div className="form-control mb-2">
+            <fieldset className="fieldset-container relative">
+              <input
+                {...register('discount')}
+                className={`textfield-${errors.discount ? 'error' : 'primary'} w-full`}
+                id="discount"
+                type="number"
+                placeholder="Enter discount between 0-100"
+              />
+            </fieldset>
+            {errors.discount && (
+              <p className="error-message">{errors.discount.message}</p>
             )}
           </div>
           <div className="form-control mb-2">

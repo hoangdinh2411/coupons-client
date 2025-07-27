@@ -28,7 +28,6 @@ const UseAppStore = create<AppStoreType>((set) => ({
   signOut: async () => {
     await signOutApi()
     set({ user: null })
-    window.location.reload()
   },
 }))
 
