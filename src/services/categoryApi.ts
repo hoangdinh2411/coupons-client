@@ -1,4 +1,4 @@
-import { CategoryData } from '@/types/category.type'
+import { CategoryData, CategoryListData } from '@/types/category.type'
 import customFetch from './customFetch'
 import { CouponData } from '@/types/coupon.type'
 
@@ -11,19 +11,19 @@ export const getAllCategoriesWithAllStores = async () => {
 }
 
 export const getCategoryBySlug = async (slug: string) => {
-  return await customFetch<CategoryData>(`/client/categories/${slug}`, {
+  return await customFetch<CategoryListData>(`/client/categories/${slug}`, {
     next: {
       tags: [slug],
     },
   })
 }
 
-export const getCouponsByCategory = async (id: string, page: number = 1) => {
-  return await customFetch<CouponData>(
+export const getCouponsByCategory = async (id: number, page: number = 1) => {
+  return await customFetch<CouponData[]>(
     `/client/categories/${id}/coupons?page=${page}`,
     {
       next: {
-        tags: [id],
+        tags: [`${id}`],
       },
     },
   )

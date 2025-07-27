@@ -8,3 +8,16 @@ export interface CategoryData extends BaseData {
   image: ImageType
   meta_data?: MetaData
 }
+
+export interface CountCoupons {
+  total_coupon_codes: string
+  total_coupons: string
+  total_in_store_coupons: string
+  total_sale_coupons: string
+}
+
+export interface CategoryListData extends BaseData {
+  category: CategoryData
+  count_coupons: CountCoupons
+  similar_stores: StoreData[]
+}
