@@ -1,49 +1,22 @@
 import Footer from '../components/footer'
 import Header from '../components/header'
-import PromoSlider from './components/PromoSlider'
-import ListSale from './components/ListSale'
 import Link from 'next/link'
-import BestDeals from './components/BestDeals'
 import Image from 'next/image'
 import TopDealList from './(home)/hot-deals/TopDealList'
-import SpotlightList from './components/SpotlightList'
-import CategoryDealList from './components/CategoryDealList'
 import BaseAccordion from '../components/accordion/BaseAccordion'
-
-const POPULAR_CATEGORIES = [
-  { name: 'Baby', href: '/coupons/baby' },
-  { name: 'Beauty', href: '/coupons/beauty' },
-  { name: 'Books', href: '/coupons/books-magazine-newspaper' },
-  { name: 'Car Rentals', href: '/coupons/carrental' },
-  { name: 'Cell Phones', href: '/coupons/cellphone-plans-accessories' },
-  { name: 'Clothing', href: '/coupons/clothing' },
-  { name: 'Cosmetics', href: '/coupons/cosmetics' },
-  { name: 'Electronics', href: '/coupons/electronics' },
-  { name: 'Fast Food', href: '/coupons/fastfood' },
-  { name: 'Flights', href: '/coupons/flight' },
-  { name: 'Flowers', href: '/coupons/flowers' },
-  { name: 'Food Delivery', href: '/coupons/fooddelivery' },
-  { name: 'Furniture', href: '/coupons/furniture' },
-  { name: 'Home Improvement', href: '/coupons/home-improvement-tools' },
-  { name: 'Hotels', href: '/coupons/hotel' },
-  { name: 'Jewelry', href: '/coupons/jewelry-watches' },
-  { name: 'Movie Theaters', href: '/coupons/movietheaters' },
-  { name: 'Pets', href: '/coupons/pets' },
-  { name: 'Photo', href: '/coupons/photo' },
-  { name: 'Photo Prints', href: '/coupons/photo-prints' },
-  { name: 'Pizza', href: '/coupons/pizza' },
-  { name: 'Restaurants', href: '/coupons/restaurants' },
-  { name: 'Shoes', href: '/coupons/shoes' },
-  { name: 'Toys', href: '/coupons/toys' },
-  { name: 'Travel', href: '/coupons/travel' },
-  { name: 'TV & Home Theater', href: '/coupons/tvs-home-theater' },
-  { name: 'Video Games', href: '/coupons/gaming' },
-]
+import PromoSlider from './(home)/(home)/PromoSlider'
+import BestDeals from './(home)/(home)/BestDeals'
+import CategoryDealList from './(home)/(home)/CategoryDealList'
+import ListSale from './(home)/(home)/ListSale'
+import SpotlightList from './(home)/(home)/SpotlightList'
+import { Suspense } from 'react'
+import PopularList from './(home)/(home)/PopularList'
 
 const FAQ = [
   {
     name: 'RetailMeNot offers several ways for shoppers to save while shopping. We feature up-to-date coupon codes, free shipping offers, sales and promo codes for thousands of stores and restaurants.Plus, our ',
-    href: '/faq',
+    slug: '/faq',
+    id: 1,
   },
 ]
 
@@ -91,15 +64,6 @@ const BEST_DEALS = [
     deal_link: '/',
   },
 ]
-
-const CATEGORIES_LIST = Array.from({ length: 10 }, (_, i) => ({
-  category_id: `category-${i + 1}`,
-  category_title: 'Cash Back',
-  category_value: i + 2,
-  category_link: '/',
-  category_imgUrl: '/images/brandCard2.webp',
-  category_icon: '/images/cashback-bolt.svg',
-}))
 
 const LIST_SALE = Array.from({ length: 10 }, (_, i) => ({
   id: `coupon-${i + 1}`,
@@ -161,23 +125,9 @@ export default function LandingPage() {
             </h1>
             <BestDeals bestDeals={BEST_DEALS} />
           </section>
-          <section className="mb-16 md:mb-20">
-            <div className="text-sm font-bold tracking-widest uppercase">
-              cha-ching
-            </div>
-            <div className="mb-6 flex flex-wrap justify-between lg:mb-0">
-              <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
-                <Link href="/cashback">Cash Back at Stores We Love</Link>
-              </h2>
-              <Link
-                href="/cashback"
-                className="block text-xs font-semibold tracking-widest uppercase underline underline-offset-4"
-              >
-                all category
-              </Link>
-            </div>
-            <CategoryDealList categories={CATEGORIES_LIST} />
-          </section>
+          <Suspense>
+            <CategoryDealList />
+          </Suspense>
           <section className="mb-12 flex flex-col md:mb-20 md:flex-row md:border md:border-gray-200 md:shadow-md">
             <div className="w-full bg-gray-200 drop-shadow md:w-2/3 md:drop-shadow-none">
               <Image
@@ -299,16 +249,7 @@ export default function LandingPage() {
             <ListSale listSale={LIST_SALE} />
           </section>
 
-          <details className="group mb-8 border-b border-gray-200 pb-8 md:mt-20">
-            <BaseAccordion
-              data={POPULAR_CATEGORIES}
-              title="Popular Categories"
-            />
-          </details>
-          <details className="group mb-8 border-b border-gray-200 pb-8 md:mt-20">
-            <BaseAccordion data={POPULAR_CATEGORIES} title="Popular Stores" />
-          </details>
-
+          <PopularList />
           <section className="mb-16 md:mb-20">
             <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
               3 Ways to Save With RetailMeNot
