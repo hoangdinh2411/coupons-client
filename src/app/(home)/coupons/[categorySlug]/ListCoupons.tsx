@@ -56,7 +56,7 @@ const ListCoupons = ({
         </div>
 
         <Link
-          href={'/coupons'}
+          href={'/stores/'}
           className="absolute right-0.5 bottom-3 hidden h-11 items-center rounded-full border border-black bg-white px-4 py-1.5 text-xs font-bold whitespace-nowrap text-black lg:flex"
         >
           View more deals

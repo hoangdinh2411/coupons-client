@@ -26,7 +26,7 @@ export default async function StoreDetailPage({
   const store = res.data.store
   const similar_store = res.data.similar_stores
   return (
-    <div className="pb-10">
+    <div className="px-4 pb-10">
       <TopSplide />{' '}
       <div className="absolute right-0 left-0 hidden min-h-16 py-6 shadow-sm lg:block lg:bg-white">
         <div className="mx-auto flex max-w-(--max-width) gap-10">
@@ -54,7 +54,7 @@ export default async function StoreDetailPage({
                       src={store.image?.url || '/images/female.webp'}
                       alt={store.name}
                       sizes="auto"
-                      className="size-full rounded-[100%] object-cover"
+                      className="size-full rounded-[100%] object-contain"
                     />
                   </div>
                 </Link>
