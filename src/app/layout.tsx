@@ -3,6 +3,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
 import ToastProvider from '@/context/ToastProvider'
+import ModalCoupon from '@/components/modal/ModalCoupon'
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: {
@@ -59,6 +61,7 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         {children}
         <ToastProvider />
+        <ModalCoupon />
       </body>
     </html>
   )

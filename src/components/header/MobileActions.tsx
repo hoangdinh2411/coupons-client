@@ -102,7 +102,7 @@ export default function MobileActions() {
                         menu.popular.map((s) => (
                           <Link
                             key={s.id}
-                            href={'/stores' + s.slug}
+                            href={'/stores/' + s.slug}
                             className="py-1 text-sm font-semibold hover:underline"
                           >
                             {s.name}
@@ -136,7 +136,7 @@ export default function MobileActions() {
                               c.stores.map((s) => (
                                 <div className="flex flex-col gap-2" key={s.id}>
                                   <Link
-                                    href="#"
+                                    href={`stores/${s.slug}`}
                                     className="py-1 text-sm font-semibold hover:underline"
                                   >
                                     {s.name}

@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import { Fragment } from 'react'
 
 interface BaseAccordionProps {
   data: {
     name: string
-    href: string
+    slug: string
+    id: number
   }[]
   title: string
   type?: 'grid' | 'prose'
@@ -15,7 +17,7 @@ export default function BaseAccordion({
   type,
 }: BaseAccordionProps) {
   return (
-    <>
+    <Fragment>
       <summary
         className={`${type === 'prose' ? 'text-md mt-9 flex cursor-pointer font-semibold' : 'flex cursor-pointer justify-center text-2xl'}`}
       >
@@ -44,8 +46,8 @@ export default function BaseAccordion({
       {type === 'prose' ? (
         <div className="prose mt-9 w-4/5 text-sm md:w-2/3">
           {data.map((item) => (
-            <p key={item.href}>
-              <Link href={item.href}>{item.name}</Link>
+            <p key={item.id}>
+              <Link href={item.slug}>{item.name}</Link>
             </p>
           ))}
         </div>
@@ -53,15 +55,15 @@ export default function BaseAccordion({
         <div className="grid grid-cols-2 justify-center overflow-auto py-2 md:grid-cols-5">
           {data.map((item) => (
             <Link
-              key={item.href}
+              key={item.id}
               className="justify-left my-1 flex"
-              href={item.href}
+              href={item.slug}
             >
               {item.name}
             </Link>
           ))}
         </div>
       )}
-    </>
+    </Fragment>
   )
 }
