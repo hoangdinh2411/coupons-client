@@ -34,4 +34,5 @@ export interface CouponData extends BaseData {
   meta_data?: MetaData
   added_by: number
   user?: UserData
+  total_interested_users: number
 }
