@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from 'react'
-import TopicList from './components/TopicList'
+import TopicList from '../../../components/topic/TopicList'
 import Link from 'next/link'
 import { getTopics } from '@/services/topicApi'
 
