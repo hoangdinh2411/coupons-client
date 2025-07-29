@@ -35,7 +35,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           </span>
         </Link>
 
-        <div className="relative ml-10 w-full flex-1 overflow-hidden text-left transition-all duration-300 ease-out">
+        <div className="relative ml-10 w-full flex-1 text-left transition-all duration-300 ease-out">
           <Link href={`/blogs/${blog.slug}`}>
             {blog.topic && (
               <div className="flex h-full flex-col justify-between gap-2">
@@ -43,7 +43,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
                   <span className="text-green text-xs font-bold tracking-wide uppercase group-hover:text-white">
                     {blog.topic.name}
                   </span>
-                  <h3 className="text-olive-green mt-2 truncate text-xl font-bold group-hover:text-white">
+                  <h3 className="text-olive-green mt-2 text-xl font-bold group-hover:text-white">
                     {blog.title}
                   </h3>
                 </div>
@@ -61,7 +61,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
         {/* Image */}
         <Link
           href={`/blogs/${blog.slug}`}
-          className="relative aspect-[1] max-h-[280px] w-full max-w-[368px]"
+          className="relative aspect-[1] max-h-[280px] w-full"
         >
           <Image
             src={blog.image.url || '/images/no-img.webp'}
@@ -71,7 +71,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
             sizes="auto"
             className="h-full w-full object-cover md:h-auto"
           />
-          <span className="absolute -bottom-2 left-6 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
+          <span className="absolute -bottom-2 left-6 z-10 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
             <Image
               src={blog.topic?.image.url || '/images/no-img.webp'}
               alt={blog.topic?.name}
@@ -106,13 +106,12 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
     )
   }
 
-  // Default: vertical variant
   return (
     <div className="group relative flex flex-col">
       {/* Image */}
       <Link
         href={`/blogs/${blog.slug}`}
-        className="relative aspect-[1] max-h-[280px] w-full max-w-[368px]"
+        className="relative aspect-[1] max-h-[280px] w-full"
       >
         <Image
           src={blog.image.url || '/images/no-img.webp'}

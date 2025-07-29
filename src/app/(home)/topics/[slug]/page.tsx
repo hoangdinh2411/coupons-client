@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import ListBlogs from '../../blogs/components/ListBlogs'
+import ListBlogs from '../components/ListBlogs'
+import Pagination from '@/components/pagination'
 import { getLatestBlogs } from '@/services/blogApi'
 
 const TOPIC_DATA = {
@@ -13,23 +14,34 @@ const TOPIC_DATA = {
   topic_updated_at: '2021-01-01',
 }
 
+const FAKE_PAGINATION = {
+  totalItems: 100,
+  limit: 10,
+}
+
 export default async function TopicDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ page?: string }>
 }) {
   const [latestRes] = await Promise.all([getLatestBlogs()])
   const { slug } = await params
 
+  const totalPages = Math.ceil(
+    FAKE_PAGINATION.totalItems / FAKE_PAGINATION.limit,
+  )
+
   let topic = null
-  if (slug) {
+  if (slug === TOPIC_DATA.topic_slug) {
     topic = TOPIC_DATA
   } else {
-    // notFound()
-    console.log('not found')
+    // redirect('/not-found')
   }
+
   const latest = latestRes.data || []
   const rowTopic = latest.slice(0, 3)
+
   return (
     <div className="mt-10">
       <div className="mx-auto max-w-[1162px]">
@@ -51,15 +63,18 @@ export default async function TopicDetailPage({
           </p>
         </div>
 
-        <ListBlogs blogs={rowTopic} type="grid" />
+        <ListBlogs blogs={rowTopic} type="auto" />
         <div className="mb-10 flex flex-col gap-[30px] md:flex-row">
           <div className="flex-1">
             <ListBlogs blogs={latest} type="row" />
+            <div className="flex items-center justify-center py-5">
+              <Pagination totalPages={totalPages} slug={slug} />
+            </div>
           </div>
           <div className="hidden w-full md:w-1/3 lg:block">
             {/* <Suspense>
-            <TrendingBlogs />
-          </Suspense> */}
+              <TrendingBlogs />
+            </Suspense> */}
           </div>
         </div>
       </div>
