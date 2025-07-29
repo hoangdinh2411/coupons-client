@@ -7,12 +7,20 @@ import SearchBar from './SearchBar'
 import Actions from './Actions'
 import MobileActions from './MobileActions'
 import { getMenu } from '@/services/clientApi'
+import { getUserProfile } from '@/services/userApi'
+import { signOutApi } from '@/services/authApi'
 export default async function Header() {
-  const res = await getMenu()
+  const [menuRes, profileRes] = await Promise.all([getMenu(), getUserProfile()])
 
-  if (!res.success || !res.data) {
-    throw new Error(res?.message ?? 'cannot fetch menu')
+  if (!menuRes.success || !menuRes.data) {
+    throw new Error(menuRes?.message ?? 'cannot fetch menu')
   }
+  if (!profileRes.success || !profileRes.data) {
+    await signOutApi()
+  }
+
+  const menu = menuRes.data
+  const profile = profileRes.data
 
   return (
     <header>
@@ -44,9 +52,9 @@ export default async function Header() {
               sizes="(max-width: 768px) 120px"
             />
           </Link>
-          <Menu data={res.data} />
-          <SearchBar popularStores={res.data.popular} />
-          <Actions />
+          <Menu data={menu} />
+          <SearchBar popularStores={menu.popular} />
+          <Actions profile={profile} />
           <MobileActions />
         </nav>
       </div>
