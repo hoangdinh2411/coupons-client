@@ -11,11 +11,10 @@ interface BlogCardProps {
 export default function BlogCard({ blog, post_variant }: BlogCardProps) {
   if (post_variant === 'row') {
     return (
-      <div className="group relative flex flex-row">
-        {/* Image - Left side */}
+      <div className="group hover:bg-green relative flex w-full flex-row p-2.5">
         <Link
           href={`/blogs/${blog.slug}`}
-          className="relative aspect-[1] max-h-[280px] w-1/4 max-w-[368px]"
+          className="relative aspect-[1] max-h-[200px] min-h-auto w-1/4 min-w-[200px]"
         >
           <Image
             src={blog.image.url || '/images/no-img.webp'}
@@ -25,7 +24,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
             sizes="auto"
             className="h-full w-full object-cover"
           />
-          <span className="absolute right-6 -bottom-2 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
+          <span className="absolute -top-4 -right-4 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
             <Image
               src={blog.topic?.image.url || '/images/no-img.webp'}
               alt={blog.topic?.name}
@@ -36,16 +35,15 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           </span>
         </Link>
 
-        {/* Content - Right side */}
-        <div className="group-hover:bg-green relative flex-1 px-6 py-4 text-left transition-all duration-300 ease-out lg:px-10 lg:py-[30px]">
+        <div className="relative ml-10 w-full flex-1 overflow-hidden text-left transition-all duration-300 ease-out">
           <Link href={`/blogs/${blog.slug}`}>
             {blog.topic && (
               <div className="flex h-full flex-col justify-between gap-2">
-                <div>
-                  <span className="text-md text-olive-green font-bold tracking-wide uppercase group-hover:text-white">
+                <div className="">
+                  <span className="text-green text-xs font-bold tracking-wide uppercase group-hover:text-white">
                     {blog.topic.name}
                   </span>
-                  <h3 className="text-olive-green mt-2 line-clamp-2 text-base font-bold group-hover:text-white md:text-xl lg:line-clamp-none lg:min-h-[195px] lg:text-[28px]">
+                  <h3 className="text-olive-green mt-2 truncate text-xl font-bold group-hover:text-white">
                     {blog.title}
                   </h3>
                 </div>
