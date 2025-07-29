@@ -82,7 +82,7 @@ function ModalCoupon() {
                 href={coupon?.offer_link || coupon.store?.url || ''}
                 className="text-green text-xs underline"
               >
-                {coupon?.offer_link || coupon.store?.url}
+                {coupon?.store?.name}
               </Link>
             </p>
           </div>
