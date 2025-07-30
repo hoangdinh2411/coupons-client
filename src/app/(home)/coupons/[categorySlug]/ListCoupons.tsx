@@ -10,22 +10,26 @@ import { CouponData } from '@/types/coupon.type'
 import { CategoryData } from '@/types/category.type'
 import { CouponType } from '@/types/enum'
 import { getCouponsByCategory } from '@/services/categoryApi'
+import { usePathname } from 'next/navigation'
 
 const ListCoupons = ({
   coupons: initialCoupons,
   category,
   totalCoupons,
   categoryId,
+  topDeals,
 }: {
   coupons: CouponData[]
   category: CategoryData
   totalCoupons: number
   categoryId: number
+  topDeals: CouponData[]
 }) => {
   const [coupons, setCoupons] = useState<CouponData[]>(initialCoupons)
   const [currentPage, setCurrentPage] = useState(1)
   const [loading, setLoading] = useState(false)
-
+  const pathname = usePathname()
+  console.log(initialCoupons)
   // Check if there's a next page based on current coupons length vs total coupons
   const hasNextPage = coupons.length < totalCoupons
 
@@ -45,6 +49,17 @@ const ListCoupons = ({
       console.error('Error loading more coupons:', error)
     } finally {
       setLoading(false)
+    }
+  }
+  const handleClick = (coupon: CouponData) => {
+    // open a new tab/window at the same URL
+    window.open(
+      `${pathname}?outClicked=true&referenceId=${coupon.id}`,
+      '_blank',
+      'noopener,noreferrer',
+    )
+    if (coupon?.offer_link || coupon?.store?.url) {
+      window.location.href = coupon?.offer_link || coupon?.store?.url || ''
     }
   }
   return (
@@ -86,14 +101,14 @@ const ListCoupons = ({
         </div>
 
         <Link
-          href={'/stores/'}
+          href={`/stores/`}
           className="absolute right-0.5 bottom-3 hidden h-11 items-center rounded-full border border-black bg-white px-4 py-1.5 text-xs font-bold whitespace-nowrap text-black lg:flex"
         >
           View more deals
         </Link>
       </section>
 
-      <TopDealsSplide />
+      <TopDealsSplide topDeals={topDeals} />
 
       <div className="my-14 flex w-full items-center justify-center">
         <Link
@@ -106,8 +121,8 @@ const ListCoupons = ({
 
       <div className="grid grid-cols-1 gap-4 md:mt-20 md:grid-cols-3">
         {coupons?.map((coupon, index) => (
-          <a
-            href={coupon.offer_link || '#'}
+          <button
+            onClick={() => handleClick(coupon)}
             key={index}
             className="relative mb-5 flex h-full cursor-pointer overflow-hidden border-[#E0E0E0] bg-transparent md:h-auto md:min-h-[278px] md:flex-col md:rounded-xl md:border lg:h-[300px] lg:flex-col lg:bg-white"
           >
@@ -147,7 +162,7 @@ const ListCoupons = ({
                 text={`+${coupon.discount}% Back`}
               />
             )}
-          </a>
+          </button>
         ))}
       </div>
 

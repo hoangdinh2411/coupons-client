@@ -1,3 +1,4 @@
+import { CouponData } from './coupon.type'
 import { BaseData, ImageType, MetaData } from './share.type'
 import { StoreData } from './store.type'
 
@@ -20,4 +21,5 @@ export interface CategoryListData extends BaseData {
   category: CategoryData
   count_coupons: CountCoupons
   similar_stores: StoreData[]
+  top_deals: CouponData[]
 }

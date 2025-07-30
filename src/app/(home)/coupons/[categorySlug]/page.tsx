@@ -16,11 +16,11 @@ const CouponsByCategoryPage = async ({
   if (!categoryResponse.success || !categoryResponse.data) {
     return notFound()
   }
-  const { category, count_coupons, similar_stores } = categoryResponse.data
+  const { category, count_coupons, similar_stores, top_deals } =
+    categoryResponse.data
   const totalCoupons = parseInt(count_coupons.total_coupons) || 0
   const couponsResponse = await getCouponsByCategory(category.id, 1)
   const { data: coupons } = couponsResponse
-
   return (
     <div>
       <div className="px-4">
@@ -37,6 +37,7 @@ const CouponsByCategoryPage = async ({
         />
 
         <ListCoupons
+          topDeals={top_deals}
           coupons={coupons || []}
           category={category}
           totalCoupons={totalCoupons}

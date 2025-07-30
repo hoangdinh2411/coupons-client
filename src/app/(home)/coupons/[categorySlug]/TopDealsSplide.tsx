@@ -2,8 +2,9 @@ import React from 'react'
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
 import Link from 'next/link'
 import Image from 'next/image'
+import { CouponData } from '@/types/coupon.type'
 
-const TopDealsSplide = () => {
+const TopDealsSplide = ({ topDeals }: { topDeals: CouponData[] }) => {
   return (
     <>
       <Splide
@@ -27,7 +28,7 @@ const TopDealsSplide = () => {
         hasTrack={false}
       >
         <SplideTrack className="">
-          {[...Array(10).keys()].map((index) => (
+          {topDeals.map((coupon, index) => (
             <SplideSlide
               className="!mx-2 w-[80%] shadow-lg md:w-[40%] lg:hover:shadow-xl xl:w-[28%]"
               key={index}
