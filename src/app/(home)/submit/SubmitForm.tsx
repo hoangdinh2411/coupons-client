@@ -35,7 +35,7 @@ const defaultValues: SubmitFormType = {
   store_id: -1,
   type: '',
   offer_link: '',
-  discount: 0,
+  discount: '',
 }
 
 function SubmitForm() {
@@ -75,6 +75,7 @@ function SubmitForm() {
   const onSubmit = (data: SubmitFormType) => {
     const payload: CouponPayload = {
       ...data,
+      discount: data.discount ? Number(data.discount) : 0,
       expire_date: dayjs(data.expire_date).format('YYYY/MM/DD'),
       start_date: dayjs(data.start_date).format('YYYY/MM/DD'),
       type: data.type as CouponType,
@@ -349,7 +350,7 @@ function SubmitForm() {
                 {...register('discount')}
                 className={`textfield-${errors.discount ? 'error' : 'primary'} w-full`}
                 id="discount"
-                type="number"
+                type="tel"
                 placeholder="Enter discount between 0-100"
               />
             </fieldset>

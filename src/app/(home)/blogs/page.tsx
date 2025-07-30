@@ -26,7 +26,8 @@ export default async function Page() {
   }
   // const blogs_per_topic = res.data.blogs_per_topic
   const newest = latestRes.data[0]
-  const latest = latestRes.data.slice(1, latestRes.data.length - 1)
+  const latest = latestRes.data.slice(1, latestRes.data.length)
+  console.log(latestRes.data.length)
   const blogs_per_topic = Object.values(blogPerTopicRes.data)
   return (
     <Fragment>
