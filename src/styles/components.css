@@ -88,6 +88,7 @@
   padding: 0 !important;
   transform: scale(1) !important;
   border: none !important;
+  background: black !important;
 }
 
 .top-deals-splide .splide__pagination li button {

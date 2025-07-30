@@ -2,21 +2,51 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { FaArrowRight } from 'react-icons/fa'
 import TopDealsSplide from './TopDealsSplide'
 import Badge from '@/components/badge'
 import { CouponData } from '@/types/coupon.type'
 import { CategoryData } from '@/types/category.type'
 import { CouponType } from '@/types/enum'
+import { getCouponsByCategory } from '@/services/categoryApi'
 
 const ListCoupons = ({
-  coupons,
+  coupons: initialCoupons,
   category,
+  totalCoupons,
+  categoryId,
 }: {
   coupons: CouponData[]
   category: CategoryData
+  totalCoupons: number
+  categoryId: number
 }) => {
+  const [coupons, setCoupons] = useState<CouponData[]>(initialCoupons)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+
+  // Check if there's a next page based on current coupons length vs total coupons
+  const hasNextPage = coupons.length < totalCoupons
+
+  const handleShowMore = async () => {
+    if (loading || !hasNextPage) return
+
+    setLoading(true)
+    try {
+      const nextPage = currentPage + 1
+      const response = await getCouponsByCategory(categoryId, nextPage)
+
+      if (response.success && response.data) {
+        setCoupons((prevCoupons) => [...prevCoupons, ...(response.data || [])])
+        setCurrentPage(nextPage)
+      }
+    } catch (error) {
+      console.error('Error loading more coupons:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <main className="col-span-2 col-start-1 row-start-4 mt-2 mb-6 overflow-hidden lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-3">
       <section className="relative mb-6 flex gap-x-4">
@@ -122,14 +152,15 @@ const ListCoupons = ({
       </div>
 
       <div className="col-start-2 row-start-8 mb-24 flex items-center justify-center">
-        {true && (
+        {hasNextPage && (
           <button
-            className="mt-4 w-48 cursor-pointer items-center justify-center rounded-full bg-purple-700 py-3 tracking-wider lg:flex"
-            onClick={() => {
-              console.log('Show more offers clicked')
-            }}
+            className="mt-4 w-48 cursor-pointer items-center justify-center rounded-full bg-purple-700 py-3 tracking-wider disabled:cursor-not-allowed disabled:opacity-50 lg:flex"
+            onClick={handleShowMore}
+            disabled={loading}
           >
-            <span className="w-auto text-sm text-white">Show More Offers</span>
+            <span className="w-auto text-sm text-white">
+              {loading ? 'Loading...' : 'Show More Offers'}
+            </span>
           </button>
         )}
       </div>

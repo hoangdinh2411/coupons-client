@@ -12,14 +12,12 @@ const CouponsByCategoryPage = async ({
   params: Promise<{ categorySlug: string }>
 }) => {
   const { categorySlug } = await params
-
   const categoryResponse = await getCategoryBySlug(categorySlug)
   if (!categoryResponse.success || !categoryResponse.data) {
     return notFound()
   }
-
   const { category, count_coupons, similar_stores } = categoryResponse.data
-
+  const totalCoupons = parseInt(count_coupons.total_coupons) || 0
   const couponsResponse = await getCouponsByCategory(category.id, 1)
   const { data: coupons } = couponsResponse
 
@@ -38,7 +36,12 @@ const CouponsByCategoryPage = async ({
           similarStores={similar_stores}
         />
 
-        <ListCoupons coupons={coupons || []} category={category} />
+        <ListCoupons
+          coupons={coupons || []}
+          category={category}
+          totalCoupons={totalCoupons}
+          categoryId={category.id}
+        />
 
         <div className="col-span-2 row-start-1 mb-4 hidden text-center text-[10px] lg:col-span-1 lg:row-start-3 lg:mx-0 lg:mt-3 lg:mr-16 lg:mb-8 lg:block lg:text-left lg:text-sm">
           When you buy through links on TrustCoupon{' '}
