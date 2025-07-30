@@ -17,7 +17,7 @@ function CardCoupon({
 }: CardCouponPropsType) {
   return (
     <Link
-      href={'/categories/' + category.slug}
+      href={'/coupons/' + category.slug}
       {...rest}
       className={`${className} group flex flex-col items-center justify-center gap-2`}
     >

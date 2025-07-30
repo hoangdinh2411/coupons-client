@@ -12,7 +12,7 @@ export default function CategoryList() {
         menu.categories.map((cat) => (
           <div className="mb-8" key={cat.id}>
             <Link
-              href="/"
+              href={`coupons/${cat.slug}`}
               className="block text-sm font-semibold uppercase hover:underline"
             >
               {cat.name}

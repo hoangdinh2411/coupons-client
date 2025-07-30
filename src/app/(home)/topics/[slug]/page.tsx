@@ -39,7 +39,7 @@ export default async function TopicDetailPage({
   const top_blogs = blogs.slice(0, 3)
   const rest = blogs.slice(3, blogs.length)
   const total = blogsRes?.data?.total
-  const topic = blogs[0].topic
+  const topic = blogs[0]?.topic || []
   return (
     <Fragment>
       <nav className="mx-auto max-w-[1162px] pt-10">
@@ -61,7 +61,7 @@ export default async function TopicDetailPage({
               <h1 className="flex items-center gap-4 text-5xl font-bold text-[#ff5c6d] capitalize">
                 <Image
                   className="size-10 rounded-full border-2 border-gray-100"
-                  src={topic?.image.url || '/images/no-img.webp'}
+                  src={topic?.image?.url || '/images/no-img.webp'}
                   alt={topic?.name || ''}
                   width={160}
                   height={160}
