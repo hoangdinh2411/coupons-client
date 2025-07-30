@@ -1,15 +1,17 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
 import { formatDisplayName } from '@/helpers/format'
-import { signOutApi } from '@/services/authApi'
-// import { getAllCategories } from '@/services/categoryApi'
-import { getUserProfile } from '@/services/userApi'
 import UseAppStore from '@/stores/app.store'
+import { UserData } from '@/types/auth.type'
 import Link from 'next/link'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
-export default function Actions() {
+export default function Actions({
+  profile,
+}: {
+  profile: UserData | undefined
+}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
   const { user, setUser } = UseAppStore((state) => state)
@@ -33,44 +35,12 @@ export default function Actions() {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isOpen])
-  const handleSignOut = async () => {
-    const res = await signOutApi()
-    if (res.ok) {
-      setUser(null)
-    }
-  }
   useEffect(() => {
-    const handleFetchProfile = async () => {
-      const profileRes = await getUserProfile()
-      if (!profileRes.success || !profileRes.data) {
-        await handleSignOut()
-        return
-      }
-      setUser(profileRes.data)
-    }
-
-    // async function fetchCategoriesAndBlogsForMenu() {
-    //   const [categoryRes] = await Promise.all([
-    //     getAllCategories(),
-    //     // getTopics(),
-    //   ])
-    //   // // const storeRes = await getAllStores();
-    //   // if (storeRes.success && storeRes.data) {
-    //   //   setStores(storeRes.data.results);
-    //   // }
-    //   // const categoryRes = await getCategories();
-    //   if (categoryRes.success && categoryRes.data) {
-    //     setCategories(categoryRes.data.results)
-    //   }
-    //   // if (topicsRes.success && topicsRes.data) {
-    //   //   setTopics(topicsRes.data.results);
-    //   // }
-    // }
-    if (!user) {
-      handleFetchProfile()
+    if (profile) {
+      setUser(profile)
     }
     // fetchCategoriesAndBlogsForMenu()
-  }, [])
+  }, [profile])
 
   return (
     <div className="ml-auto hidden items-center gap-4 lg:flex">

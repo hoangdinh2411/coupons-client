@@ -29,7 +29,7 @@ export default function TopicList({ topics }: { topics: TopicData[] }) {
         >
           <div className="mx-3.5 w-[94px]">
             <Link
-              href={`/blogs/${topic.slug}`}
+              href={`/topics/${topic.slug}`}
               className="group flex flex-col items-center"
             >
               <Image
