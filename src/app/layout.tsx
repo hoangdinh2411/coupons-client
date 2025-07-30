@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
 import ToastProvider from '@/context/ToastProvider'
 import ModalCoupon from '@/components/modal/ModalCoupon'
+import { Suspense } from 'react'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -61,7 +62,9 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         {children}
         <ToastProvider />
-        <ModalCoupon />
+        <Suspense>
+          <ModalCoupon />
+        </Suspense>
       </body>
     </html>
   )

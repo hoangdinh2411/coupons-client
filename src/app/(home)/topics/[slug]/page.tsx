@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Pagination from '@/components/pagination'
-import { Fragment } from 'react'
+import { Fragment, Suspense } from 'react'
 import TopicList from '@/components/topic/TopicList'
 import Link from 'next/link'
 import { getBlogsByTopic, getTopics } from '@/services/topicApi'
@@ -76,7 +76,9 @@ export default async function TopicDetailPage({
             <div className="flex-1">
               <ListBlogs blogs={rest} type="row" />
               <div className="flex items-center justify-center py-5">
-                <Pagination total={total} limit={limit} currentPage={+page} />
+                <Suspense>
+                  <Pagination total={total} limit={limit} currentPage={+page} />
+                </Suspense>
               </div>
             </div>
             <div className="hidden w-full md:w-1/3 lg:block"></div>
