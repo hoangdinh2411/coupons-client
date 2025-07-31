@@ -11,7 +11,26 @@ import ListBlog from '../components/ListBlogs'
 import TrendingBlogs from '../components/TrendingBlogs'
 import ListBlogs from '../components/ListBlogs'
 import SpinnerLoading from '@/components/loading'
+import { Metadata } from 'next'
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const slug = (await params).slug
+
+  // fetch post information
+  const res = await getBlogBySlug(slug)
+  if (!res.success || !res.data?.blog) {
+    notFound()
+  }
+  return {
+    title: res.data.blog.title,
+    description: res.data.blog.meta_data?.description,
+    keywords: res.data.blog.keywords,
+  }
+}
 export default async function BlogDetailPage({
   params,
 }: {
@@ -44,7 +63,7 @@ export default async function BlogDetailPage({
                 </h1>
                 <div className="mt-2 flex items-center gap-1 text-sm">
                   <Link
-                    href=""
+                    href={`/topics/${blog.topic.slug}`}
                     className="hover:text-green font-bold uppercase transition-all duration-300 ease-out"
                     style={{ letterSpacing: '2px' }}
                   >
@@ -58,7 +77,7 @@ export default async function BlogDetailPage({
                   <span className="text-gray-600">
                     By{' '}
                     <Link
-                      href=""
+                      href="#"
                       className="hover:text-green text-oliver-green font-semibold transition-all duration-300 ease-out"
                     >
                       {formatDisplayName(blog.user)}

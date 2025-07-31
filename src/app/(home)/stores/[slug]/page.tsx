@@ -9,7 +9,26 @@ import OffersTable from './OffersTable'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Metadata } from 'next'
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const slug = (await params).slug
+
+  // fetch post information
+  const res = await getStoreBySlug(slug)
+  if (!res.success || !res.data?.store) {
+    notFound()
+  }
+  return {
+    title: res.data.store.name,
+    description: res.data.store.description,
+    keywords: res.data.store.keywords,
+  }
+}
 export default async function StoreDetailPage({
   params,
 }: {

@@ -25,9 +25,9 @@ export async function generateMetadata(): Promise<Metadata> {
       description: METADATA.OG.DESCRIPTION,
       url: METADATA.APP_URL,
       siteName: METADATA.NAME,
-      countryName: 'Vietnam',
+      countryName: 'United State',
       emails: METADATA.CONTACT_EMAIL,
-      locale: 'vn_Vn',
+      locale: 'us_US',
       type: 'website',
     },
     icons: {
