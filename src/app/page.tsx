@@ -9,7 +9,7 @@ import BestDeals from './(home)/(home)/BestDeals'
 import CategoryDealList from './(home)/(home)/CategoryDealList'
 import ListSale from './(home)/(home)/ListSale'
 import SpotlightList from './(home)/(home)/SpotlightList'
-import { Suspense } from 'react'
+import { Fragment, Suspense } from 'react'
 import PopularList from './(home)/(home)/PopularList'
 
 const FAQ = [
@@ -102,8 +102,10 @@ const TOP_DEAL_LIST = Array.from({ length: 8 }, (_, i) => ({
 
 export default function LandingPage() {
   return (
-    <>
-      <Header />
+    <Fragment>
+      <Suspense>
+        <Header />
+      </Suspense>
       <main>
         <section>
           <PromoSlider bannerList={BANNER_LIST} />
@@ -373,6 +375,6 @@ export default function LandingPage() {
         </div>
       </main>
       <Footer />
-    </>
+    </Fragment>
   )
 }

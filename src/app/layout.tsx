@@ -25,12 +25,16 @@ export async function generateMetadata(): Promise<Metadata> {
       description: METADATA.OG.DESCRIPTION,
       url: METADATA.APP_URL,
       siteName: METADATA.NAME,
-      countryName: 'Viet nam',
+      countryName: 'Vietnam',
       emails: METADATA.CONTACT_EMAIL,
       locale: 'vn_Vn',
       type: 'website',
     },
-    icons: [],
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/icon/favicon-16x16.png',
+      apple: '/icon/favicon-16x16.png',
+    },
     manifest: 'manifest.json',
   }
 }
@@ -44,20 +48,6 @@ export default function RootLayout({
     <html lang="se">
       <head>
         <meta name="google" content="notranslate" />
-        {/* ===== Open Graph Meta Tags ===== */}
-        {/* <meta property="og:site_name" content={METADATA.NAME} />
-        <meta property="og:title" content={METADATA.OG.TITLE} />
-        <meta property="og:description" content={METADATA.OG.DESCRIPTION} />
-        <meta property="og:image:type" content="image/png" />
-        <meta
-          property="og:image"
-          content={`${METADATA.APP_URL}/images/opengraph-image.png`}
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:country_name" content="Sweden" /> */}
-        {/* Đảm bảo URL này trỏ tới trang chủ hoặc trang bạn muốn share */}
-        {/* <meta property="og:url" content={METADATA.APP_URL} /> */}
-        {/* ✅ Google Tag Manager (head) */}
       </head>
       <body suppressHydrationWarning={true}>
         {children}
