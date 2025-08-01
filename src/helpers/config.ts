@@ -20,7 +20,7 @@ export const APP_ROUTERS = {
   POLICY: '/policy',
 }
 
-const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://globy.ai'
+const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://trustcoupon.com'
 
 export const METADATA = {
   NAME: 'TrustCoupon.Com',

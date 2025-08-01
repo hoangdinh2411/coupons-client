@@ -5,7 +5,7 @@ import CommentSection from '@/app/(home)/blogs/[slug]/comment/CommentSection'
 import { formatDate, formatDisplayName } from '@/helpers/format'
 import Image from 'next/image'
 import { getBlogBySlug, getLatestBlogs } from '@/services/blogApi'
-import { APP_ROUTERS } from '@/helpers/config'
+import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import { notFound, redirect } from 'next/navigation'
 import ListBlog from '../components/ListBlogs'
 import TrendingBlogs from '../components/TrendingBlogs'
@@ -25,10 +25,44 @@ export async function generateMetadata({
   if (!res.success || !res.data?.blog) {
     notFound()
   }
+  const blog = res.data.blog
   return {
-    title: res.data.blog.title,
-    description: res.data.blog.meta_data?.description,
-    keywords: res.data.blog.keywords,
+    category: blog.topic.name,
+    title: blog.title,
+    description: blog.meta_data?.description,
+    keywords: blog.keywords,
+    openGraph: {
+      title: blog.title,
+      description: blog.meta_data?.description,
+      url: `${METADATA.APP_URL}/blogs/${blog.slug}`,
+      images: [
+        {
+          url: blog.image.url,
+          alt: `${METADATA.APP_URL} Image`,
+          width: 1200,
+          height: 630,
+          type: 'article',
+        },
+      ],
+    },
+    twitter: {
+      title: blog.title,
+      description: blog.meta_data?.description,
+      images: [
+        {
+          url: blog.image.url,
+          alt: `${METADATA.APP_URL} Image`,
+          width: 1200,
+          height: 630,
+          type: 'article',
+        },
+      ],
+    },
+    authors: [
+      {
+        name: formatDisplayName(blog.user),
+      },
+    ],
   }
 }
 export default async function BlogDetailPage({
