@@ -143,11 +143,47 @@ export default async function BlogDetailPage({
                   alt={formatDisplayName(blog.user)}
                 />
               </span>
-              <p>
-                <b className="text-green text-lg font-bold">
+              <div className="flex w-full flex-col items-start justify-start gap-2">
+                <b className="text-green w-full text-lg font-bold">
                   {formatDisplayName(blog.user)}
                 </b>
-              </p>
+                <p className="w-full">{blog.user.description}</p>
+
+                <div className="flex w-full items-center justify-center gap-2">
+                  {blog.user.instagram && (
+                    <Link
+                      className="rounded-lg border-1 border-gray-300 text-center"
+                      href={blog.user.instagram}
+                    >
+                      Instagram
+                    </Link>
+                  )}
+                  {blog.user.facebook && (
+                    <Link
+                      className="rounded-lg border-1 border-gray-300 text-center"
+                      href={blog.user.facebook}
+                    >
+                      Facebook
+                    </Link>
+                  )}
+                  {blog.user.linkedin && (
+                    <Link
+                      className="rounded-lg border-1 border-gray-300 text-center"
+                      href={blog.user.linkedin}
+                    >
+                      LinkedIn
+                    </Link>
+                  )}
+                  {blog.user.youtube && (
+                    <Link
+                      className="rounded-lg border-1 border-gray-300 text-center"
+                      href={blog.user.youtube}
+                    >
+                      Youtube
+                    </Link>
+                  )}
+                </div>
+              </div>
             </div>
             <Suspense fallback={<SpinnerLoading />}>
               <CommentSection blog_id={blog.id} />

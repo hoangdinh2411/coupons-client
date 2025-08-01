@@ -68,6 +68,7 @@ export default async function TopicDetailPage({
                 />
                 {slug}
               </h1>
+              <p>{topic.description}</p>
             </div>
           </div>
 

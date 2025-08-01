@@ -19,6 +19,11 @@ export interface UserData extends BaseData {
   first_name?: string
   last_name?: string
   image: ImageType
+  youtube: string
+  linkedin: string
+  facebook: string
+  instagram: string
+  description: string
 }
 export interface VerifyRequestPayload {
   email: string
