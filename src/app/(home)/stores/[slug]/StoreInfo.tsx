@@ -3,7 +3,7 @@ import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
 import { StoreData } from '@/types/store.type'
 import Link from 'next/link'
-import React from 'react'
+import React, { useMemo } from 'react'
 
 function StoreInfo({
   store,
@@ -15,6 +15,10 @@ function StoreInfo({
   const menu = UseAppStore((state) => state.menu)
   const totalRating = Array.from({ length: 5 }, (_, i) => i + 1)
 
+  const randomCouponIndex = useMemo(
+    () => Math.floor(Math.random() * store.coupons.length),
+    [store],
+  )
   return (
     <div>
       <div className="relative xl:mt-28 xl:pr-26">
@@ -31,7 +35,7 @@ function StoreInfo({
           </h3>
           <ul className="mb-4 list-inside list-disc">
             <li className="text-md text-gray-900">
-              {store.max_discount_pct}% Off Your Order
+              {store.coupons[randomCouponIndex].discount}% Off Your Order
             </li>
           </ul>
           <div className="mb-4">

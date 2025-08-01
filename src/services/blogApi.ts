@@ -3,9 +3,9 @@ import { BlogData } from '@/types/blog.type'
 
 export const getLatestBlogs = async () => {
   return await customFetch<BlogData[]>(`/client/blogs/latest`, {
-    // next: {
-    //   revalidate: 3600,
-    // },
+    next: {
+      revalidate: 3600,
+    },
   })
 }
 export const getTrendingBlogs = async () => {
@@ -30,7 +30,7 @@ export const getBlogBySlug = async (slug: string) => {
     read_more: BlogData[]
   }>(`/client/blogs?slug=${slug}`, {
     next: {
-      tags: [slug],
+      revalidate: 3600,
     },
   })
 }

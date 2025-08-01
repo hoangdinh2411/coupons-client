@@ -14,28 +14,23 @@ export default function manifest(): MetadataRoute.Manifest {
     scope: '/',
     icons: [
       {
-        src: '/icon/favicon-16x16.png',
+        src: '/icons/favicon-16x16.png',
         sizes: '16x16',
         type: 'image/png',
       },
       {
-        src: '/icon/favicon-32x32.png',
+        src: '/icons/favicon-32x32.png',
         sizes: '32x32',
         type: 'image/png',
       },
       {
-        src: '/icon/favicon-96x96.png',
+        src: '/icons/favicon-96x96.png',
         sizes: '96x96',
         type: 'image/png',
       },
       {
-        src: '/icon/favicon-128x128.png',
+        src: '/icons/favicon-128x128.png',
         sizes: '128x128',
-        type: 'image/png',
-      },
-      {
-        src: '/icon/favicon-196x196.png',
-        sizes: '196x196',
         type: 'image/png',
       },
     ],

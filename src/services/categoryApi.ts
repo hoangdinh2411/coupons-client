@@ -13,7 +13,7 @@ export const getAllCategoriesWithAllStores = async () => {
 export const getCategoryBySlug = async (slug: string) => {
   return await customFetch<CategoryListData>(`/client/categories/${slug}`, {
     next: {
-      tags: [slug],
+      revalidate: 3600,
     },
   })
 }
@@ -23,7 +23,7 @@ export const getCouponsByCategory = async (id: number, page: number = 1) => {
     `/client/categories/${id}/coupons?page=${page}`,
     {
       next: {
-        tags: [`${id}`],
+        revalidate: 3600,
       },
     },
   )

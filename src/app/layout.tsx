@@ -32,8 +32,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     icons: {
       icon: '/favicon.ico',
-      shortcut: '/icon/favicon-16x16.png',
-      apple: '/icon/favicon-16x16.png',
+      shortcut: '/icons/favicon-16x16.png',
+      apple: '/icons/favicon-16x16.png',
     },
     manifest: 'manifest.json',
   }

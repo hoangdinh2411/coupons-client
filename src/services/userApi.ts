@@ -4,6 +4,8 @@ import customFetchWithToken from './customFetchWithToken'
 export const getUserProfile = async () => {
   return await customFetchWithToken<UserData>(`/users/profile`, {
     method: 'GET',
-    cache: 'no-store',
+    next: {
+      revalidate: 3600,
+    },
   })
 }

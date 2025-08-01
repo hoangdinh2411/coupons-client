@@ -10,6 +10,7 @@ import dayjs from 'dayjs'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
+import { METADATA } from '@/helpers/config'
 
 export async function generateMetadata({
   params,
@@ -23,10 +24,44 @@ export async function generateMetadata({
   if (!res.success || !res.data?.store) {
     notFound()
   }
+  const store = res.data.store
   return {
-    title: res.data.store.name,
-    description: res.data.store.description,
-    keywords: res.data.store.keywords,
+    category: store.categories ? store.categories[0].name : 'website',
+    title: store.name,
+    description: store.meta_data?.description,
+    keywords: store.keywords,
+    openGraph: {
+      title: store.name,
+      description: store.meta_data?.description,
+      url: `${METADATA.APP_URL}/stores/${store.slug}`,
+
+      images: store.image
+        ? [
+            {
+              url: store.image.url,
+              alt: `${METADATA.APP_URL} Image`,
+              width: 1200,
+              height: 630,
+              type: 'article',
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      title: store.name,
+      description: store.meta_data?.description,
+      images: store.image
+        ? [
+            {
+              url: store.image.url,
+              alt: `${METADATA.APP_URL} Image`,
+              width: 1200,
+              height: 630,
+              type: 'article',
+            },
+          ]
+        : [],
+    },
   }
 }
 export default async function StoreDetailPage({
@@ -88,7 +123,7 @@ export default async function StoreDetailPage({
           </div>
         </div>
 
-        <section className="col-span-2 mt-2 w-full lg:mt-36">
+        <section className="col-span-2 mt-2 w-full lg:mt-40">
           {store.unexpired_coupons && store.unexpired_coupons.length > 0 && (
             <Fragment>
               <p className="mt-2 mb-2 block text-[12px] font-[600] tracking-wider uppercase lg:hidden">
