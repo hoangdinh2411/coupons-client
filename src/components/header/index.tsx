@@ -26,7 +26,7 @@ export default async function Header() {
     <header>
       <div className="bg-light-green">
         <p className="text-olive-green m-auto flex h-10 max-w-(--max-width) items-center justify-center text-sm">
-          Save up to 20% on all Coupons & Accessories with “FG6556KD” code
+          Join our newsletter and get the best-verified deals delivered to your inbox weekly!
         </p>
       </div>
       <div className="bg-olive-green w-full">

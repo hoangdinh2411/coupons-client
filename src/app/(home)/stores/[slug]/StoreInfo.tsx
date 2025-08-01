@@ -21,13 +21,13 @@ function StoreInfo({
         <div className="mt-20 mb-12 hidden text-sm font-bold lg:block">
           When you buy through links on
           <p>
-            TrustCoupon{' '}
+            TrustCoupon.Com{' '}
             <span className="underline">we may earn a commission.</span>
           </p>
         </div>
         <div className="w-full rounded-lg lg:mx-auto lg:max-w-md">
           <h3 className="mb-4 text-sm font-bold uppercase">
-            TODAY&apos;S TOP A PEA IN THE POD OFFERS:
+            TODAY&apos;S TOP {store.name} OFFERS:
           </h3>
           <ul className="mb-4 list-inside list-disc">
             <li className="text-md text-gray-900">
@@ -35,22 +35,22 @@ function StoreInfo({
             </li>
           </ul>
           <div className="mb-4">
-            <p className="justify-betwee mr-2 flex">
+            <p className="justify-between mr-2 flex">
               <span className=""> Total Offers:</span>
               <span className="ml-auto">{store.total_coupons ?? 0}</span>
             </p>
-            <p className="justify-betwee mr-2 flex">
+            <p className="justify-between mr-2 flex">
               <span className="">Coupon Codes:</span>
               <span className="ml-auto">{store.total_coupon_codes ?? 0}</span>
             </p>
-            <p className="justify-betwee mr-2 flex">
+            <p className="justify-between mr-2 flex">
               <span className=""> In-Store Coupons:</span>
               <span className="ml-auto">
                 {store.total_in_store_coupons ?? 0}
               </span>
             </p>
-            <p className="justify-betwee mr-2 flex">
-              <span className="list-disc"> Sale Coupons:</span>
+            <p className="justify-between mr-2 flex">
+              <span className=""> Sale Coupons:</span>
               <span className="ml-auto">{store.total_sale_coupons ?? 0}</span>
             </p>
           </div>
@@ -59,19 +59,23 @@ function StoreInfo({
             Why trust us?
           </h3>
           <p className="mb-2 font-sans text-sm">
-            RetailMeNot.com has a dedicated merchandising team sourcing and
-            verifying the best A Pea in the Pod coupons, promo codes and deals —
-            so you can save money and time while shopping. Our deal hunters are
-            constantly researching the market in real time to provide you with
-            up-to-date savings intel, the best stores to shop and which products
-            to buy. We also make sure to look at the fine print, so you
-            don&apos;t have to worry about whether a promo code will actually
-            work on your purchase. Wherever you shop, we want to make sure you
-            can trust RetailMeNot to provide vetted coupons, promo codes, sales
-            and deals.
+            Here's why you can shop with confidence at {store.name} using TrustCoupon:
           </p>
-          <Link href={'/'} className="mt-4 underline">
-            Learn How We Verify Coupons
+          <ul className="list-disc list-inside space-y-1">
+            <li>
+                <strong>Daily Verification:</strong> Our team tests each code every day to ensure it's active.
+            </li>
+            <li>
+                <strong>Clear Terms:</strong> We read the fine print so you know exactly how to use the deal.
+            </li>
+            <li>
+                <strong>Community Powered:</strong> We use real-time user ratings to feature the best codes first.
+            </li>
+          </ul>
+            <Link 
+              href={'/how-we-verify'}
+              className="mt-3 inline-block text-green-600 hover:underline font-semibold text-sm">
+              Learn How We Verify ›
           </Link>
         </div>
         <div className="relative top-0 transition-all duration-700">
@@ -113,7 +117,7 @@ function StoreInfo({
                   </svg>
                   <svg
                     className={`absolute top-0 h-4 w-4 transition-all ${
-                      (store.rating ?? 1 >= i)
+                      (store.rating ?? 0 >= i)
                         ? 'text-yellow-400'
                         : 'text-gray-300'
                     }`}
