@@ -15,7 +15,7 @@ const SAMPLE_FOOTER_DATA = {
     {
       title: 'Tools & Support',
       links: [
-        { label: 'MY TrustCoupon', href: APP_ROUTERS.MY_COUPONS },
+        { label: 'MY TRUSTCOUPON', href: APP_ROUTERS.MY_COUPONS },
         { label: 'My Account + Rewards', href: APP_ROUTERS.PROFILE },
         { label: 'Submit a Coupon', href: APP_ROUTERS.SUBMIT_COUPON },
         { label: 'Get Help', href: '#' },
