@@ -5,24 +5,20 @@ import Link from 'next/link'
 
 const footerLinks = [
   {
-    label: 'AdChoices',
-    href: 'https://optout.aboutads.info/?c=2&lang=EN',
-  },
-  {
     label: 'Terms of Service',
-    href: 'https://www.ziffdavis.com/terms-of-use',
+    href: '/terms-of-use',
   },
   {
     label: 'Privacy Policy',
-    href: 'https://www.ziffdavis.com/shopping-privacy-policy',
+    href: '/privacy-policy',
   },
   {
     label: 'Do Not Sell My Personal Information',
-    href: 'https://dsar.TrustCoupon.com/',
+    href: '/dsar',
   },
   {
     label: 'Accessibility',
-    href: 'https://www.ziffdavis.com/accessibility',
+    href: '/accessibility',
   },
   {
     label: 'Sitemap',
@@ -49,7 +45,7 @@ const Footer = () => {
           ))}
         </div>
         <span className="text-white">
-          ©{new Date().getFullYear()} TrustCoupon, Inc. All rights reserved.
+          ©{new Date().getFullYear()} TrustCoupon.Com, Inc. All rights reserved.
         </span>
       </div>
     </footer>
