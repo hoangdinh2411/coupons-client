@@ -35,22 +35,22 @@ function StoreInfo({
             </li>
           </ul>
           <div className="mb-4">
-            <p className="justify-betwee mr-2 flex">
+            <p className="justify-between mr-2 flex">
               <span className=""> Total Offers:</span>
               <span className="ml-auto">{store.total_coupons ?? 0}</span>
             </p>
-            <p className="justify-betwee mr-2 flex">
+            <p className="justify-between mr-2 flex">
               <span className="">Coupon Codes:</span>
               <span className="ml-auto">{store.total_coupon_codes ?? 0}</span>
             </p>
-            <p className="justify-betwee mr-2 flex">
+            <p className="justify-between mr-2 flex">
               <span className=""> In-Store Coupons:</span>
               <span className="ml-auto">
                 {store.total_in_store_coupons ?? 0}
               </span>
             </p>
-            <p className="justify-betwee mr-2 flex">
-              <span className="list-disc"> Sale Coupons:</span>
+            <p className="justify-between mr-2 flex">
+              <span className=""> Sale Coupons:</span>
               <span className="ml-auto">{store.total_sale_coupons ?? 0}</span>
             </p>
           </div>
@@ -117,7 +117,7 @@ function StoreInfo({
                   </svg>
                   <svg
                     className={`absolute top-0 h-4 w-4 transition-all ${
-                      (store.rating ?? 1 >= i)
+                      (store.rating ?? 0 >= i)
                         ? 'text-yellow-400'
                         : 'text-gray-300'
                     }`}
