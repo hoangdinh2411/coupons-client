@@ -130,7 +130,7 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
       </Splide>
       <div className="mb-10 flex w-full justify-center">
         {isMobile && (
-          <button className="mx-auto mt-10 cursor-pointer rounded-full border border-slate-700 px-[16px] py-[6px] text-[12px] font-bold text-gray-800">
+          <button className="mx-auto mt-10 cursor-pointer rounded-full border border-slate-700 px-[16px] py-2.5 text-sm font-bold text-gray-800">
             View more deals
           </button>
         )}

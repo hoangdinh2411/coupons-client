@@ -39,11 +39,11 @@ function CouponCard(props: CouponCardPropsType) {
   return (
     <div
       onClick={handleClick}
-      className={`${className} focus:outline-green mb-5 rounded-2xl border-white py-2 outline-1 outline-transparent md:mb-0`}
+      className={`${className} focus:outline-green mb-3 rounded-2xl border-white py-2 outline-1 outline-transparent md:mb-0`}
       {...rest}
     >
       <div
-        className={`relative flex h-full w-full cursor-pointer gap-2 rounded-xl bg-white text-left focus:border-2 md:h-auto md:flex-col md:border-1 md:border-gray-300`}
+        className={`relative flex h-full w-full cursor-pointer gap-2 rounded-xl text-left focus:border-2 md:h-auto md:flex-col md:border-1 md:border-gray-300`}
       >
         <div className="relative aspect-[1/0.8] h-full w-[140px] md:mb-2 md:aspect-[2/1.1] md:w-full">
           {badgeTitle && badgeIcon && (
