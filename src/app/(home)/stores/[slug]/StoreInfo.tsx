@@ -3,7 +3,7 @@ import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
 import { StoreData } from '@/types/store.type'
 import Link from 'next/link'
-import React, { useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function StoreInfo({
   store,
@@ -15,10 +15,13 @@ function StoreInfo({
   const menu = UseAppStore((state) => state.menu)
   const totalRating = Array.from({ length: 5 }, (_, i) => i + 1)
 
-  const randomCouponIndex = useMemo(
-    () => Math.floor(Math.random() * store.coupons.length),
-    [store],
-  )
+  const [randomCouponIndex, setRandomCouponIndex] = useState(0)
+
+  useEffect(() => {
+    if (store.coupons.length > 0) {
+      setRandomCouponIndex(Math.floor(Math.random() * store.coupons.length))
+    }
+  }, [store.coupons.length])
   return (
     <div>
       <div className="relative xl:mt-28 xl:pr-26">
@@ -34,9 +37,11 @@ function StoreInfo({
             TODAY&apos;S TOP {store.name} OFFERS:
           </h3>
           <ul className="mb-4 list-inside list-disc">
-            <li className="text-md text-gray-900">
-              {store.coupons[randomCouponIndex].discount}% Off Your Order
-            </li>
+            {store.coupons.length > 0 && (
+              <li className="text-md text-gray-900">
+                {store.coupons[randomCouponIndex].discount}% Off Your Order
+              </li>
+            )}
           </ul>
           <div className="mb-4">
             <p className="mr-2 flex justify-between">

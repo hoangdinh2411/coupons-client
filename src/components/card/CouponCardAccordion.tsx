@@ -56,7 +56,7 @@ function CouponCardAccordion(coupon: CouponData) {
           </div>
         </div>
         <button className="bg-green relative mb-2 hidden h-12 !w-[192px] cursor-pointer items-center justify-center self-center overflow-hidden rounded-3xl text-base leading-none font-[800] tracking-wider text-white before:absolute before:-top-3 before:-right-5 before:z-10 before:h-8 before:w-12 before:rotate-45 before:bg-gray-300 after:absolute after:-top-4 after:-right-4 after:h-12 after:w-12 after:rotate-45 after:rounded-full after:bg-gray-200/30 md:block">
-          Show code
+          {coupon.code}
         </button>
       </div>
       <CardAccordion
