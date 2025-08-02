@@ -11,12 +11,12 @@ export default async function StoreList({ letter }: Props) {
   const res = await searchStore(letter)
 
   return (
-    <div className="">
+    <div className="px-4">
       <StoreHeader currentLetter={letter ?? 'A'} />
       <div className="mx-auto w-full max-w-[1280px]">
         <div className="container mx-auto">
           {res.data && res.data.length > 0 ? (
-            <ul className="mx-4 grid list-disc gap-x-6 gap-y-6 pt-10 pb-4 text-sm md:grid-cols-2 lg:grid-cols-3">
+            <ul className="mx-4 grid list-disc gap-x-6 gap-y-6 pt-5 pb-4 text-sm md:grid-cols-2 lg:grid-cols-3 lg:pt-10">
               {res?.data.map((store) => (
                 <li key={store.id}>
                   <Link
