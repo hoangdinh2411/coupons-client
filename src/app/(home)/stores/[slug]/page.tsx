@@ -87,7 +87,7 @@ export default async function StoreDetailPage({
           <div className="bg-white lg:w-92 xl:w-[336px]"></div>
           <div className="">
             <p className="font-sans-bold mb-3 hidden items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
-              {store.name} Coupons & promo codes
+              {store?.name} Coupons & promo codes
             </p>
             <p className="mt-4 text-sm font-[600] tracking-wider uppercase">
               Top offers for {dayjs().format('MMMM D, YYYY')}
@@ -106,7 +106,7 @@ export default async function StoreDetailPage({
                       fill
                       priority
                       src={store.image?.url || '/images/female.webp'}
-                      alt={store.name}
+                      alt={store?.name}
                       sizes="auto"
                       className="size-full rounded-[100%] object-contain"
                     />
@@ -114,7 +114,7 @@ export default async function StoreDetailPage({
                 </Link>
               </div>
               <p className="font-sans-bold flex min-h-16 items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:hidden lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
-                {store.name} {' Coupons & promo codes'}
+                {store?.name} {' Coupons & promo codes'}
               </p>
             </div>
           </div>
