@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { FaChevronDown } from 'react-icons/fa'
 
 const listLetters = [
   'A',
@@ -42,9 +43,9 @@ const StoreHeader = ({ currentLetter }: { currentLetter: string }) => {
   }
 
   return (
-    <div className="shadow-xl">
+    <div className="lg:shadow-xl">
       <div className="container mx-auto w-full max-w-[1280px]">
-        <h2 className="my-8 text-xl leading-tight font-extrabold md:text-2xl md:leading-normal">
+        <h2 className="my-8 text-2xl leading-tight font-extrabold md:leading-normal">
           Browse Stores Starting with {currentLetter}
         </h2>
 
@@ -60,17 +61,20 @@ const StoreHeader = ({ currentLetter }: { currentLetter: string }) => {
           ))}
         </div>
 
-        <select
-          defaultValue="A"
-          className="mb-4 block w-full rounded border border-gray-200 p-2 lg:hidden"
-          onChange={handleLinkChange}
-        >
-          {listLetters.map((letter) => (
-            <option key={letter} value={letter}>
-              Starting with {letter}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <select
+            defaultValue="A"
+            className="relative mb-4 block w-full rounded border border-gray-200 p-2 lg:hidden"
+            onChange={handleLinkChange}
+          >
+            {listLetters.map((letter) => (
+              <option key={letter} value={letter}>
+                Starting with {letter}
+              </option>
+            ))}
+          </select>
+          <FaChevronDown className="absolute top-1/2 right-3 size-3 -translate-y-1/2 transform text-black" />
+        </div>
       </div>
     </div>
   )

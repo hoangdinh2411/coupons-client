@@ -1,5 +1,6 @@
 'use client'
 import SpinnerLoading from '@/components/loading'
+import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -12,8 +13,9 @@ function SignOutPage() {
     async function handleSignOut() {
       setLoading(true)
       await signOut()
+
       setTimeout(() => {
-        router.back()
+        router.push(APP_ROUTERS.SIGN_IN)
       }, 3000)
       setTimeout(() => {
         setLoading(false)
@@ -23,7 +25,7 @@ function SignOutPage() {
   }, [])
 
   const handelContinue = () => {
-    router.back()
+    router.push(APP_ROUTERS.INDEX)
   }
   return (
     <div className="flex w-full max-w-screen flex-col items-center justify-center gap-5 bg-white pb-10 md:mx-auto md:mt-6 md:w-[400px] md:bg-transparent">

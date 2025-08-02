@@ -13,7 +13,7 @@ interface ListSaleProps {
 
 export default function ListSale({ listSale }: ListSaleProps) {
   return (
-    <ul className="grid grid-cols-1 gap-4 md:grid-cols-4 lg:grid-cols-5">
+    <ul className="grid grid-cols-1 gap-2 md:grid-cols-4 md:gap-4 lg:grid-cols-5">
       {listSale.map((coupon) => (
         <CouponCard
           key={coupon.id}
