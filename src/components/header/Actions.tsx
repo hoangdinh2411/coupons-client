@@ -65,7 +65,7 @@ export default function Actions({
           ref={containerRef}
           onClick={handleToggle}
           data-open={isOpen}
-          className="relative z-100 flex min-w-8 cursor-pointer items-center gap-1 rounded-full border-1 border-solid border-transparent p-1 px-6 py-3 text-white hover:bg-white/10 data-[open=true]:border-white"
+          className="relative z-100 flex w-fit cursor-pointer items-center gap-1 rounded-full border-1 border-solid border-transparent p-1 px-6 py-3 text-white hover:bg-white/10 data-[open=true]:border-white"
         >
           {formatDisplayName(user)}
           <IoIosArrowDown
@@ -74,17 +74,17 @@ export default function Actions({
           />
           <div
             data-open={isOpen}
-            className="border-light-gray text-olive-green absolute top-[60px] left-0 hidden w-full flex-col gap-2 rounded-sm border-1 bg-white p-2 font-medium shadow-md data-[open=true]:flex"
+            className="border-light-gray text-olive-green absolute top-[60px] right-0 hidden w-[200px] flex-col gap-2 rounded-sm border-1 bg-white p-2 font-medium shadow-md data-[open=true]:flex"
           >
             <Link
               className="p-1 font-semibold hover:underline"
-              href={APP_ROUTERS.MY_COUPONS}
+              href={APP_ROUTERS.ACCOUNT}
             >
               My Saved Coupons
             </Link>
             <Link
               className="p-1 font-semibold hover:underline"
-              href={APP_ROUTERS.PROFILE}
+              href={APP_ROUTERS.ACCOUNT}
             >
               My Account
             </Link>

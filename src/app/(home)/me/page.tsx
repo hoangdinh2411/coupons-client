@@ -2,18 +2,27 @@ import Link from 'next/link'
 import React from 'react'
 import { FaChevronRight } from 'react-icons/fa'
 import AccountInfo from './AccountInfo'
+import { getUserProfile } from '@/services/userApi'
+import { notFound } from 'next/navigation'
+import { APP_ROUTERS } from '@/helpers/config'
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  const res = await getUserProfile()
+
+  if (!res.success || !res.data) {
+    notFound()
+  }
+
   return (
     <main className="mx-auto my-4 w-full max-w-[792px] flex-1 lg:p-4">
       <p className="m-0 h-14 text-[40px] font-semibold text-[#323232] font-stretch-normal text-shadow-xs">
         Account
       </p>
 
-      <AccountInfo />
+      <AccountInfo profile={res.data} />
 
-      <div className="flex flex-wrap items-center max-md:flex-col">
-        <div className="mr-4 mb-4 min-h-[160px] w-full max-w-full flex-1 grow basis-0 rounded-lg border border-solid border-[rgb(224,224,224)] bg-white px-3 py-4 shadow-[rgb(226,226,226)_0px_5px_10px_-7px]">
+      <div className="flex flex-wrap items-center gap-4 max-md:flex-col">
+        <div className="mb-4 min-h-[160px] w-full max-w-full flex-1 grow basis-0 rounded-lg border border-solid border-[rgb(224,224,224)] bg-white px-3 py-4 shadow-[rgb(226,226,226)_0px_5px_10px_-7px]">
           <div className="mb-4 block h-10">
             <svg
               width="55"
@@ -57,7 +66,7 @@ const ProfilePage = () => {
             </svg>
           </div>
           <Link
-            href="/me/coupons"
+            href={APP_ROUTERS.MY_COUPONS}
             className="flex cursor-pointer items-center text-sm leading-[1.71] font-bold tracking-[0.4px] text-[rgb(116,31,162)] not-italic no-underline"
           >
             My rewards
@@ -68,7 +77,7 @@ const ProfilePage = () => {
             Redeem and view your reward activity here.
           </p>
         </div>
-        <div className="mr-4 mb-4 min-h-[160px] w-full max-w-full flex-1 grow basis-0 rounded-lg border border-solid border-[rgb(224,224,224)] bg-white px-3 py-4 shadow-[rgb(226,226,226)_0px_5px_10px_-7px]">
+        <div className="mb-4 min-h-[160px] w-full max-w-full flex-1 grow basis-0 rounded-lg border border-solid border-[rgb(224,224,224)] bg-white px-3 py-4 shadow-[rgb(226,226,226)_0px_5px_10px_-7px]">
           <div className="mb-4 block h-10">
             <svg
               width="63"
@@ -93,7 +102,7 @@ const ProfilePage = () => {
             </svg>
           </div>
           <Link
-            href="/me/coupons"
+            href={APP_ROUTERS.PROFILE}
             className="flex cursor-pointer items-center text-sm leading-[1.71] font-bold tracking-[0.4px] text-[rgb(116,31,162)] not-italic no-underline"
           >
             Profile
@@ -104,7 +113,7 @@ const ProfilePage = () => {
             Provide and edit personal details for your account.
           </p>
         </div>
-        <div className="mb-4 min-h-[160px] w-full max-w-full flex-1 grow basis-0 rounded-lg border border-solid border-[rgb(224,224,224)] bg-white px-3 py-4 shadow-[rgb(226,226,226)_0px_5px_10px_-7px] max-md:mr-4">
+        {/* <div className="mb-4 min-h-[160px] w-full max-w-full flex-1 grow basis-0 rounded-lg border border-solid border-[rgb(224,224,224)] bg-white px-3 py-4 shadow-[rgb(226,226,226)_0px_5px_10px_-7px] max-md:mr-4">
           <div className="mb-4 block h-10">
             <svg
               width="66"
@@ -164,7 +173,7 @@ const ProfilePage = () => {
           <p className="mx-0 my-[5px] text-sm leading-[1.43] text-[rgb(50,50,50)] not-italic">
             You can control your email settings here.
           </p>
-        </div>
+        </div> */}
       </div>
     </main>
   )
