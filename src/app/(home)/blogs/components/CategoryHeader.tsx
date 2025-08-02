@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { FaChevronRight } from 'react-icons/fa'
 
 interface CategoryHeaderProps {
   title: string
@@ -21,18 +22,19 @@ export default function CategoryHeader({
             alt={title}
             width={160}
             height={160}
-            className="size-10"
+            className="size-7 lg:size-10"
           />
         )}
-        <h5 className="text-olive-green text-lg font-bold tracking-widest uppercase">
+        <h5 className="text-olive-green text-base font-bold tracking-widest uppercase lg:text-lg">
           {title}
         </h5>
       </div>
       <Link
         href={href}
-        className="text-olive-green text-lg font-bold tracking-widest uppercase"
+        className="text-olive-green flex items-center text-sm font-bold tracking-widest uppercase lg:text-lg"
       >
-        view all {'>'}
+        view all
+        <FaChevronRight className="ml-2 inline-block size-3" />
       </Link>
     </div>
   )
