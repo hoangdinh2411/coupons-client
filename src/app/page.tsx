@@ -210,6 +210,7 @@ export default function LandingPage() {
                       width={1363}
                       height={700}
                       loading="lazy"
+                      className="rounded-xl"
                     />
                   </div>
                   <div className="px-4">

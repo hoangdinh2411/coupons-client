@@ -26,7 +26,7 @@ export default function CategoryDealList() {
           type: 'loop',
           perPage: 8,
           perMove: 2,
-          gap: '1rem',
+          gap: '10px',
           autoplay: true,
           interval: 3000,
           arrows: true,
@@ -34,7 +34,10 @@ export default function CategoryDealList() {
           drag: true,
           flickMaxPages: 1,
           breakpoints: {
-            768: {
+            400: {
+              perPage: 3,
+            },
+            600: {
               perPage: 4,
               perMove: 1,
             },
