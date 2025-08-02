@@ -13,45 +13,28 @@ export default function manifest(): MetadataRoute.Manifest {
     id: '/',
     scope: '/',
     icons: [
-      // {
-      //   src: '/images/favicon-16x16.png',
-      //   sizes: '16x16',
-      //   type: 'image/png',
-      // },
-      // {
-      //   src: '/images/favicon-32x32.png',
-      //   sizes: '32x32',
-      //   type: 'image/png',
-      // },
-      // {
-      //   src: '/images/favicon-96x96.png',
-      //   sizes: '96x96',
-      //   type: 'image/png',
-      // },
-      // {
-      //   src: '/images/favicon-128x128.png',
-      //   sizes: '128x128',
-      //   type: 'image/png',
-      // },
-      // {
-      //   src: '/images/favicon-196x196.png',
-      //   sizes: '196x196',
-      //   type: 'image/png',
-      // },
+      {
+        src: '/icons/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
+      },
+      {
+        src: '/icons/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+      {
+        src: '/icons/favicon-96x96.png',
+        sizes: '96x96',
+        type: 'image/png',
+      },
+      {
+        src: '/icons/favicon-128x128.png',
+        sizes: '128x128',
+        type: 'image/png',
+      },
     ],
     categories: METADATA.CATEGORIES,
     lang: 'en',
-    screenshots: [
-      // {
-      //   src: '/images/screenshot-pc.png',
-      //   sizes: '1280x720',
-      //   type: 'image/png',
-      // },
-      // {
-      //   src: '/images/screenshot-mobile.png',
-      //   sizes: '720x1280',
-      //   type: 'image/png',
-      // },
-    ],
   }
 }

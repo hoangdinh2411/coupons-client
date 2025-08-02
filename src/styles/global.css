@@ -33,6 +33,10 @@ textarea {
 
 button {
   outline: none;
+
+}
+button:disabled{
+  pointer-events: none;
 }
 
 select {

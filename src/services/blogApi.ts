@@ -30,7 +30,7 @@ export const getBlogBySlug = async (slug: string) => {
     read_more: BlogData[]
   }>(`/client/blogs?slug=${slug}`, {
     next: {
-      tags: [slug],
+      revalidate: 3600,
     },
   })
 }

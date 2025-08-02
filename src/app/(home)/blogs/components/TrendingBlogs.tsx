@@ -17,7 +17,7 @@ export default function TrendingBlogs() {
           {res.data.map((blog) => (
             <li key={blog.id} className="mb-4">
               <Link
-                href={`/blogs/${blog.id}`}
+                href={`/blogs/${blog.slug}`}
                 className="flex items-start gap-4"
               >
                 <div className="relative aspect-[1/0.7] w-[110px]">

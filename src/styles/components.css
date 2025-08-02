@@ -2,11 +2,11 @@
 
 @layer components {
   .btn-primary {
-    @apply hover:bg-light-green bg-green flex h-[44px] w-full min-w-30 cursor-pointer items-center justify-center rounded-3xl py-2 px-4 text-center text-lg font-bold text-white transition-all duration-300 hover:text-olive-green disabled:bg-gray-300;
+    @apply hover:bg-light-green bg-green hover:text-olive-green flex h-[44px] w-full min-w-30 cursor-pointer items-center justify-center rounded-3xl px-4 py-2 text-center text-lg font-bold text-white transition-all duration-300 disabled:bg-gray-300;
   }
   /**textfield*/
   .textfield {
-    @apply mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2 text-olive-green;
+    @apply text-olive-green mt-1 h-11 w-full rounded-none !border !border-slate-300 px-2;
   }
   .textfield-primary {
     @apply box-border w-full rounded-lg !border-1 !border-gray-300 px-3 py-3 outline-0;
@@ -45,7 +45,7 @@
 }
 
 .custom-splide .splide__arrow svg {
-  fill: white ;
+  fill: white;
 }
 
 .custom-splide .splide__pagination__page {
@@ -54,7 +54,7 @@
   border-radius: 50%;
 }
 
-.custom-splide .splide__pagination__page.is-active  {
+.custom-splide .splide__pagination__page.is-active {
   width: 8px !important;
   height: 8px !important;
   border-radius: 50% !important;
@@ -63,6 +63,40 @@
 }
 
 .custom-splide .splide__pagination li button:focus {
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Top deals splide */
+.top-deals-splide .splide__arrow {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease;
+  background-color: black;
+  outline: none !important;
+}
+
+.top-deals-splide:hover .splide__arrow {
+  opacity: 1 !important;
+  outline: none !important;
+}
+
+.top-deals-splide .splide__pagination li {
+  margin-left: 12px;
+}
+
+.top-deals-splide .splide__pagination__page.is-active {
+  padding: 0 !important;
+  transform: scale(1) !important;
+  border: none !important;
+  background: black !important;
+}
+
+.top-deals-splide .splide__pagination li button {
+  width: 44px !important;
+  height: 3px !important;
+}
+
+.top-deals-splide .splide__pagination li button:focus {
   padding: 0 !important;
   border: none !important;
 }

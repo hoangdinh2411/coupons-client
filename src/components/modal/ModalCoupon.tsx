@@ -55,7 +55,7 @@ function ModalCoupon() {
               fill
               priority
               sizes="112px"
-              className="rounded-[100%] border-1 border-slate-700 object-cover"
+              className="rounded-[100%] border-1 border-slate-700 object-contain"
             />
           </div>
 
@@ -82,7 +82,7 @@ function ModalCoupon() {
                 href={coupon?.offer_link || coupon.store?.url || ''}
                 className="text-green text-xs underline"
               >
-                {coupon?.offer_link || coupon.store?.url}
+                {coupon?.store?.name}
               </Link>
             </p>
           </div>

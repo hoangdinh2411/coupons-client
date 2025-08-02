@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
 import ToastProvider from '@/context/ToastProvider'
 import ModalCoupon from '@/components/modal/ModalCoupon'
+import { Suspense } from 'react'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -24,12 +25,16 @@ export async function generateMetadata(): Promise<Metadata> {
       description: METADATA.OG.DESCRIPTION,
       url: METADATA.APP_URL,
       siteName: METADATA.NAME,
-      countryName: 'Viet nam',
+      countryName: 'United State',
       emails: METADATA.CONTACT_EMAIL,
-      locale: 'vn_Vn',
+      locale: 'us_US',
       type: 'website',
     },
-    icons: [],
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/icons/favicon-16x16.png',
+      apple: '/icons/favicon-16x16.png',
+    },
     manifest: 'manifest.json',
   }
 }
@@ -43,25 +48,13 @@ export default function RootLayout({
     <html lang="se">
       <head>
         <meta name="google" content="notranslate" />
-        {/* ===== Open Graph Meta Tags ===== */}
-        {/* <meta property="og:site_name" content={METADATA.NAME} />
-        <meta property="og:title" content={METADATA.OG.TITLE} />
-        <meta property="og:description" content={METADATA.OG.DESCRIPTION} />
-        <meta property="og:image:type" content="image/png" />
-        <meta
-          property="og:image"
-          content={`${METADATA.APP_URL}/images/opengraph-image.png`}
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:country_name" content="Sweden" /> */}
-        {/* Đảm bảo URL này trỏ tới trang chủ hoặc trang bạn muốn share */}
-        {/* <meta property="og:url" content={METADATA.APP_URL} /> */}
-        {/* ✅ Google Tag Manager (head) */}
       </head>
       <body suppressHydrationWarning={true}>
         {children}
         <ToastProvider />
-        <ModalCoupon />
+        <Suspense>
+          <ModalCoupon />
+        </Suspense>
       </body>
     </html>
   )

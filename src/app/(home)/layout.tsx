@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <div className="grid grid-cols-1">
       <Header />
-      <main className="px-4">{children}</main>
+      <main className="">{children}</main>
       <Footer />
     </div>
   )

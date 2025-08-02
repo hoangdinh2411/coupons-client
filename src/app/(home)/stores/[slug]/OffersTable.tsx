@@ -9,7 +9,7 @@ const OffersTable = ({ coupons }: { coupons: CouponData[] }) => {
           <thead>
             <tr className="bg-gray-100">
               <th className="border-b-slate-600 px-4 py-4 text-start text-sm text-gray-700 uppercase">
-                Type
+                Discount
               </th>
               <th className="border-b-slate-600 px-4 py-4 text-start text-sm text-gray-700 uppercase">
                 Offer Description
@@ -23,7 +23,7 @@ const OffersTable = ({ coupons }: { coupons: CouponData[] }) => {
             {coupons.slice(0, 5).map((coupon) => (
               <tr key={coupon.id} className="hover:bg-gray-100">
                 <td className="border-b-slate-600 px-4 py-4 text-start text-gray-500">
-                  {coupon.type}
+                  {coupon.discount}%
                 </td>
                 <td className="border-b-slate-600 px-4 py-4 text-gray-500">
                   {coupon.offer_detail}

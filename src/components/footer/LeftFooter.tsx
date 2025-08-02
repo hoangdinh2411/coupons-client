@@ -51,11 +51,10 @@ const LeftFooter = () => {
           />
         </Link>
         <p className="leading-8">
-          TrustCoupon and RMN are registered trademarks of TrustCoupon, Inc.
-          Third-party trademarks are the property of their respective
-          third-party owners. Presence of a third-party trademark does not mean
-          that TrustCoupon has any relationship with that third-party or that
-          the third-party endorses TrustCoupon or its services.
+          At TrustCoupon.com, our mission is to help you save money
+          effortlessly. We provide a curated collection of verified coupons,
+          promo codes, and deals from thousands of brands, ensuring every offer
+          is trustworthy and ready to use.
         </p>
         <div className="mb-8 flex gap-4 lg:mb-0 lg:gap-6">
           {BOTTOM_FOOTER_DATA.map((social, index) => {

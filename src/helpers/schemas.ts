@@ -66,11 +66,12 @@ export const SubmitFormSchema = z
         message: 'Select store',
       })
       .min(0, 'Store is required'),
-    discount: z
-      .number({
-        message: 'Discount must be a number between 0 -100',
-      })
-      .min(0, 'Store is required'),
+    discount: z.coerce
+      .string()
+      .regex(/^[0-9]+$/, { message: 'Please enter numbers only' })
+      .refine((value) => Number(value) >= 0 && Number(value) <= 100, {
+        message: 'Between 0 -100 ',
+      }),
     offer_link: z.string().min(1, 'Offer link is required').trim(),
     type: z.enum(Object.values(CouponType) as [string, ...string[]], {
       message: 'Select type for coupon',

@@ -9,7 +9,61 @@ import OffersTable from './OffersTable'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Metadata } from 'next'
+import { METADATA } from '@/helpers/config'
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const slug = (await params).slug
+
+  // fetch post information
+  const res = await getStoreBySlug(slug)
+  if (!res.success || !res.data?.store) {
+    notFound()
+  }
+  const store = res.data.store
+  return {
+    category: store.categories ? store.categories[0].name : 'website',
+    title: store.name,
+    description: store.meta_data?.description,
+    keywords: store.keywords,
+    openGraph: {
+      title: store.name,
+      description: store.meta_data?.description,
+      url: `${METADATA.APP_URL}/stores/${store.slug}`,
+
+      images: store.image
+        ? [
+            {
+              url: store.image.url,
+              alt: `${METADATA.APP_URL} Image`,
+              width: 1200,
+              height: 630,
+              type: 'article',
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      title: store.name,
+      description: store.meta_data?.description,
+      images: store.image
+        ? [
+            {
+              url: store.image.url,
+              alt: `${METADATA.APP_URL} Image`,
+              width: 1200,
+              height: 630,
+              type: 'article',
+            },
+          ]
+        : [],
+    },
+  }
+}
 export default async function StoreDetailPage({
   params,
 }: {
@@ -26,14 +80,14 @@ export default async function StoreDetailPage({
   const store = res.data.store
   const similar_store = res.data.similar_stores
   return (
-    <div className="pb-10">
+    <div className="px-4 pb-10">
       <TopSplide />{' '}
       <div className="absolute right-0 left-0 hidden min-h-16 py-6 shadow-sm lg:block lg:bg-white">
         <div className="mx-auto flex max-w-(--max-width) gap-10">
           <div className="bg-white lg:w-92 xl:w-[336px]"></div>
           <div className="">
             <p className="font-sans-bold mb-3 hidden items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
-              {store.name} Coupons & promo codes
+              {store?.name} Coupons & promo codes
             </p>
             <p className="mt-4 text-sm font-[600] tracking-wider uppercase">
               Top offers for {dayjs().format('MMMM D, YYYY')}
@@ -52,15 +106,15 @@ export default async function StoreDetailPage({
                       fill
                       priority
                       src={store.image?.url || '/images/female.webp'}
-                      alt={store.name}
+                      alt={store?.name}
                       sizes="auto"
-                      className="size-full rounded-[100%] object-cover"
+                      className="size-full rounded-[100%] object-contain"
                     />
                   </div>
                 </Link>
               </div>
               <p className="font-sans-bold flex min-h-16 items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:hidden lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
-                {store.name} {' Coupons & promo codes'}
+                {store?.name} {' Coupons & promo codes'}
               </p>
             </div>
           </div>
@@ -69,7 +123,7 @@ export default async function StoreDetailPage({
           </div>
         </div>
 
-        <section className="col-span-2 mt-2 w-full lg:mt-36">
+        <section className="col-span-2 mt-2 w-full lg:mt-40">
           {store.unexpired_coupons && store.unexpired_coupons.length > 0 && (
             <Fragment>
               <p className="mt-2 mb-2 block text-[12px] font-[600] tracking-wider uppercase lg:hidden">

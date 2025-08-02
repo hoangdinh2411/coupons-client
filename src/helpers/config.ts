@@ -20,29 +20,29 @@ export const APP_ROUTERS = {
   POLICY: '/policy',
 }
 
-const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://globy.ai'
+const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://trustcoupon.com'
 
 export const METADATA = {
-  NAME: 'Globy.ai',
-  TITLE: 'Your Voice. Your Impact. Amplified.',
+  NAME: 'TrustCoupon.Com',
+  TITLE: 'Experience your most trusted coupons!',
   DESCRIPTION:
-    'Globy.ai is a digital presence platform that helps you establish a credible online presence.',
+    'We care about saving you money on your purchases. Use and share your most trusted coupons!',
   APP_URL: DOMAIN,
   OG: {
     DESCRIPTION:
-      'Globy.ai is a digital presence platform that helps you establish a credible online presence.',
+      'We care about saving you money on your purchases. Use and share your most trusted coupons!',
     URL: DOMAIN,
-    TITLE: 'Globy.ai - Your Voice. Your Impact. Amplified.',
+    TITLE: 'TrustCoupon.Com - Experience your most trusted coupons!',
   },
 
-  CREATOR: 'Globy.ai',
-  PUBLISHER: 'Globy.ai',
-  KEYWORDS: ['Web development', 'Build website', 'AI website'],
-  SHORT_NAME: 'Globy.ai',
-  CATEGORIES: ['Software', 'Web Development'],
+  CREATOR: 'trustcoupon.com',
+  PUBLISHER: 'trustcoupon.com',
+  KEYWORDS: ['Coupons', 'My Coupons', 'Trust Coupon'],
+  SHORT_NAME: 'trustcoupon.com',
+  CATEGORIES: ['Coupons', 'Trust Coupon'],
 
-  INSTAGRAM_URL: 'https://www.instagram.com/globy.ai',
-  LINKEDIN_URL: 'https://www.linkedin.com/company/globy-ai',
-  YOUTUBE_URL: 'https://www.youtube.com/@GlobyAI',
-  CONTACT_EMAIL: 'hello@globy.ai',
+  INSTAGRAM_URL: 'https://www.instagram.com/trustcoupon',
+  LINKEDIN_URL: 'https://www.linkedin.com/company/trustcoupon',
+  YOUTUBE_URL: 'https://www.youtube.com/@trustcoupon',
+  CONTACT_EMAIL: 'support@trustcoupon.com',
 }

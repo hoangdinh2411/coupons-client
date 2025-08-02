@@ -5,13 +5,66 @@ import CommentSection from '@/app/(home)/blogs/[slug]/comment/CommentSection'
 import { formatDate, formatDisplayName } from '@/helpers/format'
 import Image from 'next/image'
 import { getBlogBySlug, getLatestBlogs } from '@/services/blogApi'
-import { APP_ROUTERS } from '@/helpers/config'
+import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import { notFound, redirect } from 'next/navigation'
 import ListBlog from '../components/ListBlogs'
 import TrendingBlogs from '../components/TrendingBlogs'
 import ListBlogs from '../components/ListBlogs'
 import SpinnerLoading from '@/components/loading'
+import { Metadata } from 'next'
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const slug = (await params).slug
+
+  // fetch post information
+  const res = await getBlogBySlug(slug)
+  if (!res.success || !res.data?.blog) {
+    notFound()
+  }
+  const blog = res.data.blog
+  return {
+    category: blog.topic.name,
+    title: blog.title,
+    description: blog.meta_data?.description,
+    keywords: blog.keywords,
+    openGraph: {
+      title: blog.title,
+      description: blog.meta_data?.description,
+      url: `${METADATA.APP_URL}/blogs/${blog.slug}`,
+      images: [
+        {
+          url: blog.image.url,
+          alt: `${METADATA.APP_URL} Image`,
+          width: 1200,
+          height: 630,
+          type: 'article',
+        },
+      ],
+    },
+    twitter: {
+      title: blog.title,
+      description: blog.meta_data?.description,
+      images: [
+        {
+          url: blog.image.url,
+          alt: `${METADATA.APP_URL} Image`,
+          width: 1200,
+          height: 630,
+          type: 'article',
+        },
+      ],
+    },
+    authors: [
+      {
+        name: formatDisplayName(blog.user),
+      },
+    ],
+  }
+}
 export default async function BlogDetailPage({
   params,
 }: {
@@ -44,7 +97,7 @@ export default async function BlogDetailPage({
                 </h1>
                 <div className="mt-2 flex items-center gap-1 text-sm">
                   <Link
-                    href=""
+                    href={`/topics/${blog.topic.slug}`}
                     className="hover:text-green font-bold uppercase transition-all duration-300 ease-out"
                     style={{ letterSpacing: '2px' }}
                   >
@@ -58,7 +111,7 @@ export default async function BlogDetailPage({
                   <span className="text-gray-600">
                     By{' '}
                     <Link
-                      href=""
+                      href="#"
                       className="hover:text-green text-oliver-green font-semibold transition-all duration-300 ease-out"
                     >
                       {formatDisplayName(blog.user)}
@@ -90,11 +143,47 @@ export default async function BlogDetailPage({
                   alt={formatDisplayName(blog.user)}
                 />
               </span>
-              <p>
-                <b className="text-green text-lg font-bold">
+              <div className="flex w-full flex-col items-start justify-start gap-2">
+                <b className="text-green w-full text-lg font-bold">
                   {formatDisplayName(blog.user)}
                 </b>
-              </p>
+                <p className="w-full">{blog.user.description}</p>
+
+                <div className="flex w-full items-center justify-center gap-2">
+                  {blog.user.instagram && (
+                    <Link
+                      className="rounded-lg border-1 border-gray-300 text-center"
+                      href={blog.user.instagram}
+                    >
+                      Instagram
+                    </Link>
+                  )}
+                  {blog.user.facebook && (
+                    <Link
+                      className="rounded-lg border-1 border-gray-300 text-center"
+                      href={blog.user.facebook}
+                    >
+                      Facebook
+                    </Link>
+                  )}
+                  {blog.user.linkedin && (
+                    <Link
+                      className="rounded-lg border-1 border-gray-300 text-center"
+                      href={blog.user.linkedin}
+                    >
+                      LinkedIn
+                    </Link>
+                  )}
+                  {blog.user.youtube && (
+                    <Link
+                      className="rounded-lg border-1 border-gray-300 text-center"
+                      href={blog.user.youtube}
+                    >
+                      Youtube
+                    </Link>
+                  )}
+                </div>
+              </div>
             </div>
             <Suspense fallback={<SpinnerLoading />}>
               <CommentSection blog_id={blog.id} />

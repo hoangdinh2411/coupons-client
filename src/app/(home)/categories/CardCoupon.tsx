@@ -17,7 +17,7 @@ function CardCoupon({
 }: CardCouponPropsType) {
   return (
     <Link
-      href={'/categories/' + category.slug}
+      href={'/coupons/' + category.slug}
       {...rest}
       className={`${className} group flex flex-col items-center justify-center gap-2`}
     >
@@ -25,7 +25,7 @@ function CardCoupon({
         width={144}
         height={144}
         alt={category.name}
-        className="h-[126px] w-[126px] rounded-full sm:h-[144px] sm:w-[144px]"
+        className="h-[126px] w-[126px] rounded-full object-cover sm:h-[144px] sm:w-[144px]"
         src={`${category.image.url}` || '/images/no-img.webp'}
         objectFit="contain"
       />
