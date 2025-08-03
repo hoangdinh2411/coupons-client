@@ -5,4 +5,5 @@ services:
     container_name: coupons-client
     ports:
       - "3000:3000"
-      
+    env_file:
+      - .env

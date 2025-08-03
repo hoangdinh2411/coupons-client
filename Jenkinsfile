@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Copy .env file') {
             steps {
-                configFileProvider([configFile(fileId: 'coupons-client', targetLocation: '.env')]) {
+                configFileProvider([configFile(fileId: 'coupons-client-env', targetLocation: '.env')]) {
                     sh 'ls -la && cat .env' 
                 }
             }
