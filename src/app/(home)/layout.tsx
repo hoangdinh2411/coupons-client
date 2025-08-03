@@ -1,3 +1,5 @@
+import Footer from '@/components/footer'
+import Header from '@/components/header'
 import { ReactNode } from 'react'
 
 export default function MainLayout({
@@ -5,5 +7,11 @@ export default function MainLayout({
 }: {
   children: ReactNode
 }): JSX.Element {
-  return <>{children} </>
+  return (
+    <div className="grid grid-cols-1">
+      <Header />
+      <main className="">{children}</main>
+      <Footer />
+    </div>
+  )
 }

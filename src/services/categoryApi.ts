@@ -1,13 +1,29 @@
-import { CategoryData } from '@/models/category.type'
+import { CategoryData, CategoryListData } from '@/types/category.type'
 import customFetch from './customFetch'
-import { IResponseWithTotal } from '@/models/request.type'
+import { CouponData } from '@/types/coupon.type'
 
-export const getAllCategories = async (limit?: number, page?: number) => {
-  return await customFetch<IResponseWithTotal<CategoryData[]>>(
-    `/categories?limit=${limit}&page=${page}`,
+export const getAllCategoriesWithAllStores = async () => {
+  return await customFetch<CategoryData[]>(`/client/categories`, {
+    next: {
+      revalidate: 3600,
+    },
+  })
+}
+
+export const getCategoryBySlug = async (slug: string) => {
+  return await customFetch<CategoryListData>(`/client/categories/${slug}`, {
+    next: {
+      revalidate: 3600,
+    },
+  })
+}
+
+export const getCouponsByCategory = async (id: number, page: number = 1) => {
+  return await customFetch<CouponData[]>(
+    `/client/categories/${id}/coupons?page=${page}`,
     {
       next: {
-        revalidate: 3600, // re-validate data after 1 hour
+        revalidate: 3600,
       },
     },
   )

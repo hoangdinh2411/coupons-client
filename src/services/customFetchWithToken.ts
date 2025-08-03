@@ -1,18 +1,26 @@
-'use server'
-import { cookies } from 'next/headers'
 import customFetch from './customFetch'
-import { IResponse } from '@/models/request.type'
+import { IResponse } from '@/types/share.type'
+import { getToken } from '@/app/actions/getTokenFromCookie'
+import { unauthorized } from 'next/navigation'
 
 export default async function customFetchWithToken<T>(
   url: string,
   config: RequestInit = {},
 ): Promise<IResponse<T>> {
-  const cookieStore = await cookies()
-  const token = cookieStore.get('session')?.value
-  if (token) {
-    config.headers = {
-      ['Cookie']: `token=${token}`,
+  const token = await getToken()
+  if (!token) {
+    return {
+      success: false,
     }
   }
-  return await customFetch(url, config)
+  config.headers = {
+    ...config.headers,
+    ['Authorization']: `Bearer ${token}`,
+  }
+  console.log(url)
+  const res = await customFetch<T>(url, config)
+  if (!res.success && res.status === 401 && !url.includes('/users/profile')) {
+    unauthorized()
+  }
+  return res
 }

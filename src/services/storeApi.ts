@@ -1,18 +1,28 @@
-import { StoreData } from '@/models/store.type'
 import customFetch from './customFetch'
-import { IResponseWithTotal } from '@/models/request.type'
-
-export const getAllStores = async (limit?: number, page?: number) => {
-  return await customFetch<IResponseWithTotal<StoreData[]>>(
-    `/stores?limit=${limit}&page=${page}`,
-  )
-}
+import { StoreData } from '@/types/store.type'
 
 export const getStoreBySlug = async (slug: string) => {
-  return await customFetch<StoreData>(`/stores/${slug}`, {
+  return await customFetch<{
+    store: StoreData
+    similar_stores: StoreData[]
+  }>(`/client/stores/${slug}`, {
     next: {
-      tags: [slug],
       revalidate: 3600,
     },
   })
+}
+
+export const searchStore = async (
+  first_letter?: string,
+  search_text?: string,
+) => {
+  if (!search_text) {
+    search_text = ''
+  }
+  if (!first_letter) {
+    first_letter = ''
+  }
+  return await customFetch<StoreData[]>(
+    `/client/stores?first_letter=${first_letter}&search_text=${search_text}`,
+  )
 }

@@ -10,21 +10,21 @@ export interface IResponseWithTotal<T> {
   total: number
 }
 
-export interface TimestampedEntity {
+export interface BaseData {
+  id: number
   created_at?: string
   updated_at?: string
   deleted_at?: string
 }
 
-export interface SeoData {
-  seo_title?: string
-  seo_description?: string
-  seo_keywords?: string[]
-}
 export interface MetaData {
-  image: string
-  keywords: string[]
-  description: string
-  slug: string
-  title: string
+  title?: string
+  description?: string
+  keywords?: string[]
+}
+
+export type ImageType = {
+  file_name: string
+  url: string
+  public_id: string
 }

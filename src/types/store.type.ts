@@ -1,23 +1,31 @@
 import { CategoryData } from './category.type'
-import { MetaData, TimestampedEntity } from './share.type'
+import { CouponData } from './coupon.type'
+import { ImageType, MetaData, BaseData } from './share.type'
 
-export interface StorePayload {
+export interface StoreData extends BaseData {
   name: string
   description: string
-  image_bytes: string
   max_discount_pct: number
   keywords: string[]
   url: string
-  category_id: number
-}
-export interface StoreData
-  extends Omit<StorePayload, 'category'>,
-    TimestampedEntity {
-  id: number
   slug: string
-  category_id: number
-  category?: CategoryData
-  coupons: []
+  image?: ImageType
+  categories?: CategoryData[]
+  coupons: CouponData[]
   meta_data?: MetaData
   rating: number
+  total_coupons?: number
+  total_coupon_codes?: number
+  total_sale_coupons?: number
+  total_in_store_coupons?: number
+  faqs: FAQData[]
+  expired_coupons?: CouponData[]
+  unexpired_coupons?: CouponData[]
+}
+
+export interface FAQData extends BaseData {
+  question: string
+  answer: string
+  order: number
+  store: StoreData
 }

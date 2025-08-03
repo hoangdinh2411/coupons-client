@@ -1,31 +1,34 @@
 'use client'
-import { UserData } from '@/models/auth.type'
-import { CategoryData } from '@/models/category.type'
-import { StoreData } from '@/models/store.type'
-import { create, useStore } from 'zustand'
+import { signOutApi } from '@/services/authApi'
+import { UserData } from '@/types/auth.type'
+import { MenuData } from '@/types/client.type'
+import { create } from 'zustand'
 
 export type AppStoreType = {
-  categories: CategoryData[]
-  setCategories: (data: CategoryData[]) => void
-  stores: StoreData[]
-  setStores: (data: StoreData[]) => void
+  menu: MenuData
+  setMenu: (data: MenuData) => void
   user: UserData | null
   setUser: (data: UserData | null) => void
   isLoading: boolean
   setIsLoading: (status: boolean) => void
+  signOut: () => Promise<void>
 }
 
-export const AppStore = create<AppStoreType>((set) => ({
-  categories: [],
-  setCategories: (data: CategoryData[]) => set({ categories: data }),
-  stores: [],
-  setStores: (data: StoreData[]) => set({ stores: data }),
+const UseAppStore = create<AppStoreType>((set) => ({
+  menu: {
+    top_categories: [],
+    categories: [],
+    popular: [],
+  },
+  setMenu: (data: MenuData) => set({ menu: data }),
   user: null,
   setUser: (data: UserData | null) => set({ user: data }),
   isLoading: false,
   setIsLoading: (status: boolean) => set({ isLoading: status }),
+  signOut: async () => {
+    await signOutApi()
+    set({ user: null })
+  },
 }))
 
-const UseAppStore = <T>(selector: (state: AppStoreType) => T) =>
-  useStore(AppStore, selector)
 export default UseAppStore

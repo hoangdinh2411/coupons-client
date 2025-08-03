@@ -1,8 +1,8 @@
 'use server'
 
 import { SignInSchema } from '@/helpers/schemas'
-import { UserData } from '@/models/auth.type'
 import { signInApi } from '@/services/authApi'
+import { UserData } from '@/types/auth.type'
 import { cookies } from 'next/headers'
 
 type SignInActionState = {
@@ -14,7 +14,7 @@ type SignInActionState = {
   error?: string
 }
 
-export async function loginAction(
+export async function SignInAction(
   _prevState: SignInActionState,
   formData: FormData,
 ): Promise<SignInActionState> {
@@ -42,12 +42,12 @@ export async function loginAction(
   }
 
   const isProd = process.env.NODE_ENV === 'production'
-  cookieStore.set('session', data.token || '', {
+  cookieStore.set('token', data.token || '', {
     httpOnly: true,
     secure: isProd,
-    sameSite: isProd ? 'none' : 'lax',
+    sameSite: 'lax',
     path: '/',
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: 60 * 60 * 24,
   })
 
   delete data.token
