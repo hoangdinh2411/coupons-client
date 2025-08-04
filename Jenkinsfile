@@ -1,9 +1,12 @@
 pipeline {
     agent any
+    triggers {
+        githubPush()
+    }
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'UAT', url: 'https://github.com/hoangdinh2411/coupons-client.git'
+                git branch: 'main', url: 'https://github.com/hoangdinh2411/coupons-client.git'
             }
         }
         stage('Copy .env file') {
