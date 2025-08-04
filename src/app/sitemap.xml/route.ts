@@ -48,7 +48,6 @@ ${urls
 export async function GET() {
   try {
     const now = new Date().toISOString()
-
     const topicsRes = await getTopics()
     const topics = Array.isArray(topicsRes?.data) ? topicsRes.data : []
     const topicUrls = topics.map((t) => ({
