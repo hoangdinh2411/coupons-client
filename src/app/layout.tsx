@@ -36,6 +36,9 @@ export async function generateMetadata(): Promise<Metadata> {
       apple: '/icons/favicon-16x16.png',
     },
     manifest: 'manifest.json',
+    other: {
+      copyright: `Copyright © 2025 ${METADATA.APP_URL}`,
+    },
   }
 }
 

@@ -5,8 +5,63 @@ import TopicList from '@/components/topic/TopicList'
 import Link from 'next/link'
 import { getBlogsByTopic, getTopics } from '@/services/topicApi'
 import { notFound, redirect } from 'next/navigation'
-import { APP_ROUTERS } from '@/helpers/config'
+import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import ListBlogs from '../../blogs/components/ListBlogs'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  if (!slug) {
+    redirect(APP_ROUTERS.INDEX)
+  }
+  const res = await getTopics()
+
+  if (!res.success || !res.data) {
+    throw new Error(res.message ?? 'Cannot fetch topics')
+  }
+  const currentTopic = res.data.find((t) => t.slug === slug)
+  return {
+    category: currentTopic?.name,
+    title: currentTopic?.name,
+    description: currentTopic?.description,
+    keywords: currentTopic?.name,
+    openGraph: {
+      title: currentTopic?.name,
+      description: currentTopic?.meta_data?.description,
+      url: `${METADATA.APP_URL}/topics/${slug}`,
+
+      images: currentTopic?.image
+        ? [
+            {
+              url: currentTopic?.image.url,
+              alt: `${METADATA.APP_URL} Image`,
+              width: 1200,
+              height: 630,
+              type: 'article',
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      title: currentTopic?.name,
+      description: currentTopic?.meta_data?.description,
+      images: currentTopic?.image
+        ? [
+            {
+              url: currentTopic?.image.url,
+              alt: `${METADATA.APP_URL} Image`,
+              width: 1200,
+              height: 630,
+              type: 'article',
+            },
+          ]
+        : [],
+    },
+  }
+}
 
 export default async function TopicDetailPage({
   params,

@@ -1,3 +1,4 @@
+import { IResponseWithTotal } from '@/types/share.type'
 import customFetch from './customFetch'
 import { BlogData } from '@/types/blog.type'
 
@@ -33,4 +34,14 @@ export const getBlogBySlug = async (slug: string) => {
       revalidate: 3600,
     },
   })
+}
+export const getAllBlogs = async () => {
+  return await customFetch<IResponseWithTotal<BlogData[]>>(
+    `/client/blogs/all`,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    },
+  )
 }
