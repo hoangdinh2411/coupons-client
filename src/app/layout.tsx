@@ -42,8 +42,11 @@ export async function generateMetadata(): Promise<Metadata> {
     robots: {
       index: false,
       follow: false,
-      noimageindex: true,
-      nocache: true,
+      googleBot: {
+        index: false,
+        follow: false,
+        'max-image-preview': 'large',
+      },
     },
   }
 }
