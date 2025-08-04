@@ -65,7 +65,11 @@ export async function generateMetadata({
         name: METADATA.APP_URL,
       },
     ],
-
+    robots: {
+      index: blog.is_indexed,
+      follow: blog.is_indexed,
+      'max-image-preview': 'large',
+    },
     other: {
       canonical: `${METADATA.APP_URL}/blogs/${slug}`,
       'article.published_time': dayjs(blog.updated_at).format('YYYY-MM-DD'),

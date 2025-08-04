@@ -39,6 +39,11 @@ export async function generateMetadata(): Promise<Metadata> {
     other: {
       copyright: `Copyright © 2025 ${METADATA.APP_URL}`,
     },
+    robots: {
+      index: false,
+      follow: false,
+      'max-image-preview': 'large',
+    },
   }
 }
 
