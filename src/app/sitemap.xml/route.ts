@@ -64,10 +64,12 @@ export async function GET() {
       lastmod: new Date(b.updated_at || now).toISOString(),
     }))
 
-    const brands = listLetters.map((l) => ({
-      loc: `${BASE_URL}/brands/${l}`,
-      lastmod: now,
-    }))
+    const brands = Array.isArray(listLetters)
+      ? listLetters.map((l) => ({
+          loc: `${BASE_URL}/brands/${l}`,
+          lastmod: now,
+        }))
+      : []
 
     const categoriesRes = await getAllCategoriesWithAllStores()
     const categories = Array.isArray(categoriesRes?.data)
