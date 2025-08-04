@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: METADATA.NAME,
       countryName: 'United State',
       emails: METADATA.CONTACT_EMAIL,
-      locale: 'us_US',
+      locale: 'en_US',
       type: 'website',
     },
     icons: {

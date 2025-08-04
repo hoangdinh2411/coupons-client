@@ -7,6 +7,8 @@ import ListCoupons from './ListCoupons'
 import SideSection from './SideSection'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
+import { Fragment } from 'react'
+import Head from 'next/head'
 
 export async function generateMetadata({
   params,
@@ -72,36 +74,44 @@ const CouponsByCategoryPage = async ({
   const couponsResponse = await getCouponsByCategory(category.id, 1)
   const { data: coupons } = couponsResponse
   return (
-    <div>
-      <div className="px-4">
-        <TopSplide />
-      </div>
-
-      <CouponsHeader title={category.name} />
-
-      <div className="container mx-auto grid max-w-screen-xl grid-cols-[theme(spacing.24)_auto] px-4 lg:mt-4 lg:grid-cols-[theme(spacing.80)_auto] lg:pt-40">
-        <SideSection
-          title={category.name}
-          countCoupons={count_coupons}
-          similarStores={similar_stores}
+    <Fragment>
+      <Head>
+        <link
+          rel="canonical"
+          href={`${METADATA.APP_URL}/coupons/${categorySlug}`}
         />
+      </Head>
+      <div>
+        <div className="px-4">
+          <TopSplide />
+        </div>
 
-        <ListCoupons
-          topDeals={top_deals}
-          coupons={coupons || []}
-          category={category}
-          totalCoupons={totalCoupons}
-          categoryId={category.id}
-        />
+        <CouponsHeader title={category.name} />
 
-        <div className="col-span-2 row-start-1 mb-4 hidden text-center text-[10px] lg:col-span-1 lg:row-start-3 lg:mx-0 lg:mt-3 lg:mr-16 lg:mb-8 lg:block lg:text-left lg:text-sm">
-          When you buy through links on TrustCoupon{' '}
-          <Link href="#" className="block underline md:inline">
-            we may earn a commission.
-          </Link>
+        <div className="container mx-auto grid max-w-screen-xl grid-cols-[theme(spacing.24)_auto] px-4 lg:mt-4 lg:grid-cols-[theme(spacing.80)_auto] lg:pt-40">
+          <SideSection
+            title={category.name}
+            countCoupons={count_coupons}
+            similarStores={similar_stores}
+          />
+
+          <ListCoupons
+            topDeals={top_deals}
+            coupons={coupons || []}
+            category={category}
+            totalCoupons={totalCoupons}
+            categoryId={category.id}
+          />
+
+          <div className="col-span-2 row-start-1 mb-4 hidden text-center text-[10px] lg:col-span-1 lg:row-start-3 lg:mx-0 lg:mt-3 lg:mr-16 lg:mb-8 lg:block lg:text-left lg:text-sm">
+            When you buy through links on TrustCoupon{' '}
+            <Link href="#" className="block underline md:inline">
+              we may earn a commission.
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   )
 }
 

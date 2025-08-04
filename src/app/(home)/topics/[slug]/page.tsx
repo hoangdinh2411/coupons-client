@@ -7,6 +7,7 @@ import { getBlogsByTopic, getTopics } from '@/services/topicApi'
 import { notFound, redirect } from 'next/navigation'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import ListBlogs from '../../blogs/components/ListBlogs'
+import Head from 'next/head'
 
 export async function generateMetadata({
   params,
@@ -97,6 +98,9 @@ export default async function TopicDetailPage({
   const topic = blogs[0]?.topic || []
   return (
     <Fragment>
+      <Head>
+        <link rel="canonical" href={`${METADATA.APP_URL}/topics/${slug}`} />
+      </Head>
       <nav className="mx-auto max-w-[1162px] pt-10">
         <TopicList topics={topics} />
         <div className="mt-4 text-center text-xs">

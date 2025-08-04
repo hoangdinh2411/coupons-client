@@ -31,12 +31,15 @@ export async function generateMetadata({
   return {
     category: blog.topic.name,
     title: blog.title,
-    description: blog.meta_data?.description || blog.title,
+    description: blog.meta_data?.description,
     keywords: blog.keywords,
     openGraph: {
       title: blog.title,
       description: blog.meta_data?.description,
       url: `${METADATA.APP_URL}/blogs/${blog.slug}`,
+      publishedTime: dayjs(blog.updated_at).format('YYYY-MM-DD'),
+      authors: [formatDisplayName(blog.user)], // ✅ tên tác giả
+      tags: blog.keywords || blog.meta_data?.keywords, // ✅ tags nếu là mảng string
       images: [
         {
           url: blog.image.url,
@@ -46,10 +49,12 @@ export async function generateMetadata({
           type: 'article',
         },
       ],
+      locale: 'en_US',
     },
     twitter: {
-      title: blog.title,
+      title: METADATA.TITLE,
       description: blog.meta_data?.description,
+
       images: [
         {
           url: blog.image.url,
@@ -72,9 +77,9 @@ export async function generateMetadata({
     },
     other: {
       canonical: `${METADATA.APP_URL}/blogs/${slug}`,
-      'article.published_time': dayjs(blog.updated_at).format('YYYY-MM-DD'),
+      'article:published_time': dayjs(blog.updated_at).format('YYYY-MM-DD'),
       'article:author': formatDisplayName(blog.user),
-      'article:tags': blog.keywords,
+      'article:tag': blog.keywords?.join(', '),
     },
   }
 }
@@ -101,7 +106,9 @@ export default async function BlogDetailPage({
   return (
     <Fragment>
       <Head>
-        <link rel="canonical" href={`${METADATA.APP_URL}/blogs/${slug}`} />
+        {blog.keywords.map((tag) => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
       </Head>
       <div className="mt-10">
         <div className="mx-auto max-w-[1162px]">
