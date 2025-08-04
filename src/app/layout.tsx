@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     manifest: 'manifest.json',
     other: {
-      copyright: `Copyright © 2025 ${METADATA.APP_URL}`,
+      copyright: `Copyright © 2025 ${METADATA.NAME}`,
     },
     robots: {
       index: false,
@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode
 }): JSX.Element {
   return (
-    <html lang="se">
+    <html lang="en">
       <head>
         <meta name="google" content="notranslate" />
       </head>

@@ -40,7 +40,7 @@ export async function generateMetadata({
       images: [
         {
           url: blog.image.url,
-          alt: `${METADATA.APP_URL} Image`,
+          alt: `${METADATA.NAME} Image`,
           width: 1200,
           height: 630,
           type: 'article',
@@ -62,7 +62,7 @@ export async function generateMetadata({
     },
     authors: [
       {
-        name: METADATA.APP_URL,
+        name: METADATA.NAME,
       },
     ],
     robots: {

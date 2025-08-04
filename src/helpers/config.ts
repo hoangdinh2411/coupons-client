@@ -27,11 +27,11 @@ export const METADATA = {
   NAME: 'TrustCoupon.Com',
   TITLE: 'Experience your most trusted coupons!',
   DESCRIPTION:
-    'We care about saving you money on your purchases. Use and share your most trusted coupons!',
+    'TrustCoupon.Com - We care about saving you money on your purchases. Use and share your most trusted coupons!',
   APP_URL: DOMAIN,
   OG: {
     DESCRIPTION:
-      'We care about saving you money on your purchases. Use and share your most trusted coupons!',
+      'TrustCoupon.Com - We care about saving you money on your purchases. Use and share your most trusted coupons!',
     URL: DOMAIN,
     TITLE: 'TrustCoupon.Com - Experience your most trusted coupons!',
   },
