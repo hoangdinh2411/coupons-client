@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { FaChevronDown } from 'react-icons/fa'
 
-const listLetters = [
+export const listLetters = [
   'A',
   'B',
   'C',

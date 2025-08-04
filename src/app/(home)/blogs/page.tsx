@@ -7,9 +7,14 @@ import CategoryHeader from './components/CategoryHeader'
 import ListPost from './components/ListBlogs'
 import { formatDate } from '@/helpers/format'
 import { getBlogsPerTopic, getLatestBlogs } from '@/services/blogApi'
+import { APP_ROUTERS, METADATA } from '@/helpers/config'
+import Head from 'next/head'
 
 export const metadata: Metadata = {
-  title: 'Blogs',
+  title: 'All Blogs',
+  openGraph: {
+    url: `${METADATA.APP_URL}/${APP_ROUTERS.BLOGS}`,
+  },
 }
 
 export default async function Page() {
@@ -30,6 +35,9 @@ export default async function Page() {
   const blogs_per_topic = Object.values(blogPerTopicRes.data)
   return (
     <Fragment>
+      <Head>
+        <link rel="canonical" href={`${METADATA.APP_URL}/blogs`} />
+      </Head>
       <div className="mt-4 px-4 lg:mt-10">
         <div className="mx-auto max-w-[1162px]">
           <div className="flex flex-col gap-[30px] md:flex-row">

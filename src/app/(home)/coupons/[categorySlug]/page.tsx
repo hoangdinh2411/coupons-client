@@ -5,6 +5,56 @@ import TopSplide from '../../stores/[slug]/TopSplide'
 import CouponsHeader from './CouponHeader'
 import ListCoupons from './ListCoupons'
 import SideSection from './SideSection'
+import { Metadata } from 'next'
+import { METADATA } from '@/helpers/config'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ categorySlug: string }>
+}): Promise<Metadata> {
+  const categorySlug = (await params).categorySlug
+
+  // fetch post information
+  const categoryResponse = await getCategoryBySlug(categorySlug)
+  if (!categoryResponse.success || !categoryResponse.data) {
+    return notFound()
+  }
+  const { category } = categoryResponse.data
+  return {
+    category: category.name,
+    title: category.name,
+    description: category.meta_data?.description,
+    keywords: category.meta_data?.keywords,
+    openGraph: {
+      title: category.name,
+      description: category.meta_data?.description,
+      url: `${METADATA.APP_URL}/coupons/${categorySlug}`,
+      images: [
+        {
+          url: category.image.url,
+          alt: `${METADATA.APP_URL} Image`,
+          width: 1200,
+          height: 630,
+          type: 'article',
+        },
+      ],
+    },
+    twitter: {
+      title: category.name,
+      description: category.meta_data?.description,
+      images: [
+        {
+          url: category.image.url,
+          alt: `${METADATA.APP_URL} Image`,
+          width: 1200,
+          height: 630,
+          type: 'article',
+        },
+      ],
+    },
+  }
+}
 
 const CouponsByCategoryPage = async ({
   params,

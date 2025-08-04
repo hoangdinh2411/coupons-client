@@ -2,9 +2,13 @@ import React from 'react'
 import CategoryList from './CategoryList'
 import { Metadata } from 'next'
 import TopCategories from './TopCategories'
+import { APP_ROUTERS, METADATA } from '@/helpers/config'
 
 export const metadata: Metadata = {
   title: 'Categories and Stores',
+  openGraph: {
+    url: `${METADATA.APP_URL}/${APP_ROUTERS.ALL_CATEGORIES}`,
+  },
 }
 function CouponPage() {
   return (

@@ -4,7 +4,15 @@ import { FaChevronRight } from 'react-icons/fa'
 import AccountInfo from './AccountInfo'
 import { getUserProfile } from '@/services/userApi'
 import { notFound } from 'next/navigation'
-import { APP_ROUTERS } from '@/helpers/config'
+import { APP_ROUTERS, METADATA } from '@/helpers/config'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'My account',
+  openGraph: {
+    url: `${METADATA.APP_URL}/${APP_ROUTERS.ACCOUNT}`,
+  },
+}
 
 const ProfilePage = async () => {
   const res = await getUserProfile()

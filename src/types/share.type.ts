@@ -12,9 +12,9 @@ export interface IResponseWithTotal<T> {
 
 export interface BaseData {
   id: number
-  created_at?: string
-  updated_at?: string
-  deleted_at?: string
+  created_at: string
+  updated_at: string
+  deleted_at: string
 }
 
 export interface MetaData {
