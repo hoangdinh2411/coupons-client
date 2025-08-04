@@ -16,61 +16,77 @@ import { Metadata } from 'next'
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }): Promise<Metadata> {
-  const slug = (await params).slug
-
-  // fetch post information
+  const { slug } = params
   const res = await getBlogBySlug(slug)
+
   if (!res.success || !res.data?.blog) {
     notFound()
   }
+
   const blog = res.data.blog
+  const pageUrl = `${METADATA.APP_URL}/blogs/${blog.slug}`
+
   return {
-    category: blog.topic.name,
+    // 1. title, meta_data, canonical
     title: blog.title,
     description: blog.meta_data?.description,
-    keywords: blog.keywords,
+    alternates: {
+      canonical: pageUrl,
+    },
+    robots: 'noindex, nofollow, max-image-preview:large',
+    
+    // 2. Open Graph (OG)
     openGraph: {
       title: blog.title,
       description: blog.meta_data?.description,
-      url: `${METADATA.APP_URL}/blogs/${blog.slug}`,
+      url: pageUrl,
+      type: 'article',
+      locale: 'en_US',
       images: [
         {
           url: blog.image.url,
-          alt: `${METADATA.APP_URL} Image`,
           width: 1200,
           height: 630,
-          type: 'article',
+          alt: blog.title,
         },
       ],
+      // Author name
+      publishedTime: blog.created_at,
+      authors: [formatDisplayName(blog.user)],
+      tags: blog.keywords?.split(', '),
     },
+
+    // 3. Twitter Card
     twitter: {
+      card: 'summary_large_image',
       title: blog.title,
       description: blog.meta_data?.description,
-      images: [
-        {
-          url: blog.image.url,
-          alt: `${METADATA.APP_URL} Image`,
-          width: 1200,
-          height: 630,
-          type: 'article',
-        },
-      ],
+      images: [blog.image.url],
+      imageAlt: blog.title,
     },
-    authors: [
-      {
-        name: formatDisplayName(blog.user),
-      },
-    ],
+    
+    // 4. Copyright
+    authors: [{ name: 'TrustCoupon.com' }],
+    other: {
+      copyright: 'Copyright © 2025 TrustCoupon.com',
+    },
+
+    // 5. Icons & Manifest
+    icons: {
+      icon: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
+    manifest: '/manifest.webmanifest',
   }
 }
 export default async function BlogDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }) {
-  const { slug } = await params
+  const { slug } = params
   if (!slug) {
     redirect(APP_ROUTERS.BLOGS)
   }
@@ -121,7 +137,6 @@ export default async function BlogDetailPage({
                     <Image
                       fill
                       sizes="auto"
-                      priority
                       src={blog.topic.image.url || '/images/no-img.webp'}
                       alt={blog.topic.name}
                     />
@@ -138,7 +153,6 @@ export default async function BlogDetailPage({
                 <Image
                   fill
                   sizes="auto"
-                  priority
                   src={'/images/no-img.webp'}
                   alt={formatDisplayName(blog.user)}
                 />
