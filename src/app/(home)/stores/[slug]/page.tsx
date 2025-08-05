@@ -11,7 +11,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
-import Head from 'next/head'
 
 export async function generateMetadata({
   params,
@@ -31,6 +30,9 @@ export async function generateMetadata({
     title: store.name,
     description: store.meta_data?.description,
     keywords: store.keywords,
+    alternates: {
+      canonical: `/stores/${slug}`,
+    },
     openGraph: {
       title: store.name,
       description: store.meta_data?.description,
@@ -82,9 +84,6 @@ export default async function StoreDetailPage({
   const similar_store = res.data.similar_stores
   return (
     <Fragment>
-      <Head>
-        <link rel="canonical" href={`${METADATA.APP_URL}/stores/${slug}`} />
-      </Head>
       <div className="px-4 pb-10">
         <TopSplide />{' '}
         <div className="absolute right-0 left-0 hidden min-h-16 py-6 shadow-sm lg:block lg:bg-white">

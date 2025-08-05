@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   openGraph: {
     url: `${METADATA.APP_URL}/${APP_ROUTERS.ACCOUNT}`,
   },
+  alternates: {
+    canonical: APP_ROUTERS.ACCOUNT,
+  },
 }
 
 const ProfilePage = async () => {

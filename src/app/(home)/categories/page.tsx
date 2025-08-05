@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   openGraph: {
     url: `${METADATA.APP_URL}/${APP_ROUTERS.ALL_CATEGORIES}`,
   },
+  alternates: {
+    canonical: APP_ROUTERS.ALL_CATEGORIES,
+  },
 }
 function CouponPage() {
   return (

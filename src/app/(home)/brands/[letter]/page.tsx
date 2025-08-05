@@ -15,6 +15,9 @@ export async function generateMetadata({
       title: 'Store start with letter ' + letter,
       url: `${METADATA.APP_URL}/brands/${letter}`,
     },
+    alternates: {
+      canonical: `/brands/${letter}`,
+    },
   }
 }
 

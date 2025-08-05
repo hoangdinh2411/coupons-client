@@ -20,75 +20,68 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const slug = (await params).slug
-
-  // fetch post information
+  const { slug } = await params
   const res = await getBlogBySlug(slug)
+
   if (!res.success || !res.data?.blog) {
     notFound()
   }
+
   const blog = res.data.blog
+  const pageUrl = `${METADATA.APP_URL}/blogs/${blog.slug}`
+
   return {
-    category: blog.topic.name,
+    // 1. title, meta_data, canonical
     title: blog.title,
     description: blog.meta_data?.description,
-    keywords: blog.keywords,
+    robots: {
+      index: false,
+      follow: false,
+      'max-image-preview': 'large',
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
+    // 2. Open Graph (OG)
     openGraph: {
       title: blog.title,
       description: blog.meta_data?.description,
-      url: `${METADATA.APP_URL}/blogs/${blog.slug}`,
-      publishedTime: dayjs(blog.updated_at).format('YYYY-MM-DD'),
-      authors: [formatDisplayName(blog.user)], // ✅ tên tác giả
-      tags: blog.keywords || blog.meta_data?.keywords, // ✅ tags nếu là mảng string
-      images: [
-        {
-          url: blog.image.url,
-          alt: `${METADATA.NAME} Image`,
-          width: 1200,
-          height: 630,
-          type: 'article',
-        },
-      ],
+      url: pageUrl,
+      type: 'article',
       locale: 'en_US',
-    },
-    twitter: {
-      title: METADATA.TITLE,
-      description: blog.meta_data?.description,
-
       images: [
         {
           url: blog.image.url,
-          alt: `${METADATA.APP_URL} Image`,
           width: 1200,
           height: 630,
-          type: 'article',
+          alt: blog.title,
         },
       ],
+      // Author name
+      publishedTime: dayjs(blog.updated_at).format('YYYY-MM-DD'),
+      authors: [formatDisplayName(blog.user)],
+      tags: blog.keywords ?? [],
     },
-    authors: [
-      {
-        name: METADATA.NAME,
-      },
-    ],
-    robots: {
-      index: blog.is_indexed,
-      follow: blog.is_indexed,
-      'max-image-preview': 'large',
+
+    // 3. Twitter Card
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.title,
+      description: blog.meta_data?.description,
+      images: [blog.image.url],
+      // imageAlt: blog.title,
     },
-    other: {
-      canonical: `${METADATA.APP_URL}/blogs/${slug}`,
-      'article:published_time': dayjs(blog.updated_at).format('YYYY-MM-DD'),
-      'article:author': formatDisplayName(blog.user),
-      'article:tag': blog.keywords?.join(', '),
-    },
+
+    // 4. Copyright
+    authors: [{ name: METADATA.NAME }],
   }
 }
 export default async function BlogDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }) {
-  const { slug } = await params
+  const { slug } = params
   if (!slug) {
     redirect(APP_ROUTERS.BLOGS)
   }

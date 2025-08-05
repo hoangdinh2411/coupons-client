@@ -28,6 +28,9 @@ export async function generateMetadata({
     title: category.name,
     description: category.meta_data?.description,
     keywords: category.meta_data?.keywords,
+    alternates: {
+      canonical: `/coupons/${categorySlug}`,
+    },
     openGraph: {
       title: category.name,
       description: category.meta_data?.description,
