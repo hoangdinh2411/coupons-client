@@ -42,7 +42,7 @@ export default async function Header() {
               fill
               priority
               className="hidden object-contain md:block"
-              sizes="(max-width: 1200px) 200px, 80px"
+              sizes="200px"
             />
             <Image
               src="/images/green-logo.png"
@@ -50,7 +50,7 @@ export default async function Header() {
               fill
               priority
               className="block object-contain md:hidden"
-              sizes="(max-width: 768px) 120px"
+              sizes="120px"
             />
           </Link>
           <Menu data={menu} />
