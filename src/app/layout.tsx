@@ -6,50 +6,88 @@ import ToastProvider from '@/context/ToastProvider'
 import ModalCoupon from '@/components/modal/ModalCoupon'
 import { Suspense } from 'react'
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: {
-      template: `%s | ${METADATA.NAME} - ${METADATA.TITLE}`,
-      default: `${METADATA.NAME} - ${METADATA.TITLE}`,
-    },
-    description: METADATA.DESCRIPTION,
-    applicationName: METADATA.NAME,
-    generator: METADATA.NAME,
-    keywords: METADATA.KEYWORDS,
-    authors: [{ name: METADATA.NAME, url: METADATA.LINKEDIN_URL }],
-    creator: METADATA.CREATOR,
-    publisher: METADATA.PUBLISHER,
-    metadataBase: new URL(METADATA.APP_URL),
-    openGraph: {
-      title: METADATA.OG.TITLE,
-      description: METADATA.OG.DESCRIPTION,
-      url: METADATA.APP_URL,
-      siteName: METADATA.NAME,
-      countryName: 'United State',
-      emails: METADATA.CONTACT_EMAIL,
-      locale: 'us_US',
-      type: 'website',
-    },
-    icons: {
-      icon: '/favicon.ico',
-      shortcut: '/icon/favicon-16x16.png',
-      apple: '/icon/favicon-16x16.png',
-    },
-    manifest: 'manifest.json',
-  }
-}
+export const metadata: Metadata = {
+  title: {
+    template: `%s | ${METADATA.NAME}`,
+    default: `${METADATA.NAME} - ${METADATA.TITLE}`,
+  },
+  description: METADATA.DESCRIPTION,
+  
+  metadataBase: new URL(METADATA.APP_URL),
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      'max-image-preview': 'large',
+      'notranslate': true,
+    }
+  },
+
+  openGraph: {
+    title: METADATA.OG.TITLE,
+    description: METADATA.OG.DESCRIPTION,
+    url: '/',
+    siteName: METADATA.NAME,
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: `${METADATA.NAME} Image`,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+
+  // --- Twitter Card
+  twitter: {
+    card: 'summary_large_image',
+    title: METADATA.OG.TITLE,
+    description: METADATA.OG.DESCRIPTION,
+    images: ['/twitter-image.png'],
+    imageAlt: `${METADATA.NAME} Image`,
+  },
+
+  // --- Icons & Manifest ---
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/manifest.webmanifest',
+
+  authors: [{ name: METADATA.NAME, url: METADATA.LINKEDIN_URL }],
+  other: {
+    copyright: 'Copyright © 2025 TrustCoupon.com',
+  },
+};
+
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }): JSX.Element {
+  
+  //Schema Organization
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: METADATA.NAME,
+    url: METADATA.APP_URL,
+    logo: `${METADATA.APP_URL}/logo.png`,
+  };
+
   return (
-    <html lang="se">
-      <head>
-        <meta name="google" content="notranslate" />
-      </head>
+    <html lang="en">
       <body suppressHydrationWarning={true}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <ToastProvider />
         <Suspense>
