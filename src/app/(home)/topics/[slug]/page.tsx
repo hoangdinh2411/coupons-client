@@ -28,6 +28,9 @@ export async function generateMetadata({
     title: currentTopic?.name,
     description: currentTopic?.description,
     keywords: currentTopic?.name,
+    alternates: {
+      canonical: `/topics/${slug}`,
+    },
     openGraph: {
       title: currentTopic?.name,
       description: currentTopic?.meta_data?.description,

@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   openGraph: {
     url: `${METADATA.APP_URL}/${APP_ROUTERS.SUBMIT_COUPON}`,
   },
+  alternates: {
+    canonical: APP_ROUTERS.SUBMIT_COUPON,
+  },
 }
 
 const SubmitPage = () => {

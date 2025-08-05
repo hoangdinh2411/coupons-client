@@ -30,6 +30,9 @@ export async function generateMetadata({
     title: store.name,
     description: store.meta_data?.description,
     keywords: store.keywords,
+    alternates: {
+      canonical: `/stores/${slug}`,
+    },
     openGraph: {
       title: store.name,
       description: store.meta_data?.description,
@@ -80,78 +83,80 @@ export default async function StoreDetailPage({
   const store = res.data.store
   const similar_store = res.data.similar_stores
   return (
-    <div className="px-4 pb-10">
-      <TopSplide />{' '}
-      <div className="absolute right-0 left-0 hidden min-h-16 py-6 shadow-sm lg:block lg:bg-white">
-        <div className="mx-auto flex max-w-(--max-width) gap-10">
-          <div className="bg-white lg:w-92 xl:w-[336px]"></div>
-          <div className="">
-            <p className="font-sans-bold mb-3 hidden items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
-              {store?.name} Coupons & promo codes
-            </p>
-            <p className="mt-4 text-sm font-[600] tracking-wider uppercase">
-              Top offers for {dayjs().format('MMMM D, YYYY')}
-            </p>
-          </div>
-        </div>
-      </div>
-      <section className="mx-auto flex max-w-(--max-width) flex-col gap-4 lg:flex-row lg:gap-14 xl:gap-0">
-        <div className="z-1 bg-white py-4 lg:bg-transparent lg:py-0">
-          <div className={`w-full lg:h-32 lg:bg-none lg:shadow-none`}>
-            <div className="flex flex-row items-center gap-4 lg:flex-col lg:items-start">
-              <div className="focus-within:border-green rounded-[100%] border-2 border-white p-1">
-                <Link href={store.url} target="_blank">
-                  <div className="relative block size-[64px] rounded-[100%] bg-white shadow-xl lg:size-[208px]">
-                    <Image
-                      fill
-                      priority
-                      src={store.image?.url || '/images/female.webp'}
-                      alt={store?.name}
-                      sizes="auto"
-                      className="size-full rounded-[100%] object-contain"
-                    />
-                  </div>
-                </Link>
-              </div>
-              <p className="font-sans-bold flex min-h-16 items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:hidden lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
-                {store?.name} {' Coupons & promo codes'}
+    <Fragment>
+      <div className="px-4 pb-10">
+        <TopSplide />{' '}
+        <div className="absolute right-0 left-0 hidden min-h-16 py-6 shadow-sm lg:block lg:bg-white">
+          <div className="mx-auto flex max-w-(--max-width) gap-10">
+            <div className="bg-white lg:w-92 xl:w-[336px]"></div>
+            <div className="">
+              <p className="font-sans-bold mb-3 hidden items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
+                {store?.name} Coupons & promo codes
+              </p>
+              <p className="mt-4 text-sm font-[600] tracking-wider uppercase">
+                Top offers for {dayjs().format('MMMM D, YYYY')}
               </p>
             </div>
           </div>
-          <div className={`hidden lg:block`}>
-            <StoreInfo store={store} similar_store={similar_store} />
-          </div>
         </div>
+        <section className="mx-auto flex max-w-(--max-width) flex-col gap-4 lg:flex-row lg:gap-14 xl:gap-0">
+          <div className="z-1 bg-white py-4 lg:bg-transparent lg:py-0">
+            <div className={`w-full lg:h-32 lg:bg-none lg:shadow-none`}>
+              <div className="flex flex-row items-center gap-4 lg:flex-col lg:items-start">
+                <div className="focus-within:border-green rounded-[100%] border-2 border-white p-1">
+                  <Link href={store.url} target="_blank">
+                    <div className="relative block size-[64px] rounded-[100%] bg-white shadow-xl lg:size-[208px]">
+                      <Image
+                        fill
+                        priority
+                        src={store.image?.url || '/images/female.webp'}
+                        alt={store?.name}
+                        sizes="auto"
+                        className="size-full rounded-[100%] object-contain"
+                      />
+                    </div>
+                  </Link>
+                </div>
+                <p className="font-sans-bold flex min-h-16 items-center self-center text-xl leading-tight font-extrabold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:hidden lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
+                  {store?.name} {' Coupons & promo codes'}
+                </p>
+              </div>
+            </div>
+            <div className={`hidden lg:block`}>
+              <StoreInfo store={store} similar_store={similar_store} />
+            </div>
+          </div>
 
-        <section className="col-span-2 mt-2 w-full lg:mt-40">
-          {store.unexpired_coupons && store.unexpired_coupons.length > 0 && (
-            <Fragment>
-              <p className="mt-2 mb-2 block text-[12px] font-[600] tracking-wider uppercase lg:hidden">
-                Top offers for {dayjs().format('MMMM D, YYYY')}
-              </p>
-              <CouponList coupons={store?.unexpired_coupons ?? []} />
-            </Fragment>
-          )}
-          {store.expired_coupons && store.expired_coupons?.length > 0 && (
-            <Fragment>
-              <p className="mt-2 mb-2 block text-[12px] font-[600] tracking-wider uppercase lg:hidden">
-                Expired coupons
-              </p>
-              <CouponList coupons={store?.expired_coupons ?? []} />
-            </Fragment>
-          )}
-          <OffersTable coupons={store?.coupons ?? []} />
-          <div className={`block lg:hidden`}>
-            <StoreInfo store={store} similar_store={similar_store} />
-          </div>
-          <div className="mb-10">
-            <div
-              dangerouslySetInnerHTML={{ __html: store.description || '' }}
-            />
-          </div>
-          {store.faqs && store.faqs.length > 0 && <FAQs store={store} />}
+          <section className="col-span-2 mt-2 w-full lg:mt-40">
+            {store.unexpired_coupons && store.unexpired_coupons.length > 0 && (
+              <Fragment>
+                <p className="mt-2 mb-2 block text-[12px] font-[600] tracking-wider uppercase lg:hidden">
+                  Top offers for {dayjs().format('MMMM D, YYYY')}
+                </p>
+                <CouponList coupons={store?.unexpired_coupons ?? []} />
+              </Fragment>
+            )}
+            {store.expired_coupons && store.expired_coupons?.length > 0 && (
+              <Fragment>
+                <p className="mt-2 mb-2 block text-[12px] font-[600] tracking-wider uppercase lg:hidden">
+                  Expired coupons
+                </p>
+                <CouponList coupons={store?.expired_coupons ?? []} />
+              </Fragment>
+            )}
+            <OffersTable coupons={store?.coupons ?? []} />
+            <div className={`block lg:hidden`}>
+              <StoreInfo store={store} similar_store={similar_store} />
+            </div>
+            <div className="mb-10">
+              <div
+                dangerouslySetInnerHTML={{ __html: store.description || '' }}
+              />
+            </div>
+            {store.faqs && store.faqs.length > 0 && <FAQs store={store} />}
+          </section>
         </section>
-      </section>
-    </div>
+      </div>
+    </Fragment>
   )
 }

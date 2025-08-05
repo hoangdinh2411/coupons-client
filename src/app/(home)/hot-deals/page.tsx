@@ -1,9 +1,12 @@
+import { Fragment } from 'react'
 import CouponList from './CouponList'
 import Header from './Header'
 import ShoppingEvents from './ShoppingEvents'
 import StoreCircleList from './StoreCircleList'
 import TitleCoupon from './TitleCoupon'
 import TopDealList from './TopDealList'
+import Head from 'next/head'
+import { APP_ROUTERS, METADATA } from '@/helpers/config'
 
 const COUPON_CARD = Array.from({ length: 5 }, (_, i) => ({
   id: `coupon-${i + 1}`,
@@ -40,50 +43,58 @@ const BEST_DEAL = {
 }
 export default function CouponsPage() {
   return (
-    <div className="relative bg-white">
-      {/** Title */}
-      <Header />
-      <div className="mx-auto w-full max-w-(--max-width) px-4 2xl:px-0">
-        <div className="">
-          <TitleCoupon
-            title="Best 4th of July Sales &amp; Deals 2025"
-            link="/"
-          />
-          <CouponList coupons={COUPON_CARD} />
+    <Fragment>
+      <Head>
+        <link
+          rel="canonical"
+          href={`${METADATA.APP_URL}${APP_ROUTERS.HOT_DEALS}`}
+        />
+      </Head>
+      <div className="relative bg-white">
+        {/** Title */}
+        <Header />
+        <div className="mx-auto w-full max-w-(--max-width) px-4 2xl:px-0">
+          <div className="">
+            <TitleCoupon
+              title="Best 4th of July Sales &amp; Deals 2025"
+              link="/"
+            />
+            <CouponList coupons={COUPON_CARD} />
+          </div>
+          <div className="mb-12 pt-12 md:pt-16">
+            <StoreCircleList stores={STORE_LIST} />
+          </div>
+          <div className="mb-12">
+            <TopDealList bestDeal={BEST_DEAL} topDealList={TOP_DEAL_LIST} />
+          </div>
+          {/* <RealDeal /> */}
+          <div className="">
+            <TitleCoupon
+              title="Best Clothing, Shoes & Accessories Deals"
+              link="/"
+              viewAllText="All Clothing, Shoes & Accessories Deals"
+            />
+            <CouponList coupons={COUPON_CARD} />
+          </div>
+          <div className="">
+            <TitleCoupon
+              title="Best Beauty & Health Deals"
+              link="/"
+              viewAllText="All Beauty & Health Deals"
+            />
+            <CouponList coupons={COUPON_CARD} />
+          </div>
+          <div className="">
+            <TitleCoupon
+              title="Best Home & Garden Deals"
+              viewAllText="All Home & Garden Deals"
+              link="/"
+            />
+            <CouponList coupons={COUPON_CARD} />
+          </div>
+          <ShoppingEvents />
         </div>
-        <div className="mb-12 pt-12 md:pt-16">
-          <StoreCircleList stores={STORE_LIST} />
-        </div>
-        <div className="mb-12">
-          <TopDealList bestDeal={BEST_DEAL} topDealList={TOP_DEAL_LIST} />
-        </div>
-        {/* <RealDeal /> */}
-        <div className="">
-          <TitleCoupon
-            title="Best Clothing, Shoes & Accessories Deals"
-            link="/"
-            viewAllText="All Clothing, Shoes & Accessories Deals"
-          />
-          <CouponList coupons={COUPON_CARD} />
-        </div>
-        <div className="">
-          <TitleCoupon
-            title="Best Beauty & Health Deals"
-            link="/"
-            viewAllText="All Beauty & Health Deals"
-          />
-          <CouponList coupons={COUPON_CARD} />
-        </div>
-        <div className="">
-          <TitleCoupon
-            title="Best Home & Garden Deals"
-            viewAllText="All Home & Garden Deals"
-            link="/"
-          />
-          <CouponList coupons={COUPON_CARD} />
-        </div>
-        <ShoppingEvents />
       </div>
-    </div>
+    </Fragment>
   )
 }

@@ -9,40 +9,49 @@ import { Suspense } from 'react'
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: {
-      template: `%s | ${METADATA.NAME} - ${METADATA.TITLE}`,
+      template: `%s | ${METADATA.NAME}`,
       default: `${METADATA.NAME} - ${METADATA.TITLE}`,
     },
     description: METADATA.DESCRIPTION,
-    applicationName: METADATA.NAME,
-    generator: METADATA.NAME,
-    keywords: METADATA.KEYWORDS,
-    authors: [{ name: METADATA.NAME, url: METADATA.LINKEDIN_URL }],
-    creator: METADATA.CREATOR,
-    publisher: METADATA.PUBLISHER,
+
     metadataBase: new URL(METADATA.APP_URL),
-    openGraph: {
-      title: METADATA.OG.TITLE,
-      description: METADATA.OG.DESCRIPTION,
-      url: METADATA.APP_URL,
-      siteName: METADATA.NAME,
-      countryName: 'United State',
-      emails: METADATA.CONTACT_EMAIL,
-      locale: 'us_US',
-      type: 'website',
-    },
-    icons: {
-      icon: '/favicon.ico',
-      shortcut: '/icons/favicon-16x16.png',
-      apple: '/icons/favicon-16x16.png',
-    },
-    manifest: 'manifest.json',
-    other: {
-      copyright: `Copyright © 2025 ${METADATA.NAME}`,
+    alternates: {
+      canonical: '/',
     },
     robots: {
       index: false,
       follow: false,
       'max-image-preview': 'large',
+      googleBot: {
+        notranslate: true,
+      },
+    },
+
+    openGraph: {
+      title: METADATA.OG.TITLE,
+      description: METADATA.OG.DESCRIPTION,
+      url: '/',
+      siteName: METADATA.NAME,
+      locale: 'en_US',
+      type: 'website',
+    },
+
+    // --- Twitter Card
+    twitter: {
+      card: 'summary_large_image',
+      title: METADATA.OG.TITLE,
+      description: METADATA.OG.DESCRIPTION,
+      images: ['/twitter-image.png'],
+    },
+
+    // --- Icons & Manifest ---
+    icons: {
+      icon: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
+    manifest: '/manifest.webmanifest',
+    other: {
+      copyright: 'Copyright © 2025 TrustCoupon.com',
     },
   }
 }
@@ -52,12 +61,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }): JSX.Element {
+  //Schema Organization
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: METADATA.NAME,
+    url: METADATA.APP_URL,
+    logo: `${METADATA.APP_URL}/logo.png`,
+  }
+
   return (
     <html lang="en">
-      <head>
-        <meta name="google" content="notranslate" />
-      </head>
       <body suppressHydrationWarning={true}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <ToastProvider />
         <Suspense>
