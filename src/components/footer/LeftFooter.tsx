@@ -46,8 +46,7 @@ const LeftFooter = () => {
             alt="Logo"
             fill
             priority
-            className="object-contain"
-            sizes="(max-width: 768px) 200px, (max-width: 1200px) 200px, 80px"
+            sizes="250px"
           />
         </Link>
         <p className="leading-8">
