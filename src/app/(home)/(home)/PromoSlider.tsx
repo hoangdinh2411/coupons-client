@@ -60,7 +60,7 @@ export default function PromoSlider({
                     src={banner.banner_image[1]}
                     alt={banner.banner_title}
                     width={660}
-                    height={360}
+                    height={600}
                     className="min-h-full max-w-none min-w-full object-cover"
                   />
                 </picture>

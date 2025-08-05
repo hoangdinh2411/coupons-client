@@ -24,7 +24,7 @@ export default function MobileActions() {
           <div className="relative m-auto flex w-full max-w-(--max-width) items-center justify-around gap-4 p-4 py-4">
             <Link
               href={APP_ROUTERS.INDEX}
-              className="relative mr-auto aspect-auto h-20 w-60"
+              className="relative mr-auto aspect-auto h-20 w-42"
             >
               <Image
                 src="/images/logo-with-text-and-green-logo.png"
@@ -76,14 +76,14 @@ export default function MobileActions() {
         </div>
         <nav className="px-2 py-3">
           <div className="flex flex-col items-start justify-start border-b-1 border-solid border-gray-300">
-            <div className="w-full px-4 py-3">
+            <div className="w-full px-2 py-3 sm:px-4">
               <Link href={APP_ROUTERS.HOT_DEALS} className="font-bold">
                 Hot Deals
               </Link>
             </div>
 
             {/* Stores */}
-            <div className="w-full px-4">
+            <div className="w-full px-2 sm:px-4">
               <p className="w-full py-3 font-bold uppercase">Browser Stores</p>
               <div className="ml-4 flex flex-col gap-3">
                 <div className="w-full font-bold">
@@ -95,9 +95,8 @@ export default function MobileActions() {
                     Popular
                     <MdOutlineKeyboardArrowDown className="block" />
                   </label>
-                  {/* <MdOutlineKeyboardArrowUp className="block" /> */}
                   <div className="hidden peer-checked:block">
-                    <div className="grid grid-cols-2 gap-2 pl-4">
+                    <div className="mt-3 grid grid-cols-2 gap-2">
                       {menu.popular &&
                         menu.popular.map((s) => (
                           <Link
@@ -131,7 +130,7 @@ export default function MobileActions() {
                         </label>
 
                         <div className="hidden peer-checked:block">
-                          <div className="grid grid-cols-2 gap-2 pl-4">
+                          <div className="mt-2 grid grid-cols-2 gap-2">
                             {c.stores &&
                               c.stores.map((s) => (
                                 <div className="flex flex-col gap-2" key={s.id}>
@@ -194,7 +193,7 @@ export default function MobileActions() {
                   <span className="font-bold">Topic 1 </span>
                   {/* <MdOutlineKeyboardArrowUp className="block" /> */}
                 </div>
-                <div className="flex flex-col gap-2 pl-4">
+                <div className="flex flex-col gap-2">
                   <Link
                     href="#"
                     className="py-1 text-sm font-semibold hover:underline"

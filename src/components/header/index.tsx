@@ -25,8 +25,9 @@ export default async function Header() {
   return (
     <header>
       <div className="bg-light-green">
-        <p className="text-olive-green m-auto flex h-10 max-w-(--max-width) items-center justify-center text-sm">
-          Join our newsletter and get the best-verified deals delivered to your inbox weekly!
+        <p className="text-olive-green m-auto flex h-10 max-w-(--max-width) items-center justify-center px-2 text-center !text-xs sm:text-sm">
+          Join our newsletter and get the best-verified deals delivered to your
+          inbox weekly!
         </p>
       </div>
       <div className="bg-olive-green w-full">

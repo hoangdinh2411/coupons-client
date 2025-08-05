@@ -19,7 +19,7 @@ function CouponList({ coupons }: CouponListProps) {
   return (
     <div>
       <div
-        className={`mb-16 grid grid-cols-1 gap-3 md:grid-cols-4 md:gap-2 lg:grid-cols-5`}
+        className={`mb-16 grid grid-cols-1 gap-1 md:grid-cols-4 md:gap-2 lg:grid-cols-5`}
       >
         {coupons.map((coupon) => (
           <CouponCard

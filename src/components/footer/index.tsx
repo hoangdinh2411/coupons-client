@@ -45,7 +45,8 @@ const Footer = () => {
           ))}
         </div>
         <span className="text-white">
-          ©{new Date().getFullYear()} TrustCoupon.Com, Inc. All rights reserved.
+          ©{new Date().getFullYear()} TrustCoupon.Com, Inc. All rights
+          reserved.
         </span>
       </div>
     </footer>

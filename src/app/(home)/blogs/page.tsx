@@ -7,9 +7,16 @@ import CategoryHeader from './components/CategoryHeader'
 import ListPost from './components/ListBlogs'
 import { formatDate } from '@/helpers/format'
 import { getBlogsPerTopic, getLatestBlogs } from '@/services/blogApi'
+import { APP_ROUTERS, METADATA } from '@/helpers/config'
 
 export const metadata: Metadata = {
-  title: 'Blogs',
+  title: 'All Blogs',
+  openGraph: {
+    url: `${METADATA.APP_URL}/${APP_ROUTERS.BLOGS}`,
+  },
+  alternates: {
+    canonical: `/blogs`,
+  },
 }
 
 export default async function Page() {
@@ -30,7 +37,7 @@ export default async function Page() {
   const blogs_per_topic = Object.values(blogPerTopicRes.data)
   return (
     <Fragment>
-      <div className="mt-10">
+      <div className="mt-4 px-4 lg:mt-10">
         <div className="mx-auto max-w-[1162px]">
           <div className="flex flex-col gap-[30px] md:flex-row">
             <div className="w-full lg:w-2/3">
@@ -38,7 +45,7 @@ export default async function Page() {
                 <Link href={`/blogs/${newest.slug}`} className="mb-10">
                   {/* post image */}
                   <div>
-                    <div className="relative aspect-[1] max-h-[453px] min-h-full w-full max-w-[765px]">
+                    <div className="relative aspect-[765/453] max-h-[453px] min-h-full w-full max-w-[765px] lg:aspect-[1]">
                       <Image
                         src={newest.image.url || '/images/no-img.webp'}
                         alt={newest.title}
@@ -65,10 +72,10 @@ export default async function Page() {
                         </span>
                       </div>
                       <div>
-                        <h2 className="text-olive-green mb-2 text-4xl font-bold group-hover:text-white">
+                        <h2 className="text-olive-green mb-2 text-2xl font-bold group-hover:text-white lg:text-4xl">
                           {newest.title}
                         </h2>
-                        <span className="text-olive-green group-hover:text-white">
+                        <span className="text-olive-green text-sm group-hover:text-white">
                           Published {formatDate('2025/07/07')}
                         </span>
                       </div>
@@ -86,7 +93,7 @@ export default async function Page() {
               </Suspense>
             </div>
           </div>
-          <h5 className="mb-[30px] text-xl font-bold tracking-[.2em] uppercase">
+          <h5 className="mt-[30px] mb-[10px] text-base font-bold tracking-[.2em] uppercase lg:mb-[30px] lg:text-xl">
             The Latest
           </h5>
           <div>

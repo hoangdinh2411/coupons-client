@@ -9,7 +9,7 @@ const SAMPLE_FOOTER_DATA = {
       links: [
         { label: 'BROWSE STORES', href: APP_ROUTERS.ALL_STORES },
         { label: 'BROWSE CATEGORIES', href: APP_ROUTERS.ALL_CATEGORIES },
-        { label: 'THE REAL DEAL BLOG', href: APP_ROUTERS.ALL_BLOGS },
+        // { label: 'THE REAL DEAL BLOG', href: APP_ROUTERS.ALL_BLOGS },
       ],
     },
     {

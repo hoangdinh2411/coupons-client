@@ -51,7 +51,10 @@ const LeftFooter = () => {
           />
         </Link>
         <p className="leading-8">
-            At TrustCoupon.com, our mission is to help you save money effortlessly. We provide a curated collection of verified coupons, promo codes, and deals from thousands of brands, ensuring every offer is trustworthy and ready to use.
+          At TrustCoupon.com, our mission is to help you save money
+          effortlessly. We provide a curated collection of verified coupons,
+          promo codes, and deals from thousands of brands, ensuring every offer
+          is trustworthy and ready to use.
         </p>
         <div className="mb-8 flex gap-4 lg:mb-0 lg:gap-6">
           {BOTTOM_FOOTER_DATA.map((social, index) => {

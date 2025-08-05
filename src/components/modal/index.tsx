@@ -8,6 +8,7 @@ interface ModalProps {
   children: React.ReactNode
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
   showCloseButton?: boolean
+  isCenter?: boolean
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -17,6 +18,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
   maxWidth = 'lg',
   showCloseButton = true,
+  isCenter = true,
 }) => {
   const dialogRef = useRef<HTMLDivElement>(null)
   const [wrapper, setWrapper] = useState<HTMLElement | null>(null)
@@ -59,7 +61,7 @@ const Modal: React.FC<ModalProps> = ({
       onClick={handleBackdropClick}
     >
       <div
-        className={`relative mx-auto flex w-full flex-col ${maxWidthClasses[maxWidth]} h-auto rounded-xl bg-white shadow-lg md:p-4`}
+        className={`relative ${isCenter ? 'mx-auto md:p-4' : 'mx-0'} flex w-full flex-col overflow-hidden ${maxWidthClasses[maxWidth]} h-auto rounded-xl bg-white shadow-lg`}
       >
         {showCloseButton && (
           <div className="absolute top-2 right-2 z-10">
@@ -88,7 +90,7 @@ const Modal: React.FC<ModalProps> = ({
         {title && (
           <div className="px-4 py-2 text-center text-lg font-bold">{title}</div>
         )}
-        <div className="rounded-xl p-4">{children}</div>
+        <div className={`rounded-xl ${isCenter && 'p-4'}`}>{children}</div>
       </div>
     </div>,
     wrapper,

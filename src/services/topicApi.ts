@@ -18,7 +18,9 @@ export const getBlogsByTopic = async (
   return await customFetch<IResponseWithTotal<BlogData[]>>(
     `/client/topic/${slug}/blogs?page=${page}&limit=${limit}`,
     {
-      cache: 'no-store',
+      next: {
+        revalidate: 3600,
+      },
     },
   )
 }

@@ -5,4 +5,5 @@ export interface TopicData extends BaseData {
   name: string
   image: ImageType
   meta_data?: MetaData
+  description: string
 }

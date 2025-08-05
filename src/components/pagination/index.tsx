@@ -21,9 +21,9 @@ export default function Pagination({
       : [1]
 
   const handleChangePage = (selectedPage: number) => {
-    const newParams = new URLSearchParams(searchParams)
-    newParams.append('page', selectedPage.toString())
-    router.push(`${pathname}?${newParams.toString()}`)
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('page', selectedPage.toString())
+    router.push(`${pathname}?${params.toString()}`)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   return (

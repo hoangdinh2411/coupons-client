@@ -17,7 +17,7 @@ export default function CommentSection({ blog_id }: CommentSectionProps) {
   const [showAll, setShowAll] = useState<boolean>(false)
   const [limit, setLimit] = useState(4)
   useEffect(() => {
-    if (comments.length === limit) return
+    if (comments.length <= limit) return
     getComments(blog_id, 1, limit).then((res) => {
       if (res.success && res.data) {
         setComments(res.data?.results || [])
