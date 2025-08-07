@@ -1,15 +1,17 @@
-'use client'
-import UseAppStore from '@/stores/app.store'
+import { CategoryData } from '@/types/category.type'
 import Link from 'next/link'
 import React from 'react'
 
-export default function CategoryList() {
-  const menu = UseAppStore((state) => state.menu)
-
+export default function CategoryList({
+  categories,
+}: {
+  categories: CategoryData[]
+}) {
+  console.log(categories)
   return (
     <div className="w-full columns-1 gap-4 lg:columns-3">
-      {menu.top_categories &&
-        menu.top_categories.map((cat) => (
+      {categories &&
+        categories?.map((cat) => (
           <div className="mb-8" key={cat.id}>
             <Link
               href={`coupons/${cat.slug}`}
