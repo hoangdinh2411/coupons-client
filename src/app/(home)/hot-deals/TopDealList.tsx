@@ -3,25 +3,15 @@
 import TopDealCard from '@/components/card/TopDealCard'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { GrLinkNext } from 'react-icons/gr'
 import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
-type TopDetalItemType = {
-  title?: string
-  icon?: string | null
-  imgUrl?: string
-  description?: string
-  stringValueInfo?: string
-  actionBtn?: boolean
-  className?: string
-  link?: string
-}
+import { CouponData } from '@/types/coupon.type'
+import Link from 'next/link'
 
 interface TopDealListPropsType {
-  topDealList: TopDetalItemType[]
-  bestDeal: TopDetalItemType
+  top_deals_today: CouponData[]
 }
 
-function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
+function TopDealList({ top_deals_today }: TopDealListPropsType) {
   const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
     const checkMobile = () => {
@@ -31,50 +21,34 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [768])
+
+  const store = top_deals_today[0]?.store
   return (
     <div className="mx-auto py-6">
       {/* Best Deal Section */}
       <section className="mb-6 flex items-center gap-4">
-        <div className="h-24 w-24 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-100">
+        <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-100">
           <Image
-            src={bestDeal.imgUrl ?? ''}
+            src={store?.image?.url ?? '/images/no-img.webp'}
             alt=""
-            className="h-full w-full object-contain"
-            width={128}
-            height={128}
+            className="h-full w-full object-cover"
+            fill
+            priority
           />
         </div>
         <div className="flex-1">
           <p className="text-xl font-bold text-gray-900 sm:text-2xl">
-            {bestDeal.title}
+            {store?.name}
           </p>
-          <p className="text-xs font-semibold tracking-wider text-gray-600 uppercase">
-            {bestDeal.description}
-          </p>
-          <div className="mt-2 flex items-center">
-            <Image
-              alt=""
-              width={16}
-              height={16}
-              className="h-4 w-4"
-              src={'/images/cashback-bolt.svg'}
-            />
-            <a
-              href={bestDeal.link}
-              className="leading-4 font-semibold text-slate-800 hover:underline md:ml-2"
-            >
-              {bestDeal.stringValueInfo}
-            </a>
-            <GrLinkNext
-              size={20}
-              className="size-[20px] text-gray-600 sm:ml-2"
-            />
-          </div>
         </div>
         {!isMobile && (
-          <button className="cursor-pointer rounded-full border border-slate-700 px-4 py-2 font-bold text-gray-800">
+          <Link
+            href={store?.url || ''}
+            target="_blank"
+            className="cursor-pointer rounded-full border border-slate-700 px-4 py-2 font-bold text-gray-800"
+          >
             View more deals
-          </button>
+          </Link>
         )}
       </section>
 
@@ -113,17 +87,12 @@ function TopDealList({ topDealList, bestDeal }: TopDealListPropsType) {
         hasTrack={false}
       >
         <SplideTrack className="!px-1">
-          {topDealList.map((dealItem, index) => (
+          {top_deals_today.map((coupon) => (
             <SplideSlide
-              className="!w-[288px] sm:!w-[320px] md:!w-[300px] lg:!w-[270px] xl:!w-[270px]"
-              key={index}
+              className="!w-[288px] overflow-hidden sm:!w-[320px] md:!w-[300px] lg:!w-[270px] xl:!w-[270px]"
+              key={coupon.id}
             >
-              <TopDealCard
-                key={index}
-                {...dealItem}
-                description={dealItem.description ?? ''}
-                actionBtn={true}
-              />
+              <TopDealCard coupon={coupon} actionBtn={true} />
             </SplideSlide>
           ))}
         </SplideTrack>

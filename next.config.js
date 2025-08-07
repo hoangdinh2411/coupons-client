@@ -14,16 +14,9 @@ const nextConfig = {
 
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.retailmenot.com',
-        pathname: '/**',
-      },
+      new URL('https://s3.amazonaws.com/img.trustcoupon.com/**'),
+      new URL('https://res.cloudinary.com/**'),
+      new URL('https://img.trustcoupon.com/**'),
     ],
   },
 }

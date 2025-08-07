@@ -3,7 +3,6 @@ import Header from '../components/header'
 import Link from 'next/link'
 import Image from 'next/image'
 import TopDealList from './(home)/hot-deals/TopDealList'
-import BaseAccordion from '../components/accordion/BaseAccordion'
 import PromoSlider from './(home)/(home)/PromoSlider'
 import BestDeals from './(home)/(home)/BestDeals'
 import CategoryDealList from './(home)/(home)/CategoryDealList'
@@ -11,12 +10,42 @@ import ListSale from './(home)/(home)/ListSale'
 import SpotlightList from './(home)/(home)/SpotlightList'
 import { Fragment, Suspense } from 'react'
 import PopularList from './(home)/(home)/PopularList'
+import { getDataForHomePage } from '@/services/clientApi'
 
 const FAQ = [
   {
-    name: 'RetailMeNot offers several ways for shoppers to save while shopping. We feature up-to-date coupon codes, free shipping offers, sales and promo codes for thousands of stores and restaurants.Plus, our ',
-    slug: '/faq',
     id: 1,
+    question: 'How does TrustCoupon.com help me save money?',
+    answer: `At TrustCoupon.com, we make saving money effortless. We provide a curated collection of verified coupons, promo codes, and deals from thousands of your favorite brands. Beyond just codes, our blog offers expert shopping tips, and our cash back program puts money right back into your pocket. We bring all the best ways to save into one place, so every offer you find is trustworthy and ready to use.`,
+  },
+  {
+    id: 2,
+    question: 'How do you ensure coupons are trustworthy?',
+    answer: `Our name is our promise. Our commitment is to be your most trusted source for coupons. Every offer on our site goes through a rigorous process: our team of deal curators manually tests and verifies codes daily. Furthermore, our community plays a vital role by sharing their experiences. You can see success rates and feedback on many coupons, giving you the confidence that you're using a truly trustworthy deal.`,
+  },
+  {
+    id: 3,
+    question: 'Is TrustCoupon.com free to use?',
+    answer: `Yes, it's always 100% free. We care about saving you money, and our service is designed to be accessible to everyone. We are supported by our retail partners, who may pay us a commission when you use our links to make a purchase. This comes at no extra cost to you and allows us to continue our mission of finding and verifying the best deals for our community.`,
+  },
+  {
+    id: 4,
+    question: 'How often do you add new deals?',
+    answer: `Our team of deal curators works every single day to find and add new offers to our site. We are constantly updating existing deals and sourcing new, exclusive promo codes to ensure our collection is fresh and valuable. We recommend checking back often, especially during major holidays and sales events, to find the latest ways to save.`,
+  },
+  {
+    id: 5,
+    question: 'Can I submit a coupon that I found?',
+    answer: (
+      <>
+        Absolutely! We encourage you to share the great deals you find. Our
+        community is at the heart of what we do. If you have a working coupon
+        code that you dont see on our site, please send it to us through our{' '}
+        <Link href="/submit">Submit a Coupon</Link>. Our team will verify it,
+        and if it works, well share it with everyone. Thank you for helping the
+        entire TrustCoupon community save money!
+      </>
+    ),
   },
 ]
 
@@ -24,21 +53,21 @@ const BANNER_LIST = [
   {
     banner_id: '1',
     banner_title: 'Your Bonus is Here',
-    banner_image: ['/images/banner_1.0.webp', '/images/banner_1.1.webp'],
+    banner_image: ['/images/top-banner-a1.png', '/images/top-banner-a2.png'],
     banner_link: '/',
     banner_description: 'Sign up for an account to get your first $5 bonus*',
   },
   {
     banner_id: '2',
     banner_title: 'Extra 40% Off at Checkout + Free Shipping',
-    banner_image: ['/images/banner_2.0.webp', '/images/banner_2.1.webp'],
+    banner_image: ['/images/top-banner-b1.png', '/images/top-banner-b2.png'],
     banner_link: '/',
     banner_description: 'at Gap',
   },
   {
     banner_id: '3',
     banner_title: 'Your Bonus is Here',
-    banner_image: ['/images/banner_1.0.webp', '/images/banner_1.1.webp'],
+    banner_image: ['/images/top-banner-c1.png', '/images/top-banner-c2.png'],
     banner_link: '/',
     banner_description: 'Sign up for an account to get your first $5 bonus*',
   },
@@ -48,31 +77,22 @@ const BEST_DEALS = [
   {
     deal_id: '1',
     deal_title: 'Best Deal',
-    deal_image: '/images/best_deal_1.webp',
+    deal_image: '/images/best-deal.png',
     deal_link: '/',
   },
   {
     deal_id: '2',
     deal_title: 'Best Deal',
-    deal_image: '/images/best_deal_2.webp',
+    deal_image: '/images/best-deal.png',
     deal_link: '/',
   },
   {
     deal_id: '3',
     deal_title: 'Best Deal',
-    deal_image: '/images/best_deal_1.webp',
+    deal_image: '/images/best-deal.png',
     deal_link: '/',
   },
 ]
-
-const LIST_SALE = Array.from({ length: 10 }, (_, i) => ({
-  id: `coupon-${i + 1}`,
-  title: `CASPER`,
-  description: 'July 4th Sale! Up to 70%',
-  imgUrl: i % 2 ? `/images/brandCard.webp` : `/images/brandCard2.webp`,
-  badgeIcon: i % 2 ? '/images/fire.svg' : '/images/cashback-bolt.svg',
-  badgeTitle: '15% Off',
-}))
 
 const SPOTLIGHT_LIST = Array.from({ length: 3 }, (_, i) => ({
   spotlight_id: `spotlight-${i + 1}`,
@@ -82,25 +102,12 @@ const SPOTLIGHT_LIST = Array.from({ length: 3 }, (_, i) => ({
   spotlight_link: '/',
 }))
 
-const BEST_DEAL = {
-  id: `coupon`,
-  title: `Today's Top Deals`,
-  description: 'Presented by Amazon',
-  imgUrl: `/images/brandCard.webp`,
-  icon: '/images/cashback-bolt.svg',
-  stringValueInfo: '3% Cash Back on Amazon Devices',
-}
+export default async function LandingPage() {
+  const res = await getDataForHomePage()
 
-const TOP_DEAL_LIST = Array.from({ length: 8 }, (_, i) => ({
-  id: `coupon-${i + 1}`,
-  title: `CASPER`,
-  description: 'July 4th Sale! Up to 70%',
-  imgUrl: i % 2 ? `/images/brandCard.webp` : `/images/brandCard2.webp`,
-  icon: i % 2 ? '/images/fire.svg' : '/images/cashback-bolt.svg',
-  badgeTitle: '15% Off',
-}))
+  const top_deals_today = res.data?.top_deal_today ?? []
+  const top_deals = res.data?.top_deals ?? []
 
-export default function LandingPage() {
   return (
     <Fragment>
       <Suspense>
@@ -112,10 +119,10 @@ export default function LandingPage() {
         </section>
         <div className="mx-auto mt-10 w-full max-w-7xl px-4">
           <p className="mt-2 mb-12 text-center text-xs">
-            When you buy through links on RetailMeNot{' '}
+            When you buy through links on TrustCoupon{' '}
             <Link
               className="underline"
-              href="https://www.ziffdavis.com/terms-of-use"
+              href="https://trustcoupon.com/terms-of-use"
               target="_blank"
             >
               we may earn a commission.
@@ -133,7 +140,7 @@ export default function LandingPage() {
           <section className="mb-12 flex flex-col md:mb-20 md:flex-row md:border md:border-gray-200 md:shadow-md">
             <div className="w-full bg-gray-200 drop-shadow md:w-2/3 md:drop-shadow-none">
               <Image
-                src={'/images/amazon-prime-day-1.webp'}
+                src={'/images/banner-2.png'}
                 alt="amazon-prime-day-1"
                 width={1000}
                 height={1000}
@@ -143,11 +150,12 @@ export default function LandingPage() {
             </div>
             <div className="order-first w-full md:order-none md:mx-6 md:flex md:w-1/3 md:flex-col md:place-content-center md:py-1">
               <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:mb-0 md:text-2xl md:leading-normal">
-                Shopping Hits Different When You RetailMeNot It
+                Shopping Hits Different with a Trusted Coupon
               </h2>
               <p className="mt-2.5 hidden md:block">
-                Get exclusive member savings and automatically stack cash back
-                on top of codes from 20,000 brands you love with RetailMeNot
+                Experience the confidence of verified savings. Our curated
+                collection of promo codes from thousands of US brands makes
+                every purchase a smart one.
               </p>
             </div>
           </section>
@@ -190,14 +198,14 @@ export default function LandingPage() {
                 All Cash Back
               </Link>
             </div>
-            <ListSale listSale={LIST_SALE} />
+            <ListSale top_deals={top_deals} />
           </section>
           <div className="lg:flex-ro flex flex-col bg-[#36c1d214] lg:space-x-2">
             <div className="w-full text-center">
               <Link href="/" className="mx-auto inline-block">
                 <Image
                   className="mx-auto my-4 w-full"
-                  src="/images/realdeal-logo.svg"
+                  src="/images/logo-with-text-and-green-logo.png"
                   alt="realdeal-logo"
                   width={280}
                   height={80}
@@ -209,7 +217,7 @@ export default function LandingPage() {
                 <Link href="/">
                   <div className="relative mb-4">
                     <Image
-                      src="/images/spotlights.webp"
+                      src="/images/1200x600px.png"
                       alt="spotlights"
                       width={1363}
                       height={700}
@@ -221,7 +229,7 @@ export default function LandingPage() {
                     <div className="mb-1 text-sm font-semibold uppercase">
                       Beach Day
                     </div>
-                    <h2 className="mb-2 text-xl font-bold">All On Sale</h2>
+                    <h3 className="mb-2 text-xl font-bold">All On Sale</h3>
                     <p className="text-gray-600">
                       If you’re usually the one coordinating the beach day,
                       consider this your cheat sheet.
@@ -234,33 +242,29 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-          <div className="mt-12">
-            <div className="mx-auto max-w-[1280px] overflow-hidden">
-              <div className="group relative cursor-auto">
-                <TopDealList bestDeal={BEST_DEAL} topDealList={TOP_DEAL_LIST} />
+          {top_deals_today && (
+            <div className="mt-12">
+              <div className="mx-auto max-w-[1280px] overflow-hidden">
+                <div className="group relative cursor-auto">
+                  {/* Today top deal */}
+                  <TopDealList top_deals_today={top_deals_today} />
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <section className="mb-8 max-w-[1280px] pt-4 md:mb-10">
             <div className="mb-6 flex flex-wrap justify-between lg:mb-0">
-              <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
+              <h4 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
                 <Link href="/cashback">Top Deals</Link>
-              </h2>
-              <Link
-                href="/cashback"
-                className="block text-xs font-semibold tracking-widest uppercase underline underline-offset-4"
-              >
-                All Deals
-              </Link>
+              </h4>
             </div>
-            <ListSale listSale={LIST_SALE} />
+            <ListSale top_deals={top_deals} />
           </section>
-
           <PopularList />
           <section className="mb-16 md:mb-20">
-            <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
-              3 Ways to Save With RetailMeNot
-            </h2>
+            <h5 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
+              3 Ways to Save with TrustCoupon
+            </h5>
             <ul className="scrollbar-hide flex gap-x-6 overflow-x-auto">
               <li className="flex min-w-60 flex-col gap-y-6 lg:flex-row">
                 <Image
@@ -272,15 +276,17 @@ export default function LandingPage() {
                   loading="lazy"
                 />
                 <div className="flex h-full flex-col tracking-widest uppercase lg:block">
-                  <div className="text-sm font-bold">Cha-ching</div>
+                  <div className="text-sm font-bold">VERIFIED PROMO CODES</div>
                   <div className="mb-4 text-sm tracking-normal normal-case">
-                    Cash back users earn up to 10% cash back per order
+                    Every code on our site is hand-tested by our team. Save with
+                    confidence knowing our coupons are trustworthy and ready to
+                    work at checkout.
                   </div>
                   <Link
                     className="mr-auto text-xs font-semibold tracking-widest uppercase underline decoration-gray-400 underline-offset-2"
-                    href="/cashback"
+                    href="/brands"
                   >
-                    Browse Cash Back
+                    BROWSE ALL COUPONS
                   </Link>
                 </div>
               </li>
@@ -294,22 +300,18 @@ export default function LandingPage() {
                   loading="lazy"
                 />
                 <div className="flex h-full flex-col tracking-widest uppercase lg:block">
-                  <div className="text-sm font-bold">Save on the go</div>
+                  <div className="text-sm font-bold">CURATED DAILY DEALS</div>
                   <div className="mb-4 text-sm tracking-normal normal-case">
-                    Get app-only offers and the best of RetailMeNot
+                    We discover and feature the hottest ongoing sales and offers
+                    that don&#39t even require a code, so you never miss out on
+                    a great price from your favorite brands.
                   </div>
                   <div className="flex">
                     <Link
-                      className="mb-2 border-r border-r-black pr-4 text-xs font-semibold tracking-widest uppercase underline decoration-gray-400 underline-offset-2"
-                      href=""
+                      className="mr-auto text-xs font-semibold tracking-widest uppercase underline decoration-gray-400 underline-offset-2"
+                      href="/hot-deals"
                     >
-                      iOS
-                    </Link>
-                    <Link
-                      className="mr-auto mb-2 ml-4 text-xs font-semibold tracking-widest uppercase underline decoration-gray-400 underline-offset-2"
-                      href=""
-                    >
-                      Android
+                      SHOP TODAYS TOP DEALS
                     </Link>
                   </div>
                 </div>
@@ -324,58 +326,57 @@ export default function LandingPage() {
                   loading="lazy"
                 />
                 <div className="flex h-full flex-col tracking-widest uppercase lg:block">
-                  <div className="text-sm font-bold">Save like magic</div>
+                  <div className="text-sm font-bold">SMART SHOPPING GUIDES</div>
                   <div className="mb-4 text-sm tracking-normal normal-case">
-                    Automatically apply codes + cash back when you shop online
+                    Learn to save like a pro with our expert tips and in-depth
+                    guides for major events like Black Friday, Prime Day, and
+                    more. We help you make every purchase a smart one.
                   </div>
                   <Link
-                    href=""
+                    href="/blogs"
                     className="mr-auto text-xs font-semibold tracking-widest uppercase underline decoration-gray-400 underline-offset-2"
                   >
-                    RetailMeNot ExtensioL
+                    READ OUR BLOG
                   </Link>
                 </div>
               </li>
             </ul>
           </section>
-
           <section className="mb-16 md:mb-20">
-            <h2 className="normal mb-4 border-gray-200 pt-9 text-xl leading-tight font-bold tracking-wider capitalize md:leading-normal">
+            <h2 className="mb-8 text-xl leading-tight font-bold tracking-wider capitalize md:leading-normal">
               Frequently Asked Questions
             </h2>
-            <details className="group my-9 mt-9 border-b border-gray-200 pb-9">
-              <BaseAccordion
-                type="prose"
-                data={FAQ}
-                title="How can RetailMeNot save me money when shopping online?"
-              />
-            </details>
+            <div className="divide-y divide-gray-200">
+              {FAQ.map((faq) => (
+                <details key={faq.id} className="group py-4">
+                  <summary className="flex cursor-pointer items-center justify-between py-2 text-base font-medium hover:text-gray-700">
+                    <span>{faq.question}</span>
+                    <span className="transform text-gray-400 transition-transform group-open:rotate-90">
+                      ▶
+                    </span>
+                  </summary>
+                  <div className="pt-3 text-sm leading-relaxed text-gray-600">
+                    {faq.answer}
+                  </div>
+                </details>
+              ))}
+            </div>
           </section>
-          <p className="prose mb-16 text-sm md:mb-20 md:w-2/3">
-            RetailMeNot helps you save money while shopping online and in-store
-            at your favorite retailers. Whether you&apos;re looking for a promo
-            code, a coupon, a free shipping offer or the latest sales,
-            we&apos;re constantly verifying and updating our best offers and
-            deals. Plus, we provide you with
-            <Link target="_blank" className="text-green" href="/cashback">
-              cash back
-            </Link>{' '}
-            offers to get a percentage of what you spend back in your pocket.
-            For an even easier way to save,
-            <Link
-              target="_blank"
-              className="text-green"
-              href="https://www.retailmenot.com/extension"
-            >
-              our browser extension
-            </Link>{' '}
-            finds and automatically applies promo codes to your online shopping
-            carts. Don&apos;t forget to check out our
-            <Link target="_blank" className="text-green" href="/blog">
-              blog
-            </Link>{' '}
-            for our editors&apos; pro shopping tips, the hottest sales, and the
-            best products to buy.
+          <p className="prose mb-16 text-sm md:mb-20 md:w-full">
+            Join a community of savvy shoppers who believe in never paying full
+            price. At TrustCoupon.com, every deal is hand-tested and verified by
+            our team and trusted members. Share your own finds, discover
+            exclusive promo codes, and experience the confidence of using
+            coupons that actually work. We care about your savings, and
+            together, we make every purchase a smart one. <br />
+            <br />
+            Our commitment extends through every shopping season. Whether youre
+            gearing up for the Holiday Season, hunting for Prime Day bargains,
+            or just trying to save on your weekly groceries, our curators are on
+            the lookout for the best discounts. We cover thousands of US
+            retailers to ensure you have a trustworthy way to save, no matter
+            the occasion. Stop searching and start saving effortlessly with
+            TrustCoupon.
           </p>
         </div>
       </main>
