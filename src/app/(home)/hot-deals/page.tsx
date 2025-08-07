@@ -7,6 +7,7 @@ import TitleCoupon from './TitleCoupon'
 import TopDealList from './TopDealList'
 import Head from 'next/head'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
+import { CouponType } from '@/types/enum'
 
 const COUPON_CARD = Array.from({ length: 5 }, (_, i) => ({
   id: `coupon-${i + 1}`,
@@ -25,22 +26,45 @@ const STORE_LIST = Array.from({ length: 8 }, (_, i) => ({
   icon: '/images/cashback-bolt.svg',
 }))
 
-const TOP_DEAL_LIST = Array.from({ length: 8 }, (_, i) => ({
-  id: `coupon-${i + 1}`,
-  title: `CASPER`,
-  description: 'July 4th Sale! Up to 70%',
-  imgUrl: i % 2 ? `/images/brandCard.webp` : `/images/brandCard2.webp`,
-  icon: i % 2 ? '/images/fire.svg' : '/images/cashback-bolt.svg',
-  badgeTitle: '15% Off',
+const TOP_DEALS_TODAY = Array.from({ length: 8 }, (_, i) => ({
+  id: i + 1,
+  title: `CASPER Deal ${i + 1}`,
+  code: '',
+  offer_detail: 'July 4th Sale! Up to 70%',
+  offer_link: 'https://example.com',
+  store_id: 1,
+  is_exclusive: false,
+  expire_date: '2025-12-31',
+  start_date: '2025-01-01',
+  type: CouponType.SALE,
+  rating: 4.5,
+  discount: 15 + i * 5,
+  added_by: 1,
+  total_interested_users: 100 + i,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+  deleted_at: '',
+  store: {
+    id: 1,
+    name: i === 0 ? 'Amazon' : 'CASPER',
+    description: 'Great deals and discounts',
+    max_discount_pct: 70,
+    keywords: ['deals', 'discounts'],
+    url: 'https://example.com',
+    slug: 'amazon',
+    image: {
+      file_name: 'store-image.webp',
+      url: i % 2 ? `/images/brandCard.webp` : `/images/brandCard2.webp`,
+      public_id: 'store-image',
+    },
+    rating: 4.5,
+    coupons: [],
+    faqs: [],
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    deleted_at: '',
+  },
 }))
-const BEST_DEAL = {
-  id: `coupon`,
-  title: `Today's Top Deals`,
-  description: 'Presented by Amazon',
-  imgUrl: `/images/brandCard.webp`,
-  icon: '/images/cashback-bolt.svg',
-  stringValueInfo: '3% Cash Back on Amazon Devices',
-}
 export default function CouponsPage() {
   return (
     <Fragment>
@@ -65,7 +89,7 @@ export default function CouponsPage() {
             <StoreCircleList stores={STORE_LIST} />
           </div>
           <div className="mb-12">
-            <TopDealList bestDeal={BEST_DEAL} topDealList={TOP_DEAL_LIST} />
+            <TopDealList top_deals_today={TOP_DEALS_TODAY} />
           </div>
           {/* <RealDeal /> */}
           <div className="">
