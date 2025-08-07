@@ -18,8 +18,8 @@ export default async function Header() {
   if (!profileRes.success || !profileRes.data) {
     await signOutApi()
   }
-
   const menu = menuRes.data
+  console.log(menu)
   const profile = profileRes.data
 
   return (
