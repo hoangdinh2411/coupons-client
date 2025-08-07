@@ -30,7 +30,7 @@ export default function MobileActions() {
                 src="/images/logo-with-text-and-green-logo.png"
                 alt="Logo"
                 fill
-                priority
+                loading="lazy"
                 className="object-contain"
                 sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
               />

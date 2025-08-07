@@ -40,7 +40,7 @@ export default function PromoSlider({
         }}
         aria-label="Promo Slider"
       >
-        {bannerList.map((banner) => (
+        {bannerList.map((banner, index) => (
           <SplideSlide
             key={banner.banner_id}
             className="group mx-auto w-full px-4 pb-4 lg:max-w-[1024px] xl:max-w-[1280px]"
@@ -53,7 +53,8 @@ export default function PromoSlider({
                     alt={banner.banner_title}
                     fill
                     className="object-cover"
-                    priority
+                    priority={index === 0}
+                    loading={index === 0 ? 'eager' : 'lazy'}
                     sizes="(min-width: 768px) 330px"
                   />
                 </div>
@@ -64,7 +65,8 @@ export default function PromoSlider({
                     alt={banner.banner_title}
                     fill
                     className="object-cover"
-                    priority
+                    priority={index === 0}
+                    loading={index === 0 ? 'eager' : 'lazy'}
                     sizes="(min-width: 768px) 660px, 100vw"
                   />
                 </div>

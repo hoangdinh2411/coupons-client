@@ -78,8 +78,10 @@ function CouponCard(props: CouponCardPropsType) {
             <Image
               className="overflow-hidden rounded-xl border border-gray-200 object-cover object-center md:rounded-none md:border-0"
               fill
-              alt={title + ' image'}
+              alt={`${title} - coupon deal image`}
               src={imgUrl}
+              loading="lazy"
+              sizes="(min-width: 768px) 25vw, (min-width: 1024px) 20vw, 50vw"
             />
           </div>
         </div>

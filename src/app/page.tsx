@@ -53,21 +53,21 @@ const BANNER_LIST = [
   {
     banner_id: '1',
     banner_title: 'Your Bonus is Here',
-    banner_image: ['/images/top-banner-a1.png', '/images/top-banner-a2.png'],
+    banner_image: ['/images/top-banner-a1.webp', '/images/top-banner-a2.webp'],
     banner_link: '/',
     banner_description: 'Sign up for an account to get your first $5 bonus*',
   },
   {
     banner_id: '2',
     banner_title: 'Extra 40% Off at Checkout + Free Shipping',
-    banner_image: ['/images/top-banner-b1.png', '/images/top-banner-b2.png'],
+    banner_image: ['/images/top-banner-b1.webp', '/images/top-banner-b2.webp'],
     banner_link: '/',
     banner_description: 'at Gap',
   },
   {
     banner_id: '3',
     banner_title: 'Your Bonus is Here',
-    banner_image: ['/images/top-banner-c1.png', '/images/top-banner-c2.png'],
+    banner_image: ['/images/top-banner-c1.webp', '/images/top-banner-c2.webp'],
     banner_link: '/',
     banner_description: 'Sign up for an account to get your first $5 bonus*',
   },
@@ -138,14 +138,14 @@ export default async function LandingPage() {
             <CategoryDealList />
           </Suspense>
           <section className="mb-12 flex flex-col md:mb-20 md:flex-row md:border md:border-gray-200 md:shadow-md">
-            <div className="w-full bg-gray-200 drop-shadow md:w-2/3 md:drop-shadow-none">
+            <div className="relative aspect-[393/233] w-full bg-gray-200 drop-shadow md:w-2/3 md:drop-shadow-none">
               <Image
                 src={'/images/banner-2.png'}
-                alt="amazon-prime-day-1"
-                width={1000}
-                height={1000}
+                alt="Shopping with trusted coupons - promotional banner"
+                fill
                 loading="lazy"
-                className="size-full"
+                sizes="(min-width: 768px) 66vw, 100vw"
+                className="object-cover"
               />
             </div>
             <div className="order-first w-full md:order-none md:mx-6 md:flex md:w-1/3 md:flex-col md:place-content-center md:py-1">
@@ -215,14 +215,14 @@ export default async function LandingPage() {
             <div className="flex flex-col gap-4 lg:flex-row">
               <div className="relative w-full p-4 lg:w-2/3">
                 <Link href="/">
-                  <div className="relative mb-4">
+                  <div className="relative mb-4 aspect-[1363/700] w-full overflow-hidden rounded-xl">
                     <Image
                       src="/images/1200x600px.png"
-                      alt="spotlights"
-                      width={1363}
-                      height={700}
+                      alt="Beach Day - All On Sale promotional spotlight"
+                      fill
                       loading="lazy"
-                      className="rounded-xl"
+                      className="object-cover"
+                      sizes="(min-width: 1024px) 66vw, 100vw"
                     />
                   </div>
                   <div className="px-4">

@@ -45,7 +45,7 @@ const LeftFooter = () => {
             src="/images/logo-with-white-text-and-green-logo.png"
             alt="Logo"
             fill
-            priority
+            loading="lazy"
             sizes="250px"
           />
         </Link>

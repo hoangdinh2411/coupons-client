@@ -1,14 +1,12 @@
-import { APP_ROUTERS } from '@/helpers/config'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
-import Menu from './Menu'
-import SearchBar from './SearchBar'
-import Actions from './Actions'
-import MobileActions from './MobileActions'
+import { signOutApi } from '@/services/authApi'
 import { getMenu } from '@/services/clientApi'
 import { getUserProfile } from '@/services/userApi'
-import { signOutApi } from '@/services/authApi'
+import Actions from './Actions'
+import Logo from './Logo'
+import Menu from './Menu'
+import MobileActions from './MobileActions'
+import SearchBar from './SearchBar'
+
 export default async function Header() {
   const [menuRes, profileRes] = await Promise.all([getMenu(), getUserProfile()])
 
@@ -32,27 +30,7 @@ export default async function Header() {
       </div>
       <div className="bg-olive-green w-full">
         <nav className="relative m-auto flex w-full max-w-(--max-width) items-center gap-4 p-4 py-4">
-          <Link
-            href={APP_ROUTERS.INDEX}
-            className="relative block aspect-auto h-12 w-10 md:w-40"
-          >
-            <Image
-              src="/images/logo-with-white-text-and-green-logo.png"
-              alt="Logo"
-              fill
-              priority
-              className="hidden object-contain md:block"
-              sizes="200px"
-            />
-            <Image
-              src="/images/green-logo.png"
-              alt="Logo"
-              fill
-              priority
-              className="block object-contain md:hidden"
-              sizes="120px"
-            />
-          </Link>
+          <Logo />
           <Menu data={menu} />
           <SearchBar popularStores={menu.popular} />
           <Actions profile={profile} />
