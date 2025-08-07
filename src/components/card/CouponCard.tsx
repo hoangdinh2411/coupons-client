@@ -1,7 +1,6 @@
 'use client'
-
 import Image from 'next/image'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { usePathname } from 'next/navigation'
 import { CouponData } from '@/types/coupon.type'
 
@@ -71,32 +70,36 @@ function CouponCard(props: CouponCardPropsType) {
       className={`${className} focus:outline-green mb-3 rounded-2xl border-white py-2 outline-1 outline-transparent md:mb-0`}
     >
       <div
-        className={`relative flex h-full w-full cursor-pointer gap-2 rounded-xl text-left focus:border-2 md:h-auto md:flex-col md:border-1 md:border-gray-300`}
+        className={`relative flex h-full w-full cursor-pointer gap-3 rounded-xl bg-white text-left focus:border-2 md:h-auto md:flex-col md:border-1 md:border-gray-300`}
       >
-        <div className="relative aspect-[1/0.8] w-full md:mb-2 md:aspect-[2/1.1] md:w-full">
-          <div className="relative size-full overflow-hidden rounded-xl md:rounded-none md:rounded-t-xl">
+        <div className="relative aspect-[1/0.8] h-full w-[140px] md:mb-2 md:aspect-[2/1.1] md:w-full">
+          <div className="relative size-full rounded-xl md:rounded-none md:rounded-t-xl">
             <Image
-              className="overflow-hidden rounded-xl border border-gray-200 object-cover object-center md:rounded-none md:border-0"
-              fill
+              className="size-full rounded-xl border border-gray-200 object-contain object-center px-10 md:rounded-none md:border-0"
               alt={title + ' image'}
               src={imgUrl}
+              width={500}
+              height={500}
+              quality={75}
             />
           </div>
         </div>
         <div className="flex h-full flex-col justify-between">
           <div className="space-y-1 md:p-[8px] lg:p-3">
-            <p className="mb-1 line-clamp-2 min-h-10 overflow-hidden text-[12px] font-[800] tracking-widest text-ellipsis uppercase">
+            <div className="mb-1 text-[12px] font-[800] tracking-widest uppercase">
               {title}
-            </p>
-            <p className="line-clamp-2 overflow-hidden text-[16px] leading-4 font-[600] text-ellipsis text-gray-800 md:leading-5 lg:min-h-10">
+            </div>
+            <div className="text-[16px] leading-4 font-[600] text-gray-800 md:leading-5 lg:min-h-10">
               {description}
-            </p>
+            </div>
           </div>
-          <div className="cursor-pointer justify-end md:mb-3 lg:mt-2 lg:ml-2">
-            <button className="rounded-2xl bg-gray-100 px-4 py-1 text-xs font-[900] text-gray-800">
-              {actionBtn ? 'Get Deal' : 'Coupon code'}
-            </button>
-          </div>
+          {actionBtn && (
+            <div className="cursor-pointer justify-end md:mb-3 lg:mt-2 lg:ml-2">
+              <button className="rounded-2xl bg-gray-100 px-4 py-1 text-xs font-[900] text-gray-800">
+                Coupon code
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
