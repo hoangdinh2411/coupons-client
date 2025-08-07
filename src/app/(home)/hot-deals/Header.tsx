@@ -1,94 +1,108 @@
 'use client'
 import '@glidejs/glide/dist/css/glide.core.min.css'
-import React, { useEffect, useState } from 'react'
+import React, { memo, Suspense, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
-const NAVBARS = [
+import dynamic from 'next/dynamic'
+import { BLUR_PLACEHOLDER_HERO, NAVBARS } from '@/constant/hot-deals'
+
+const Splide = dynamic(
+  () => import('@splidejs/react-splide').then((mod) => mod.Splide),
   {
-    link: '/',
-    title: 'Top Picks',
-    isBold: true,
+    loading: () => <div className="h-12 animate-pulse bg-gray-50" />,
+    ssr: false,
   },
-  {
-    link: '/',
-    title: 'Clothing, Shoes & Accessories',
-  },
-  {
-    link: '/',
-    title: 'Beauty & Health',
-  },
-  {
-    link: '/',
-    title: 'Home & Garden',
-  },
-  {
-    link: '/',
-    title: 'Sports, Fitness & Outdoors',
-  },
-  {
-    link: '/',
-    title: 'Laptops, Tech & Electronics',
-  },
-  {
-    link: '/',
-    title: 'Flights, Hotels & Travel',
-  },
-]
+)
+const SplideSlide = dynamic(() =>
+  import('@splidejs/react-splide').then((mod) => mod.SplideSlide),
+)
+const SplideTrack = dynamic(() =>
+  import('@splidejs/react-splide').then((mod) => mod.SplideTrack),
+)
+
+const AnnouncementSlides = memo(() => (
+  <Suspense fallback={<div className="h-12 animate-pulse bg-gray-50" />}>
+    <Splide
+      className="mx-auto max-w-(--max-width)"
+      options={{
+        type: 'loop',
+        autoWidth: false,
+        pagination: false,
+        autoplay: true,
+        perPage: 1,
+        interval: 3000,
+        speed: 800,
+        pauseOnHover: true,
+        classes: {
+          arrow: 'splide__arrow !bg-transparent !size-3',
+        },
+      }}
+      hasTrack={false}
+      aria-label="Promotional announcements"
+    >
+      <SplideTrack>
+        <SplideSlide>
+          <div className="py-4 text-center text-sm font-semibold text-gray-800">
+            Automatically Apply The Best Codes And Cash Back Offers To Your Cart
+          </div>
+        </SplideSlide>
+        <SplideSlide>
+          <div className="py-4 text-center text-sm font-semibold text-gray-800">
+            <span className="underline">
+              Add To Your Browser! It&apos;s Free
+            </span>
+          </div>
+        </SplideSlide>
+      </SplideTrack>
+    </Splide>
+  </Suspense>
+))
+const Navigation = memo(() => {
+  const navItems = useMemo(
+    () =>
+      NAVBARS.map((nav, index) => (
+        <li
+          key={`${nav.title}-${index}`}
+          className={`${nav.isBold ? 'border-b-2 border-blue-600' : ''} inline-block`}
+        >
+          <Link
+            className={`rounded-md px-3 py-2 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none ${nav.isBold ? 'font-bold text-blue-600' : 'text-gray-800'} `}
+            href={nav.link}
+            prefetch={nav.isBold}
+          >
+            {nav.title}
+          </Link>
+        </li>
+      )),
+    [],
+  )
+  return (
+    <nav className="sticky top-0 z-10 bg-white p-4 shadow-lg" role="navigation">
+      <ul className="hide-scrollbar px-auto mx-auto flex max-w-screen justify-center gap-2 overflow-x-auto whitespace-nowrap lg:px-0">
+        {navItems}
+      </ul>
+    </nav>
+  )
+})
 
 function Header() {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [768])
   return (
     <>
       {/** Gslide */}
-      <Splide
-        className="mx-auto max-w-(--max-width)"
-        options={{
-          type: 'loop',
-          autoWidth: false,
-          pagination: false,
-          autoplay: true,
-          perPage: 1,
-          autoScroll: {
-            speed: 1,
-          },
-          classes: {
-            arrow: 'splide__arrow !bg-transparent !size-3',
-          },
-        }}
-        hasTrack={false}
-      >
-        <SplideTrack>
-          <SplideSlide className="">
-            <div className="py-4 text-center text-sm font-semibold text-gray-800">
-              Automatically Apply The Best Codes And Cash Back Offers To Your
-              Cart
-            </div>
-          </SplideSlide>
-          <SplideSlide className="">
-            <div className="py-4 text-center text-sm font-semibold text-gray-800">
-              <u>Add To Your Browser! It&apos;s Free</u>
-            </div>
-          </SplideSlide>
-        </SplideTrack>
-      </Splide>
-
+      <AnnouncementSlides />
       {/**Banner */}
       <div className="relative flex h-[150px] items-center justify-center bg-[#3753AC]">
         <Image
-          alt=""
+          alt="4th of July promotional banner"
           width={1280}
           height={150}
           className="absolute hidden h-[140px] w-full max-w-[1130px] object-contain md:block"
           src="/images/banner-coupon.webp"
+          priority
+          placeholder="blur"
+          blurDataURL={BLUR_PLACEHOLDER_HERO}
+          sizes="(min-width: 768px) 1130px, 0px"
+          quality={90}
         />
         <div className="content mx-auto my-auto flex h-[50px] flex-col items-center justify-center">
           <div className="pb-2 text-sm font-bold tracking-widest text-white">
@@ -102,19 +116,7 @@ function Header() {
       {/** Navbar */}
       <div className="sticky top-0 z-10 bg-white p-4 shadow-lg">
         <div className="hide-scrollbar px-auto mx-auto flex max-w-screen justify-center gap-2 overflow-x-auto whitespace-nowrap lg:px-0">
-          {NAVBARS.map((nav, index) => (
-            <div
-              key={index}
-              className={`${nav.isBold ? 'border-b-1' : ''} mr-4 inline-block cursor-pointer text-gray-800 last:mr-0`}
-            >
-              <Link
-                className={`hover:underline hover:underline-offset-4 ${nav.isBold ? 'font-bold' : ''}`}
-                href={nav.link}
-              >
-                {nav.title}
-              </Link>
-            </div>
-          ))}
+          <Navigation />
         </div>
       </div>
 
@@ -122,26 +124,24 @@ function Header() {
         When you buy through links on RetailMeNot{' '}
         <span className="underline-offset-2"> we may earn a commission.</span>
       </p>
-      {!isMobile && (
+      <div className="relative h-[200px] w-full">
         <Image
+          src="/images/banner-coupon-mobile.webp"
+          alt="Stack Cash promotional offer"
           width={1280}
-          height={20}
-          alt="coupon-banner-stack-cash"
-          className="mx-auto mt-8 mb-8 bg-[#82F3FB] shadow-md"
-          src={'/images/coupon-banner-stack-cash.webp'}
+          height={50}
+          className="mx-auto mt-8 mb-8 bg-[#82F3FB] object-cover shadow-md md:hidden"
+          priority
         />
-      )}
-      {isMobile && (
-        <div className="mx-4">
-          <Image
-            width={1280}
-            height={50}
-            alt="coupon-banner-stack-cash"
-            className="mt-6 mb-8 bg-[#82F3FB] px-8 shadow-lg"
-            src={'/images/banner-coupon-mobile.webp'}
-          />
-        </div>
-      )}
+        <Image
+          src="/images/coupon-banner-stack-cash.webp"
+          alt="Stack Cash promotional offer"
+          width={1280}
+          height={50}
+          className="mx-auto mt-8 mb-8 hidden bg-[#82F3FB] object-cover shadow-md md:block"
+          priority
+        />
+      </div>
     </>
   )
 }

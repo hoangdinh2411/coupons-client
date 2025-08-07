@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  // output: 'export',
+  compress: true,
+  swcMinify: true,
   experimental: {
     authInterrupts: true,
   },
