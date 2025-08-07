@@ -37,6 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: METADATA.NAME,
       locale: 'en_US',
       type: 'website',
+      images: [`${METADATA.APP_URL}/opengraph-image.png`],
     },
 
     // --- Twitter Card
@@ -44,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title: METADATA.OG.TITLE,
       description: METADATA.OG.DESCRIPTION,
-      images: ['/twitter-image.png'],
+      images: [`${METADATA.APP_URL}/twitter-image.png`],
     },
 
     // --- Icons & Manifest ---

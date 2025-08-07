@@ -5,13 +5,58 @@ import React, { memo } from 'react'
 import { usePathname } from 'next/navigation'
 import { CouponData } from '@/types/coupon.type'
 
-export interface CouponCardPropsType {
+// Interface for using with CouponData object
+export interface CouponCardWithDataPropsType {
   coupon: CouponData
   className?: string
 }
 
-function CouponCard({ coupon, className }: CouponCardPropsType) {
+// Interface for using with individual props
+export interface CouponCardWithPropsType {
+  title: string
+  description: string
+  imgUrl: string
+  badgeIcon?: string | null
+  badgeTitle?: string
+  actionBtn?: boolean
+  className?: string
+}
+
+export type CouponCardPropsType =
+  | CouponCardWithDataPropsType
+  | CouponCardWithPropsType
+
+// Type guard to check if props contain coupon object
+function isCouponDataProps(
+  props: CouponCardPropsType,
+): props is CouponCardWithDataPropsType {
+  return 'coupon' in props
+}
+
+function CouponCard(props: CouponCardPropsType) {
   const pathname = usePathname()
+
+  // Extract data based on prop type
+  const { className } = props
+  let title: string
+  let description: string
+  let imgUrl: string
+  let actionBtn: boolean = false
+
+  if (isCouponDataProps(props)) {
+    // Using CouponData object
+    const { coupon } = props
+    title = coupon.title
+    description = coupon.offer_detail
+    imgUrl = coupon.store?.image?.url ?? '/images/no-img.webp'
+  } else {
+    // Using individual props
+    title = props.title
+    description = props.description
+    imgUrl = props.imgUrl
+    actionBtn = props.actionBtn ?? false
+  }
+
   const handleClick = () => {
     // open a new tab/window at the same URL
     window.open(`${pathname}?outClicked=true`, '_blank', 'noopener,noreferrer')
@@ -33,23 +78,23 @@ function CouponCard({ coupon, className }: CouponCardPropsType) {
             <Image
               className="overflow-hidden rounded-xl border border-gray-200 object-cover object-center md:rounded-none md:border-0"
               fill
-              alt={coupon.title + ' image'}
-              src={coupon.store?.image?.url ?? '/images/no-img.webp'}
+              alt={title + ' image'}
+              src={imgUrl}
             />
           </div>
         </div>
         <div className="flex h-full flex-col justify-between">
           <div className="space-y-1 md:p-[8px] lg:p-3">
             <p className="mb-1 line-clamp-2 min-h-10 overflow-hidden text-[12px] font-[800] tracking-widest text-ellipsis uppercase">
-              {coupon.title}
+              {title}
             </p>
             <p className="line-clamp-2 overflow-hidden text-[16px] leading-4 font-[600] text-ellipsis text-gray-800 md:leading-5 lg:min-h-10">
-              {coupon.offer_detail}
+              {description}
             </p>
           </div>
           <div className="cursor-pointer justify-end md:mb-3 lg:mt-2 lg:ml-2">
             <button className="rounded-2xl bg-gray-100 px-4 py-1 text-xs font-[900] text-gray-800">
-              Coupon code
+              {actionBtn ? 'Get Deal' : 'Coupon code'}
             </button>
           </div>
         </div>
