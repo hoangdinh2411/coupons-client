@@ -10,6 +10,7 @@ import ListSale from './(home)/(home)/ListSale'
 import SpotlightList from './(home)/(home)/SpotlightList'
 import { Fragment, Suspense } from 'react'
 import PopularList from './(home)/(home)/PopularList'
+import { getDataForHomePage } from '@/services/clientApi'
 
 const FAQ = [
   {
@@ -93,15 +94,6 @@ const BEST_DEALS = [
   },
 ]
 
-const LIST_SALE = Array.from({ length: 10 }, (_, i) => ({
-  id: `coupon-${i + 1}`,
-  title: `CASPER`,
-  description: 'July 4th Sale! Up to 70%',
-  imgUrl: i % 2 ? `/images/brandCard.webp` : `/images/brandCard2.webp`,
-  badgeIcon: i % 2 ? '/images/fire.svg' : '/images/cashback-bolt.svg',
-  badgeTitle: '15% Off',
-}))
-
 const SPOTLIGHT_LIST = Array.from({ length: 3 }, (_, i) => ({
   spotlight_id: `spotlight-${i + 1}`,
   spotlight_title: "Best Trader Joe's",
@@ -110,25 +102,12 @@ const SPOTLIGHT_LIST = Array.from({ length: 3 }, (_, i) => ({
   spotlight_link: '/',
 }))
 
-const BEST_DEAL = {
-  id: `coupon`,
-  title: `Today's Top Deals`,
-  description: 'Presented by Amazon',
-  imgUrl: `/images/brandCard.webp`,
-  icon: '/images/cashback-bolt.svg',
-  stringValueInfo: '3% Cash Back on Amazon Devices',
-}
+export default async function LandingPage() {
+  const res = await getDataForHomePage()
 
-const TOP_DEAL_LIST = Array.from({ length: 8 }, (_, i) => ({
-  id: `coupon-${i + 1}`,
-  title: `CASPER`,
-  description: 'July 4th Sale! Up to 70%',
-  imgUrl: i % 2 ? `/images/brandCard.webp` : `/images/brandCard2.webp`,
-  icon: i % 2 ? '/images/fire.svg' : '/images/cashback-bolt.svg',
-  badgeTitle: '15% Off',
-}))
+  const top_deals_today = res.data?.top_deal_today ?? []
+  const top_deals = res.data?.top_deals ?? []
 
-export default function LandingPage() {
   return (
     <Fragment>
       <Suspense>
@@ -215,7 +194,7 @@ export default function LandingPage() {
                 All Cash Back
               </Link>
             </div>
-            <ListSale listSale={LIST_SALE} />
+            <ListSale top_deals={top_deals} />
           </section>
           <div className="lg:flex-ro flex flex-col bg-[#36c1d214] lg:space-x-2">
             <div className="w-full text-center">
@@ -246,7 +225,7 @@ export default function LandingPage() {
                     <div className="mb-1 text-sm font-semibold uppercase">
                       Beach Day
                     </div>
-                    <h2 className="mb-2 text-xl font-bold">All On Sale</h2>
+                    <h3 className="mb-2 text-xl font-bold">All On Sale</h3>
                     <p className="text-gray-600">
                       If you’re usually the one coordinating the beach day,
                       consider this your cheat sheet.
@@ -259,33 +238,29 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-          <div className="mt-12">
-            <div className="mx-auto max-w-[1280px] overflow-hidden">
-              <div className="group relative cursor-auto">
-                <TopDealList bestDeal={BEST_DEAL} topDealList={TOP_DEAL_LIST} />
+          {top_deals_today && (
+            <div className="mt-12">
+              <div className="mx-auto max-w-[1280px] overflow-hidden">
+                <div className="group relative cursor-auto">
+                  {/* Today top deal */}
+                  <TopDealList top_deals_today={top_deals_today} />
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <section className="mb-8 max-w-[1280px] pt-4 md:mb-10">
             <div className="mb-6 flex flex-wrap justify-between lg:mb-0">
-              <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
+              <h4 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
                 <Link href="/cashback">Top Deals</Link>
-              </h2>
-              <Link
-                href="/cashback"
-                className="block text-xs font-semibold tracking-widest uppercase underline underline-offset-4"
-              >
-                All Deals
-              </Link>
+              </h4>
             </div>
-            <ListSale listSale={LIST_SALE} />
+            <ListSale top_deals={top_deals} />
           </section>
-
           <PopularList />
           <section className="mb-16 md:mb-20">
-            <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
+            <h5 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
               3 Ways to Save with TrustCoupon
-            </h2>
+            </h5>
             <ul className="scrollbar-hide flex gap-x-6 overflow-x-auto">
               <li className="flex min-w-60 flex-col gap-y-6 lg:flex-row">
                 <Image

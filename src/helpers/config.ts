@@ -24,16 +24,16 @@ export const APP_ROUTERS = {
 const DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://trustcoupon.com'
 
 export const METADATA = {
-  NAME: 'TrustCoupon.Com',
+  NAME: 'TrustCoupon.com',
   TITLE: 'Experience your most trusted coupons!',
   DESCRIPTION:
-    'TrustCoupon.Com - We care about saving you money on your purchases. Use and share your most trusted coupons!',
+    'TrustCoupon.com - We care about saving you money on your purchases. Use and share your most trusted coupons!',
   APP_URL: DOMAIN,
   OG: {
     DESCRIPTION:
-      'TrustCoupon.Com - We care about saving you money on your purchases. Use and share your most trusted coupons!',
+      'TrustCoupon.com - We care about saving you money on your purchases. Use and share your most trusted coupons!',
     URL: DOMAIN,
-    TITLE: 'TrustCoupon.Com - Experience your most trusted coupons!',
+    TITLE: 'TrustCoupon.com - Experience your most trusted coupons!',
   },
 
   CREATOR: 'trustcoupon.com',
