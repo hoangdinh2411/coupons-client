@@ -15,7 +15,7 @@ export default function CategoryDealItem({ category }: CategoryDealItemProps) {
     >
       <div className="relative mx-auto mb-3 size-[90px] overflow-hidden rounded-full border border-[#003b95] bg-[#003b95] p-4 transition-shadow duration-300 ease-out group-hover:shadow-xl md:h-32 md:w-32 md:p-5">
         <Image
-          src={category.image?.url || '/images/no-img.webp'}
+          src={category.image?.url ?? '/images/no-img.webp'}
           alt={category.name}
           fill
           loading="lazy"
@@ -24,7 +24,7 @@ export default function CategoryDealItem({ category }: CategoryDealItemProps) {
         />
       </div>
       <div className="mx-auto text-center text-xs leading-tight group-hover:underline group-hover:underline-offset-4 lg:text-sm">
-        <div>{category.name}</div>
+        <p>{category.name}</p>
       </div>
     </Link>
   )
