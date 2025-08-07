@@ -47,23 +47,27 @@ export default function PromoSlider({
           >
             <div className="relative h-[400px] overflow-hidden rounded-2xl md:h-[360px] md:rounded-4xl">
               <div className="flex h-full w-full justify-between">
-                <Image
-                  src={banner.banner_image[0]}
-                  alt={banner.banner_title}
-                  width={330}
-                  height={360}
-                  className="flex hidden min-h-full w-auto md:block md:w-1/3 md:max-w-[330px]"
-                />
+                <div className="relative hidden aspect-[11/12] w-[330px] md:block">
+                  <Image
+                    src={banner.banner_image[0]}
+                    alt={banner.banner_title}
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(min-width: 768px) 330px"
+                  />
+                </div>
 
-                <picture className="primary-image flex min-h-full w-full md:w-2/3 md:max-w-[660px]">
+                <div className="relative aspect-[11/10] w-full max-w-[660px] md:w-2/3">
                   <Image
                     src={banner.banner_image[1]}
                     alt={banner.banner_title}
-                    width={660}
-                    height={600}
-                    className="min-h-full max-w-none min-w-full object-cover"
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(min-width: 768px) 660px, 100vw"
                   />
-                </picture>
+                </div>
               </div>
               <div className="absolute right-0 bottom-0 left-0 z-10 flex w-full flex-col bg-gradient-to-t from-gray-900 px-6 py-2.5 font-bold text-white md:left-[25%] md:h-[360px] md:w-72 md:bg-black md:bg-none">
                 <h2 className="mt-auto mb-3 text-xl leading-tight font-medium tracking-wide uppercase md:mb-5 md:tracking-widest">

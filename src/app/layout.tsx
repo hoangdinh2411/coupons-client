@@ -5,6 +5,9 @@ import { METADATA } from '@/helpers/config'
 import ToastProvider from '@/context/ToastProvider'
 import ModalCoupon from '@/components/modal/ModalCoupon'
 import { Suspense } from 'react'
+import { aptos } from '@/fonts/aptos'
+import { aptosDisplay } from '@/fonts/aptosDisplay'
+import { aptosNarrow } from '@/fonts/aptosNarrow'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -71,7 +74,10 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${aptos.variable} ${aptosDisplay.variable} ${aptosNarrow.variable}`}
+    >
       <body suppressHydrationWarning={true}>
         <script
           type="application/ld+json"

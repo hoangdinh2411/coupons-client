@@ -92,13 +92,14 @@ export default function BestDeals({ bestDeals }: BestDealsProps) {
               Shop Now
             </p>
           </div>
-          <div className="h-full w-[160px] flex-shrink-0">
+          <div className="relative aspect-[16/17] h-full w-[160px] flex-shrink-0">
             <Image
               src={deal.deal_image}
               alt={deal.deal_title}
-              width={160}
-              height={170}
-              className="h-full w-full object-cover"
+              fill
+              className="object-cover"
+              sizes="160px"
+              loading="lazy"
             />
           </div>
         </Link>

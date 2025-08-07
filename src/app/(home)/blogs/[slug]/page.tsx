@@ -79,9 +79,9 @@ export async function generateMetadata({
 export default async function BlogDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const { slug } = params
+  const { slug } = await params
   if (!slug) {
     redirect(APP_ROUTERS.BLOGS)
   }

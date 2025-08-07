@@ -156,22 +156,26 @@ export default function LandingPage() {
               href="/"
               className="flex items-center justify-between gap-8 rounded bg-white px-8 text-black shadow-md"
             >
-              <Image
-                src={'/images/dream_bar_1.webp'}
-                alt="dream_bar_1"
-                width={2400}
-                height={160}
-                className="hidden sm:block"
-                loading="lazy"
-              />
-              <Image
-                src={'/images/dream_bar_2.webp'}
-                alt="dream_bar_2"
-                width={840}
-                height={560}
-                className="block sm:hidden"
-                loading="lazy"
-              />
+              <div className="relative hidden aspect-[15/1] w-full sm:block">
+                <Image
+                  src="/images/dream_bar_1.webp"
+                  alt="dream_bar_1"
+                  fill
+                  className="object-cover"
+                  loading="lazy"
+                  sizes="(min-width: 640px) 100vw"
+                />
+              </div>
+              <div className="relative block aspect-[3/2] w-full sm:hidden">
+                <Image
+                  src="/images/dream_bar_2.webp"
+                  alt="dream_bar_2"
+                  fill
+                  className="object-cover"
+                  loading="lazy"
+                  sizes="(max-width: 639px) 100vw"
+                />
+              </div>
             </Link>
           </div>
           <section className="mb-8 max-w-[1280px] pt-4 md:mb-10">
