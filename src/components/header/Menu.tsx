@@ -8,7 +8,6 @@ import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
 const POPULAR_INDEX = -1
-const LIMIT = 10
 export default function Menu({ data }: { data: MenuData }) {
   const [category, setCategory] = useState<number | null>(POPULAR_INDEX)
   const [target, setTarget] = useState<string>('')
@@ -80,7 +79,7 @@ export default function Menu({ data }: { data: MenuData }) {
               Popular
             </div>
             <Fragment>
-              {data.categories.map((cat, idx) => (
+              {data.top_categories.map((cat, idx) => (
                 <p
                   key={idx}
                   className={`hover:text-green cursor-pointer ${category === idx ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
@@ -117,14 +116,14 @@ export default function Menu({ data }: { data: MenuData }) {
                 All stores
               </Link>
             </div>
-            {data.categories &&
-              data.categories.slice(0, LIMIT).map((cat, idx) => (
+            {data.top_categories &&
+              data.top_categories.map((cat, idx) => (
                 <Fragment key={idx}>
                   <div
                     className={`${category === idx ? 'flex' : 'hidden'} flex-col gap-3`}
                   >
                     {cat?.stores &&
-                      cat?.stores.slice(0, LIMIT).map((s, index) => (
+                      cat?.stores.map((s, index) => (
                         <Link
                           key={index}
                           href={`/stores/${s.slug}`}

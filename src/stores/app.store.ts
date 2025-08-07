@@ -17,7 +17,7 @@ export type AppStoreType = {
 const UseAppStore = create<AppStoreType>((set) => ({
   menu: {
     top_categories: [],
-    categories: [],
+    top_topic: [],
     popular: [],
   },
   setMenu: (data: MenuData) => set({ menu: data }),

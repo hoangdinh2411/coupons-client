@@ -1,3 +1,4 @@
+import { BlogData } from './blog.type'
 import { BaseData, ImageType, MetaData } from './share.type'
 
 export interface TopicData extends BaseData {
@@ -6,4 +7,5 @@ export interface TopicData extends BaseData {
   image: ImageType
   meta_data?: MetaData
   description: string
+  blogs?: BlogData[]
 }

@@ -9,7 +9,7 @@ export default function PopularList() {
     <section>
       <details className="group mb-8 border-b border-gray-200 pb-8 md:mt-20">
         <BaseAccordion
-          data={menu.categories.map((c) => ({
+          data={menu.top_categories.map((c) => ({
             id: c.id,
             name: c.name,
             slug: '/coupons/' + c.slug,

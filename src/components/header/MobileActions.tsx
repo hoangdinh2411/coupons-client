@@ -12,7 +12,7 @@ import {
 } from 'react-icons/md'
 export default function MobileActions() {
   const { user, menu } = UseAppStore((state) => state)
-
+  console.log(menu)
   return (
     <div className="block lg:hidden">
       <input type="checkbox" name="" id="mobile-menu" className="peer" hidden />
@@ -112,8 +112,8 @@ export default function MobileActions() {
                 </div>
                 {/*  All categories*/}
                 <div className="w-full font-bold">
-                  {menu.categories &&
-                    menu.categories.map((c) => (
+                  {menu.top_categories &&
+                    menu.top_categories.map((c) => (
                       <div className="w-full py-2" key={c.id}>
                         <input
                           type="checkbox"
@@ -129,7 +129,7 @@ export default function MobileActions() {
                           <MdOutlineKeyboardArrowDown />
                         </label>
 
-                        <div className="hidden peer-checked:block">
+                        <div className="hidden pl-2 peer-checked:block">
                           <div className="mt-2 grid grid-cols-2 gap-2">
                             {c.stores &&
                               c.stores.map((s) => (
@@ -189,18 +189,47 @@ export default function MobileActions() {
                     All Topics
                   </Link>
                 </div>
-                <div className="flex w-full cursor-pointer items-center gap-2 py-2 text-sm">
-                  <span className="font-bold">Topic 1 </span>
-                  {/* <MdOutlineKeyboardArrowUp className="block" /> */}
-                </div>
-                <div className="flex flex-col gap-2">
+                {menu?.top_topic?.map((topic) => (
+                  <div className="w-full py-2" key={topic.id}>
+                    <input
+                      type="checkbox"
+                      className="peer"
+                      id={topic.id.toString()}
+                      hidden
+                    />
+                    <label
+                      htmlFor={topic.id.toString()}
+                      className="flex cursor-pointer items-center gap-2 font-bold"
+                    >
+                      {topic.name}
+                      <MdOutlineKeyboardArrowDown />
+                    </label>
+
+                    <div className="hidden pl-2 peer-checked:block">
+                      <div className="mt-2 grid grid-cols-1 gap-2">
+                        {topic?.blogs &&
+                          topic.blogs.map((blog) => (
+                            <div className="flex flex-col gap-2" key={blog.id}>
+                              <Link
+                                href={`/blogs/${blog.slug}`}
+                                className="py-1 text-sm font-semibold hover:underline"
+                              >
+                                {blog.title}
+                              </Link>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {/* <div className="flex flex-col gap-2">
                   <Link
                     href="#"
                     className="py-1 text-sm font-semibold hover:underline"
                   >
                     AAA
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
