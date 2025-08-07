@@ -433,7 +433,7 @@ function SubmitForm() {
                 name="categories"
                 control={control}
                 render={({ field }) => {
-                  const selectedLabels = menu.categories
+                  const selectedLabels = menu.top_categories
                     .filter((opt) => field.value?.includes(opt.id))
                     .map((opt) => opt.name)
                     .join(', ')
@@ -454,7 +454,7 @@ function SubmitForm() {
                       </div>
                       {open && (
                         <div className="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg">
-                          {menu.categories.map((opt) => (
+                          {menu.top_categories.map((opt) => (
                             <label
                               key={opt.id}
                               className="flex cursor-pointer items-center px-3 py-2 hover:bg-gray-50"

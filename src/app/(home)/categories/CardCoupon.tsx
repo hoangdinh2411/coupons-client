@@ -26,7 +26,7 @@ function CardCoupon({
         height={144}
         alt={category.name}
         className="h-[126px] w-[126px] rounded-full object-cover sm:h-[144px] sm:w-[144px]"
-        src={`${category.image.url}` || '/images/no-img.webp'}
+        src={(category.image && category.image.url) || '/images/no-img.webp'}
         objectFit="contain"
       />
       <p className="h-10 max-w-[128px] text-center text-sm font-bold break-all uppercase group-hover:underline sm:h-14">

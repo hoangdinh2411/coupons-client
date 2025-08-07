@@ -8,8 +8,8 @@ export default function CategoryList() {
 
   return (
     <div className="w-full columns-1 gap-4 lg:columns-3">
-      {menu.categories &&
-        menu.categories.map((cat) => (
+      {menu.top_categories &&
+        menu.top_categories.map((cat) => (
           <div className="mb-8" key={cat.id}>
             <Link
               href={`coupons/${cat.slug}`}
