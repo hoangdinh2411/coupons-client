@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, Suspense } from 'react'
 import CategoryList from './CategoryList'
 import { Metadata } from 'next'
 import TopCategories from './TopCategories'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import Head from 'next/head'
+import { getAllCategoriesWithAllStores } from '@/services/categoryApi'
 
 export const metadata: Metadata = {
   title: 'Categories and Stores',
@@ -14,7 +15,9 @@ export const metadata: Metadata = {
     canonical: APP_ROUTERS.ALL_CATEGORIES,
   },
 }
-function CouponPage() {
+async function CategoriesListPage() {
+  const res = await getAllCategoriesWithAllStores()
+  console.log(res)
   return (
     <Fragment>
       <Head>
@@ -31,11 +34,12 @@ function CouponPage() {
         <h2 className="mb-4 text-xl font-[900] md:text-2xl">
           All Coupons & Deals Categories
         </h2>
-
-        <CategoryList />
+        <Suspense>
+          <CategoryList categories={res.data ?? []} />
+        </Suspense>
       </div>
     </Fragment>
   )
 }
 
-export default CouponPage
+export default CategoriesListPage
