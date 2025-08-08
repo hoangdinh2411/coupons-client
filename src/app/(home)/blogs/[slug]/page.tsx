@@ -14,7 +14,6 @@ import SpinnerLoading from '@/components/loading'
 import { Metadata } from 'next'
 import dayjs from 'dayjs'
 import Head from 'next/head'
-
 export async function generateMetadata({
   params,
 }: {
@@ -96,6 +95,7 @@ export default async function BlogDetailPage({
   const blog = blogRes.data.blog
   const latest = latestRes.data || []
   const readMore = blogRes.data.read_more
+  console.log(blog.content)
   return (
     <Fragment>
       <Head>
@@ -103,12 +103,12 @@ export default async function BlogDetailPage({
           <meta key={tag} property="article:tag" content={tag} />
         ))}
       </Head>
-      <div className="mt-10">
+      <div className="mt-10 px-4">
         <div className="mx-auto max-w-[1162px]">
           <div className="mb-10 flex flex-col gap-[30px] md:flex-row">
             <div className="flex-1">
               <section className="">
-                <div className="relative px-8 py-6 font-semibold">
+                <div className="relative py-6 font-semibold">
                   <h1 className="text-olive-green text-5xl leading-16 font-bold">
                     {blog.title}
                   </h1>
@@ -146,10 +146,12 @@ export default async function BlogDetailPage({
                   </div>
                 </div>
               </section>
-              <div
-                className="mt-10 px-10"
-                dangerouslySetInnerHTML={{ __html: blog.content }}
-              />
+              <article className="prose max-w-none">
+                <div
+                  className="not-prose no-tailwindcss-base"
+                  dangerouslySetInnerHTML={{ __html: blog.content }}
+                ></div>
+              </article>
               <div className="my-10 flex gap-4">
                 <span className="relative size-[90px] overflow-hidden rounded-full">
                   <Image

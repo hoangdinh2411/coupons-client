@@ -4,6 +4,8 @@
 @import './themes/base.css';
 @import '@splidejs/splide/css';
 @import '@splidejs/splide/css/core';
+
+
 html,
 body {
   font-family: var(--font-aptos);
@@ -33,9 +35,8 @@ textarea {
 
 button {
   outline: none;
-
 }
-button:disabled{
+button:disabled {
   pointer-events: none;
 }
 
@@ -102,7 +103,7 @@ button:disabled {
 }
 .hide-scrollbar {
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE & Edge */
+  -ms-overflow-style: none; /* IE & Edge */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
