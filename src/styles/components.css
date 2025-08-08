@@ -29,7 +29,17 @@
     @apply focus:outline-green hover:outline-green outline-1 outline-transparent;
   }
 }
-
+@layer base {
+  .no-tailwindcss-base * {
+    font-family: inherit;
+    color: inherit;
+  }
+  .no-tailwindcss-base * {
+    all: revert; /* resets EVERYTHING to user agent stylesheet */
+    margin: revert;
+    padding: revert;
+  }
+}
 /* custom slide homepage */
 .custom-splide .splide__pagination li {
   width: 20px;
