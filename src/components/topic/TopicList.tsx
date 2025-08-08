@@ -32,13 +32,16 @@ export default function TopicList({ topics }: { topics: TopicData[] }) {
               href={`/topics/${topic.slug}`}
               className="group flex flex-col items-center"
             >
-              <Image
-                src={topic.image.url || '/images/no-img.webp'}
-                alt={topic.name}
-                width={124}
-                height={124}
-                className="group-hover:border-green h-auto w-full max-w-[62px] rounded-full border border-gray-300"
-              />
+              <div className="group-hover:border-green relative aspect-square w-full max-w-[62px] overflow-hidden rounded-full border border-gray-300">
+                <Image
+                  src={topic.image.url || '/images/no-img.webp'}
+                  alt={`${topic.name} topic`}
+                  fill
+                  className="object-cover"
+                  loading="lazy"
+                  sizes="62px"
+                />
+              </div>
               <span className="text-md group-hover:text-green text-olive-green mt-1.5 text-center font-semibold">
                 {topic.name}
               </span>

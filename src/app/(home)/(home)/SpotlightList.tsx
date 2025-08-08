@@ -17,14 +17,16 @@ export default function SpotlightList({ spotlights }: SpotlightListProps) {
       {spotlights.map((spotlight) => (
         <Link key={spotlight.spotlight_id} href={spotlight.spotlight_link}>
           <div className="mb-4 flex items-center">
-            <Image
-              className="h-32 w-36 rounded-2xl object-cover"
-              src={spotlight.spotlight_image}
-              alt={spotlight.spotlight_title}
-              width={250}
-              height={128}
-              loading="lazy"
-            />
+            <div className="relative aspect-[36/32] w-36 overflow-hidden rounded-2xl">
+              <Image
+                src={spotlight.spotlight_image}
+                alt={`${spotlight.spotlight_title} - spotlight feature image`}
+                fill
+                className="object-cover"
+                loading="lazy"
+                sizes="144px"
+              />
+            </div>
             <div className="p-4">
               <p className="mb-1 text-sm font-semibold uppercase">
                 {spotlight.spotlight_title}

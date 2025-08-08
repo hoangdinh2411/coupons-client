@@ -31,13 +31,14 @@ function TopDealCard({
           className={`relative flex w-full cursor-pointer gap-2 text-left shadow-lg md:h-auto lg:min-h-[140px]`}
         >
           <div className="relative md:mb-2">
-            <div className="lg-[119px] relative flex h-[144px] w-[127px] items-center justify-center overflow-hidden md:h-[120px] lg:h-[125px] lg:w-[125px] xl:w-30">
+            <div className="relative aspect-[127/144] w-[127px] overflow-hidden md:aspect-[125/120] md:w-[125px] lg:aspect-[125/125] lg:w-[125px] xl:w-30">
               <Image
-                className="size-full rounded-xl border bg-white object-contain object-center px-2 md:rounded-none md:border-0"
-                height={125}
-                width={80}
-                alt={`${METADATA.NAME} image `}
-                src={coupon.store?.image?.url ?? ''}
+                className="rounded-xl border bg-white object-contain object-center p-2 md:rounded-none md:border-0"
+                fill
+                alt={`${METADATA.NAME} ${coupon.store?.name || coupon.title} store logo`}
+                src={coupon.store?.image?.url ?? '/images/no-img.webp'}
+                sizes="(min-width: 1280px) 120px, (min-width: 1024px) 125px, (min-width: 768px) 125px, 127px"
+                loading="lazy"
               />
             </div>
           </div>
