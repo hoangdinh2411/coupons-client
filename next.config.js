@@ -2,7 +2,6 @@
 
 const nextConfig = {
   compress: true,
-  swcMinify: true,
   experimental: {
     authInterrupts: true,
   },
