@@ -4,6 +4,7 @@ import CardAccordion from '../accordion/CardAccordion'
 import { CouponData } from '@/types/coupon.type'
 import { usePathname } from 'next/navigation'
 import dayjs from 'dayjs'
+import { TypeDiscount } from '@/types/enum'
 
 function CouponCardAccordion(coupon: CouponData) {
   const pathname = usePathname()
@@ -29,7 +30,11 @@ function CouponCardAccordion(coupon: CouponData) {
       >
         <div className="text-green mx-0 flex w-fit min-w-30 flex-col self-center text-left text-xl font-extrabold tracking-tight uppercase sm:row-span-3 sm:row-start-1 sm:mx-auto sm:pt-1 sm:pb-2 md:mx-0 md:text-3xl lg:tracking-wide">
           <p className="w-fit">Up to </p>
-          <p className="w-fit"> {coupon.discount}% </p>
+          <p className="w-fit">
+            {' '}
+            {coupon.discount}{' '}
+            {coupon.type_discount === TypeDiscount.PERCENT ? '%' : '$'}{' '}
+          </p>
           <p className="w-fit">Off</p>
         </div>
         <div className="flex flex-1 flex-col items-start gap-2">

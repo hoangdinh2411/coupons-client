@@ -82,6 +82,7 @@ export default async function StoreDetailPage({
   }
   const store = res.data.store
   const similar_store = res.data.similar_stores
+  console.log(store)
   return (
     <Fragment>
       <div className="px-4 pb-10">
