@@ -73,7 +73,7 @@ const StoreHeader = ({ currentLetter }: { currentLetter: string }) => {
               </option>
             ))}
           </select>
-          <FaChevronDown className="absolute top-1/2 right-3 size-3 -translate-y-1/2 transform text-black" />
+          <FaChevronDown className="absolute top-1/2 right-3 block size-3 -translate-y-1/2 transform text-black lg:hidden" />
         </div>
       </div>
     </div>
