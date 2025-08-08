@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import CouponList from './CouponList'
 import Header from './Header'
 import ShoppingEvents from './ShoppingEvents'
@@ -67,11 +66,25 @@ const TOP_DEALS_TODAY = Array.from({ length: 8 }, (_, i) => ({
 }))
 export default function CouponsPage() {
   return (
-    <Fragment>
+    <>
       <Head>
         <link
           rel="canonical"
           href={`${METADATA.APP_URL}${APP_ROUTERS.HOT_DEALS}`}
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/banner-coupon-mobile.webp"
+          imageSrcSet="/images/banner-coupon-mobile.webp 1x"
+          media="(max-width: 767px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/coupon-banner-stack-cash.webp"
+          imageSrcSet="/images/coupon-banner-stack-cash.webp 1x"
+          media="(min-width: 768px)"
         />
       </Head>
       <div className="relative bg-white">
@@ -119,6 +132,6 @@ export default function CouponsPage() {
           <ShoppingEvents />
         </div>
       </div>
-    </Fragment>
+    </>
   )
 }

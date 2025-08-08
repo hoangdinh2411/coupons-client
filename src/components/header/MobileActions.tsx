@@ -12,7 +12,6 @@ import {
 } from 'react-icons/md'
 export default function MobileActions() {
   const { user, menu } = UseAppStore((state) => state)
-  console.log(menu)
   return (
     <div className="block lg:hidden">
       <input type="checkbox" name="" id="mobile-menu" className="peer" hidden />

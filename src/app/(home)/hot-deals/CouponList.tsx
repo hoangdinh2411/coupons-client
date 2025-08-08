@@ -1,8 +1,5 @@
 /* eslint-disable react/no-children-prop */
-'use client'
 import CouponCard from '@/components/card/CouponCard'
-import React from 'react'
-
 interface Coupon {
   id: string | number
   title: string
@@ -21,7 +18,7 @@ function CouponList({ coupons }: CouponListProps) {
       <div
         className={`mb-16 grid grid-cols-1 gap-1 md:grid-cols-4 md:gap-2 lg:grid-cols-5`}
       >
-        {coupons.map((coupon) => (
+        {coupons.map((coupon: Coupon) => (
           <CouponCard
             key={coupon.id}
             title={coupon.title}
