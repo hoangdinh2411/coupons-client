@@ -33,7 +33,7 @@ function TopDealList({ top_deals_today }: TopDealListPropsType) {
             alt=""
             className="h-full w-full object-cover"
             fill
-            priority
+            loading="lazy"
           />
         </div>
         <div className="flex-1">

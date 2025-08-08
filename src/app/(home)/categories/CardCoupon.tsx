@@ -21,14 +21,16 @@ function CardCoupon({
       {...rest}
       className={`${className} group flex flex-col items-center justify-center gap-2`}
     >
-      <Image
-        width={144}
-        height={144}
-        alt={category.name}
-        className="h-[126px] w-[126px] rounded-full object-cover sm:h-[144px] sm:w-[144px]"
-        src={`${category?.image?.url ?? '/images/no-img.webp'}`}
-        objectFit="contain"
-      />
+      <div className="relative aspect-square h-[126px] w-[126px] overflow-hidden rounded-full sm:h-[144px] sm:w-[144px]">
+        <Image
+          fill
+          alt={`${category.name} category`}
+          className="object-cover"
+          src={`${category?.image?.url ?? '/images/no-img.webp'}`}
+          loading="lazy"
+          sizes="(min-width: 640px) 144px, 126px"
+        />
+      </div>
       <p className="h-10 max-w-[128px] text-center text-sm font-bold break-all uppercase group-hover:underline sm:h-14">
         {category.name}
       </p>
