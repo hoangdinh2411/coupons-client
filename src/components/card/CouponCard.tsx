@@ -86,10 +86,10 @@ function CouponCard(props: CouponCardPropsType) {
         </div>
         <div className="flex h-full flex-col justify-between">
           <div className="space-y-1 md:p-[8px] lg:p-3">
-            <div className="mb-1 text-[12px] font-[800] tracking-widest uppercase">
+            <div className="mb-2 line-clamp-2 overflow-hidden text-[12px] font-[800] tracking-widest text-ellipsis uppercase">
               {title}
             </div>
-            <div className="text-[16px] leading-4 font-[600] text-gray-800 md:leading-5 lg:min-h-10">
+            <div className="line-clamp-3 overflow-hidden text-[16px] leading-4 font-[600] text-ellipsis text-gray-800 md:leading-5 lg:min-h-10">
               {description}
             </div>
           </div>

@@ -10,7 +10,7 @@ export default function CategoryDealList() {
   const categories = UseAppStore((state) => state.menu.top_categories)
   return (
     <section className="mb-16 md:mb-20">
-      <div className="mb-6 flex flex-wrap items-center justify-between lg:mb-4">
+      <div className="mb-10 flex flex-wrap items-center justify-between lg:mb-8">
         <div className="text-sm font-bold tracking-widest uppercase">
           Categories
         </div>
