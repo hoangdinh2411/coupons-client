@@ -1,15 +1,14 @@
-import { CouponType, VerifyCodeType } from '@/types/enum'
+import { CouponType } from '@/types/enum'
 import { z } from 'zod'
 import dayjs from 'dayjs'
 
 export const ForgetSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
 })
-export const SignInSchema = z
-  .object({
-    password: z.string().min(1, 'Password is required'),
-  })
-  .merge(ForgetSchema)
+export const SignInSchema = z.object({
+  password: z.string().min(1, 'Password is required'),
+  email: z.string().email({ message: 'Invalid email address' }),
+})
 
 export const SignUpSchema = z
   .object({
@@ -22,13 +21,6 @@ export const SignUpSchema = z
     path: ['confirm_password'],
     message: 'Passwords do not match',
   })
-
-export const VerifyCodeSchema = z
-  .object({
-    code: z.string().min(1, 'Code is required'),
-    type: z.enum(Object.values(VerifyCodeType) as [string, ...string[]]),
-  })
-  .merge(ForgetSchema)
 
 export const ResetPasswordSchema = z
   .object({

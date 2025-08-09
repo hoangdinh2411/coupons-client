@@ -16,7 +16,9 @@ const PROTECTED_URLS = [
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+
   const token = request.cookies.get('token')?.value || ''
+  console.log(token)
   if (AUTH_URLS.includes(pathname) && token) {
     return NextResponse.redirect(new URL(APP_ROUTERS.INDEX, request.nextUrl))
   }
