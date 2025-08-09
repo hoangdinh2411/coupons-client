@@ -12,7 +12,19 @@ const nextConfig = {
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
   },
-
+  async headers() {
+    return [
+      {
+        source: '/((?!api).*)', 
+        headers: [  
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, stale-while-revalidate=86400'
+          }
+        ]
+      }
+    ]
+  },
   images: {
     remotePatterns: [
       new URL('https://s3.amazonaws.com/img.trustcoupon.com/**'),

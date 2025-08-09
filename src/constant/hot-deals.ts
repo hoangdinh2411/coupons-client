@@ -1,3 +1,5 @@
+import { CouponType } from '@/types/enum'
+
 export const NAVBARS = [
   {
     link: '/',
@@ -82,3 +84,57 @@ export const CARDS = [
     description: 'Beyond the Bikini',
   },
 ]
+export const COUPON_CARD = Array.from({ length: 5 }, (_, i) => ({
+  id: `coupon-${i + 1}`,
+  title: `CASPER`,
+  description: 'July 4th Sale! Up to 70%',
+  imgUrl: i % 2 ? `/images/brandCard.webp` : `/images/brandCard2.webp`,
+  badgeIcon: i % 2 ? '/images/fire.svg' : '/images/cashback-bolt.svg',
+  badgeTitle: '15% Off',
+}))
+export const STORE_LIST = Array.from({ length: 8 }, (_, i) => ({
+  title: 'Cash Back',
+  value: i + 2,
+  link: '/',
+  imgUrl: '/images/brandCard2.webp',
+  icon: '/images/cashback-bolt.svg',
+}))
+export const TOP_DEALS_TODAY = Array.from({ length: 8 }, (_, i) => ({
+  id: i + 1,
+  title: `CASPER Deal ${i + 1}`,
+  code: '',
+  offer_detail: 'July 4th Sale! Up to 70%',
+  offer_link: 'https://example.com',
+  store_id: 1,
+  is_exclusive: false,
+  expire_date: '2025-12-31',
+  start_date: '2025-01-01',
+  type: CouponType.SALE,
+  rating: 4.5,
+  discount: 15 + i * 5,
+  added_by: 1,
+  total_interested_users: 100 + i,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+  deleted_at: '',
+  store: {
+    id: 1,
+    name: i === 0 ? 'Amazon' : 'CASPER',
+    description: 'Great deals and discounts',
+    max_discount_pct: 70,
+    keywords: ['deals', 'discounts'],
+    url: 'https://example.com',
+    slug: 'amazon',
+    image: {
+      file_name: 'store-image.webp',
+      url: i % 2 ? `/images/brandCard.webp` : `/images/brandCard2.webp`,
+      public_id: 'store-image',
+    },
+    rating: 4.5,
+    coupons: [],
+    faqs: [],
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    deleted_at: '',
+  },
+}))

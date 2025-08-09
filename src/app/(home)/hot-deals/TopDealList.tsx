@@ -3,10 +3,22 @@
 import TopDealCard from '@/components/card/TopDealCard'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
 import { CouponData } from '@/types/coupon.type'
 import Link from 'next/link'
-
+import dynamic from 'next/dynamic'
+const Splide = dynamic(
+  () => import('@splidejs/react-splide').then((mod) => mod.Splide),
+  {
+    loading: () => <div className="h-12 animate-pulse bg-gray-50" />,
+    ssr: false,
+  },
+)
+const SplideSlide = dynamic(() =>
+  import('@splidejs/react-splide').then((mod) => mod.SplideSlide),
+)
+const SplideTrack = dynamic(() =>
+  import('@splidejs/react-splide').then((mod) => mod.SplideTrack),
+)
 interface TopDealListPropsType {
   top_deals_today: CouponData[]
 }
@@ -24,15 +36,15 @@ function TopDealList({ top_deals_today }: TopDealListPropsType) {
 
   const store = top_deals_today[0]?.store
   return (
-    <div className="mx-auto py-6">
-      {/* Best Deal Section */}
+    <div className="mx-auto mb-12 py-6">
       <section className="mb-6 flex items-center gap-4">
         <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-gray-200 bg-gray-100">
           <Image
             src={store?.image?.url ?? '/images/no-img.webp'}
-            alt=""
-            className="h-full w-full object-cover"
-            fill
+            alt={store?.image?.file_name ?? ''}
+            className="h-full w-full bg-white object-contain"
+            width={300}
+            height={300}
             priority
           />
         </div>
@@ -51,8 +63,6 @@ function TopDealList({ top_deals_today }: TopDealListPropsType) {
           </Link>
         )}
       </section>
-
-      {/* Slider Section */}
       <Splide
         className="custom-splide"
         options={{

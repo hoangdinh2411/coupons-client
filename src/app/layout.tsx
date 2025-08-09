@@ -2,9 +2,10 @@ import '../styles/global.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
-import ToastProvider from '@/context/ToastProvider'
-import ModalCoupon from '@/components/modal/ModalCoupon'
 import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
+const ToastProvider = dynamic(() => import('@/context/ToastProvider'))
+const ModalCoupon = dynamic(() => import('@/components/modal/ModalCoupon'))
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -73,6 +74,62 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <script
+          type="module"
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Modern browser initialization
+              console.log('Modern browser detected');
+              
+              // Critical modern JS features
+              const modernFeatures = {
+                modules: true,
+                asyncAwait: true,
+                optionalChaining: true,
+                nullishCoalescing: true
+              };
+              
+              window.__MODERN_BROWSER__ = true;
+              window.__FEATURES__ = modernFeatures;
+              
+              // Performance mark
+              performance.mark('modern-js-loaded');
+            `,
+          }}
+        />
+
+        <script
+          noModule
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Legacy browser initialization  
+              console.log('Legacy browser detected');
+              
+              // Load polyfills for legacy browsers
+              window.__MODERN_BROWSER__ = false;
+              
+              // Performance mark
+              if (window.performance && performance.mark) {
+                performance.mark('legacy-js-loaded');
+              }
+            `,
+          }}
+        />
+        <link rel="modulepreload" href="/_next/static/chunks/main.js" />
+        <link
+          rel="preload"
+          href="/_next/static/chunks/polyfills.js"
+          as="script"
+        />
+      </head>
       <body suppressHydrationWarning={true}>
         <script
           type="application/ld+json"
