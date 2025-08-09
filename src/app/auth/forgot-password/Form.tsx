@@ -1,32 +1,37 @@
 'use client'
-import { handleForgetPassAction } from '@/app/actions/forget-pass.action'
 import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { APP_ROUTERS } from '@/helpers/config'
+import { forgetPasswordApi } from '@/services/authApi'
 import { VerifyCodeType } from '@/types/enum'
 import { useRouter } from 'next/navigation'
-import React, { useActionState, useEffect } from 'react'
+import React, { useState, useTransition } from 'react'
 import toast from 'react-hot-toast'
 
 export default function Form() {
-  const [state, action] = useActionState(handleForgetPassAction, {
-    success: false,
-  })
+  const [email, setEmail] = useState('')
+  const [isPending, transition] = useTransition()
   const router = useRouter()
 
-  useEffect(() => {
-    if (state.message) {
-      toast.error(state.message)
-      return
-    }
-
-    if (state.success && state.email) {
-      router.push(
-        `${APP_ROUTERS.VERIFY}?email=${state.email}&type=${VerifyCodeType.FORGET_PASSWORD}`,
-      )
-    }
-  }, [state])
+  const handleSubmit = () => {
+    transition(async () => {
+      if (!email) {
+        toast.error('Please fill email')
+        return
+      }
+      const res = await forgetPasswordApi(email)
+      if (!res.success && res.message) {
+        toast.error(res.message)
+        return
+      }
+      if (res.success) {
+        router.push(
+          `${APP_ROUTERS.VERIFY}?email=${email}&type=${VerifyCodeType.FORGET_PASSWORD}`,
+        )
+      }
+    })
+  }
   return (
-    <form action={action} className="mx-auto flex flex-col bg-white p-6">
+    <form className="mx-auto flex flex-col bg-white p-6">
       <p className="mt-2 mb-4 text-center text-slate-800">
         Enter your email address below and we&apos;ll send you reset
         instructions.
@@ -43,14 +48,16 @@ export default function Form() {
           placeholder="Email Address"
           className="textfield"
           name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        {state.errors && (
-          <small className="font-500 mt-2 block text-sm text-red-600">
-            {state.errors.email}
-          </small>
-        )}
       </fieldset>
-      <ButtonWithLoading type="submit" className="my-2">
+      <ButtonWithLoading
+        onClick={handleSubmit}
+        isPending={isPending}
+        type="button"
+        className="my-8"
+      >
         Send Instructions
       </ButtonWithLoading>
     </form>
