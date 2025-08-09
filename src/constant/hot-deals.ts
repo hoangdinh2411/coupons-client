@@ -1,4 +1,4 @@
-import { CouponType } from '@/types/enum'
+import { CouponType, TypeDiscount } from '@/types/enum'
 
 export const NAVBARS = [
   {
@@ -108,6 +108,7 @@ export const TOP_DEALS_TODAY = Array.from({ length: 8 }, (_, i) => ({
   store_id: 1,
   is_exclusive: false,
   expire_date: '2025-12-31',
+  type_discount: i % 2 === 0 ? TypeDiscount.DOLLAR : TypeDiscount.PERCENT,
   start_date: '2025-01-01',
   type: CouponType.SALE,
   rating: 4.5,
