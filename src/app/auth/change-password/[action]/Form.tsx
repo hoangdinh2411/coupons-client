@@ -14,8 +14,13 @@ type ResetPassType = z.infer<typeof ResetPasswordSchema>
 export default function Form({ token }: { token: string }) {
   const {
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm<ResetPassType>({
+    defaultValues: {
+      password: '',
+      confirm_password: '',
+    },
     resolver: zodResolver(ResetPasswordSchema),
   })
   const [isPending, transition] = useTransition()
@@ -53,8 +58,8 @@ export default function Form({ token }: { token: string }) {
           id="new-password"
           placeholder="Email Address"
           className="textfield"
-          name="password"
           type="password"
+          {...register('password')}
         />
         {errors.password && (
           <small className="font-500 mt-2 block text-sm text-red-600">
@@ -73,7 +78,7 @@ export default function Form({ token }: { token: string }) {
           id="confirm-password"
           placeholder="Email Address"
           className="textfield"
-          name="confirm_password"
+          {...register('confirm_password')}
           type="password"
         />
         {errors.confirm_password && (

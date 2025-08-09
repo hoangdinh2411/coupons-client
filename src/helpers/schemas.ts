@@ -26,11 +26,11 @@ export const ResetPasswordSchema = z
   .object({
     password: z
       .string()
-      .min(3, { message: 'Password must be at least 3 characters' })
+      .min(1, 'Password must be at least 3 characters')
       .trim(),
     confirm_password: z
       .string()
-      .min(3, { message: 'Confirm password must be at least 3 characters' })
+      .min(3, 'Confirm password must be at least 3 characters')
       .trim(),
   })
   .refine((data) => data.password === data.confirm_password, {
