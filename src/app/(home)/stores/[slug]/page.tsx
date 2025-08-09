@@ -82,6 +82,7 @@ export default async function StoreDetailPage({
   }
   const store = res.data.store
   const similar_store = res.data.similar_stores
+  console.log(store)
   return (
     <Fragment>
       <div className="px-4 pb-10">
@@ -150,8 +151,9 @@ export default async function StoreDetailPage({
             </div>
             <div className="mb-10">
               <div
-                dangerouslySetInnerHTML={{ __html: store.description || '' }}
-              />
+                className="not-prose no-tailwindcss-base"
+                dangerouslySetInnerHTML={{ __html: store.description }}
+              ></div>
             </div>
             {store.faqs && store.faqs.length > 0 && <FAQs store={store} />}
           </section>

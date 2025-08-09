@@ -14,3 +14,7 @@ export enum VerifyCodeType {
   VERIFY_ACCOUNT = 'VERIFY_ACCOUNT',
   FORGET_PASSWORD = 'FORGET_PASSWORD',
 }
+export enum TypeDiscount {
+  PERCENT = 'percent',
+  DOLLAR = 'dollar',
+}

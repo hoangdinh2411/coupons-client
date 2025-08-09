@@ -1,6 +1,6 @@
 import { UserData } from './auth.type'
 import { CategoryData } from './category.type'
-import { CouponType } from './enum'
+import { CouponType, TypeDiscount } from './enum'
 import { BaseData, MetaData } from './share.type'
 import { StoreData } from './store.type'
 
@@ -35,4 +35,5 @@ export interface CouponData extends BaseData {
   added_by: number
   user?: UserData
   total_interested_users: number
+  type_discount: TypeDiscount
 }
