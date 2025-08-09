@@ -1,5 +1,4 @@
 // Type for feedback meta_data
-// type FeedbackMeta = { like_count?: number; dislike_count?: number };
 'use client'
 import React, { useEffect, useState, useTransition } from 'react'
 import Image from 'next/image'
@@ -12,6 +11,7 @@ import Modal from '.'
 import dayjs from 'dayjs'
 import UseAppStore from '@/stores/app.store'
 import { saveCoupon } from '@/services/userApi'
+type FeedbackMeta = { like_count?: number; dislike_count?: number }
 
 function ModalCoupon() {
   const [open, setOpen] = useState(false)
