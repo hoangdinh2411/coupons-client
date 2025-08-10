@@ -44,7 +44,7 @@ export default function CommentSection({ blog_id }: CommentSectionProps) {
       <section className="border-green grid gap-4 rounded-md border bg-green-50 px-4 py-6 sm:gap-6 sm:px-6 sm:py-8 lg:px-8">
         <div className="space-y-4">
           <CommentList comments={comments} setComments={setComments} />
-          {!showAll && (
+          {!showAll && comments.length > 0 && (
             <button
               onClick={handleShowAllComments}
               className="bg-green hover:bg-green/80 mt-8 flex w-fit cursor-pointer items-center gap-2 rounded-full px-7 py-2 text-lg text-white transition-colors duration-300 ease-out"
