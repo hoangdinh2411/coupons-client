@@ -136,7 +136,7 @@ function Header() {
 
       {/**Disclaimer */}
       <p className="mt-4 mb-4 text-center text-[12px] leading-5 font-bold">
-        When you buy through links on RetailMeNot{' '}
+        When you buy through links on TrustCoupon{' '}
         <span className="underline"> we may earn a commission.</span>
       </p>
 

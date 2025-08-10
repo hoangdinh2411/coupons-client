@@ -1,6 +1,6 @@
+@import 'tailwindcss';
 @import './components.css';
 @import './themes/base.css';
-@import 'tailwindcss';
 /* @import './font.css'; */
 @import '@splidejs/splide/css';
 @import '@splidejs/splide/css/core';

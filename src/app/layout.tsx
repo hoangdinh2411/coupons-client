@@ -1,5 +1,5 @@
-import '../styles/global.css'
 import '../styles/custom.css'
+import '../styles/global.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'

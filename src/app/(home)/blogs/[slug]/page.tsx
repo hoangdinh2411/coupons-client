@@ -28,7 +28,6 @@ export async function generateMetadata({
 
   const blog = res.data.blog
   const pageUrl = `${METADATA.APP_URL}/blogs/${blog.slug}`
-
   return {
     // 1. title, meta_data, canonical
     title: blog.title,
