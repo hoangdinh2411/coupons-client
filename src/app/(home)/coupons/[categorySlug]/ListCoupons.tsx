@@ -11,6 +11,7 @@ import { CategoryData } from '@/types/category.type'
 import { CouponType } from '@/types/enum'
 import { getCouponsByCategory } from '@/services/categoryApi'
 import { usePathname } from 'next/navigation'
+import FAQs from './FAQs'
 
 const ListCoupons = ({
   coupons: initialCoupons,
@@ -62,7 +63,7 @@ const ListCoupons = ({
     }
   }
   return (
-    <main className="col-span-2 col-start-1 row-start-4 mt-2 mb-6 overflow-hidden lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-3">
+    <div className="col-span-2 col-start-1 row-start-4 mt-2 mb-6 overflow-hidden lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-3">
       <section className="relative mb-6 flex gap-x-4">
         <div className="relative min-h-24 min-w-24 overflow-hidden rounded-full border border-gray-200 p-2">
           <Link href={'/coupons/amazon'}>
@@ -178,7 +179,15 @@ const ListCoupons = ({
           </button>
         )}
       </div>
-    </main>
+
+      <article className="">
+        <div
+          className="no-tailwindcss-base"
+          dangerouslySetInnerHTML={{ __html: category.description }}
+        ></div>
+      </article>
+      <FAQs category={category} />
+    </div>
   )
 }
 
