@@ -30,6 +30,9 @@ pipeline {
                         echo "Dangling images removed successfully"
                     else
                         echo "No dangling images found"
+                    fi
+                    echo "=== Current images after cleanup ==="
+                    docker images
                     '''
                 }
             }
