@@ -1,6 +1,6 @@
 import { CouponData } from './coupon.type'
 import { BaseData, ImageType, MetaData } from './share.type'
-import { StoreData } from './store.type'
+import { FAQData, StoreData } from './store.type'
 
 export interface CategoryData extends BaseData {
   slug: string
@@ -8,6 +8,8 @@ export interface CategoryData extends BaseData {
   name: string
   image: ImageType
   meta_data?: MetaData
+  faqs: FAQData[]
+  description: string
 }
 
 export interface CountCoupons {
