@@ -30,7 +30,7 @@
   }
 }
 @layer base {
-  .no-tailwindcss-base *:not(img):not(.image-caption) {
+  .no-tailwindcss-base *:not(.image-wrapper):not(img):not(.image-caption) {
     font-family: inherit;
     color: inherit;
     all: revert !important;

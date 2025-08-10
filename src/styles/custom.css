@@ -21,13 +21,21 @@ fieldset {
   border: none;
 }
 
+.image-wrapper{
+  background-color: rgb(247 247 247) !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  aspect-ratio: 1 /0.7;
+}
 .image-wrapper img {
+  background-color: inherit;
   width: 100%;
-  aspect-ratio: 1 /0.5;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
 }
 
 .image-wrapper > p.image-caption {
+  background-color: inherit;
   text-align: center !important;
   padding: 8px 0 0 0  !important;
   display: flex !important;
