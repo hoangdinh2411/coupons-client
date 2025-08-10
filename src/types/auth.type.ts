@@ -35,3 +35,9 @@ export interface VerifyCodeData {
   type: VerifyCodeType
   token?: string
 }
+
+export interface ResetPasswordPayload {
+  confirm_password: string
+  password: string
+  reset_token?: string
+}

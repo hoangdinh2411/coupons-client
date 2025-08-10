@@ -48,6 +48,7 @@ export async function SignInAction(
     sameSite: 'lax',
     path: '/',
     maxAge: 60 * 60 * 24,
+    expires: 60 * 60 * 24,
   })
 
   delete data.token

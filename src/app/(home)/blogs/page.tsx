@@ -52,7 +52,7 @@ export default async function Page() {
                         fill
                         priority
                         sizes="auto"
-                        className="h-auto w-full"
+                        className="h-auto w-full object-cover"
                       />
                     </div>
                   </div>
@@ -63,6 +63,7 @@ export default async function Page() {
                         alt={'aaa'}
                         width={46}
                         height={46}
+                        className="object-cover"
                       />
                     </span>
                     <div>

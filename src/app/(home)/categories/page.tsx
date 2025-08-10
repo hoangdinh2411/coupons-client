@@ -17,7 +17,6 @@ export const metadata: Metadata = {
 }
 async function CategoriesListPage() {
   const res = await getAllCategoriesWithAllStores()
-  console.log(res)
   return (
     <Fragment>
       <Head>

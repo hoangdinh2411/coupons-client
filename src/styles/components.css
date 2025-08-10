@@ -29,7 +29,15 @@
     @apply focus:outline-green hover:outline-green outline-1 outline-transparent;
   }
 }
-
+@layer base {
+  .no-tailwindcss-base *:not(.image-wrapper):not(img):not(.image-caption) {
+    font-family: inherit;
+    color: inherit;
+    all: revert !important;
+    margin: revert !important;
+    padding: revert !important;
+  }
+}
 /* custom slide homepage */
 .custom-splide .splide__pagination li {
   width: 20px;
