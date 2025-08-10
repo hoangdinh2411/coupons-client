@@ -14,18 +14,16 @@ const Logo = () => {
         alt="Logo"
         fill
         priority
-        objectFit="contain"
         sizes="(max-width: 768px) 40px"
-        className="md :hidden block"
+        className="md :hidden block object-contain"
       />
       <Image
         src="/images/logo-with-white-text-and-green-logo.png"
         alt="Logo"
         fill
         priority
-        objectFit="contain"
         sizes="(min-width: 768px) 160px"
-        className="md :block hidden"
+        className="md :block hidden object-contain"
       />
     </Link>
   )

@@ -33,9 +33,9 @@
   .no-tailwindcss-base *:not(img) {
     font-family: inherit;
     color: inherit;
-    /* all: revert !important;
+    all: revert !important;
     margin: revert !important;
-    padding: revert !important; */
+    padding: revert !important;
   }
 }
 /* custom slide homepage */

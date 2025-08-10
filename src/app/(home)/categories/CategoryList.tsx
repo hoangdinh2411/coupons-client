@@ -7,7 +7,6 @@ export default function CategoryList({
 }: {
   categories: CategoryData[]
 }) {
-  console.log(categories)
   return (
     <div className="w-full columns-1 gap-4 lg:columns-3">
       {categories &&

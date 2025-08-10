@@ -6,6 +6,7 @@ import Logo from './Logo'
 import Menu from './Menu'
 import MobileActions from './MobileActions'
 import SearchBar from './SearchBar'
+import { Suspense } from 'react'
 
 export default async function Header() {
   const [menuRes, profileRes] = await Promise.all([getMenu(), getUserProfile()])
@@ -30,9 +31,11 @@ export default async function Header() {
       <div className="bg-olive-green w-full">
         <nav className="relative m-auto flex w-full max-w-(--max-width) items-center gap-4 p-4 py-4">
           <Logo />
-          <Menu data={menu} />
-          <SearchBar popularStores={menu.popular} />
-          <Actions profile={profile} />
+          <Suspense>
+            <Menu data={menu} />
+            <SearchBar popularStores={menu.popular} />
+            <Actions profile={profile} />
+          </Suspense>
           <MobileActions />
         </nav>
       </div>

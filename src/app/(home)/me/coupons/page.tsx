@@ -12,7 +12,6 @@ const MyCouponsPage = async () => {
   if (res.data) {
     coupons = res.data
   }
-  console.log(coupons)
   return (
     <div className="mx-auto my-4 w-full max-w-3xl flex-1 p-4">
       {/* Breadcrumbs go back */}
