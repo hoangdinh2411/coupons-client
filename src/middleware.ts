@@ -26,7 +26,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(APP_ROUTERS.SIGN_IN, request.nextUrl))
   }
   if (APP_ROUTERS.SIGN_OUT === pathname && !token) {
-    return NextResponse.redirect(new URL(APP_ROUTERS.INDEX, request.nextUrl))
+    console.log('toekn')
+    return NextResponse.redirect(new URL(pathname, request.nextUrl))
   }
 
   return NextResponse.next()

@@ -40,7 +40,7 @@ function TopSplide() {
         </Splide>
       </div>
       <div className="block bg-white pt-1 text-center text-xs [grid-area:disclaimer] lg:mx-0 lg:mt-3 lg:mr-16 lg:mb-8 lg:hidden lg:text-left lg:text-sm">
-        When you buy through links on RetailMeNot
+        When you buy through links on TrustCoupon
         <Link className="underline" href={'/'}>
           {' '}
           we may earn a commission.
