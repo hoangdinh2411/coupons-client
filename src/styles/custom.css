@@ -21,10 +21,17 @@ fieldset {
   border: none;
 }
 
-.image-wrapper  img {
+.image-wrapper img {
   width: 100%;
   aspect-ratio: 1 /0.5;
   object-fit: contain;
+}
+
+.image-wrapper > p.image-caption {
+  text-align: center !important;
+  padding: 8px 0 0 0  !important;
+  display: flex !important;
+  justify-content: center !important;
 }
 .react-datepicker-wrapper {
   width: 100%;
@@ -63,7 +70,6 @@ fieldset {
   display: none; /* Chrome, Safari, Opera */
 }
 
-
 *:not(fieldset):disabled {
   cursor: not-allowed;
   background-color: rgba(0, 0, 0, 0.05);
@@ -86,4 +92,3 @@ input:disabled,
 button:disabled {
   cursor: not-allowed;
 }
-

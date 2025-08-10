@@ -104,7 +104,7 @@ export default async function TopicDetailPage({
         <TopicList topics={topics} />
         <div className="mt-4 text-center text-xs">
           <p className="text-olive-green text-xs">
-            Every product and brand is selected by RetailMeNot&apos;s editors.
+            Every product and brand is selected by TrustCoupon&apos;s editors.
             We may earn a commission on the items you choose to buy.{' '}
             <Link className="font-bold" href="/blogs/about">
               Learn more

@@ -18,7 +18,7 @@ export default async function BlogLayout({
         <TopicList topics={res.data} />
         <div className="mx-5 mt-2 text-xs lg:mt-4 lg:text-center">
           <p className="text-olive-green text-xs">
-            Every product and brand is selected by RetailMeNot&apos;s editors.
+            Every product and brand is selected by TrustCoupon&apos;s editors.
             We may earn a commission on the items you choose to buy.{' '}
             <Link className="font-bold" href="/blogs/about">
               Learn more
