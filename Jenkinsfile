@@ -16,6 +16,24 @@ pipeline {
                 }
             }
         }
+        stage('Pre-build Cleanup') {
+            steps {
+                script {
+                    sh '''
+                    DANGLING_COUNT=$(docker images -f "dangling=true" -q | wc -l)
+                    echo "Found $DANGLING_COUNT dangling images (<none>)"
+                    if [ "$DANGLING_COUNT" -gt 0 ]; then
+                        echo "Dangling images details:"
+                        docker images -f "dangling=true"
+                        echo "Removing dangling images..."
+                        docker images -f "dangling=true" -q | xargs -r docker rmi -f || true
+                        echo "Dangling images removed successfully"
+                    else
+                        echo "No dangling images found"
+                    '''
+                }
+            }
+        }
         stage('Build and Restart Docker Containers') {
             steps {
                 script {
