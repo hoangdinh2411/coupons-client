@@ -112,7 +112,7 @@ export default async function TopicDetailPage({
           </p>
         </div>
       </nav>
-      <div className="mt-10">
+      <div className="mt-10 px-4">
         <div className="mx-auto max-w-[1162px]">
           <div className="mb-10 flex flex-wrap items-center justify-between">
             <div className="flex-1">
