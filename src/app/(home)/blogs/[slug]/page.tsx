@@ -95,7 +95,6 @@ export default async function BlogDetailPage({
   const blog = blogRes.data.blog
   const latest = latestRes.data || []
   const readMore = blogRes.data.read_more
-  console.log(blog.content)
   return (
     <Fragment>
       <Head>
@@ -105,8 +104,8 @@ export default async function BlogDetailPage({
       </Head>
       <div className="mt-10 px-4">
         <div className="mx-auto max-w-[1162px]">
-          <div className="mb-10 flex flex-col gap-[30px] md:flex-row">
-            <div className="flex-1">
+          <div className="mb-10 grid grid-cols-1 gap-10 overflow-hidden lg:grid-cols-3">
+            <div className="col-span-2">
               <section className="">
                 <div className="relative py-6 font-semibold">
                   <h1 className="text-olive-green text-5xl leading-16 font-bold">
@@ -146,9 +145,9 @@ export default async function BlogDetailPage({
                   </div>
                 </div>
               </section>
-              <article className="prose max-w-none">
+              <article className="">
                 <div
-                  className="not-prose no-tailwindcss-base"
+                  className="no-tailwindcss-base"
                   dangerouslySetInnerHTML={{ __html: blog.content }}
                 ></div>
               </article>
@@ -277,7 +276,7 @@ export default async function BlogDetailPage({
                 <CommentSection blog_id={blog.id} />
               </Suspense>
             </div>
-            <div className="hidden w-full md:w-1/3 lg:block">
+            <div className="hidden w-full lg:block">
               <Suspense>
                 <TrendingBlogs />
               </Suspense>

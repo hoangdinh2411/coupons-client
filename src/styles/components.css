@@ -30,14 +30,12 @@
   }
 }
 @layer base {
-  .no-tailwindcss-base * {
+  .no-tailwindcss-base *:not(img) {
     font-family: inherit;
     color: inherit;
-  }
-  .no-tailwindcss-base * {
-    all: revert; /* resets EVERYTHING to user agent stylesheet */
-    margin: revert;
-    padding: revert;
+    /* all: revert !important;
+    margin: revert !important;
+    padding: revert !important; */
   }
 }
 /* custom slide homepage */
