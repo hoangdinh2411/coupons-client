@@ -29,7 +29,6 @@ const ListCoupons = ({
   const [currentPage, setCurrentPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const pathname = usePathname()
-  console.log(initialCoupons)
   // Check if there's a next page based on current coupons length vs total coupons
   const hasNextPage = coupons.length < totalCoupons
 

@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <div className="grid grid-cols-1">
       <Header />
-      <main className="">{children}</main>
+      <main className="min-h-screen">{children}</main>
       <Footer />
     </div>
   )

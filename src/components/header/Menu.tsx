@@ -9,7 +9,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 
 const POPULAR_INDEX = -1
 export default function Menu({ data }: { data: MenuData }) {
-  const [category, setCategory] = useState<number | null>(POPULAR_INDEX)
+  const [category, setCategory] = useState<number>(POPULAR_INDEX)
   const [target, setTarget] = useState<string>('')
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)

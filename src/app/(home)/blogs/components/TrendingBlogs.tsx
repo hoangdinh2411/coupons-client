@@ -27,7 +27,7 @@ export default function TrendingBlogs() {
                     fill
                     priority
                     sizes="width:100px"
-                    className="w-full"
+                    className="w-full object-cover"
                   />
                 </div>
                 <div className="group flex-1 text-left">

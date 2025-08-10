@@ -17,7 +17,6 @@ export default async function customFetchWithToken<T>(
     ...config.headers,
     ['Authorization']: `Bearer ${token}`,
   }
-  console.log(url)
   const res = await customFetch<T>(url, config)
   if (!res.success && res.status === 401 && !url.includes('/users/profile')) {
     unauthorized()
