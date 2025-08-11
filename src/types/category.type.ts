@@ -9,6 +9,7 @@ export interface CategoryData extends BaseData {
   image: ImageType
   meta_data?: MetaData
   faqs: FAQData[]
+  about: string
   description: string
 }
 
