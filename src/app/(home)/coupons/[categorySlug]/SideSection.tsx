@@ -7,8 +7,10 @@ const SideSection = ({
   title = '',
   countCoupons,
   similarStores,
+  about,
 }: {
   title: string
+  about: string
   countCoupons: CountCoupons
   similarStores: StoreData[]
 }) => {
@@ -18,12 +20,7 @@ const SideSection = ({
         About {title} coupons
       </p>
       <div className="prose mb-14 text-base">
-        <p>
-          Listed above you&apos;ll find some of the best {title} coupons,
-          discounts and promotion codes as ranked by the users of
-          TrustCoupon.com. To use a coupon simply click the coupon code then
-          enter the code during the store&apos;s checkout process.
-        </p>
+        <p>{about}</p>
       </div>
 
       <p className="mb-4 text-xs font-bold tracking-wider uppercase">

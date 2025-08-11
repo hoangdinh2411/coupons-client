@@ -4,7 +4,7 @@ import { CategoryData } from '@/types/category.type'
 import React from 'react'
 
 function FAQs({ category }: { category: CategoryData }) {
-  if (!category.faqs) return null
+  if (category.faqs.length === 0) return null
   return (
     <div className="mx-auto mt-10 w-full">
       <h2 className="mb-4 text-3xl font-semibold">
