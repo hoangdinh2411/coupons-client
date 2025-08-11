@@ -94,6 +94,7 @@ const CouponsByCategoryPage = async ({
         <div className="container mx-auto grid max-w-screen-xl grid-cols-[theme(spacing.24)_auto] px-4 lg:mt-4 lg:grid-cols-[theme(spacing.80)_auto] lg:pt-40">
           <SideSection
             title={category.name}
+            about={category.about}
             countCoupons={count_coupons}
             similarStores={similar_stores}
           />
