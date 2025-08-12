@@ -1,45 +1,51 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaChevronLeft } from 'react-icons/fa'
 import { APP_ROUTERS } from '@/helpers/config'
-
+import UseAppStore from '@/stores/app.store'
+import { updateProfile, updateAvatar } from '@/services/userApi'
+import Image from 'next/image'
+import toast from 'react-hot-toast'
+import { ImageType } from '@/types/share.type'
+import DeleteAccount from './DeleteAccount'
+import { uploadFile } from '@/services/fileApi'
 interface ProfileFormData {
   firstName: string
   lastName: string
   email: string
-  password: string
-  communityName: string
-  phoneNumber: string
-  newPassword: string
-  confirmPassword: string
   youtube: string
   linkedin: string
   instagram: string
   facebook: string
+  avatar?: ImageType
 }
 
 const ProfilePage = () => {
+  const { user, setUser } = UseAppStore()
   const [editingSection, setEditingSection] = useState<string | null>(null)
   const [showEmailVerification, setShowEmailVerification] = useState(false)
-  const [formData, setFormData] = useState<ProfileFormData>({
-    firstName: 'Minh Quang',
-    lastName: 'Le',
-    email: 'lmquihdev@gmail.com',
-    password: '2231232',
-    communityName: 'lmquihdev589296',
-    phoneNumber: '',
-    newPassword: '',
-    confirmPassword: '',
-    facebook: '',
-    instagram: '',
-    linkedin: '',
-    youtube: '',
-  })
+  const [formData, setFormData] = useState<ProfileFormData | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (!user) return
+    setFormData({
+      firstName: user.first_name || '',
+      lastName: user.last_name || '',
+      email: user.email || '',
+      avatar: user.avatar,
+      youtube: user.youtube || '',
+      linkedin: user.linkedin || '',
+      instagram: user.instagram || '',
+      facebook: user.facebook || '',
+    })
+  }, [user])
 
   const handleInputChange = (field: keyof ProfileFormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData((prev) => (prev ? { ...prev, [field]: value } : null))
   }
 
   const handleEdit = (section: string) => {
@@ -50,26 +56,184 @@ const ProfilePage = () => {
     }
   }
 
-  const handleSave = (section: string) => {
-    setEditingSection(null)
-    // Handle save logic here
-    console.log(`Saving ${section}:`, formData)
+  const handleSave = async (section: string) => {
+    if (!formData || !user) return
+    setLoading(true)
+    try {
+      let payload: any = {}
+      let userUpdates: any = {}
+      switch (section) {
+        case 'fullName':
+          payload = {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+          }
+          userUpdates = {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+          }
+          break
+        case 'youtube':
+          payload = {
+            youtube: formData.youtube,
+          }
+          userUpdates = {
+            youtube: formData.youtube,
+          }
+          break
+        case 'linkedin':
+          payload = {
+            linkedin: formData.linkedin,
+          }
+          userUpdates = {
+            linkedin: formData.linkedin,
+          }
+          break
+        case 'instagram':
+          payload = {
+            instagram: formData.instagram,
+          }
+          userUpdates = {
+            instagram: formData.instagram,
+          }
+          break
+        case 'facebook':
+          payload = {
+            facebook: formData.facebook,
+          }
+          userUpdates = {
+            facebook: formData.facebook,
+          }
+          break
+        default:
+          break
+      }
+      const response = await updateProfile(payload)
+      console.log('🚀 ~ handleSave ~ response:', response)
+      if (Object.keys(userUpdates).length > 0) {
+        setUser({
+          ...user,
+          ...userUpdates,
+        })
+      }
+      setEditingSection(null)
+      toast.success(`Successfully update ${section}`)
+    } catch (error) {
+      console.error(`Error saving ${section}:`, error)
+      toast.error(
+        `Failed to update ${section}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      )
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleCancel = () => {
     setEditingSection(null)
     setShowEmailVerification(false)
+    if (user) {
+      setFormData({
+        firstName: user.first_name || '',
+        lastName: user.last_name || '',
+        email: user.email || '',
+        avatar: user.avatar,
+        youtube: user.youtube || '',
+        linkedin: user.linkedin || '',
+        instagram: user.instagram || '',
+        facebook: user.facebook || '',
+      })
+    }
+  }
+
+  const validateFile = (file: File): boolean => {
+    const maxSize = 5 * 1024 * 1024 // 5MB
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp']
+
+    if (!allowedTypes.includes(file.type)) {
+      toast.error('Please select a valid image file (JPEG, PNG, WebP)')
+      return false
+    }
+
+    if (file.size > maxSize) {
+      toast.error('File size must be less than 5MB')
+      return false
+    }
+
+    return true
+  }
+
+  const handleAvatarUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const files = event.target.files
+    if (!files || !files[0]) return
+
+    const file = files[0]
+    const isValid = validateFile(file)
+
+    if (!isValid) {
+      event.target.value = ''
+      return
+    }
+
+    setLoading(true)
+    try {
+      const formData = new FormData()
+      formData.append('files', file)
+      formData.append('folder', 'users')
+
+      const fileRes = await uploadFile(formData)
+      console.log('🚀 ~ handleAvatarUpload ~ fileRes:', fileRes)
+
+      if (!fileRes.success && fileRes.message) {
+        toast.error(fileRes.message)
+        return
+      }
+
+      if (!fileRes.data) {
+        toast.error('Missing data on response')
+        return
+      }
+
+      if (fileRes.data && fileRes.data[0]) {
+        const avatarPayload = {
+          url: fileRes.data[0].url,
+          public_id: fileRes.data[0].public_id,
+          file_name: fileRes.data[0].file_name,
+          caption: fileRes.data[0].caption || '',
+        }
+
+        const res = await updateAvatar(avatarPayload)
+
+        if (res.success) {
+          if (user) {
+            setUser({
+              ...user,
+              avatar: avatarPayload,
+            })
+          }
+          toast.success('Avatar uploaded successfully')
+        } else {
+          toast.error(res.message ?? 'Cannot upload avatar')
+        }
+      }
+    } catch (error) {
+      console.error('Error uploading avatar:', error)
+      toast.error('Failed to upload avatar')
+    } finally {
+      setLoading(false)
+      event.target.value = ''
+    }
   }
 
   const sendVerificationEmail = () => {
-    // Handle email verification
-    console.log('Sending verification email to:', formData.email)
+    console.log('Sending verification email to:', formData?.email)
   }
 
   return (
-    <div className="mx-auto my-4 w-full max-w-3xl flex-1 p-4">
+    <div className="mx-auto my-4 w-full max-w-3xl flex-1 p-4 sm:p-6">
       {/* Breadcrumbs */}
-      <div className="mb-10 flex flex-wrap">
+      <div className="mb-6 flex flex-wrap sm:mb-10">
         <Link
           href={APP_ROUTERS.ACCOUNT}
           className="flex cursor-pointer items-center gap-1 text-sm leading-[1.33] font-bold tracking-[0.2px] text-[rgb(116,31,162)] no-underline"
@@ -80,41 +244,61 @@ const ProfilePage = () => {
       </div>
 
       {/* Title */}
-      <h1 className="text-olive-green mt-0 mb-8 text-[40px] leading-[1.4] font-[450] tracking-normal [text-shadow:0px_2px_6px_rgba(0,0,0,0.04)]">
+      <h1 className="text-olive-green mt-0 mb-6 text-2xl leading-[1.4] font-[450] tracking-normal [text-shadow:0px_2px_6px_rgba(0,0,0,0.04)] sm:mb-8 sm:text-[40px]">
         Profile
       </h1>
 
       {/* Profile Header */}
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="text-xl font-medium text-gray-700">lmquihdev589296</h2>
-        <div className="flex items-center gap-4">
-          <div className="relative h-16 w-16 overflow-hidden rounded-full bg-gray-200">
-            <svg
-              className="h-full w-full text-gray-400"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
+      <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+        <h2 className="text-center text-lg font-medium break-all text-gray-700 sm:text-left sm:text-xl">
+          {user?.email || '****@gmail.com'}
+        </h2>
+        <div className="flex flex-col items-center gap-3 sm:gap-4">
+          <div className="relative flex size-16 overflow-hidden rounded-full bg-gray-200 sm:size-20">
+            {user?.avatar?.url ? (
+              <Image
+                src={user?.avatar?.url ?? ''}
+                alt="Profile"
+                className="h-full w-full object-cover"
+                width={80}
+                height={80}
+              />
+            ) : (
+              <svg
+                className="h-full w-full text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+              </svg>
+            )}
           </div>
-          <button className="font-medium text-[rgb(116,31,162)] hover:underline">
-            Update Photo
-          </button>
+          <label className="cursor-pointer text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:text-base">
+            {loading ? 'Uploading...' : 'Update Photo'}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarUpload}
+              className="hidden"
+              disabled={loading}
+            />
+          </label>
         </div>
       </div>
 
-      <hr className="mb-8 border-gray-200" />
+      <hr className="mb-6 border-gray-200 sm:mb-8" />
 
       {/* Profile Fields */}
       <div className="space-y-0">
         {/* Full Name Section */}
         {editingSection === 'fullName' ? (
-          <div className="border-b border-gray-200 py-6">
-            <div className="mb-6 flex items-center justify-between">
+          <div className="border-b border-gray-200 py-4 sm:py-6">
+            <div className="mb-4 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-center">
               <h3 className="text-lg font-medium text-gray-900">Full Name</h3>
               <button
                 onClick={handleCancel}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
+                className="self-start font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto"
+                disabled={loading}
               >
                 Cancel
               </button>
@@ -127,11 +311,12 @@ const ProfilePage = () => {
                   </label>
                   <input
                     type="text"
-                    value={formData.firstName}
+                    value={formData?.firstName || ''}
                     onChange={(e) =>
                       handleInputChange('firstName', e.target.value)
                     }
-                    className="textfield w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
+                    className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:text-base"
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -140,35 +325,38 @@ const ProfilePage = () => {
                   </label>
                   <input
                     type="text"
-                    value={formData.lastName}
+                    value={formData?.lastName || ''}
                     onChange={(e) =>
                       handleInputChange('lastName', e.target.value)
                     }
-                    className="textfield w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
+                    className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:text-base"
+                    disabled={loading}
                   />
                 </div>
               </div>
               <button
                 onClick={() => handleSave('fullName')}
-                className="rounded-full bg-gray-400 px-6 py-2 font-medium text-white transition-colors hover:bg-gray-500"
+                className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                disabled={loading}
               >
-                Save Changes
+                {loading ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between border-b border-gray-200 py-6">
-            <div className="flex items-center">
-              <span className="w-48 text-lg font-medium text-gray-900">
+          <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
+            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+              <span className="w-full flex-shrink-0 text-base font-medium text-gray-900 sm:w-32 sm:text-lg">
                 Full Name
               </span>
-              <span className="text-gray-900">
-                {formData.firstName} {formData.lastName}
+              <span className="text-sm break-words text-gray-900 sm:text-base">
+                {formData?.firstName} {formData?.lastName}
               </span>
             </div>
             <button
               onClick={() => handleEdit('fullName')}
-              className="font-medium text-[rgb(116,31,162)] hover:underline"
+              className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
+              disabled={loading}
             >
               Edit
             </button>
@@ -177,37 +365,39 @@ const ProfilePage = () => {
 
         {/* Email Section */}
         {showEmailVerification ? (
-          <div className="border-b border-gray-200 py-6">
-            <div className="mb-6 flex items-center justify-between">
+          <div className="border-b border-gray-200 py-4 sm:py-6">
+            <div className="mb-4 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-center">
               <h3 className="text-lg font-medium text-gray-900">Email</h3>
               <button
                 onClick={handleCancel}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
+                className="self-start font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto"
               >
                 Cancel
               </button>
             </div>
-            <div className="rounded-lg bg-gray-50 p-6">
-              <p className="mb-4 text-gray-700">
+            <div className="rounded-lg bg-gray-50 p-4 sm:p-6">
+              <p className="mb-4 text-sm text-gray-700 sm:text-base">
                 Please confirm the email associated with your RetailMeNot
                 account and we&apos;ll send you an email with a verification
                 code.
               </p>
-              <div className="mb-6 text-center">
-                <p className="font-medium text-gray-900">{formData.email}</p>
+              <div className="mb-4 text-center sm:mb-6">
+                <p className="text-sm font-medium break-all text-gray-900 sm:text-base">
+                  {formData?.email}
+                </p>
               </div>
               <div className="flex flex-col items-center space-y-4">
                 <button
                   onClick={sendVerificationEmail}
-                  className="rounded-full bg-[rgb(116,31,162)] px-6 py-3 font-medium text-white transition-colors hover:bg-[rgb(96,21,142)]"
+                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] sm:w-auto sm:text-base"
                 >
                   Send Verification Email
                 </button>
-                <div className="flex items-center space-x-2 text-sm">
+                <div className="flex flex-col items-center space-y-2 text-sm sm:flex-row sm:space-y-0 sm:space-x-2">
                   <button className="text-[rgb(116,31,162)] hover:underline">
                     I have a code
                   </button>
-                  <span className="text-gray-400">|</span>
+                  <span className="hidden text-gray-400 sm:inline">|</span>
                   <button
                     onClick={handleCancel}
                     className="text-[rgb(116,31,162)] hover:underline"
@@ -219,217 +409,50 @@ const ProfilePage = () => {
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between border-b border-gray-200 py-6">
-            <div className="flex items-center">
-              <span className="w-48 text-lg font-medium text-gray-900">
+          <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
+            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+              <span className="w-full flex-shrink-0 text-base font-medium text-gray-900 sm:w-32 sm:text-lg">
                 Email
               </span>
-              <span className="text-gray-900">{formData.email}</span>
+              <span className="text-sm break-all text-gray-900 sm:text-base">
+                {formData?.email}
+              </span>
             </div>
             <button
               onClick={() => handleEdit('email')}
-              className="font-medium text-[rgb(116,31,162)] hover:underline"
+              className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
             >
               Edit
             </button>
           </div>
         )}
 
-        {/* Community Name Section */}
-        {editingSection === 'communityName' ? (
-          <div className="border-b border-gray-200 py-6">
-            <div className="mb-6 flex items-center justify-between">
-              <h3 className="text-lg font-medium text-gray-900">
-                Community Name
-              </h3>
-              <button
-                onClick={handleCancel}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
-              >
-                Cancel
-              </button>
-            </div>
-            <div className="space-y-4">
-              <input
-                type="text"
-                value={formData.communityName}
-                onChange={(e) =>
-                  handleInputChange('communityName', e.target.value)
-                }
-                className="textfield w-full max-w-md rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
-              />
-              <div className="">
-                <button
-                  onClick={() => handleSave('communityName')}
-                  className="rounded-full bg-gray-400 px-6 py-2 font-medium text-white transition-colors hover:bg-gray-500"
-                >
-                  Save Changes
-                </button>
-              </div>
-            </div>
+        <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+            <span className="w-full flex-shrink-0 text-base font-medium text-gray-900 sm:w-32 sm:text-lg">
+              Password
+            </span>
+            <span className="text-sm text-gray-900 sm:text-base">
+              ••••••••••
+            </span>
           </div>
-        ) : (
-          <div className="flex items-center justify-between border-b border-gray-200 py-6">
-            <div className="flex items-center">
-              <span className="w-48 text-lg font-medium text-gray-900">
-                Community Name
-              </span>
-              <span className="text-gray-900">{formData.communityName}</span>
-            </div>
-            <button
-              onClick={() => handleEdit('communityName')}
-              className="font-medium text-[rgb(116,31,162)] hover:underline"
-            >
-              Edit
-            </button>
-          </div>
-        )}
-
-        {/* Password Section */}
-        {editingSection === 'password' ? (
-          <div className="border-b border-gray-200 py-6">
-            <div className="mb-6 flex items-center justify-between">
-              <h3 className="text-lg font-medium text-gray-900">Password</h3>
-              <button
-                onClick={handleCancel}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
-              >
-                Cancel
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    New Password
-                  </label>
-                  <input
-                    type="password"
-                    value={formData.newPassword}
-                    onChange={(e) =>
-                      handleInputChange('newPassword', e.target.value)
-                    }
-                    className="textfield w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Confirm New Password
-                  </label>
-                  <input
-                    type="password"
-                    value={formData.confirmPassword}
-                    onChange={(e) =>
-                      handleInputChange('confirmPassword', e.target.value)
-                    }
-                    className="textfield w-full rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
-                  />
-                </div>
-              </div>
-              <button
-                onClick={() => handleSave('password')}
-                className="rounded-full bg-gray-400 px-6 py-2 font-medium text-white transition-colors hover:bg-gray-500"
-              >
-                Save Changes
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="flex items-center justify-between border-b border-gray-200 py-6">
-            <div className="flex items-center">
-              <span className="w-48 text-lg font-medium text-gray-900">
-                Password
-              </span>
-              <span className="text-gray-900">••••••••••</span>
-            </div>
-            <button
-              onClick={() => handleEdit('password')}
-              className="font-medium text-[rgb(116,31,162)] hover:underline"
-            >
-              Edit
-            </button>
-          </div>
-        )}
-
-        {/* Phone Number Section */}
-        {editingSection === 'phoneNumber' ? (
-          <div className="border-b border-gray-200 py-6">
-            <div className="mb-6 flex items-center justify-between">
-              <h3 className="text-lg font-medium text-gray-900">
-                Phone Number
-              </h3>
-              <button
-                onClick={handleCancel}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
-              >
-                Cancel
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <p className="mb-3 text-sm text-gray-600">
-                  For account security and reward redemption.
-                </p>
-                <input
-                  type="tel"
-                  value={formData.phoneNumber}
-                  onChange={(e) =>
-                    handleInputChange('phoneNumber', e.target.value)
-                  }
-                  placeholder="Enter phone number"
-                  className="textfield w-full max-w-md rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
-                />
-              </div>
-              <button
-                onClick={() => handleSave('phoneNumber')}
-                className="rounded-full bg-gray-400 px-6 py-2 font-medium text-white transition-colors hover:bg-gray-500"
-              >
-                Save Changes
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="border-b border-gray-200 py-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="mb-2 flex items-center">
-                  <span className="w-48 text-lg font-medium text-gray-900">
-                    Phone Number
-                  </span>
-                  <span className="text-gray-500">
-                    {formData.phoneNumber || 'Not Provided'}
-                  </span>
-                </div>
-                {!formData.phoneNumber && (
-                  <p className="ml-48 text-sm text-gray-600">
-                    For account security and reward redemption.
-                  </p>
-                )}
-              </div>
-              <button
-                onClick={() => handleEdit('phoneNumber')}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
-              >
-                {formData.phoneNumber ? 'Edit' : 'Add'}
-              </button>
-            </div>
-          </div>
-        )}
+        </div>
 
         {/* Social Media Links Section */}
-        <div className="pt-8">
-          <h3 className="mb-6 text-lg font-medium text-gray-900">
+        <div className="pt-6 sm:pt-8">
+          <h3 className="mb-4 text-lg font-medium text-gray-900 sm:mb-6">
             Social Media Links
           </h3>
 
           {/* YouTube Section */}
           {editingSection === 'youtube' ? (
-            <div className="border-b border-gray-200 py-6">
-              <div className="mb-6 flex items-center justify-between">
+            <div className="border-b border-gray-200 py-4 sm:py-6">
+              <div className="mb-4 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-center">
                 <h4 className="text-lg font-medium text-gray-900">YouTube</h4>
                 <button
                   onClick={handleCancel}
-                  className="font-medium text-[rgb(116,31,162)] hover:underline"
+                  className="self-start font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto"
+                  disabled={loading}
                 >
                   Cancel
                 </button>
@@ -437,49 +460,50 @@ const ProfilePage = () => {
               <div className="space-y-4">
                 <input
                   type="url"
-                  value={formData.youtube}
+                  value={formData?.youtube || ''}
                   onChange={(e) => handleInputChange('youtube', e.target.value)}
                   placeholder="https://youtube.com/@your-channel"
-                  className="textfield w-full max-w-md rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
+                  className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
+                  disabled={loading}
                 />
-                <div className="">
-                  <button
-                    onClick={() => handleSave('youtube')}
-                    className="rounded-full bg-gray-400 px-6 py-2 font-medium text-white transition-colors hover:bg-gray-500"
-                  >
-                    Save Changes
-                  </button>
-                </div>
+                <button
+                  onClick={() => handleSave('youtube')}
+                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                  disabled={loading}
+                >
+                  {loading ? 'Saving...' : 'Save Changes'}
+                </button>
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-between border-b border-gray-200 py-6">
-              <div className="flex items-center">
-                <span className="w-48 text-lg font-medium text-gray-900">
+            <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
+              <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                <span className="w-full flex-shrink-0 text-base font-medium text-gray-900 sm:w-32 sm:text-lg">
                   YouTube
                 </span>
-                <span className="text-gray-500">
-                  {formData.youtube || 'Not Provided'}
+                <span className="line-clamp-1 text-sm break-all text-gray-500 sm:text-base">
+                  {formData?.youtube || 'Not Provided'}
                 </span>
               </div>
-              <div className=""></div>
               <button
                 onClick={() => handleEdit('youtube')}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
+                className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
+                disabled={loading}
               >
-                {formData.youtube ? 'Edit' : 'Add'}
+                {formData?.youtube ? 'Edit' : 'Add'}
               </button>
             </div>
           )}
 
           {/* LinkedIn Section */}
           {editingSection === 'linkedin' ? (
-            <div className="border-b border-gray-200 py-6">
-              <div className="mb-6 flex items-center justify-between">
+            <div className="border-b border-gray-200 py-4 sm:py-6">
+              <div className="mb-4 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-center">
                 <h4 className="text-lg font-medium text-gray-900">LinkedIn</h4>
                 <button
                   onClick={handleCancel}
-                  className="font-medium text-[rgb(116,31,162)] hover:underline"
+                  className="self-start font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto"
+                  disabled={loading}
                 >
                   Cancel
                 </button>
@@ -487,52 +511,52 @@ const ProfilePage = () => {
               <div className="space-y-4">
                 <input
                   type="url"
-                  value={formData.linkedin}
+                  value={formData?.linkedin || ''}
                   onChange={(e) =>
                     handleInputChange('linkedin', e.target.value)
                   }
                   placeholder="https://linkedin.com/in/your-profile"
-                  className="textfield w-full max-w-md rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
+                  className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
+                  disabled={loading}
                 />
-                <div className="">
-                  <button
-                    onClick={() => handleSave('linkedin')}
-                    className="rounded-full bg-gray-400 px-6 py-2 font-medium text-white transition-colors hover:bg-gray-500"
-                  >
-                    Save Changes
-                  </button>
-                </div>
+                <button
+                  onClick={() => handleSave('linkedin')}
+                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                  disabled={loading}
+                >
+                  {loading ? 'Saving...' : 'Save Changes'}
+                </button>
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-between border-b border-gray-200 py-6">
-              <div className="flex items-center">
-                <span className="w-48 text-lg font-medium text-gray-900">
+            <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
+              <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                <span className="w-full flex-shrink-0 text-base font-medium text-gray-900 sm:w-32 sm:text-lg">
                   LinkedIn
                 </span>
-                <span className="text-gray-500">
-                  {formData.linkedin || 'Not Provided'}
+                <span className="line-clamp-1 text-sm break-all text-gray-500 sm:text-base">
+                  {formData?.linkedin || 'Not Provided'}
                 </span>
               </div>
-              <div className="">
-                <button
-                  onClick={() => handleEdit('linkedin')}
-                  className="font-medium text-[rgb(116,31,162)] hover:underline"
-                >
-                  {formData.linkedin ? 'Edit' : 'Add'}
-                </button>
-              </div>
+              <button
+                onClick={() => handleEdit('linkedin')}
+                className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
+                disabled={loading}
+              >
+                {formData?.linkedin ? 'Edit' : 'Add'}
+              </button>
             </div>
           )}
 
           {/* Instagram Section */}
           {editingSection === 'instagram' ? (
-            <div className="border-b border-gray-200 py-6">
-              <div className="mb-6 flex items-center justify-between">
+            <div className="border-b border-gray-200 py-4 sm:py-6">
+              <div className="mb-4 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-center">
                 <h4 className="text-lg font-medium text-gray-900">Instagram</h4>
                 <button
                   onClick={handleCancel}
-                  className="font-medium text-[rgb(116,31,162)] hover:underline"
+                  className="self-start font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto"
+                  disabled={loading}
                 >
                   Cancel
                 </button>
@@ -540,50 +564,52 @@ const ProfilePage = () => {
               <div className="space-y-4">
                 <input
                   type="url"
-                  value={formData.instagram}
+                  value={formData?.instagram || ''}
                   onChange={(e) =>
                     handleInputChange('instagram', e.target.value)
                   }
                   placeholder="https://instagram.com/your-username"
-                  className="textfield w-full max-w-md rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
+                  className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
+                  disabled={loading}
                 />
-                <div className="">
-                  <button
-                    onClick={() => handleSave('instagram')}
-                    className="rounded-full bg-gray-400 px-6 py-2 font-medium text-white transition-colors hover:bg-gray-500"
-                  >
-                    Save Changes
-                  </button>
-                </div>
+                <button
+                  onClick={() => handleSave('instagram')}
+                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                  disabled={loading}
+                >
+                  {loading ? 'Saving...' : 'Save Changes'}
+                </button>
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-between border-b border-gray-200 py-6">
-              <div className="flex items-center">
-                <span className="w-48 text-lg font-medium text-gray-900">
+            <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
+              <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                <span className="w-full flex-shrink-0 text-base font-medium text-gray-900 sm:w-32 sm:text-lg">
                   Instagram
                 </span>
-                <span className="text-gray-500">
-                  {formData.instagram || 'Not Provided'}
+                <span className="line-clamp-1 text-sm break-all text-gray-500 sm:text-base">
+                  {formData?.instagram || 'Not Provided'}
                 </span>
               </div>
               <button
                 onClick={() => handleEdit('instagram')}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
+                className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
+                disabled={loading}
               >
-                {formData.instagram ? 'Edit' : 'Add'}
+                {formData?.instagram ? 'Edit' : 'Add'}
               </button>
             </div>
           )}
 
           {/* Facebook Section */}
           {editingSection === 'facebook' ? (
-            <div className="border-b border-gray-200 py-6">
-              <div className="mb-6 flex items-center justify-between">
+            <div className="border-b border-gray-200 py-4 sm:py-6">
+              <div className="mb-4 flex flex-col justify-between gap-2 sm:mb-6 sm:flex-row sm:items-center">
                 <h4 className="text-lg font-medium text-gray-900">Facebook</h4>
                 <button
                   onClick={handleCancel}
-                  className="font-medium text-[rgb(116,31,162)] hover:underline"
+                  className="self-start font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto"
+                  disabled={loading}
                 >
                   Cancel
                 </button>
@@ -591,60 +617,46 @@ const ProfilePage = () => {
               <div className="flex flex-col space-y-4">
                 <input
                   type="url"
-                  value={formData.facebook}
+                  value={formData?.facebook || ''}
                   onChange={(e) =>
                     handleInputChange('facebook', e.target.value)
                   }
                   placeholder="https://facebook.com/your-profile"
-                  className="textfield w-full max-w-md rounded-md border border-gray-300 px-3 py-2 focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none"
+                  className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
+                  disabled={loading}
                 />
-                <div className="">
-                  <button
-                    onClick={() => handleSave('facebook')}
-                    className="rounded-full bg-gray-400 px-6 py-2 font-medium text-white transition-colors hover:bg-gray-500"
-                  >
-                    Save Changes
-                  </button>
-                </div>
+                <button
+                  onClick={() => handleSave('facebook')}
+                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                  disabled={loading}
+                >
+                  {loading ? 'Saving...' : 'Save Changes'}
+                </button>
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-between border-b border-gray-200 py-6">
-              <div className="flex items-center">
-                <span className="w-48 text-lg font-medium text-gray-900">
+            <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
+              <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                <span className="w-full flex-shrink-0 text-base font-medium text-gray-900 sm:w-32 sm:text-lg">
                   Facebook
                 </span>
-                <span className="text-gray-500">
-                  {formData.facebook || 'Not Provided'}
+                <span className="line-clamp-1 text-sm break-all text-gray-500 sm:text-base">
+                  {formData?.facebook || 'Not Provided'}
                 </span>
               </div>
               <button
                 onClick={() => handleEdit('facebook')}
-                className="font-medium text-[rgb(116,31,162)] hover:underline"
+                className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
+                disabled={loading}
               >
-                {formData.facebook ? 'Edit' : 'Add'}
+                {formData?.facebook ? 'Edit' : 'Add'}
               </button>
             </div>
           )}
         </div>
-
-        {/* Delete Account Section */}
-        <div className="pt-8">
-          <h3 className="mb-4 text-lg font-medium text-gray-900">
-            Delete Account
-          </h3>
-          <p className="mb-4 text-gray-600">
-            Deleting your account will wipe out all the information related to
-            your account. Yes, everything. If you&apos;re sure you want to leave
-            us forever, then proceed. We&apos;ll miss you!
-          </p>
-          <button className="font-medium text-[rgb(116,31,162)] hover:underline">
-            Delete Account
-          </button>
-        </div>
+        <DeleteAccount />
       </div>
     </div>
   )
 }
-
 export default ProfilePage
