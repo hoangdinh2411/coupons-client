@@ -43,17 +43,12 @@ export interface ResetPasswordPayload {
   reset_token?: string
 }
 
-export interface UpdateProfilePayload extends UserData {
-  avatar: {
-    file_name: string
-    url: string
-    public_id: string
-    caption: string
-  }
-}
-export interface UpdateAvatarPayload {
-  file_name: string
-  url: string
-  public_id: string
-  caption?: string
+export interface UserRequestPayload {
+  first_name: string
+  last_name: string
+  youtube: string
+  linkedin: string
+  instagram: string
+  facebook: string
+  avatar?: ImageType
 }

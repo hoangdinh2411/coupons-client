@@ -4,49 +4,150 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { FaChevronLeft } from 'react-icons/fa'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
-import { updateProfile, updateAvatar } from '@/services/userApi'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
-import { ImageType } from '@/types/share.type'
 import DeleteAccount from './DeleteAccount'
 import { uploadFile } from '@/services/fileApi'
-interface ProfileFormData {
-  firstName: string
-  lastName: string
-  email: string
-  youtube: string
-  linkedin: string
-  instagram: string
-  facebook: string
-  avatar?: ImageType
-}
+import { updateUser } from '@/services/userApi'
+
+// Validation schemas
+const fullNameSchema = z.object({
+  first_name: z
+    .string()
+    .min(1, 'First name is required')
+    .min(2, 'First name must be at least 2 characters'),
+  last_name: z
+    .string()
+    .min(1, 'Last name is required')
+    .min(2, 'Last name must be at least 2 characters'),
+})
+
+const emailSchema = z.object({
+  email: z.string().email('Invalid email format').min(1, 'Email is required'),
+})
+
+const socialMediaSchema = z.object({
+  youtube: z.string().url('Please enter a valid YouTube URL').or(z.literal('')),
+  linkedin: z
+    .string()
+    .url('Please enter a valid LinkedIn URL')
+    .or(z.literal('')),
+  instagram: z
+    .string()
+    .url('Please enter a valid Instagram URL')
+    .or(z.literal('')),
+  facebook: z
+    .string()
+    .url('Please enter a valid Facebook URL')
+    .or(z.literal('')),
+})
+
+const profileSchema = z.object({
+  first_name: z.string().min(1, 'First name is required'),
+  last_name: z.string().min(1, 'Last name is required'),
+  youtube: z.string(),
+  linkedin: z.string(),
+  instagram: z.string(),
+  facebook: z.string(),
+  avatar: z.any().optional(),
+})
+
+type ProfileFormData = z.infer<typeof profileSchema>
+type FullNameFormData = z.infer<typeof fullNameSchema>
+type EmailFormData = z.infer<typeof emailSchema>
+type SocialMediaFormData = z.infer<typeof socialMediaSchema>
 
 const ProfilePage = () => {
-  const { user, setUser } = UseAppStore()
+  const { user, setUser } = UseAppStore((state) => state)
+  console.log('🚀 ~ ProfilePage ~ user:', user)
   const [editingSection, setEditingSection] = useState<string | null>(null)
   const [showEmailVerification, setShowEmailVerification] = useState(false)
-  const [formData, setFormData] = useState<ProfileFormData | null>(null)
   const [loading, setLoading] = useState(false)
+
+  // Main form for display data
+  const mainForm = useForm<ProfileFormData>({
+    resolver: zodResolver(profileSchema),
+    mode: 'onChange',
+    defaultValues: {
+      first_name: '',
+      last_name: '',
+      youtube: '',
+      linkedin: '',
+      instagram: '',
+      facebook: '',
+    },
+  })
+
+  const fullNameForm = useForm<FullNameFormData>({
+    resolver: zodResolver(fullNameSchema),
+    mode: 'onChange',
+    defaultValues: {
+      first_name: '',
+      last_name: '',
+    },
+  })
+
+  const emailForm = useForm<EmailFormData>({
+    resolver: zodResolver(emailSchema),
+    mode: 'onChange',
+    defaultValues: {
+      email: '',
+    },
+  })
+
+  const youtubeForm = useForm<Pick<SocialMediaFormData, 'youtube'>>({
+    resolver: zodResolver(socialMediaSchema.pick({ youtube: true })),
+    mode: 'onChange',
+    defaultValues: { youtube: '' },
+  })
+
+  const linkedinForm = useForm<Pick<SocialMediaFormData, 'linkedin'>>({
+    resolver: zodResolver(socialMediaSchema.pick({ linkedin: true })),
+    mode: 'onChange',
+    defaultValues: { linkedin: '' },
+  })
+
+  const instagramForm = useForm<Pick<SocialMediaFormData, 'instagram'>>({
+    resolver: zodResolver(socialMediaSchema.pick({ instagram: true })),
+    mode: 'onChange',
+    defaultValues: { instagram: '' },
+  })
+
+  const facebookForm = useForm<Pick<SocialMediaFormData, 'facebook'>>({
+    resolver: zodResolver(socialMediaSchema.pick({ facebook: true })),
+    mode: 'onChange',
+    defaultValues: { facebook: '' },
+  })
 
   useEffect(() => {
     if (!user) return
-    setFormData({
-      firstName: user.first_name || '',
-      lastName: user.last_name || '',
-      email: user.email || '',
-      avatar: user.avatar,
+
+    const userData = {
+      first_name: user.first_name || '',
+      last_name: user.last_name || '',
       youtube: user.youtube || '',
       linkedin: user.linkedin || '',
       instagram: user.instagram || '',
       facebook: user.facebook || '',
-    })
-  }, [user])
+      avatar: user.avatar,
+    }
 
-  const handleInputChange = (field: keyof ProfileFormData, value: string) => {
-    setFormData((prev) => (prev ? { ...prev, [field]: value } : null))
-  }
+    mainForm.reset(userData)
+    fullNameForm.reset({
+      first_name: userData.first_name,
+      last_name: userData.last_name,
+    })
+    emailForm.reset({ email: user.email || '' })
+    youtubeForm.reset({ youtube: userData.youtube })
+    linkedinForm.reset({ linkedin: userData.linkedin })
+    instagramForm.reset({ instagram: userData.instagram })
+    facebookForm.reset({ facebook: userData.facebook })
+  }, [user, mainForm, fullNameForm])
 
   const handleEdit = (section: string) => {
     if (section === 'email') {
@@ -56,72 +157,154 @@ const ProfilePage = () => {
     }
   }
 
-  const handleSave = async (section: string) => {
-    if (!formData || !user) return
+  const onSubmitFullName = async (data: FullNameFormData) => {
+    if (!user) return
     setLoading(true)
+
+    const payload = {
+      first_name: data.first_name,
+      last_name: data.last_name,
+    }
     try {
-      let payload: any = {}
-      let userUpdates: any = {}
-      switch (section) {
-        case 'fullName':
-          payload = {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-          }
-          userUpdates = {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-          }
-          break
-        case 'youtube':
-          payload = {
-            youtube: formData.youtube,
-          }
-          userUpdates = {
-            youtube: formData.youtube,
-          }
-          break
-        case 'linkedin':
-          payload = {
-            linkedin: formData.linkedin,
-          }
-          userUpdates = {
-            linkedin: formData.linkedin,
-          }
-          break
-        case 'instagram':
-          payload = {
-            instagram: formData.instagram,
-          }
-          userUpdates = {
-            instagram: formData.instagram,
-          }
-          break
-        case 'facebook':
-          payload = {
-            facebook: formData.facebook,
-          }
-          userUpdates = {
-            facebook: formData.facebook,
-          }
-          break
-        default:
-          break
+      const res = await updateUser(payload)
+      console.log('🚀 ~ onSubmitFullName ~ res:', res)
+      if (res.success && res.data) {
+        setUser({
+          // ...user,
+          ...res.data,
+        })
+        setEditingSection(null)
+        toast.success('Successfully updated full name')
+      } else {
+        throw new Error(res.message || 'Failed to update full name')
       }
-      const response = await updateProfile(payload)
-      console.log('🚀 ~ handleSave ~ response:', response)
-      if (Object.keys(userUpdates).length > 0) {
+    } catch (error) {
+      console.error('Error updating full name:', error)
+      toast.error(
+        error instanceof Error ? error.message : 'Failed to update full name',
+      )
+    } finally {
+      setLoading(false)
+    }
+  }
+  const onSubmitYoutube = async (
+    data: Pick<SocialMediaFormData, 'youtube'>,
+  ) => {
+    if (!user) return
+    setLoading(true)
+
+    const payload = { youtube: data.youtube }
+
+    try {
+      const res = await updateUser(payload)
+
+      if (res.success && res.data) {
         setUser({
           ...user,
-          ...userUpdates,
+          ...res.data,
         })
+        setEditingSection(null)
+        toast.success('Successfully updated YouTube')
+      } else {
+        throw new Error(res.message || 'Failed to update YouTube')
       }
-      setEditingSection(null)
-      toast.success(`Successfully update ${section}`)
     } catch (error) {
-      console.error(`Error saving ${section}:`, error)
+      console.error('Error updating YouTube:', error)
       toast.error(
-        `Failed to update ${section}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        error instanceof Error ? error.message : 'Failed to update YouTube',
+      )
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const onSubmitLinkedin = async (
+    data: Pick<SocialMediaFormData, 'linkedin'>,
+  ) => {
+    if (!user) return
+    setLoading(true)
+
+    const payload = { linkedin: data.linkedin }
+
+    try {
+      const res = await updateUser(payload)
+
+      if (res.success && res.data) {
+        setUser({
+          ...user,
+          ...res.data,
+        })
+        setEditingSection(null)
+        toast.success('Successfully updated LinkedIn')
+      } else {
+        throw new Error(res.message || 'Failed to update LinkedIn')
+      }
+    } catch (error) {
+      console.error('Error updating LinkedIn:', error)
+      toast.error(
+        error instanceof Error ? error.message : 'Failed to update LinkedIn',
+      )
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const onSubmitInstagram = async (
+    data: Pick<SocialMediaFormData, 'instagram'>,
+  ) => {
+    if (!user) return
+    setLoading(true)
+
+    const payload = { instagram: data.instagram }
+
+    try {
+      const res = await updateUser(payload)
+
+      if (res.success && res.data) {
+        setUser({
+          ...user,
+          ...res.data,
+        })
+        setEditingSection(null)
+        toast.success('Successfully updated Instagram')
+      } else {
+        throw new Error(res.message || 'Failed to update Instagram')
+      }
+    } catch (error) {
+      console.error('Error updating Instagram:', error)
+      toast.error(
+        error instanceof Error ? error.message : 'Failed to update Instagram',
+      )
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const onSubmitFacebook = async (
+    data: Pick<SocialMediaFormData, 'facebook'>,
+  ) => {
+    if (!user) return
+    setLoading(true)
+
+    const payload = { facebook: data.facebook }
+
+    try {
+      const res = await updateUser(payload)
+
+      if (res.success && res.data) {
+        setUser({
+          ...user,
+          ...res.data,
+        })
+        setEditingSection(null)
+        toast.success('Successfully updated Facebook')
+      } else {
+        throw new Error(res.message || 'Failed to update Facebook')
+      }
+    } catch (error) {
+      console.error('Error updating Facebook:', error)
+      toast.error(
+        error instanceof Error ? error.message : 'Failed to update Facebook',
       )
     } finally {
       setLoading(false)
@@ -132,21 +315,20 @@ const ProfilePage = () => {
     setEditingSection(null)
     setShowEmailVerification(false)
     if (user) {
-      setFormData({
-        firstName: user.first_name || '',
-        lastName: user.last_name || '',
-        email: user.email || '',
-        avatar: user.avatar,
-        youtube: user.youtube || '',
-        linkedin: user.linkedin || '',
-        instagram: user.instagram || '',
-        facebook: user.facebook || '',
+      fullNameForm.reset({
+        first_name: user.first_name || '',
+        last_name: user.last_name || '',
       })
+      emailForm.reset({ email: user.email || '' })
+      youtubeForm.reset({ youtube: user.youtube || '' })
+      linkedinForm.reset({ linkedin: user.linkedin || '' })
+      instagramForm.reset({ instagram: user.instagram || '' })
+      facebookForm.reset({ facebook: user.facebook || '' })
     }
   }
 
   const validateFile = (file: File): boolean => {
-    const maxSize = 5 * 1024 * 1024 // 5MB
+    const maxSize = 5 * 1024 * 1024
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp']
 
     if (!allowedTypes.includes(file.type)) {
@@ -162,72 +344,67 @@ const ProfilePage = () => {
     return true
   }
 
-  const handleAvatarUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const files = event.target.files
+  const handleSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+
     if (!files || !files[0]) return
 
     const file = files[0]
     const isValid = validateFile(file)
 
     if (!isValid) {
-      event.target.value = ''
+      e.target.value = ''
       return
     }
 
     setLoading(true)
+
     try {
       const formData = new FormData()
       formData.append('files', file)
       formData.append('folder', 'users')
 
       const fileRes = await uploadFile(formData)
-      console.log('🚀 ~ handleAvatarUpload ~ fileRes:', fileRes)
 
-      if (!fileRes.success && fileRes.message) {
-        toast.error(fileRes.message)
+      if (!fileRes.success) {
+        toast.error(fileRes.message || 'Upload failed')
         return
       }
 
-      if (!fileRes.data) {
+      if (!fileRes.data || !fileRes.data[0]) {
         toast.error('Missing data on response')
         return
       }
 
-      if (fileRes.data && fileRes.data[0]) {
-        const avatarPayload = {
-          url: fileRes.data[0].url,
-          public_id: fileRes.data[0].public_id,
-          file_name: fileRes.data[0].file_name,
-          caption: fileRes.data[0].caption || '',
-        }
-
-        const res = await updateAvatar(avatarPayload)
-
-        if (res.success) {
-          if (user) {
-            setUser({
-              ...user,
-              avatar: avatarPayload,
-            })
-          }
-          toast.success('Avatar uploaded successfully')
-        } else {
-          toast.error(res.message ?? 'Cannot upload avatar')
-        }
+      const res = await updateUser({
+        avatar: fileRes.data[0],
+      })
+      if (res.success && res.data) {
+        setUser({
+          ...user,
+          ...res.data,
+        })
+        toast.success('Uploaded avatar')
+      } else {
+        toast.error(res.message ?? 'Cannot upload avatar')
       }
     } catch (error) {
       console.error('Error uploading avatar:', error)
       toast.error('Failed to upload avatar')
     } finally {
       setLoading(false)
-      event.target.value = ''
+      e.target.value = ''
     }
   }
-
-  const sendVerificationEmail = () => {
-    console.log('Sending verification email to:', formData?.email)
+  const displayValues = {
+    firstName: user?.first_name || '',
+    lastName: user?.last_name || '',
+    email: user?.email || '',
+    youtube: user?.youtube || '',
+    linkedin: user?.linkedin || '',
+    instagram: user?.instagram || '',
+    facebook: user?.facebook || '',
+    avatar: user?.avatar,
   }
 
   return (
@@ -251,13 +428,13 @@ const ProfilePage = () => {
       {/* Profile Header */}
       <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
         <h2 className="text-center text-lg font-medium break-all text-gray-700 sm:text-left sm:text-xl">
-          {user?.email || '****@gmail.com'}
+          {displayValues.email || '****@gmail.com'}
         </h2>
         <div className="flex flex-col items-center gap-3 sm:gap-4">
           <div className="relative flex size-16 overflow-hidden rounded-full bg-gray-200 sm:size-20">
-            {user?.avatar?.url ? (
+            {displayValues.avatar?.url ? (
               <Image
-                src={user?.avatar?.url ?? ''}
+                src={displayValues.avatar.url}
                 alt="Profile"
                 className="h-full w-full object-cover"
                 width={80}
@@ -278,7 +455,7 @@ const ProfilePage = () => {
             <input
               type="file"
               accept="image/*"
-              onChange={handleAvatarUpload}
+              onChange={handleSelectFile}
               className="hidden"
               disabled={loading}
             />
@@ -303,45 +480,54 @@ const ProfilePage = () => {
                 Cancel
               </button>
             </div>
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    value={formData?.firstName || ''}
-                    onChange={(e) =>
-                      handleInputChange('firstName', e.target.value)
-                    }
-                    className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:text-base"
-                    disabled={loading}
-                  />
+            <form
+              onSubmit={fullNameForm.handleSubmit(onSubmitFullName)}
+              noValidate
+            >
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
+                      First Name
+                    </label>
+                    <input
+                      type="text"
+                      {...fullNameForm.register('first_name')}
+                      className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:text-base"
+                      disabled={loading}
+                    />
+                    {fullNameForm.formState.errors.first_name && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {fullNameForm.formState.errors.first_name.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
+                      Last Name
+                    </label>
+                    <input
+                      type="text"
+                      {...fullNameForm.register('last_name')}
+                      className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:text-base"
+                      disabled={loading}
+                    />
+                    {fullNameForm.formState.errors.last_name && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {fullNameForm.formState.errors.last_name.message}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    value={formData?.lastName || ''}
-                    onChange={(e) =>
-                      handleInputChange('lastName', e.target.value)
-                    }
-                    className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:text-base"
-                    disabled={loading}
-                  />
-                </div>
+                <button
+                  type="submit"
+                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                  disabled={loading}
+                >
+                  {loading ? 'Saving...' : 'Save Changes'}
+                </button>
               </div>
-              <button
-                onClick={() => handleSave('fullName')}
-                className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
-                disabled={loading}
-              >
-                {loading ? 'Saving...' : 'Save Changes'}
-              </button>
-            </div>
+            </form>
           </div>
         ) : (
           <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
@@ -350,7 +536,7 @@ const ProfilePage = () => {
                 Full Name
               </span>
               <span className="text-sm break-words text-gray-900 sm:text-base">
-                {formData?.firstName} {formData?.lastName}
+                {displayValues.firstName} {displayValues.lastName}
               </span>
             </div>
             <button
@@ -383,14 +569,11 @@ const ProfilePage = () => {
               </p>
               <div className="mb-4 text-center sm:mb-6">
                 <p className="text-sm font-medium break-all text-gray-900 sm:text-base">
-                  {formData?.email}
+                  {displayValues.email}
                 </p>
               </div>
               <div className="flex flex-col items-center space-y-4">
-                <button
-                  onClick={sendVerificationEmail}
-                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] sm:w-auto sm:text-base"
-                >
+                <button className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] sm:w-auto sm:text-base">
                   Send Verification Email
                 </button>
                 <div className="flex flex-col items-center space-y-2 text-sm sm:flex-row sm:space-y-0 sm:space-x-2">
@@ -415,7 +598,7 @@ const ProfilePage = () => {
                 Email
               </span>
               <span className="text-sm break-all text-gray-900 sm:text-base">
-                {formData?.email}
+                {displayValues.email}
               </span>
             </div>
             <button
@@ -457,23 +640,34 @@ const ProfilePage = () => {
                   Cancel
                 </button>
               </div>
-              <div className="space-y-4">
-                <input
-                  type="url"
-                  value={formData?.youtube || ''}
-                  onChange={(e) => handleInputChange('youtube', e.target.value)}
-                  placeholder="https://youtube.com/@your-channel"
-                  className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
-                  disabled={loading}
-                />
-                <button
-                  onClick={() => handleSave('youtube')}
-                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
-                  disabled={loading}
-                >
-                  {loading ? 'Saving...' : 'Save Changes'}
-                </button>
-              </div>
+              <form
+                onSubmit={youtubeForm.handleSubmit(onSubmitYoutube)}
+                noValidate
+              >
+                <div className="space-y-4">
+                  <div>
+                    <input
+                      type="url"
+                      {...youtubeForm.register('youtube')}
+                      placeholder="https://youtube.com/@your-channel"
+                      className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
+                      disabled={loading}
+                    />
+                    {youtubeForm.formState.errors.youtube && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {youtubeForm.formState.errors.youtube.message}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                    disabled={loading}
+                  >
+                    {loading ? 'Saving...' : 'Save Changes'}
+                  </button>
+                </div>
+              </form>
             </div>
           ) : (
             <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
@@ -482,7 +676,7 @@ const ProfilePage = () => {
                   YouTube
                 </span>
                 <span className="line-clamp-1 text-sm break-all text-gray-500 sm:text-base">
-                  {formData?.youtube || 'Not Provided'}
+                  {displayValues.youtube || 'Not Provided'}
                 </span>
               </div>
               <button
@@ -490,7 +684,7 @@ const ProfilePage = () => {
                 className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
                 disabled={loading}
               >
-                {formData?.youtube ? 'Edit' : 'Add'}
+                {displayValues.youtube ? 'Edit' : 'Add'}
               </button>
             </div>
           )}
@@ -508,25 +702,34 @@ const ProfilePage = () => {
                   Cancel
                 </button>
               </div>
-              <div className="space-y-4">
-                <input
-                  type="url"
-                  value={formData?.linkedin || ''}
-                  onChange={(e) =>
-                    handleInputChange('linkedin', e.target.value)
-                  }
-                  placeholder="https://linkedin.com/in/your-profile"
-                  className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
-                  disabled={loading}
-                />
-                <button
-                  onClick={() => handleSave('linkedin')}
-                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
-                  disabled={loading}
-                >
-                  {loading ? 'Saving...' : 'Save Changes'}
-                </button>
-              </div>
+              <form
+                onSubmit={linkedinForm.handleSubmit(onSubmitLinkedin)}
+                noValidate
+              >
+                <div className="space-y-4">
+                  <div>
+                    <input
+                      type="url"
+                      {...linkedinForm.register('linkedin')}
+                      placeholder="https://linkedin.com/in/your-profile"
+                      className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
+                      disabled={loading}
+                    />
+                    {linkedinForm.formState.errors.linkedin && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {linkedinForm.formState.errors.linkedin.message}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                    disabled={loading}
+                  >
+                    {loading ? 'Saving...' : 'Save Changes'}
+                  </button>
+                </div>
+              </form>
             </div>
           ) : (
             <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
@@ -535,7 +738,7 @@ const ProfilePage = () => {
                   LinkedIn
                 </span>
                 <span className="line-clamp-1 text-sm break-all text-gray-500 sm:text-base">
-                  {formData?.linkedin || 'Not Provided'}
+                  {displayValues.linkedin || 'Not Provided'}
                 </span>
               </div>
               <button
@@ -543,7 +746,7 @@ const ProfilePage = () => {
                 className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
                 disabled={loading}
               >
-                {formData?.linkedin ? 'Edit' : 'Add'}
+                {displayValues.linkedin ? 'Edit' : 'Add'}
               </button>
             </div>
           )}
@@ -561,25 +764,34 @@ const ProfilePage = () => {
                   Cancel
                 </button>
               </div>
-              <div className="space-y-4">
-                <input
-                  type="url"
-                  value={formData?.instagram || ''}
-                  onChange={(e) =>
-                    handleInputChange('instagram', e.target.value)
-                  }
-                  placeholder="https://instagram.com/your-username"
-                  className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
-                  disabled={loading}
-                />
-                <button
-                  onClick={() => handleSave('instagram')}
-                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
-                  disabled={loading}
-                >
-                  {loading ? 'Saving...' : 'Save Changes'}
-                </button>
-              </div>
+              <form
+                onSubmit={instagramForm.handleSubmit(onSubmitInstagram)}
+                noValidate
+              >
+                <div className="space-y-4">
+                  <div>
+                    <input
+                      type="url"
+                      {...instagramForm.register('instagram')}
+                      placeholder="https://instagram.com/your-username"
+                      className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
+                      disabled={loading}
+                    />
+                    {instagramForm.formState.errors.instagram && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {instagramForm.formState.errors.instagram.message}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                    disabled={loading}
+                  >
+                    {loading ? 'Saving...' : 'Save Changes'}
+                  </button>
+                </div>
+              </form>
             </div>
           ) : (
             <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
@@ -588,7 +800,7 @@ const ProfilePage = () => {
                   Instagram
                 </span>
                 <span className="line-clamp-1 text-sm break-all text-gray-500 sm:text-base">
-                  {formData?.instagram || 'Not Provided'}
+                  {displayValues.instagram || 'Not Provided'}
                 </span>
               </div>
               <button
@@ -596,7 +808,7 @@ const ProfilePage = () => {
                 className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
                 disabled={loading}
               >
-                {formData?.instagram ? 'Edit' : 'Add'}
+                {displayValues.instagram ? 'Edit' : 'Add'}
               </button>
             </div>
           )}
@@ -614,25 +826,34 @@ const ProfilePage = () => {
                   Cancel
                 </button>
               </div>
-              <div className="flex flex-col space-y-4">
-                <input
-                  type="url"
-                  value={formData?.facebook || ''}
-                  onChange={(e) =>
-                    handleInputChange('facebook', e.target.value)
-                  }
-                  placeholder="https://facebook.com/your-profile"
-                  className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
-                  disabled={loading}
-                />
-                <button
-                  onClick={() => handleSave('facebook')}
-                  className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
-                  disabled={loading}
-                >
-                  {loading ? 'Saving...' : 'Save Changes'}
-                </button>
-              </div>
+              <form
+                onSubmit={facebookForm.handleSubmit(onSubmitFacebook)}
+                noValidate
+              >
+                <div className="space-y-4">
+                  <div>
+                    <input
+                      type="url"
+                      {...facebookForm.register('facebook')}
+                      placeholder="https://facebook.com/your-profile"
+                      className="textfield w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[rgb(116,31,162)] focus:ring-1 focus:ring-[rgb(116,31,162)] focus:outline-none sm:max-w-md sm:text-base"
+                      disabled={loading}
+                    />
+                    {facebookForm.formState.errors.facebook && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {facebookForm.formState.errors.facebook.message}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-[rgb(116,31,162)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[rgb(96,21,142)] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:text-base"
+                    disabled={loading}
+                  >
+                    {loading ? 'Saving...' : 'Save Changes'}
+                  </button>
+                </div>
+              </form>
             </div>
           ) : (
             <div className="flex flex-col justify-between gap-2 border-b border-gray-200 py-4 sm:flex-row sm:items-center sm:py-6">
@@ -641,7 +862,7 @@ const ProfilePage = () => {
                   Facebook
                 </span>
                 <span className="line-clamp-1 text-sm break-all text-gray-500 sm:text-base">
-                  {formData?.facebook || 'Not Provided'}
+                  {displayValues.facebook || 'Not Provided'}
                 </span>
               </div>
               <button
@@ -649,7 +870,7 @@ const ProfilePage = () => {
                 className="self-start text-sm font-medium text-[rgb(116,31,162)] hover:underline sm:self-auto sm:text-base"
                 disabled={loading}
               >
-                {formData?.facebook ? 'Edit' : 'Add'}
+                {displayValues.facebook ? 'Edit' : 'Add'}
               </button>
             </div>
           )}
@@ -659,4 +880,5 @@ const ProfilePage = () => {
     </div>
   )
 }
+
 export default ProfilePage
