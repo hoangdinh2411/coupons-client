@@ -14,14 +14,32 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/((?!api).*)', 
-        headers: [  
+        source: '/_next/static/:path*',
+        headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, stale-while-revalidate=86400'
-          }
-        ]
-      }
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/((?!api).*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, stale-while-revalidate=86400',
+          },
+        ],
+      },
     ]
   },
   images: {
@@ -31,6 +49,9 @@ const nextConfig = {
       new URL('https://img.trustcoupon.com/**'),
     ],
   },
+  output: 'standalone',
+  compress: true,
+  poweredByHeader: false,
 }
 
 module.exports = nextConfig
