@@ -11,7 +11,7 @@ export default async function StoreList({ letter }: Props) {
   const res = await searchStore(letter)
 
   return (
-    <div className="px-4">
+    <div className="">
       <StoreHeader currentLetter={letter ?? 'A'} />
       <div className="mx-auto w-full max-w-[1280px]">
         <div className="container mx-auto">
