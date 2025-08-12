@@ -110,7 +110,9 @@ export default async function LandingPage() {
 
   return (
     <Fragment>
-      <Suspense>
+      <Suspense
+        fallback={<div className="h-[112px] bg-gray-50 lg:h-[122px]" />}
+      >
         <Header />
       </Suspense>
       <main>
