@@ -36,6 +36,7 @@ export async function saveCoupon(couponId: number) {
 
 export async function updateUser(payload: Partial<UserRequestPayload>) {
   console.log('🚀 ~ updateUser ~ payload:', payload)
+
   const res = await customFetchWithToken<UserData>(`/users/profile`, {
     method: 'PATCH',
     headers: {
@@ -43,6 +44,7 @@ export async function updateUser(payload: Partial<UserRequestPayload>) {
     },
     body: JSON.stringify(payload),
   })
+
   if (res.success) {
     revalidateTag('profile')
   }

@@ -1,75 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { FaChevronLeft } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import DeleteAccount from './DeleteAccount'
 import { uploadFile } from '@/services/fileApi'
 import { updateUser } from '@/services/userApi'
-
-// Validation schemas
-const fullNameSchema = z.object({
-  first_name: z
-    .string()
-    .min(1, 'First name is required')
-    .min(2, 'First name must be at least 2 characters'),
-  last_name: z
-    .string()
-    .min(1, 'Last name is required')
-    .min(2, 'Last name must be at least 2 characters'),
-})
-
-const emailSchema = z.object({
-  email: z.string().email('Invalid email format').min(1, 'Email is required'),
-})
-
-const socialMediaSchema = z.object({
-  youtube: z.string().url('Please enter a valid YouTube URL').or(z.literal('')),
-  linkedin: z
-    .string()
-    .url('Please enter a valid LinkedIn URL')
-    .or(z.literal('')),
-  instagram: z
-    .string()
-    .url('Please enter a valid Instagram URL')
-    .or(z.literal('')),
-  facebook: z
-    .string()
-    .url('Please enter a valid Facebook URL')
-    .or(z.literal('')),
-})
-
-const profileSchema = z.object({
-  first_name: z.string().min(1, 'First name is required'),
-  last_name: z.string().min(1, 'Last name is required'),
-  youtube: z.string(),
-  linkedin: z.string(),
-  instagram: z.string(),
-  facebook: z.string(),
-  avatar: z.any().optional(),
-})
-
-type ProfileFormData = z.infer<typeof profileSchema>
-type FullNameFormData = z.infer<typeof fullNameSchema>
-type EmailFormData = z.infer<typeof emailSchema>
-type SocialMediaFormData = z.infer<typeof socialMediaSchema>
-
+import {
+  EmailFormData,
+  emailSchema,
+  FullNameFormData,
+  fullNameSchema,
+  ProfileFormData,
+  profileSchema,
+  SocialMediaFormData,
+  socialMediaSchema,
+  validateFile,
+} from './schema'
+import Breadcrumbs from './Breadcrumbs'
 const ProfilePage = () => {
   const { user, setUser } = UseAppStore((state) => state)
-  console.log('🚀 ~ ProfilePage ~ user:', user)
   const [editingSection, setEditingSection] = useState<string | null>(null)
   const [showEmailVerification, setShowEmailVerification] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  // Main form for display data
   const mainForm = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     mode: 'onChange',
@@ -82,7 +38,6 @@ const ProfilePage = () => {
       facebook: '',
     },
   })
-
   const fullNameForm = useForm<FullNameFormData>({
     resolver: zodResolver(fullNameSchema),
     mode: 'onChange',
@@ -91,7 +46,6 @@ const ProfilePage = () => {
       last_name: '',
     },
   })
-
   const emailForm = useForm<EmailFormData>({
     resolver: zodResolver(emailSchema),
     mode: 'onChange',
@@ -99,7 +53,6 @@ const ProfilePage = () => {
       email: '',
     },
   })
-
   const youtubeForm = useForm<Pick<SocialMediaFormData, 'youtube'>>({
     resolver: zodResolver(socialMediaSchema.pick({ youtube: true })),
     mode: 'onChange',
@@ -111,7 +64,6 @@ const ProfilePage = () => {
     mode: 'onChange',
     defaultValues: { linkedin: '' },
   })
-
   const instagramForm = useForm<Pick<SocialMediaFormData, 'instagram'>>({
     resolver: zodResolver(socialMediaSchema.pick({ instagram: true })),
     mode: 'onChange',
@@ -123,10 +75,8 @@ const ProfilePage = () => {
     mode: 'onChange',
     defaultValues: { facebook: '' },
   })
-
   useEffect(() => {
     if (!user) return
-
     const userData = {
       first_name: user.first_name || '',
       last_name: user.last_name || '',
@@ -136,7 +86,6 @@ const ProfilePage = () => {
       facebook: user.facebook || '',
       avatar: user.avatar,
     }
-
     mainForm.reset(userData)
     fullNameForm.reset({
       first_name: userData.first_name,
@@ -156,7 +105,6 @@ const ProfilePage = () => {
       setEditingSection(section)
     }
   }
-
   const onSubmitFullName = async (data: FullNameFormData) => {
     if (!user) return
     setLoading(true)
@@ -167,10 +115,9 @@ const ProfilePage = () => {
     }
     try {
       const res = await updateUser(payload)
-      console.log('🚀 ~ onSubmitFullName ~ res:', res)
       if (res.success && res.data) {
         setUser({
-          // ...user,
+          ...user,
           ...res.data,
         })
         setEditingSection(null)
@@ -187,17 +134,15 @@ const ProfilePage = () => {
       setLoading(false)
     }
   }
+
   const onSubmitYoutube = async (
     data: Pick<SocialMediaFormData, 'youtube'>,
   ) => {
     if (!user) return
     setLoading(true)
-
     const payload = { youtube: data.youtube }
-
     try {
       const res = await updateUser(payload)
-
       if (res.success && res.data) {
         setUser({
           ...user,
@@ -217,18 +162,14 @@ const ProfilePage = () => {
       setLoading(false)
     }
   }
-
   const onSubmitLinkedin = async (
     data: Pick<SocialMediaFormData, 'linkedin'>,
   ) => {
     if (!user) return
     setLoading(true)
-
     const payload = { linkedin: data.linkedin }
-
     try {
       const res = await updateUser(payload)
-
       if (res.success && res.data) {
         setUser({
           ...user,
@@ -248,18 +189,14 @@ const ProfilePage = () => {
       setLoading(false)
     }
   }
-
   const onSubmitInstagram = async (
     data: Pick<SocialMediaFormData, 'instagram'>,
   ) => {
     if (!user) return
     setLoading(true)
-
     const payload = { instagram: data.instagram }
-
     try {
       const res = await updateUser(payload)
-
       if (res.success && res.data) {
         setUser({
           ...user,
@@ -279,18 +216,14 @@ const ProfilePage = () => {
       setLoading(false)
     }
   }
-
   const onSubmitFacebook = async (
     data: Pick<SocialMediaFormData, 'facebook'>,
   ) => {
     if (!user) return
     setLoading(true)
-
     const payload = { facebook: data.facebook }
-
     try {
       const res = await updateUser(payload)
-
       if (res.success && res.data) {
         setUser({
           ...user,
@@ -310,7 +243,6 @@ const ProfilePage = () => {
       setLoading(false)
     }
   }
-
   const handleCancel = () => {
     setEditingSection(null)
     setShowEmailVerification(false)
@@ -327,55 +259,29 @@ const ProfilePage = () => {
     }
   }
 
-  const validateFile = (file: File): boolean => {
-    const maxSize = 5 * 1024 * 1024
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp']
-
-    if (!allowedTypes.includes(file.type)) {
-      toast.error('Please select a valid image file (JPEG, PNG, WebP)')
-      return false
-    }
-
-    if (file.size > maxSize) {
-      toast.error('File size must be less than 5MB')
-      return false
-    }
-
-    return true
-  }
-
   const handleSelectFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
-
     if (!files || !files[0]) return
-
     const file = files[0]
     const isValid = validateFile(file)
-
     if (!isValid) {
       e.target.value = ''
       return
     }
-
     setLoading(true)
-
     try {
       const formData = new FormData()
       formData.append('files', file)
       formData.append('folder', 'users')
-
       const fileRes = await uploadFile(formData)
-
       if (!fileRes.success) {
         toast.error(fileRes.message || 'Upload failed')
         return
       }
-
       if (!fileRes.data || !fileRes.data[0]) {
         toast.error('Missing data on response')
         return
       }
-
       const res = await updateUser({
         avatar: fileRes.data[0],
       })
@@ -406,25 +312,13 @@ const ProfilePage = () => {
     facebook: user?.facebook || '',
     avatar: user?.avatar,
   }
-
   return (
     <div className="mx-auto my-4 w-full max-w-3xl flex-1 p-4 sm:p-6">
-      {/* Breadcrumbs */}
-      <div className="mb-6 flex flex-wrap sm:mb-10">
-        <Link
-          href={APP_ROUTERS.ACCOUNT}
-          className="flex cursor-pointer items-center gap-1 text-sm leading-[1.33] font-bold tracking-[0.2px] text-[rgb(116,31,162)] no-underline"
-        >
-          <FaChevronLeft />
-          <span>Account</span>
-        </Link>
-      </div>
-
+      <Breadcrumbs />
       {/* Title */}
       <h1 className="text-olive-green mt-0 mb-6 text-2xl leading-[1.4] font-[450] tracking-normal [text-shadow:0px_2px_6px_rgba(0,0,0,0.04)] sm:mb-8 sm:text-[40px]">
         Profile
       </h1>
-
       {/* Profile Header */}
       <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
         <h2 className="text-center text-lg font-medium break-all text-gray-700 sm:text-left sm:text-xl">

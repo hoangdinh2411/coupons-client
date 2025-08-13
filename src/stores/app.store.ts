@@ -11,10 +11,11 @@ export type AppStoreType = {
   setUser: (data: UserData | null) => void
   isLoading: boolean
   setIsLoading: (status: boolean) => void
+  updateUser: (data: Partial<UserData>) => void
   signOut: () => Promise<void>
 }
 
-const UseAppStore = create<AppStoreType>((set) => ({
+const UseAppStore = create<AppStoreType>((set, get) => ({
   menu: {
     top_categories: [],
     top_topic: [],
@@ -23,6 +24,17 @@ const UseAppStore = create<AppStoreType>((set) => ({
   setMenu: (data: MenuData) => set({ menu: data }),
   user: null,
   setUser: (data: UserData | null) => set({ user: data }),
+  updateUser: (data: Partial<UserData>) => {
+    const currentUser = get().user
+    if (currentUser) {
+      set({
+        user: {
+          ...currentUser,
+          ...data,
+        },
+      })
+    }
+  },
   isLoading: false,
   setIsLoading: (status: boolean) => set({ isLoading: status }),
   signOut: async () => {
