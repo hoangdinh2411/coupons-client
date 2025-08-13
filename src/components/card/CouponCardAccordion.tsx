@@ -22,6 +22,8 @@ function CouponCardAccordion(coupon: CouponData) {
   const isLimitedTimeCoupon = coupon.expire_date
     ? dayjs(coupon.expire_date).isSame(dayjs(), 'month')
     : false
+
+  console.log(coupon)
   return (
     <div className="mb-2 min-h-[75px] rounded-lg border-1 border-gray-200 bg-white px-3 py-3 md:px-6 md:hover:shadow-lg md:hover:shadow-gray-200/50 lg:mb-4 lg:px-6">
       <div
@@ -60,9 +62,14 @@ function CouponCardAccordion(coupon: CouponData) {
             )}
           </div>
         </div>
-        <button className="bg-green relative mb-2 hidden h-12 !w-[192px] cursor-pointer items-center justify-center self-center overflow-hidden rounded-3xl text-base leading-none font-[800] tracking-wider text-white before:absolute before:-top-3 before:-right-5 before:z-10 before:h-8 before:w-12 before:rotate-45 before:bg-gray-300 after:absolute after:-top-4 after:-right-4 after:h-12 after:w-12 after:rotate-45 after:rounded-full after:bg-gray-200/30 md:block">
-          {coupon.code}
-        </button>
+        <div className="relative inline-block max-w-[192px]">
+          <button className="relative flex w-full cursor-pointer items-center overflow-hidden rounded-full border-0 bg-[#b5d43b] px-[1.2em] py-[0.6em] text-[1.1em] text-white">
+            Show Code
+            <span className="[&::before]:clip-path-[polygon(0_0,100%_0,100%_100%,0_100%)] hover:[&::before]:clip-path-[polygon(0_0,100%_100%,0_100%)] relative z-[1] flex items-center justify-center overflow-hidden rounded-r-full bg-[#b5d43b] font-bold text-white perspective-[800px] [&::before]:absolute [&::before]:inset-0 [&::before]:z-[2] [&::before]:origin-top-left [&::before]:rotate-y-0 [&::before]:transform [&::before]:bg-inherit [&::before]:transition-[clip-path] [&::before]:transition-transform [&::before]:duration-[350ms] [&::before]:ease-[ease] [&::before]:content-[''] hover:[&::before]:rotate-y-[-40deg]">
+              {coupon.code}
+            </span>
+          </button>
+        </div>
       </div>
       <CardAccordion
         className="hidden md:block"
