@@ -6,12 +6,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
 import { IoIosMenu, IoMdClose } from 'react-icons/io'
-import {
-  MdOutlineKeyboardArrowDown,
-  // MdOutlineKeyboardArrowUp,
-} from 'react-icons/md'
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 export default function MobileActions() {
-  const { user, menu } = UseAppStore((state) => state)
+  const state = UseAppStore((state) => state)
+  if (!state) return null
+  const { user, menu } = state
   return (
     <div className="block lg:hidden">
       <input type="checkbox" name="" id="mobile-menu" className="peer" hidden />

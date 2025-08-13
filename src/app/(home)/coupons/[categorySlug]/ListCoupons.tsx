@@ -186,7 +186,9 @@ const ListCoupons = ({
           dangerouslySetInnerHTML={{ __html: category.description }}
         ></div>
       </article>
-      <FAQs category={category} />
+      {category.faqs && category.faqs.length > 0 && (
+        <FAQs category={category} />
+      )}
     </div>
   )
 }
