@@ -1,17 +1,20 @@
-'use client'
 import { APP_ROUTERS } from '@/helpers/config'
 import { formatDisplayName } from '@/helpers/format'
-import UseAppStore from '@/stores/app.store'
+import { UserData } from '@/types/auth.type'
+import { MenuData } from '@/types/client.type'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
 import { IoIosMenu, IoMdClose } from 'react-icons/io'
-import {
-  MdOutlineKeyboardArrowDown,
-  // MdOutlineKeyboardArrowUp,
-} from 'react-icons/md'
-export default function MobileActions() {
-  const { user, menu } = UseAppStore((state) => state)
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
+export default function MobileActions({
+  menu,
+  user,
+}: {
+  menu: MenuData
+  user: UserData | undefined
+}) {
+  if (!menu) return null
   return (
     <div className="block lg:hidden">
       <input type="checkbox" name="" id="mobile-menu" className="peer" hidden />

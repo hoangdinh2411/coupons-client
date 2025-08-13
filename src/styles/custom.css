@@ -25,7 +25,7 @@ fieldset {
   background-color: rgb(247 247 247) !important;
   margin: 0 auto !important;
   width: 100% !important;
-  aspect-ratio: 1 /0.7;
+  aspect-ratio: 1 /auto;
 }
 .image-wrapper img {
   background-color: inherit;

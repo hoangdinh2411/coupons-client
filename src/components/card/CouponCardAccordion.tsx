@@ -13,7 +13,6 @@ function CouponCardAccordion(coupon: CouponData) {
     window.open(
       `${pathname}?outClicked=true&referenceId=${coupon.id}`,
       '_blank',
-      'noopener,noreferrer',
     )
     if (coupon?.offer_link || coupon?.store?.url) {
       window.location.href = coupon?.offer_link || coupon?.store?.url || ''

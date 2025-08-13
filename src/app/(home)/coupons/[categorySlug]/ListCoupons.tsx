@@ -56,7 +56,6 @@ const ListCoupons = ({
     window.open(
       `${pathname}?outClicked=true&referenceId=${coupon.id}`,
       '_blank',
-      'noopener,noreferrer',
     )
     if (coupon?.offer_link || coupon?.store?.url) {
       window.location.href = coupon?.offer_link || coupon?.store?.url || ''
@@ -131,7 +130,7 @@ const ListCoupons = ({
                 src={
                   coupon.store?.image?.url || '/images/default-store-logo.png'
                 }
-                alt="Target 2% Cash Back for Purchases Sitewide"
+                alt="Target 2% Cash Back for Purchases Sidewise"
                 className="object-contain px-2 pt-4 pb-0"
                 fill
               />
@@ -186,7 +185,9 @@ const ListCoupons = ({
           dangerouslySetInnerHTML={{ __html: category.description }}
         ></div>
       </article>
-      <FAQs category={category} />
+      {category.faqs && category.faqs.length > 0 && (
+        <FAQs category={category} />
+      )}
     </div>
   )
 }

@@ -7,10 +7,9 @@ import { usePathname } from 'next/navigation'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
-const POPULAR_INDEX = -1
 export default function Menu({ data }: { data: MenuData }) {
-  const [category, setCategory] = useState<number>(POPULAR_INDEX)
-  const [target, setTarget] = useState<string>('')
+  const [category, setCategory] = useState<number | null>(null)
+  const [target, setTarget] = useState('')
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
@@ -73,8 +72,8 @@ export default function Menu({ data }: { data: MenuData }) {
         >
           <div className="flex min-w-36 flex-col gap-4 border-r-2 border-solid border-gray-200">
             <div
-              className={`hover:text-green cursor-pointer ${category === POPULAR_INDEX ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
-              onClick={() => setCategory(POPULAR_INDEX)}
+              className={`hover:text-green cursor-pointer ${category === null ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
+              onClick={() => setCategory(null)}
             >
               Popular
             </div>
@@ -98,7 +97,7 @@ export default function Menu({ data }: { data: MenuData }) {
           </div>
           <div className="min-w-50">
             <div
-              className={`${category === POPULAR_INDEX ? 'flex' : 'hidden'} flex-col gap-3`}
+              className={`${category === null ? 'flex' : 'hidden'} flex-col gap-3`}
             >
               {data.popular.map((s) => (
                 <Link

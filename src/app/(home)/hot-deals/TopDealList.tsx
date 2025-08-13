@@ -2,7 +2,7 @@
 
 import TopDealCard from '@/components/card/TopDealCard'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { CouponData } from '@/types/coupon.type'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
@@ -24,16 +24,6 @@ interface TopDealListPropsType {
 }
 
 function TopDealList({ top_deals_today }: TopDealListPropsType) {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [768])
-
   const store = top_deals_today[0]?.store
   return (
     <div className="mx-auto mb-12 py-6">
@@ -53,15 +43,13 @@ function TopDealList({ top_deals_today }: TopDealListPropsType) {
             {store?.name}
           </p>
         </div>
-        {!isMobile && (
-          <Link
-            href={store?.url || ''}
-            target="_blank"
-            className="cursor-pointer rounded-full border border-slate-700 px-4 py-2 font-bold text-gray-800"
-          >
-            View more deals
-          </Link>
-        )}
+        <Link
+          href={store?.url || ''}
+          target="_blank"
+          className="hidden cursor-pointer rounded-full border border-slate-700 px-4 py-2 font-bold text-gray-800 md:block"
+        >
+          View more deals
+        </Link>
       </section>
       <Splide
         className="custom-splide"
@@ -108,11 +96,9 @@ function TopDealList({ top_deals_today }: TopDealListPropsType) {
         </SplideTrack>
       </Splide>
       <div className="mb-10 flex w-full justify-center">
-        {isMobile && (
-          <button className="mx-auto mt-10 cursor-pointer rounded-full border border-slate-700 px-[16px] py-2.5 text-sm font-bold text-gray-800">
-            View more deals
-          </button>
-        )}
+        <button className="mx-auto mt-10 hidden cursor-pointer rounded-full border border-slate-700 px-[16px] py-2.5 text-sm font-bold text-gray-800 md:block">
+          View more deals
+        </button>
       </div>
     </div>
   )

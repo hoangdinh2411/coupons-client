@@ -8,6 +8,7 @@ import ListPost from './components/ListBlogs'
 import { formatDate } from '@/helpers/format'
 import { getBlogsPerTopic, getLatestBlogs } from '@/services/blogApi'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 export const metadata: Metadata = {
   title: 'All Blogs',
@@ -47,7 +48,7 @@ export default async function Page() {
                   <div>
                     <div className="relative aspect-[765/453] max-h-[453px] min-h-full w-full max-w-[765px] lg:aspect-[1]">
                       <Image
-                        src={newest.image.url || '/images/no-img.webp'}
+                        src={formatImageUrl(newest.image.public_id)}
                         alt={newest.title}
                         fill
                         priority
@@ -108,7 +109,7 @@ export default async function Page() {
                 <div className="my-10" key={listIndex}>
                   <CategoryHeader
                     title={topic.name}
-                    image={topic?.image.url ?? '/images/no-img.webp'}
+                    image={formatImageUrl(topic.image.public_id)}
                     href={`/topics/${topic.slug}`}
                   />
                   <ListPost type="grid" blogs={list} />

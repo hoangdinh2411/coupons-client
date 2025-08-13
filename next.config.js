@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  compress: true,
   experimental: {
     authInterrupts: true,
   },
@@ -44,9 +43,16 @@ const nextConfig = {
   // },
   images: {
     remotePatterns: [
-      new URL('https://s3.amazonaws.com/img.trustcoupon.com/**'),
-      new URL('https://res.cloudinary.com/**'),
-      new URL('https://img.trustcoupon.com/**'),
+      {
+        protocol: 'https',
+        hostname: 'img.trustcoupon.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.amazonaws.com',
+        pathname: '/img.trustcoupon.com/**',
+      },
     ],
   },
   output: 'standalone',

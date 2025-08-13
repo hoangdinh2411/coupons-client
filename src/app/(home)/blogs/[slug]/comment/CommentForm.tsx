@@ -2,6 +2,7 @@
 import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { APP_ROUTERS } from '@/helpers/config'
 import { formatDisplayName } from '@/helpers/format'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 import { sendComment } from '@/services/commentApi'
 import UseAppStore from '@/stores/app.store'
 import { CommentData } from '@/types/comment.type'
@@ -60,7 +61,7 @@ export default function CommentForm({
                   fill
                   sizes="auto"
                   priority
-                  src={'/images/no-img.webp'}
+                  src={formatImageUrl(user.avatar.public_id)}
                   alt={formatDisplayName(user)}
                 />
               </div>

@@ -14,7 +14,9 @@ import SpinnerLoading from '@/components/loading'
 import { Metadata } from 'next'
 import dayjs from 'dayjs'
 import Head from 'next/head'
-import Breadcrumb from './Breadcrumd'
+import Breadcrumb from './Breadcrumb'
+import FAQs from './FAQs'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 export async function generateMetadata({
   params,
 }: {
@@ -137,31 +139,33 @@ export default async function BlogDetailPage({
                     <span className="border-light-green relative ml-4 block h-[40px] w-[40px] overflow-hidden rounded-full border-1 border-solid">
                       <Image
                         fill
-                        sizes="auto"
+                        sizes="80px"
                         priority
-                        src={blog.topic.image.url || '/images/no-img.webp'}
+                        src={formatImageUrl(blog.topic.image.public_id)}
                         alt={blog.topic.name}
                       />
                     </span>
                   </div>
                 </div>
               </section>
-              <article className="">
+              <article className="overflow-hidden">
                 <div
                   className="no-tailwindcss-base"
                   dangerouslySetInnerHTML={{ __html: blog.content }}
                 ></div>
               </article>
+              {blog.faqs && blog.faqs.length > 0 && <FAQs faqs={blog.faqs} />}
               <div className="my-10 flex gap-4">
-                <span className="relative size-[90px] overflow-hidden rounded-full">
+                <span className="relative aspect-[1] w-20 overflow-hidden rounded-full">
                   <Image
                     fill
-                    sizes="auto"
+                    sizes="80px"
                     priority
-                    src={'/images/no-img.webp'}
+                    src={formatImageUrl(blog.user.avatar?.public_id)}
                     alt={formatDisplayName(blog.user)}
                   />
                 </span>
+
                 <div className="flex w-full flex-col items-start justify-start gap-2">
                   <b className="text-green w-full text-lg font-bold">
                     {formatDisplayName(blog.user)}
@@ -174,7 +178,7 @@ export default async function BlogDetailPage({
                         className="group flex items-center justify-center rounded-lg border-1 border-gray-300 p-2 transition-colors duration-200 hover:border-pink-300 hover:bg-pink-50"
                         href={blog.user.instagram}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         title="Instagram"
                       >
                         {/* Instagram Icon - Camera */}
@@ -205,7 +209,7 @@ export default async function BlogDetailPage({
                         className="group flex items-center justify-center rounded-lg border-1 border-gray-300 p-2 transition-colors duration-200 hover:border-blue-300 hover:bg-blue-50"
                         href={blog.user.facebook}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         title="Facebook"
                       >
                         {/* Facebook Icon */}
@@ -228,7 +232,7 @@ export default async function BlogDetailPage({
                         className="group flex items-center justify-center rounded-lg border-1 border-gray-300 p-2 transition-colors duration-200 hover:border-blue-300 hover:bg-blue-50"
                         href={blog.user.linkedin}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         title="LinkedIn"
                       >
                         {/* LinkedIn Icon */}
@@ -251,7 +255,7 @@ export default async function BlogDetailPage({
                         className="group flex items-center justify-center rounded-lg border-1 border-gray-300 p-2 transition-colors duration-200 hover:border-red-300 hover:bg-red-50"
                         href={blog.user.youtube}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         title="YouTube"
                       >
                         {/* YouTube Icon - Play */}
