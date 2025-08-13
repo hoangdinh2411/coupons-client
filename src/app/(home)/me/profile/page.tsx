@@ -96,7 +96,7 @@ const ProfilePage = () => {
     linkedinForm.reset({ linkedin: userData.linkedin })
     instagramForm.reset({ instagram: userData.instagram })
     facebookForm.reset({ facebook: userData.facebook })
-  }, [user, mainForm, fullNameForm])
+  }, [user])
 
   const handleEdit = (section: string) => {
     if (section === 'email') {
