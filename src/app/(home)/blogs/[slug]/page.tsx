@@ -16,6 +16,7 @@ import dayjs from 'dayjs'
 import Head from 'next/head'
 import Breadcrumb from './Breadcrumb'
 import FAQs from './FAQs'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 export async function generateMetadata({
   params,
 }: {
@@ -140,7 +141,7 @@ export default async function BlogDetailPage({
                         fill
                         sizes="80px"
                         priority
-                        src={blog.topic.image.url || '/images/no-img.webp'}
+                        src={formatImageUrl(blog.topic.image.public_id)}
                         alt={blog.topic.name}
                       />
                     </span>
@@ -160,7 +161,7 @@ export default async function BlogDetailPage({
                     fill
                     sizes="80px"
                     priority
-                    src={'/images/no-img.webp'}
+                    src={formatImageUrl(blog.user.avatar?.public_id)}
                     alt={formatDisplayName(blog.user)}
                   />
                 </span>
@@ -177,7 +178,7 @@ export default async function BlogDetailPage({
                         className="group flex items-center justify-center rounded-lg border-1 border-gray-300 p-2 transition-colors duration-200 hover:border-pink-300 hover:bg-pink-50"
                         href={blog.user.instagram}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         title="Instagram"
                       >
                         {/* Instagram Icon - Camera */}
@@ -208,7 +209,7 @@ export default async function BlogDetailPage({
                         className="group flex items-center justify-center rounded-lg border-1 border-gray-300 p-2 transition-colors duration-200 hover:border-blue-300 hover:bg-blue-50"
                         href={blog.user.facebook}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         title="Facebook"
                       >
                         {/* Facebook Icon */}
@@ -231,7 +232,7 @@ export default async function BlogDetailPage({
                         className="group flex items-center justify-center rounded-lg border-1 border-gray-300 p-2 transition-colors duration-200 hover:border-blue-300 hover:bg-blue-50"
                         href={blog.user.linkedin}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         title="LinkedIn"
                       >
                         {/* LinkedIn Icon */}
@@ -254,7 +255,7 @@ export default async function BlogDetailPage({
                         className="group flex items-center justify-center rounded-lg border-1 border-gray-300 p-2 transition-colors duration-200 hover:border-red-300 hover:bg-red-50"
                         href={blog.user.youtube}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         title="YouTube"
                       >
                         {/* YouTube Icon - Play */}

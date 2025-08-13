@@ -58,7 +58,7 @@ function CouponCard(props: CouponCardPropsType) {
 
   const handleClick = () => {
     // open a new tab/window at the same URL
-    window.open(`${pathname}?outClicked=true`, '_blank', 'noopener,noreferrer')
+    window.open(`${pathname}?outClicked=true`, '_blank')
     window.location.href = 'https://google.com'
 
     // update the current tab’s URL to just “#”

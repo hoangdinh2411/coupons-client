@@ -260,6 +260,7 @@ export default async function LandingPage() {
                 <Link href="/cashback">Top Deals</Link>
               </h4>
             </div>
+
             <ListSale top_deals={top_deals} />
           </section>
           <PopularList />
