@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { formatDate } from '@/helpers/format'
 import { use } from 'react'
 import { getTrendingBlogs } from '@/services/blogApi'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 export default function TrendingBlogs() {
   const res = use(getTrendingBlogs())
@@ -22,7 +23,7 @@ export default function TrendingBlogs() {
               >
                 <div className="relative aspect-[1/0.7] w-[110px]">
                   <Image
-                    src={blog.image.url || '/images/no-img.webp'}
+                    src={formatImageUrl(blog.image.public_id)}
                     alt={blog.title}
                     fill
                     priority

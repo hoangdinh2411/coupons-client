@@ -17,7 +17,7 @@ function TopDealCard({
   actionBtn,
 }: TopDealCardPropsType) {
   const handleMoreDetail = () => {
-    window.open(coupon.offer_link, '_blank')
+    window.open(coupon.offer_link, '_blank', 'noopener noreferrer nofollow')
   }
 
   return (
