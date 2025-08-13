@@ -31,7 +31,7 @@ export default function TrendingBlogs() {
                   />
                 </div>
                 <div className="group flex-1 text-left">
-                  <h3 className="text-olive-green group-hover:text-green mb-2">
+                  <h3 className="text-olive-green group-hover:text-green mb-2 leading-5">
                     {blog.title}
                   </h3>
                   <span className="text-olive-green group-hover:text-green text-xs">

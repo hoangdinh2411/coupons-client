@@ -1,5 +1,6 @@
 import { UserData } from './auth.type'
 import { ImageType, MetaData, BaseData } from './share.type'
+import { FAQData } from './store.type'
 import { TopicData } from './topic.type'
 
 export interface BlogData extends BaseData {
@@ -16,4 +17,5 @@ export interface BlogData extends BaseData {
   is_indexed: boolean
   created_at: string
   user: UserData
+  faqs: FAQData[]
 }

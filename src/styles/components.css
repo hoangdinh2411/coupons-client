@@ -36,6 +36,8 @@
     all: revert !important;
     margin: revert !important;
     padding: revert !important;
+    word-wrap: break-word !important;
+    word-break: break-all;
   }
 }
 /* custom slide homepage */

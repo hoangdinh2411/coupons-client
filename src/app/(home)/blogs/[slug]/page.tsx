@@ -14,7 +14,8 @@ import SpinnerLoading from '@/components/loading'
 import { Metadata } from 'next'
 import dayjs from 'dayjs'
 import Head from 'next/head'
-import Breadcrumb from './Breadcrumd'
+import Breadcrumb from './Breadcrumb'
+import FAQs from './FAQs'
 export async function generateMetadata({
   params,
 }: {
@@ -137,7 +138,7 @@ export default async function BlogDetailPage({
                     <span className="border-light-green relative ml-4 block h-[40px] w-[40px] overflow-hidden rounded-full border-1 border-solid">
                       <Image
                         fill
-                        sizes="auto"
+                        sizes="80px"
                         priority
                         src={blog.topic.image.url || '/images/no-img.webp'}
                         alt={blog.topic.name}
@@ -146,22 +147,24 @@ export default async function BlogDetailPage({
                   </div>
                 </div>
               </section>
-              <article className="">
+              <article className="overflow-hidden">
                 <div
                   className="no-tailwindcss-base"
                   dangerouslySetInnerHTML={{ __html: blog.content }}
                 ></div>
               </article>
+              {blog.faqs && blog.faqs.length > 0 && <FAQs faqs={blog.faqs} />}
               <div className="my-10 flex gap-4">
-                <span className="relative size-[90px] overflow-hidden rounded-full">
+                <span className="relative aspect-[1] w-20 overflow-hidden rounded-full">
                   <Image
                     fill
-                    sizes="auto"
+                    sizes="80px"
                     priority
                     src={'/images/no-img.webp'}
                     alt={formatDisplayName(blog.user)}
                   />
                 </span>
+
                 <div className="flex w-full flex-col items-start justify-start gap-2">
                   <b className="text-green w-full text-lg font-bold">
                     {formatDisplayName(blog.user)}
