@@ -10,7 +10,7 @@ const AccountInfo = ({ profile }: { profile: UserData }) => {
         <div className="flex w-full justify-between">
           <span className="relative mr-3.5 h-[72px] w-[72px] overflow-hidden rounded-full align-middle">
             <Image
-              src={profile?.image?.url || '/images/no-img.webp'}
+              src={profile?.avatar?.url || '/images/no-img.webp'}
               alt={profile.email}
               fill
               priority
