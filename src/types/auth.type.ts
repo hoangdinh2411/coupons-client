@@ -41,3 +41,13 @@ export interface ResetPasswordPayload {
   password: string
   reset_token?: string
 }
+
+export interface UserRequestPayload {
+  first_name: string
+  last_name: string
+  youtube: string
+  linkedin: string
+  instagram: string
+  facebook: string
+  avatar?: ImageType
+}

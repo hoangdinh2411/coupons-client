@@ -2,19 +2,14 @@
 import { APP_ROUTERS } from '@/helpers/config'
 import { formatDisplayName } from '@/helpers/format'
 import UseAppStore from '@/stores/app.store'
-import { UserData } from '@/types/auth.type'
 import Link from 'next/link'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
-export default function Actions({
-  profile,
-}: {
-  profile: UserData | undefined
-}) {
+export default function Actions() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const { user, setUser } = UseAppStore((state) => state)
+  const { user } = UseAppStore((state) => state)
   const handleToggle = () => {
     setIsOpen(!isOpen)
   }
@@ -35,12 +30,6 @@ export default function Actions({
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isOpen])
-  useEffect(() => {
-    if (profile) {
-      setUser(profile)
-    }
-    // fetchCategoriesAndBlogsForMenu()
-  }, [profile])
 
   return (
     <div className="ml-auto hidden items-center gap-4 lg:flex">

@@ -5,6 +5,7 @@ import React from 'react'
 
 export default function PopularList() {
   const menu = UseAppStore((state) => state.menu)
+  if (!menu) return null
   return (
     <section>
       <details className="group mb-8 border-b border-gray-200 pb-8 md:mt-20">
