@@ -21,7 +21,7 @@ fieldset {
   border: none;
 }
 
-.image-wrapper{
+.image-wrapper {
   background-color: rgb(247 247 247) !important;
   margin: 0 auto !important;
   width: 100% !important;
@@ -37,7 +37,7 @@ fieldset {
 .image-wrapper > p.image-caption {
   background-color: inherit;
   text-align: center !important;
-  padding: 8px 0 0 0  !important;
+  padding: 8px 0 0 0 !important;
   display: flex !important;
   justify-content: center !important;
 }
@@ -100,3 +100,60 @@ input:disabled,
 button:disabled {
   cursor: not-allowed;
 }
+
+.btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+button {
+  position: relative;
+  background: #b5d43b;
+  color: white;
+  font-size: 1.1em;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+
+button .hidden-code {
+  position: relative;
+  width: 0;
+  height: 100%;
+  background: #b5d43b;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  perspective: 800px;
+  border-radius: 0 9999px 9999px 0;
+  overflow: hidden;
+}
+
+button .hidden-code::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  z-index: 2;
+  transform-origin: left top;
+  transform: rotateY(0deg);
+  transition: transform 0.35s ease, clip-path 0.35s ease;
+  border-radius: inherit;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+button:hover .hidden-code::before {
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  transform: rotateY(-40deg);
+}
+
