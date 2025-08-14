@@ -96,7 +96,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
                   </h3>
                 </div>
                 <span className="text-olive-green group-hover:text-green text-sm md:text-base">
-                  Published {formatDate(blog.created_at)}
+                  Published {formatDate(blog.updated_at)}
                 </span>
               </div>
             )}
@@ -146,7 +146,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
                 </h3>
               </div>
               <span className="text-olive-green group-hover:text-green text-sm md:text-base">
-                Published {formatDate(blog.created_at)}
+                Published {formatDate(blog.updated_at)}
               </span>
             </div>
           )}
