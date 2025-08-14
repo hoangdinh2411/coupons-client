@@ -8,7 +8,7 @@ interface ListBlogProps {
   type: 'grid' | 'vertical' | 'row' | 'auto'
 }
 
-export default function ListBlogs({ blogs, type }: ListBlogProps) {
+export default function ListBlogs({ blogs, type = 'grid' }: ListBlogProps) {
   const [actualType, setActualType] = useState<'grid' | 'row' | 'vertical'>(
     type === 'auto' ? 'row' : type,
   )

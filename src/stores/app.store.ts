@@ -5,7 +5,7 @@ import { MenuData } from '@/types/client.type'
 import { create } from 'zustand'
 
 export type AppStoreType = {
-  menu: MenuData
+  menu: MenuData | null
   setMenu: (data: MenuData) => void
   user: UserData | null
   setUser: (data: UserData | null) => void
@@ -16,11 +16,7 @@ export type AppStoreType = {
 }
 
 const UseAppStore = create<AppStoreType>((set, get) => ({
-  menu: {
-    top_categories: [],
-    top_topic: [],
-    popular: [],
-  },
+  menu: null,
   setMenu: (data: MenuData) => set({ menu: data }),
   user: null,
   setUser: (data: UserData | null) => set({ user: data }),

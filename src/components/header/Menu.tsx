@@ -1,28 +1,22 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
-import { MenuData } from '@/types/client.type'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
-export default function Menu({ data }: { data: MenuData }) {
+export default function Menu() {
   const [category, setCategory] = useState<number | null>(null)
   const [target, setTarget] = useState('')
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  const { setMenu } = UseAppStore((state) => state)
+  const { menu } = UseAppStore((state) => state)
   const handleToggleSubmenu = (value: string) => {
     setTarget((prev) => (prev === value ? '' : value))
   }
 
-  useEffect(() => {
-    if (data) {
-      setMenu(data)
-    }
-  }, [data])
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       setTimeout(() => {
@@ -52,6 +46,7 @@ export default function Menu({ data }: { data: MenuData }) {
       setTarget('')
     }
   }, [pathname])
+  if (!menu) return null
   return (
     <ul className="z-20 hidden gap-4 lg:flex">
       <li className="relative font-semibold text-white">
@@ -78,7 +73,7 @@ export default function Menu({ data }: { data: MenuData }) {
               Popular
             </div>
             <Fragment>
-              {data.top_categories.map((cat, idx) => (
+              {menu?.top_categories.map((cat, idx) => (
                 <p
                   key={idx}
                   className={`hover:text-green cursor-pointer ${category === idx ? 'border-r-4 font-semibold' : ''} border-green border-solid font-medium`}
@@ -99,15 +94,16 @@ export default function Menu({ data }: { data: MenuData }) {
             <div
               className={`${category === null ? 'flex' : 'hidden'} flex-col gap-3`}
             >
-              {data.popular.map((s) => (
-                <Link
-                  key={s.id}
-                  href={`/stores/${s.slug}`}
-                  className="hover:underline"
-                >
-                  {s.name}
-                </Link>
-              ))}
+              {menu &&
+                menu.popular.map((s) => (
+                  <Link
+                    key={s.id}
+                    href={`/stores/${s.slug}`}
+                    className="hover:underline"
+                  >
+                    {s.name}
+                  </Link>
+                ))}
               <Link
                 href={`${APP_ROUTERS.ALL_STORES}`}
                 className="hover:text-green font-semibold hover:underline"
@@ -115,8 +111,9 @@ export default function Menu({ data }: { data: MenuData }) {
                 All stores
               </Link>
             </div>
-            {data.top_categories &&
-              data.top_categories.map((cat, idx) => (
+            {menu &&
+              menu.top_categories &&
+              menu.top_categories.map((cat, idx) => (
                 <Fragment key={idx}>
                   <div
                     className={`${category === idx ? 'flex' : 'hidden'} flex-col gap-3`}
