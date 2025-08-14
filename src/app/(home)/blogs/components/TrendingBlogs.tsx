@@ -36,7 +36,7 @@ export default function TrendingBlogs() {
                     {blog.title}
                   </h3>
                   <span className="text-olive-green group-hover:text-green text-xs">
-                    Published {formatDate(blog.created_at)}
+                    Published {formatDate(blog.updated_at)}
                   </span>
                 </div>
               </Link>
