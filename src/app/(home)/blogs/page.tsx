@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Page() {
+export default async function BlogsPage() {
   const [latestRes, blogPerTopicRes] = await Promise.all([
     getLatestBlogs(),
     getBlogsPerTopic(),
