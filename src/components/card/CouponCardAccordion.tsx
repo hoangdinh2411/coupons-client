@@ -1,9 +1,10 @@
 'use client'
 import React from 'react'
+import dayjs from 'dayjs'
 import CardAccordion from '../accordion/CardAccordion'
+import CouponButton from '@/components/button/CouponButton'
 import { CouponData } from '@/types/coupon.type'
 import { usePathname } from 'next/navigation'
-import dayjs from 'dayjs'
 import { TypeDiscount } from '@/types/enum'
 
 function CouponCardAccordion(coupon: CouponData) {
@@ -13,7 +14,6 @@ function CouponCardAccordion(coupon: CouponData) {
     window.open(
       `${pathname}?outClicked=true&referenceId=${coupon.id}`,
       '_blank',
-      'noopener,noreferrer',
     )
     if (coupon?.offer_link || coupon?.store?.url) {
       window.location.href = coupon?.offer_link || coupon?.store?.url || ''
@@ -62,14 +62,7 @@ function CouponCardAccordion(coupon: CouponData) {
             )}
           </div>
         </div>
-        <div className="relative inline-block max-w-[192px]">
-          <button className="relative flex w-full cursor-pointer items-center overflow-hidden rounded-full border-0 bg-[#b5d43b] px-[1.2em] py-[0.6em] text-[1.1em] text-white">
-            Show Code
-            <span className="[&::before]:clip-path-[polygon(0_0,100%_0,100%_100%,0_100%)] hover:[&::before]:clip-path-[polygon(0_0,100%_100%,0_100%)] relative z-[1] flex items-center justify-center overflow-hidden rounded-r-full bg-[#b5d43b] font-bold text-white perspective-[800px] [&::before]:absolute [&::before]:inset-0 [&::before]:z-[2] [&::before]:origin-top-left [&::before]:rotate-y-0 [&::before]:transform [&::before]:bg-inherit [&::before]:transition-[clip-path] [&::before]:transition-transform [&::before]:duration-[350ms] [&::before]:ease-[ease] [&::before]:content-[''] hover:[&::before]:rotate-y-[-40deg]">
-              {coupon.code}
-            </span>
-          </button>
-        </div>
+        <CouponButton code={coupon.code} />
       </div>
       <CardAccordion
         className="hidden md:block"

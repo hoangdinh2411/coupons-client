@@ -174,14 +174,15 @@ function StoreInfo({
             Popular Stores
           </h3>
           <ul className="hidden list-inside space-y-2 lg:block">
-            {menu.popular.map((store) => (
-              <li
-                key={store.id}
-                className="cursor-pointer list-none text-sm font-[600] hover:underline"
-              >
-                <Link href={'/store/' + store.slug}>{store.name}</Link>
-              </li>
-            ))}
+            {menu &&
+              menu.popular.map((store) => (
+                <li
+                  key={store.id}
+                  className="cursor-pointer list-none text-sm font-[600] hover:underline"
+                >
+                  <Link href={'/store/' + store.slug}>{store.name}</Link>
+                </li>
+              ))}
             <li className="list-none">
               <Link
                 href={APP_ROUTERS.ALL_STORES}

@@ -1,5 +1,5 @@
 'use server'
-import { UserData } from '@/types/auth.type'
+import { UserData, UserRequestPayload } from '@/types/auth.type'
 import customFetchWithToken from './customFetchWithToken'
 import { CouponData } from '@/types/coupon.type'
 import { revalidateTag } from 'next/cache'
@@ -7,9 +7,7 @@ import { revalidateTag } from 'next/cache'
 export const getUserProfile = async () => {
   return await customFetchWithToken<UserData>(`/users/profile`, {
     method: 'GET',
-    next: {
-      revalidate: 3600,
-    },
+    cache: 'no-cache',
   })
 }
 
@@ -31,5 +29,19 @@ export async function saveCoupon(couponId: number) {
   if (res.success) {
     revalidateTag('my-coupons')
   }
+  return res
+}
+
+export async function updateUser(payload: Partial<UserRequestPayload>) {
+  console.log('🚀 ~ updateUser ~ payload:', payload)
+
+  const res = await customFetchWithToken<UserData>(`/users/profile`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+
   return res
 }

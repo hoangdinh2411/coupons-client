@@ -5,18 +5,15 @@ import { HiOutlineArrowLeft } from 'react-icons/hi'
 import Link from 'next/link'
 import { search } from '@/services/clientApi'
 import { SearchData } from '@/types/client.type'
-import { StoreData } from '@/types/store.type'
-export default function SearchBar({
-  popularStores,
-}: {
-  popularStores: StoreData[]
-}) {
+import UseAppStore from '@/stores/app.store'
+export default function SearchBar() {
   const [isFocused, setIsFocused] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const [searchText, setSearchText] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [result, setResult] = useState<SearchData | null>(null)
+  const { menu } = UseAppStore((state) => state)
   const handleToggleFocused = () => {
     setIsFocused(!isFocused)
   }
@@ -163,15 +160,17 @@ export default function SearchBar({
               <p className="bg-light-gray px-4 py-1 text-lg font-semibold lg:bg-transparent lg:px-4 lg:py-0 lg:text-sm">
                 Recent
               </p>
-              {popularStores.slice(0, 5).map((store) => (
-                <Link
-                  key={store.id}
-                  href={`/stores/${store.slug}`}
-                  className="hover:bg-light-gray/30 px-6 py-1 text-sm text-gray-600 lg:px-8 lg:py-1"
-                >
-                  {store.name}
-                </Link>
-              ))}
+              {menu &&
+                menu.popular &&
+                menu.popular.slice(0, 5).map((store) => (
+                  <Link
+                    key={store.id}
+                    href={`/stores/${store.slug}`}
+                    className="hover:bg-light-gray/30 px-6 py-1 text-sm text-gray-600 lg:px-8 lg:py-1"
+                  >
+                    {store.name}
+                  </Link>
+                ))}
             </div>
           )}
         </div>

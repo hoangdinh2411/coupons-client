@@ -6,7 +6,7 @@ import { BlogData } from '@/types/blog.type'
 export const getTopics = async () => {
   return await customFetch<TopicData[]>(`/client/topics`, {
     next: {
-      revalidate: 3600,
+      tags: ['topic-data'],
     },
   })
 }
@@ -18,9 +18,7 @@ export const getBlogsByTopic = async (
   return await customFetch<IResponseWithTotal<BlogData[]>>(
     `/client/topic/${slug}/blogs?page=${page}&limit=${limit}`,
     {
-      next: {
-        revalidate: 3600,
-      },
+      cache: 'force-cache',
     },
   )
 }

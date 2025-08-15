@@ -7,7 +7,8 @@ import '@splidejs/react-splide/css'
 import Link from 'next/link'
 
 export default function CategoryDealList() {
-  const categories = UseAppStore((state) => state.menu.top_categories)
+  const menu = UseAppStore((state) => state.menu)
+  if (!menu) return null
   return (
     <section className="mb-16 md:mb-20">
       <div className="mb-10 flex flex-wrap items-center justify-between lg:mb-8">
@@ -53,8 +54,8 @@ export default function CategoryDealList() {
         }}
         className="splide-container custom-splide"
       >
-        {categories &&
-          categories.map((category) => (
+        {menu &&
+          menu.top_categories.map((category) => (
             <SplideSlide key={category.id}>
               <CategoryDealItem category={category} />
             </SplideSlide>

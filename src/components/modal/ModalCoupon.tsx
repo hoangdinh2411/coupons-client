@@ -352,16 +352,17 @@ function ModalCoupon() {
                     Get Up to 60% Off {coupon.store?.name}&apos;s Top Deals of
                     the Day. No coupon or promo code needed!
                   </p>
-                  <p className="captialize mt-2 text-center text-sm md:mt-8">
+                  <p className="mt-2 text-center text-sm capitalize md:mt-8">
                     *Turn off ad blockers. You must meet certain eligibility
                     requirements to earn rewards.
-                    <a
-                      href=""
+                    <Link
+                      rel="noopener noreferrer nofollow"
+                      href={coupon.offer_link ?? ''}
                       className="block font-bold underline underline-offset-2"
                       target="_blank"
                     >
                       See Full Details
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
