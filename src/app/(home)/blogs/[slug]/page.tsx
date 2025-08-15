@@ -124,7 +124,7 @@ export default async function BlogDetailPage({
                     </Link>
                     <span className="px-2">·</span>
                     <span className="text-gray-500">
-                      {formatDate(blog.created_at)}
+                      {formatDate(blog.updated_at)}
                     </span>
                     <span className="px-2">·</span>
                     <span className="text-gray-600">

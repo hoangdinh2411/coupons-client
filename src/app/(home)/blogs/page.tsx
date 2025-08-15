@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function Page() {
+export default async function BlogsPage() {
   const [latestRes, blogPerTopicRes] = await Promise.all([
     getLatestBlogs(),
     getBlogsPerTopic(),
@@ -78,7 +78,7 @@ export default async function Page() {
                           {newest.title}
                         </h2>
                         <span className="text-olive-green text-sm group-hover:text-white">
-                          Published {formatDate('2025/07/07')}
+                          Published {formatDate(newest.updated_at)}
                         </span>
                       </div>
                     </div>

@@ -7,9 +7,7 @@ import { revalidateTag } from 'next/cache'
 export const getUserProfile = async () => {
   return await customFetchWithToken<UserData>(`/users/profile`, {
     method: 'GET',
-    next: {
-      revalidate: 3600,
-    },
+    cache: 'no-cache',
   })
 }
 
@@ -47,8 +45,5 @@ export async function updateUser(payload: Partial<UserRequestPayload>) {
     },
   })
 
-  if (res.success) {
-    revalidateTag('profile')
-  }
   return res
 }

@@ -6,9 +6,7 @@ export const getStoreBySlug = async (slug: string) => {
     store: StoreData
     similar_stores: StoreData[]
   }>(`/client/stores/${slug}`, {
-    next: {
-      revalidate: 3600,
-    },
+    cache: 'force-cache',
   })
 }
 
