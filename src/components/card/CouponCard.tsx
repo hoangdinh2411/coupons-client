@@ -36,7 +36,7 @@ function CouponCard(props: CouponCardPropsType) {
   const pathname = usePathname()
 
   // Extract data based on prop type
-  const { className } = props
+  const { className = '' } = props
   let title: string
   let description: string
   let imgUrl: string
@@ -84,14 +84,14 @@ function CouponCard(props: CouponCardPropsType) {
             />
           </div>
         </div>
-        <div className="flex h-full flex-col justify-between">
+        <div className="flex h-full flex-col justify-between lg:h-32">
           <div className="space-y-1 md:p-[8px] lg:p-3">
-            <div className="mb-2 line-clamp-2 overflow-hidden text-[12px] font-[800] tracking-widest text-ellipsis uppercase">
+            <h2 className="mb-2 line-clamp-2 h-10 overflow-hidden text-[12px] font-[800] tracking-widest text-ellipsis uppercase">
               {title}
-            </div>
-            <div className="line-clamp-3 overflow-hidden text-[16px] leading-4 font-[600] text-ellipsis text-gray-800 md:leading-5 lg:min-h-10">
+            </h2>
+            <p className="line-clamp-3 overflow-hidden text-[16px] leading-4 font-[600] text-ellipsis text-gray-800 md:leading-5">
               {description}
-            </div>
+            </p>
           </div>
           {actionBtn && (
             <div className="cursor-pointer justify-end md:mb-3 lg:mt-2 lg:ml-2">

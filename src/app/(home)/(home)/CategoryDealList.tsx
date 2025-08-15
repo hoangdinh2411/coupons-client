@@ -3,7 +3,6 @@ import CategoryDealItem from '@/app/(home)/(home)/CategoryDealItem'
 import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
-import '@splidejs/react-splide/css'
 import Link from 'next/link'
 
 export default function CategoryDealList() {
@@ -12,9 +11,9 @@ export default function CategoryDealList() {
   return (
     <section className="mb-16 md:mb-20">
       <div className="mb-10 flex flex-wrap items-center justify-between lg:mb-8">
-        <div className="text-sm font-bold tracking-widest uppercase">
+        <h1 className="text-sm font-bold tracking-widest uppercase">
           Categories
-        </div>
+        </h1>
         <Link
           href={APP_ROUTERS.ALL_CATEGORIES}
           className="block text-xs font-semibold tracking-widest uppercase underline underline-offset-4"
