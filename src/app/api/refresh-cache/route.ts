@@ -20,10 +20,10 @@ export async function POST(req: Request) {
       },
     })
   }
-  for (const tag in tags) {
+  for (const tag of tags) {
     revalidateTag(tag)
   }
-  for (const path in paths) {
+  for (const path of paths) {
     revalidatePath(path)
   }
   return new Response('Revalidated', {
