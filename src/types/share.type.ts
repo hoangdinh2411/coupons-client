@@ -27,5 +27,4 @@ export type ImageType = {
   file_name: string
   url: string
   public_id: string
-  caption: string
 }
