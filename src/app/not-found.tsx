@@ -1,12 +1,29 @@
 import Footer from '@/components/footer'
-import Header from '@/components/header'
 import { APP_ROUTERS } from '@/helpers/config'
+import { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
-
+export const metadata: Metadata = {
+  title: '404 — Sorry!',
+}
 export default function NotFound() {
   return (
     <div className="grid grid-cols-1">
-      <Header />
+      <div className="bg-green flex h-auto w-full items-center justify-center p-2">
+        <Link
+          href={APP_ROUTERS.INDEX}
+          className="relative aspect-auto h-12 w-40"
+        >
+          <Image
+            src="/images/logo-with-text-and-black-logo.png"
+            alt="Logo"
+            fill
+            priority
+            className="object-contain"
+            sizes="(max-width: 768px) 120px, (max-width: 1200px) 200px, 80px"
+          />
+        </Link>
+      </div>
       <main className="min-h-screen">
         <div className="flex h-full flex-col items-center justify-center">
           <h1 className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-3xl font-bold md:text-5xl">
