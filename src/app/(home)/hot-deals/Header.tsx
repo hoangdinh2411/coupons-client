@@ -40,10 +40,10 @@ const AnnouncementSlides = memo(() => (
     >
       <SplideTrack>
         <SplideSlide className="py-4 text-center text-sm font-semibold text-gray-800">
-          Automatically Apply The Best Codes
+          <p> Automatically Apply The Best Codes</p>
         </SplideSlide>
         <SplideSlide className="py-4 text-center text-sm font-semibold text-gray-800 underline">
-          Add To Your Browser! It&apos;s Free
+          <p>Add To Your Browser! It&apos;s Free</p>
         </SplideSlide>
       </SplideTrack>
     </Splide>

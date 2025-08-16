@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// ProfilePage.tsx
 'use client'
 import React, { useState } from 'react'
 import UseAppStore from '@/stores/app.store'

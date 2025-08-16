@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import { COUPON_CARD, STORE_LIST, TOP_DEALS_TODAY } from '@/constant/hot-deals'
-
 import Header from './Header'
 import TitleCoupon from './TitleCoupon'
 
