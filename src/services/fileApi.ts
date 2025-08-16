@@ -3,7 +3,6 @@ import { ImageType } from '@/types/share.type'
 import customFetchWithToken from './customFetchWithToken'
 
 export async function uploadFile(payload: FormData) {
-  console.log('🚀 ~ uploadFile ~ payload:', payload)
   return await customFetchWithToken<ImageType[]>(`/files`, {
     method: 'POST',
     body: payload,

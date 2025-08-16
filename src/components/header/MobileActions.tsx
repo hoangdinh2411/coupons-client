@@ -2,14 +2,14 @@
 import { APP_ROUTERS } from '@/helpers/config'
 import { formatDisplayName } from '@/helpers/format'
 import UseAppStore from '@/stores/app.store'
+import { MenuData } from '@/types/client.type'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
 import { IoIosMenu, IoMdClose } from 'react-icons/io'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
-export default function MobileActions() {
-  const { menu, user } = UseAppStore((state) => state)
-  if (!menu) return null
+export default function MobileActions({ menu }: { menu: MenuData | null }) {
+  const { user } = UseAppStore((state) => state)
   return (
     <div className="block lg:hidden">
       <input type="checkbox" name="" id="mobile-menu" className="peer" hidden />
@@ -94,7 +94,8 @@ export default function MobileActions() {
                   </label>
                   <div className="hidden peer-checked:block">
                     <div className="mt-3 grid grid-cols-2 gap-2">
-                      {menu.popular &&
+                      {menu &&
+                        menu.popular &&
                         menu.popular.map((s) => (
                           <Link
                             key={s.id}
@@ -109,7 +110,8 @@ export default function MobileActions() {
                 </div>
                 {/*  All categories*/}
                 <div className="w-full font-bold">
-                  {menu.top_categories &&
+                  {menu &&
+                    menu.top_categories &&
                     menu.top_categories.map((c) => (
                       <div className="w-full py-2" key={c.id}>
                         <input

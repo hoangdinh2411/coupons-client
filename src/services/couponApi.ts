@@ -6,6 +6,7 @@ export async function getCoupon(id: number) {
   return await customFetch<CouponData>(`/client/coupons?id=${id}`, {
     method: 'GET',
     next: {
+      revalidate: 3600,
       tags: ['coupons-' + id],
     },
   })

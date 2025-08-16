@@ -1,9 +1,10 @@
 'use client'
 import React from 'react'
+import dayjs from 'dayjs'
 import CardAccordion from '../accordion/CardAccordion'
+import CouponButton from '@/components/button/CouponButton'
 import { CouponData } from '@/types/coupon.type'
 import { usePathname } from 'next/navigation'
-import dayjs from 'dayjs'
 import { TypeDiscount } from '@/types/enum'
 
 function CouponCardAccordion(coupon: CouponData) {
@@ -21,6 +22,7 @@ function CouponCardAccordion(coupon: CouponData) {
   const isLimitedTimeCoupon = coupon.expire_date
     ? dayjs(coupon.expire_date).isSame(dayjs(), 'month')
     : false
+
   return (
     <div className="mb-2 min-h-[75px] rounded-lg border-1 border-gray-200 bg-white px-3 py-3 md:px-6 md:hover:shadow-lg md:hover:shadow-gray-200/50 lg:mb-4 lg:px-6">
       <div
@@ -59,9 +61,7 @@ function CouponCardAccordion(coupon: CouponData) {
             )}
           </div>
         </div>
-        <button className="bg-green relative mb-2 hidden h-12 !w-[192px] cursor-pointer items-center justify-center self-center overflow-hidden rounded-3xl text-base leading-none font-[800] tracking-wider text-white before:absolute before:-top-3 before:-right-5 before:z-10 before:h-8 before:w-12 before:rotate-45 before:bg-gray-300 after:absolute after:-top-4 after:-right-4 after:h-12 after:w-12 after:rotate-45 after:rounded-full after:bg-gray-200/30 md:block">
-          {coupon.code}
-        </button>
+        <CouponButton coupon={coupon} />
       </div>
       <CardAccordion
         className="hidden md:block"
