@@ -5,6 +5,7 @@ import { BlogData } from '@/types/blog.type'
 export const getLatestBlogs = async () => {
   return await customFetch<BlogData[]>(`/client/blogs/latest`, {
     next: {
+      revalidate: 3600,
       tags: ['blogs-page'],
     },
   })
@@ -12,6 +13,7 @@ export const getLatestBlogs = async () => {
 export const getTrendingBlogs = async () => {
   return await customFetch<BlogData[]>(`/client/blogs/trending`, {
     next: {
+      revalidate: 3600,
       tags: ['blogs-page'],
     },
   })
@@ -21,6 +23,7 @@ export const getBlogsPerTopic = async () => {
     [key: string]: BlogData[]
   }>(`/client/blogs/topics`, {
     next: {
+      revalidate: 3600,
       tags: ['blogs-page'],
     },
   })
@@ -38,6 +41,7 @@ export const getAllBlogs = async () => {
     `/client/blogs/all`,
     {
       next: {
+        revalidate: 3600,
         tags: ['blogs-page'],
       },
     },

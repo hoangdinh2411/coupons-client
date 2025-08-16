@@ -19,6 +19,7 @@ export const getComments = async (
     `/client/blogs/${blogId}/comments${query}`,
     {
       next: {
+        revalidate: 3600,
         tags: ['comments-' + blogId],
       },
     },

@@ -311,11 +311,14 @@ function ModalCoupon() {
                   toggleAccordion()
                 }}
               >
-                <span className="w-4/5 text-start text-lg font-semibold capitalize md:w-2/3">
-                  {dayjs(coupon.expire_date).diff(dayjs(), 'day') < 7
-                    ? 'ends soon'
-                    : 'ends ' + dayjs(coupon.expire_date).format('DD/MM/YYYY')}
-                </span>
+                {coupon.expire_date && (
+                  <span className="w-4/5 text-start text-lg font-semibold capitalize md:w-2/3">
+                    {dayjs(coupon.expire_date).diff(dayjs(), 'day') < 7
+                      ? 'ends soon'
+                      : 'ends ' +
+                        dayjs(coupon.expire_date).format('DD/MM/YYYY')}
+                  </span>
+                )}
                 <div className="relative right-auto flex w-1/5 justify-end md:w-1/3">
                   <div className="flex items-center gap-2">
                     <p className="text-base font-semibold underline underline-offset-2">

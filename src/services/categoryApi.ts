@@ -5,6 +5,7 @@ import { CouponData } from '@/types/coupon.type'
 export const getAllCategoriesWithAllStores = async () => {
   return await customFetch<CategoryData[]>(`/client/categories`, {
     next: {
+      revalidate: 3600,
       tags: ['categories-data'],
     },
   })

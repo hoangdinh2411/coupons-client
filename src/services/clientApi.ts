@@ -5,6 +5,7 @@ import { MenuData, SearchData } from '@/types/client.type'
 export const getMenu = async () => {
   return await customFetch<MenuData>(`/client/menu`, {
     next: {
+      revalidate: 3600,
       tags: ['menu-data'],
     },
   })
@@ -15,6 +16,7 @@ export const getDataForHomePage = async () => {
     top_deals: CouponData[]
   }>(`/client/home`, {
     next: {
+      revalidate: 3600,
       tags: ['menu-data'],
     },
   })
