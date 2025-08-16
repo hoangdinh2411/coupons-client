@@ -1,6 +1,7 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
 import { formatDisplayName } from '@/helpers/format'
+import { getUserProfile } from '@/services/userApi'
 import UseAppStore from '@/stores/app.store'
 import Link from 'next/link'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
@@ -9,7 +10,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 export default function Actions() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const { user } = UseAppStore((state) => state)
+  const { user, setUser, signOut } = UseAppStore((state) => state)
   const handleToggle = () => {
     setIsOpen(!isOpen)
   }
@@ -30,6 +31,16 @@ export default function Actions() {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isOpen])
+
+  useEffect(() => {
+    getUserProfile().then((res) => {
+      if (res.success && res.data) {
+        setUser(res.data)
+      } else {
+        signOut()
+      }
+    })
+  }, [])
 
   return (
     <div className="z-[1] ml-auto hidden items-center gap-4 lg:flex">

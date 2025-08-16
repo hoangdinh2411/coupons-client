@@ -4,16 +4,14 @@ import { IoIosSearch } from 'react-icons/io'
 import { HiOutlineArrowLeft } from 'react-icons/hi'
 import Link from 'next/link'
 import { search } from '@/services/clientApi'
-import { SearchData } from '@/types/client.type'
-import UseAppStore from '@/stores/app.store'
-export default function SearchBar() {
+import { MenuData, SearchData } from '@/types/client.type'
+export default function SearchBar({ menu }: { menu: MenuData | null }) {
   const [isFocused, setIsFocused] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const [searchText, setSearchText] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [result, setResult] = useState<SearchData | null>(null)
-  const { menu } = UseAppStore((state) => state)
   const handleToggleFocused = () => {
     setIsFocused(!isFocused)
   }

@@ -6,6 +6,7 @@ import { BlogData } from '@/types/blog.type'
 export const getTopics = async () => {
   return await customFetch<TopicData[]>(`/client/topics`, {
     next: {
+      revalidate: 3600,
       tags: ['topic-data'],
     },
   })

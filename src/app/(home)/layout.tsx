@@ -1,6 +1,6 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
-import { ReactNode, Suspense } from 'react'
+import { ReactNode } from 'react'
 
 export default function MainLayout({
   children,
@@ -9,9 +9,7 @@ export default function MainLayout({
 }): JSX.Element {
   return (
     <div className="grid grid-cols-1">
-      <Suspense>
-        <Header />
-      </Suspense>
+      <Header />
       <main className="min-h-screen">{children}</main>
       <Footer />
     </div>

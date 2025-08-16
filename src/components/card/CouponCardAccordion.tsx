@@ -23,7 +23,6 @@ function CouponCardAccordion(coupon: CouponData) {
     ? dayjs(coupon.expire_date).isSame(dayjs(), 'month')
     : false
 
-  console.log(coupon)
   return (
     <div className="mb-2 min-h-[75px] rounded-lg border-1 border-gray-200 bg-white px-3 py-3 md:px-6 md:hover:shadow-lg md:hover:shadow-gray-200/50 lg:mb-4 lg:px-6">
       <div
@@ -62,7 +61,7 @@ function CouponCardAccordion(coupon: CouponData) {
             )}
           </div>
         </div>
-        <CouponButton code={coupon.code} />
+        <CouponButton coupon={coupon} />
       </div>
       <CardAccordion
         className="hidden md:block"

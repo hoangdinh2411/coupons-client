@@ -1,18 +1,17 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
-import UseAppStore from '@/stores/app.store'
+import { MenuData } from '@/types/client.type'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
-export default function Menu() {
+export default function Menu({ menu }: { menu: MenuData | null }) {
   const [category, setCategory] = useState<number | null>(null)
   const [target, setTarget] = useState('')
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
-  const { menu } = UseAppStore((state) => state)
   const handleToggleSubmenu = (value: string) => {
     setTarget((prev) => (prev === value ? '' : value))
   }
@@ -46,7 +45,6 @@ export default function Menu() {
       setTarget('')
     }
   }, [pathname])
-  if (!menu) return null
   return (
     <ul className="z-20 hidden gap-4 lg:flex">
       <li className="relative font-semibold text-white">
