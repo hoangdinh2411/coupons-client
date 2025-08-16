@@ -32,7 +32,7 @@ export default function Actions() {
   }, [isOpen])
 
   return (
-    <div className="ml-auto hidden items-center gap-4 lg:flex">
+    <div className="z-[1] ml-auto hidden items-center gap-4 lg:flex">
       {user === null ? (
         <Fragment>
           <Link
