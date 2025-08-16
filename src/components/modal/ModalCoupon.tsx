@@ -138,7 +138,7 @@ function ModalCoupon() {
       maxWidth="3xl"
     >
       {!isPending && coupon ? (
-        <div className="relative mt-12 flex flex-col items-center gap-5 pt-10">
+        <div className="relative flex h-[80vh] flex-col items-center gap-5 pt-10">
           <div className="relative mx-auto size-[96px] overflow-hidden rounded-full border border-[#121821] bg-[#121821] p-4 duration-300 ease-out group-hover:shadow-xl md:p-5">
             <Image
               src={coupon?.store?.image?.url || '/images/brandCard2.webp'}
