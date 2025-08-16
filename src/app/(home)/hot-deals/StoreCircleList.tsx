@@ -53,8 +53,6 @@ const StoreItem = memo(
   ),
 )
 
-StoreItem.displayName = 'StoreItem'
-
 function StoreCircleList({ stores }: StoreCirclePropsType) {
   return (
     <section className="mb-12 pt-12 md:pt-16">

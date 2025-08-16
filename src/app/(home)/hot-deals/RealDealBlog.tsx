@@ -11,7 +11,6 @@ function RealDeal() {
         priority
       />
       <div className="flex w-full gap-7">
-        {/* Large Card Left */}
         <article className="mt-10 w-4/5">
           <Image
             src={'/images/open-blog-card.webp'}

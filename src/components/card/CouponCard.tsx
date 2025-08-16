@@ -36,7 +36,7 @@ function CouponCard(props: CouponCardPropsType) {
   const pathname = usePathname()
 
   // Extract data based on prop type
-  const { className } = props
+  const { className = '' } = props
   let title: string
   let description: string
   let imgUrl: string
@@ -60,10 +60,8 @@ function CouponCard(props: CouponCardPropsType) {
     // open a new tab/window at the same URL
     window.open(`${pathname}?outClicked=true`, '_blank')
     window.location.href = 'https://google.com'
-
-    // update the current tab’s URL to just “#”
-    // (this keeps you on the same page but changes the URL in the address bar)
   }
+
   return (
     <div
       onClick={handleClick}
@@ -72,30 +70,37 @@ function CouponCard(props: CouponCardPropsType) {
       <div
         className={`relative flex h-full w-full cursor-pointer gap-3 rounded-xl bg-white text-left focus:border-2 md:h-auto md:flex-col md:border-1 md:border-gray-300`}
       >
-        <div className="relative aspect-[1/0.8] h-full w-[140px] md:mb-2 md:aspect-[2/1.1] md:w-full">
-          <div className="relative size-full rounded-xl md:rounded-none md:rounded-t-xl">
-            <Image
-              className="size-full rounded-xl border border-gray-200 object-contain object-center px-10 md:rounded-none md:border-0"
-              alt={title + ' image'}
-              src={imgUrl}
-              width={500}
-              height={500}
-              quality={75}
-            />
-          </div>
+        {/* Image Container */}
+        <div className="relative flex aspect-[1/0.8] h-24 max-h-24 max-w-[110px] justify-between md:mb-2 md:aspect-[2/1.1] md:max-h-full md:w-full md:max-w-full">
+          <Image
+            className="h-full w-full rounded-xl border border-gray-200 object-contain object-center md:rounded-none md:rounded-t-xl md:border-0"
+            alt={title + ' image'}
+            src={imgUrl}
+            width={500}
+            height={500}
+            quality={75}
+          />
         </div>
-        <div className="flex h-full flex-col justify-between">
-          <div className="space-y-1 md:p-[8px] lg:p-3">
-            <div className="mb-2 line-clamp-2 overflow-hidden text-[12px] font-[800] tracking-widest text-ellipsis uppercase">
+
+        {/* Content Container - Fixed the height issues */}
+        <div className="flex h-full min-w-0 flex-col justify-between md:!h-[140px] md:flex-col md:justify-start">
+          {/* Text Content */}
+          <div className="flex-1 space-y-1 md:p-2 lg:p-3">
+            {/* Title - Removed fixed height */}
+            <h2 className="line-clamp-1 text-xs font-extrabold tracking-widest text-gray-900 uppercase md:mb-2 md:line-clamp-2">
               {title}
-            </div>
-            <div className="line-clamp-3 overflow-hidden text-[16px] leading-4 font-[600] text-ellipsis text-gray-800 md:leading-5 lg:min-h-10">
+            </h2>
+
+            {/* Description - Fixed line-clamp for desktop */}
+            <p className="line-clamp-2 text-sm leading-4 font-semibold text-gray-800 md:!line-clamp-3 md:text-base md:leading-5">
               {description}
-            </div>
+            </p>
           </div>
+
+          {/* Action Button */}
           {actionBtn && (
-            <div className="cursor-pointer justify-end md:mb-3 lg:mt-2 lg:ml-2">
-              <button className="rounded-2xl bg-gray-100 px-4 py-1 text-xs font-[900] text-gray-800">
+            <div className="mt-auto md:mb-3 md:px-2 lg:px-3">
+              <button className="rounded-2xl bg-gray-100 px-4 py-1 text-xs font-black text-gray-800 transition-colors hover:bg-gray-200">
                 Coupon code
               </button>
             </div>
