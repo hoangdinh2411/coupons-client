@@ -11,7 +11,12 @@ export default function TopCategories() {
           menu.top_categories
             ?.slice(0, 5)
             ?.map((category, index) => (
-              <CardCoupon category={category} key={index} />
+              <CardCoupon
+                category={category}
+                priority={index === 0}
+                isAboveFold={index < 4}
+                key={index}
+              />
             ))}
       </div>
     </div>

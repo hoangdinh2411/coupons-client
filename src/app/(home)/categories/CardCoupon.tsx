@@ -2,17 +2,20 @@
 import { CategoryData } from '@/types/category.type'
 import Image from 'next/image'
 import Link from 'next/link'
-// import Router from 'next/router'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 interface CardCouponPropsType
   extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
   category: CategoryData
+  priority?: boolean
+  isAboveFold?: boolean
 }
 
 function CardCoupon({
   category,
   className = '',
+  priority = false,
+  isAboveFold = false,
   ...rest
 }: CardCouponPropsType) {
   return (
@@ -26,9 +29,13 @@ function CardCoupon({
           fill
           alt={`${category.name} category`}
           className="object-cover"
-          src={`${category?.image?.url ?? '/images/no-img.webp'}`}
-          loading="lazy"
+          src={category?.image?.url}
+          fetchPriority={priority ? 'high' : 'low'}
+          loading={isAboveFold ? 'eager' : 'lazy'}
           sizes="(min-width: 640px) 144px, 126px"
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyLli+AVylxpWjBcn0swJGAUzAAOy/EsOt8SWczBUnAgwDGcFXuF5qCPGFbqgV7Jyom7PoLXjK3Xf7sOXlgQ1nFnYJq2pQBLQMJU="
+          priority={priority}
         />
       </div>
       <p className="h-10 max-w-[128px] text-center text-sm font-bold break-all uppercase group-hover:underline sm:h-14">

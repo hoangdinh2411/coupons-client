@@ -1,6 +1,5 @@
 import { CategoryData } from '@/types/category.type'
 import Link from 'next/link'
-import React from 'react'
 
 export default function CategoryList({
   categories,

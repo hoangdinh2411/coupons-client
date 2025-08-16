@@ -1,9 +1,17 @@
 'use client'
-
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Splide, SplideSlide } from '@splidejs/react-splide'
-
+const Splide = dynamic(
+  () => import('@splidejs/react-splide').then((mod) => mod.Splide),
+  {
+    loading: () => <div className="h-12 animate-pulse bg-gray-50" />,
+    ssr: false,
+  },
+)
+const SplideSlide = dynamic(() =>
+  import('@splidejs/react-splide').then((mod) => mod.SplideSlide),
+)
 interface BestDealsProps {
   bestDeals: {
     deal_id: string
