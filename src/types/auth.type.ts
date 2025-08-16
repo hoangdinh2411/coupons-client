@@ -18,12 +18,12 @@ export interface UserData extends BaseData {
   token?: string
   first_name?: string
   last_name?: string
-  image: ImageType
   youtube: string
   linkedin: string
   facebook: string
   instagram: string
   description: string
+  avatar: ImageType
 }
 export interface VerifyRequestPayload {
   email: string
@@ -40,4 +40,14 @@ export interface ResetPasswordPayload {
   confirm_password: string
   password: string
   reset_token?: string
+}
+
+export interface UserRequestPayload {
+  first_name: string
+  last_name: string
+  youtube: string
+  linkedin: string
+  instagram: string
+  facebook: string
+  avatar?: ImageType
 }

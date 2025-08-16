@@ -1,6 +1,7 @@
 'use client'
 import ButtonWithLoading from '@/components/button-with-loading/ButtonWithLoading'
 import { formatDisplayName } from '@/helpers/format'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 import { deleteComment, updateComment } from '@/services/commentApi'
 import UseAppStore from '@/stores/app.store'
 import { CommentData } from '@/types/comment.type'
@@ -121,7 +122,7 @@ export default function CommentItem({
       <div className="flex items-center gap-4">
         <span className="relative size-8 overflow-hidden rounded-full">
           <Image
-            src={'/images/no-img.webp'}
+            src={formatImageUrl(comment.user.avatar.public_id)}
             alt={formatDisplayName(comment.user)}
             fill
             priority

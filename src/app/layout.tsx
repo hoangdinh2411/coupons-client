@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags */
 import '../styles/custom.css'
 import '../styles/global.css'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -89,42 +90,35 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin=""
         />
+        <link rel="modulepreload" href="/_next/static/chunks/main.js" />
+        <link rel="modulepreload" href="/_next/static/chunks/webpack.js" />
+        <link rel="modulepreload" href="/_next/static/chunks/framework.js" />
+        <noscript>
+          <link rel="stylesheet" href="/styles/global.css" />
+        </noscript>
         <script
           type="module"
           dangerouslySetInnerHTML={{
             __html: `
-              const modernFeatures = {
-                modules: true,
-                asyncAwait: true,
-                optionalChaining: true,
-                nullishCoalescing: true
-              };
               window.__MODERN_BROWSER__ = true;
-              window.__FEATURES__ = modernFeatures;
-              performance.mark('modern-js-loaded');
+              performance.mark('modern-js-start');
             `,
           }}
         />
-
         <script
           noModule
           dangerouslySetInnerHTML={{
             __html: `
               window.__MODERN_BROWSER__ = false;
-              if (window.performance && performance.mark) {
-                performance.mark('legacy-js-loaded');
-              }
+              if (window.performance) performance.mark('legacy-js-start');
             `,
           }}
         />
-        <link rel="modulepreload" href="/_next/static/chunks/main.js" />
-        <link
-          rel="preload"
-          href="/_next/static/chunks/polyfills.js"
-          as="script"
-        />
       </head>
-      <body suppressHydrationWarning={true}>
+      <body
+        suppressHydrationWarning={true}
+        suppressContentEditableWarning={true}
+      >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -134,6 +128,34 @@ export default function RootLayout({
         <Suspense>
           <ModalCoupon />
         </Suspense>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              function loadNonCriticalCSS() {
+                const cssFiles = [
+                  '/styles/custom.css',
+                  '/node_modules/react-datepicker/dist/react-datepicker.css'
+                ];
+                
+                cssFiles.forEach(href => {
+                  const link = document.createElement('link');
+                  link.rel = 'stylesheet';
+                  link.href = href;
+                  link.media = 'print';
+                  link.onload = function() { this.media = 'all'; };
+                  document.head.appendChild(link);
+                });
+              }
+              
+              // Load after DOM is ready
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadNonCriticalCSS);
+              } else {
+                loadNonCriticalCSS();
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   )

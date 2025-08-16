@@ -8,9 +8,8 @@ import { Fragment } from 'react'
 import { IoIosMenu, IoMdClose } from 'react-icons/io'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 export default function MobileActions() {
-  const state = UseAppStore((state) => state)
-  if (!state) return null
-  const { user, menu } = state
+  const { menu, user } = UseAppStore((state) => state)
+  if (!menu) return null
   return (
     <div className="block lg:hidden">
       <input type="checkbox" name="" id="mobile-menu" className="peer" hidden />

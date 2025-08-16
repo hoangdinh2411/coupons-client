@@ -3,17 +3,17 @@ import CategoryDealItem from '@/app/(home)/(home)/CategoryDealItem'
 import { APP_ROUTERS } from '@/helpers/config'
 import UseAppStore from '@/stores/app.store'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
-import '@splidejs/react-splide/css'
 import Link from 'next/link'
 
 export default function CategoryDealList() {
-  const categories = UseAppStore((state) => state.menu.top_categories)
+  const menu = UseAppStore((state) => state.menu)
+  if (!menu) return null
   return (
     <section className="mb-16 md:mb-20">
       <div className="mb-10 flex flex-wrap items-center justify-between lg:mb-8">
-        <div className="text-sm font-bold tracking-widest uppercase">
+        <h1 className="text-sm font-bold tracking-widest uppercase">
           Categories
-        </div>
+        </h1>
         <Link
           href={APP_ROUTERS.ALL_CATEGORIES}
           className="block text-xs font-semibold tracking-widest uppercase underline underline-offset-4"
@@ -53,8 +53,8 @@ export default function CategoryDealList() {
         }}
         className="splide-container custom-splide"
       >
-        {categories &&
-          categories.map((category) => (
+        {menu &&
+          menu.top_categories.map((category) => (
             <SplideSlide key={category.id}>
               <CategoryDealItem category={category} />
             </SplideSlide>

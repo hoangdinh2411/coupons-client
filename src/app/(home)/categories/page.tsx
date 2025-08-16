@@ -3,7 +3,6 @@ import CategoryList from './CategoryList'
 import { Metadata } from 'next'
 import TopCategories from './TopCategories'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
-import Head from 'next/head'
 import { getAllCategoriesWithAllStores } from '@/services/categoryApi'
 
 export const metadata: Metadata = {
@@ -15,16 +14,23 @@ export const metadata: Metadata = {
     canonical: APP_ROUTERS.ALL_CATEGORIES,
   },
 }
+
 async function CategoriesListPage() {
   const res = await getAllCategoriesWithAllStores()
+
+  const firstCategoryImage = res.data?.[0]?.image?.url
+
   return (
     <Fragment>
-      <Head>
+      {firstCategoryImage && (
         <link
-          rel="canonical"
-          href={`${METADATA.APP_URL}${APP_ROUTERS.ALL_CATEGORIES}`}
+          rel="preload"
+          as="image"
+          href={firstCategoryImage}
+          fetchPriority="high"
         />
-      </Head>
+      )}
+
       <div className="container mx-auto w-full max-w-(--max-width) p-8">
         <h2 className="mb-4 text-xl font-bold md:text-2xl">
           Top Coupons & Deals Categories
@@ -33,7 +39,7 @@ async function CategoriesListPage() {
         <h2 className="mb-4 text-xl font-[900] md:text-2xl">
           All Coupons & Deals Categories
         </h2>
-        <Suspense>
+        <Suspense fallback={<div>Loading categories...</div>}>
           <CategoryList categories={res.data ?? []} />
         </Suspense>
       </div>

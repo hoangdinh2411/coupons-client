@@ -1,4 +1,4 @@
-import { signOutApi } from '@/services/authApi'
+'use client'
 import { getMenu } from '@/services/clientApi'
 import { getUserProfile } from '@/services/userApi'
 import Actions from './Actions'
@@ -6,19 +6,33 @@ import Logo from './Logo'
 import Menu from './Menu'
 import MobileActions from './MobileActions'
 import SearchBar from './SearchBar'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
+import UseAppStore from '@/stores/app.store'
 
-export default async function Header() {
-  const [menuRes, profileRes] = await Promise.all([getMenu(), getUserProfile()])
+export default function Header() {
+  const { setUser, setMenu, signOut } = UseAppStore((state) => state)
+  useEffect(() => {
+    async function init() {
+      const [menuRes, profileRes] = await Promise.all([
+        getMenu(),
+        getUserProfile(),
+      ])
 
-  if (!menuRes.success || !menuRes.data) {
-    throw new Error(menuRes?.message ?? 'cannot fetch menu')
-  }
-  if (!profileRes.success || !profileRes.data) {
-    await signOutApi()
-  }
-  const menu = menuRes.data
-  const profile = profileRes.data
+      if (!menuRes.success || !menuRes.data) {
+        throw new Error(menuRes?.message ?? 'cannot fetch menu')
+      }
+      if (!profileRes.success || !profileRes.data) {
+        await signOut()
+      }
+      if (menuRes.data) {
+        setMenu(menuRes.data)
+      }
+      if (profileRes.data) {
+        setUser(profileRes.data)
+      }
+    }
+    init()
+  }, [])
 
   return (
     <header>
@@ -32,11 +46,11 @@ export default async function Header() {
         <nav className="relative m-auto flex w-full max-w-(--max-width) items-center gap-4 p-4 py-4">
           <Logo />
           <Suspense>
-            <Menu data={menu} />
-            <SearchBar popularStores={menu.popular} />
-            <Actions profile={profile} />
+            <Menu />
+            <SearchBar />
+            <Actions />
+            <MobileActions />
           </Suspense>
-          <MobileActions />
         </nav>
       </div>
     </header>
