@@ -40,10 +40,10 @@ const AnnouncementSlides = memo(() => (
     >
       <SplideTrack>
         <SplideSlide className="py-4 text-center text-sm font-semibold text-gray-800">
-          Automatically Apply The Best Codes
+          <p> Automatically Apply The Best Codes</p>
         </SplideSlide>
         <SplideSlide className="py-4 text-center text-sm font-semibold text-gray-800 underline">
-          Add To Your Browser! It&apos;s Free
+          <p>Add To Your Browser! It&apos;s Free</p>
         </SplideSlide>
       </SplideTrack>
     </Splide>
@@ -102,10 +102,7 @@ const StackCashBanner = memo(() => (
 function Header() {
   return (
     <>
-      {/** Announcement Slides */}
       <AnnouncementSlides />
-
-      {/**Main Banner */}
       <div className="relative flex h-[150px] items-center justify-center bg-[#3753AC]">
         <Image
           alt="4th of July promotional banner"
@@ -130,17 +127,11 @@ function Header() {
           </h2>
         </div>
       </div>
-
-      {/**Navigation */}
       <Navigation />
-
-      {/**Disclaimer */}
       <p className="mt-4 mb-4 text-center text-[12px] leading-5 font-bold">
         When you buy through links on TrustCoupon{' '}
         <span className="underline"> we may earn a commission.</span>
       </p>
-
-      {/**Stack Cash Banner - Moved up và optimized */}
       <StackCashBanner />
     </>
   )

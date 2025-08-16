@@ -15,9 +15,9 @@ function TitleCoupon({
         </a>
       </p>
       {viewAllText && (
-        <div className="block text-[12px] font-semibold tracking-widest uppercase underline underline-offset-4 md:ml-auto md:text-[16px] lg:mt-4">
+        <p className="block text-[12px] font-semibold tracking-widest uppercase underline underline-offset-4 md:ml-auto md:text-[16px] lg:mt-4">
           {viewAllText}
-        </div>
+        </p>
       )}
     </div>
   )
