@@ -1,4 +1,6 @@
 import { UserData } from '@/types/auth.type'
+import { CouponData } from '@/types/coupon.type'
+import { TypeDiscount } from '@/types/enum'
 import dayjs from 'dayjs'
 
 export function formatDiscountPct(value: number): number | string {
@@ -14,4 +16,9 @@ export const formatDisplayName = (user: UserData) => {
 
 export function formatDate(dateString: string): string {
   return dayjs(dateString).format('MMMM D, YYYY')
+}
+
+export function formatDiscount(coupon: CouponData) {
+  if (!coupon) return 'N/A'
+  return `${coupon.discount}${coupon.type_discount === TypeDiscount.PERCENT ? '%' : '$'}`
 }
