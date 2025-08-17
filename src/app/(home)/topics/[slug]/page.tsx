@@ -98,6 +98,7 @@ export default async function TopicDetailPage({
   const rest = blogs.slice(3, blogs.length)
   const total = blogsRes?.data?.total
   const topic = blogs[0]?.topic || []
+
   return (
     <Fragment>
       <nav className="mx-auto max-w-[1162px] pt-10">

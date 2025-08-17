@@ -39,13 +39,16 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           <Link href={`/blogs/${blog.slug}`}>
             {blog.topic && (
               <div className="flex h-full flex-col justify-between gap-2">
-                <div className="">
+                <div className="flex flex-col items-start justify-between gap-3">
                   <span className="text-green text-xs font-bold tracking-wide uppercase group-hover:text-white">
                     {blog.topic.name}
                   </span>
-                  <h3 className="text-olive-green mt-2 text-xl font-bold group-hover:text-white">
+                  <h3 className="text-olive-green text-xl font-bold group-hover:text-white">
                     {blog.title}
                   </h3>
+                  <h6 className="text-olive-green mt-auto line-clamp-3 text-base group-hover:text-white">
+                    {blog.meta_data?.description}
+                  </h6>
                 </div>
               </div>
             )}
