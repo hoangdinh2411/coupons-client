@@ -70,6 +70,7 @@ function ModalCoupon() {
     if (open && referenceId) {
       startTransition(async () => {
         const res = await getCoupon(+referenceId)
+        console.log(res)
         if (res.success && res.data) {
           setCoupon(res.data)
         }
@@ -113,7 +114,7 @@ function ModalCoupon() {
           {/* Coupon code and email section - fixed height */}
           <div className="flex flex-shrink-0 flex-col items-center">
             {/* Coupon code section */}
-            {coupon.type === CouponType.CODE && (
+            {coupon.type === CouponType.CODE ? (
               <div className="flex flex-col items-center">
                 <div className="relative mx-auto flex h-14 w-[288px] items-center rounded-full border-1 border-slate-700 px-6 py-4 text-xl font-bold text-white transition duration-200">
                   <span className="mr-2 flex-1 bg-gradient-to-r from-black via-gray-600 to-gray-300 bg-clip-text text-left text-transparent uppercase">
@@ -136,6 +137,18 @@ function ModalCoupon() {
                     {coupon?.store?.name}
                   </Link>
                 </p>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center">
+                <div className="relative mx-auto flex h-14 w-[288px] items-center rounded-full px-6 py-4 text-xl font-bold transition duration-200">
+                  <Link
+                    href={coupon.offer_link ?? ''}
+                    target="_blank"
+                    className="bg-green absolute top-1/2 right-1 ml-auto flex h-[90%] w-full -translate-y-1/2 cursor-pointer items-center justify-center rounded-full px-6 font-bold text-white uppercase"
+                  >
+                    Show now
+                  </Link>
+                </div>
               </div>
             )}
 
