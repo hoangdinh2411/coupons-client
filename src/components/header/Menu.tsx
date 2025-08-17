@@ -1,5 +1,6 @@
 'use client'
 import { APP_ROUTERS } from '@/helpers/config'
+import UseAppStore from '@/stores/app.store'
 import { MenuData } from '@/types/client.type'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -12,6 +13,7 @@ export default function Menu({ menu }: { menu: MenuData | null }) {
   const categoryRef = useRef<HTMLDivElement>(null)
   const blogRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
+  const { setMenu } = UseAppStore((state) => state)
   const handleToggleSubmenu = (value: string) => {
     setTarget((prev) => (prev === value ? '' : value))
   }
@@ -45,6 +47,12 @@ export default function Menu({ menu }: { menu: MenuData | null }) {
       setTarget('')
     }
   }, [pathname])
+
+  useEffect(() => {
+    if (menu) {
+      setMenu(menu)
+    }
+  }, [menu])
   return (
     <ul className="z-20 hidden gap-4 lg:flex">
       <li className="relative font-semibold text-white">

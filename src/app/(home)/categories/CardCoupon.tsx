@@ -28,7 +28,7 @@ function CardCoupon({
         <Image
           fill
           alt={`${category.name} category`}
-          className="object-cover"
+          className="bg-white object-cover"
           src={category?.image?.url}
           fetchPriority={priority ? 'high' : 'low'}
           loading={isAboveFold ? 'eager' : 'lazy'}

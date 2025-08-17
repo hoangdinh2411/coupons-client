@@ -3,6 +3,9 @@ import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CouponData } from '@/types/coupon.type'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
+import { METADATA } from '@/helpers/config'
+import { formatDiscount } from '@/helpers/format'
 
 const TopDealsSplide = ({ topDeals }: { topDeals: CouponData[] }) => {
   return (
@@ -37,8 +40,8 @@ const TopDealsSplide = ({ topDeals }: { topDeals: CouponData[] }) => {
                 <div className="grid grid-cols-9 border border-[#f3f3f3]">
                   <div className="col-span-4 flex h-full items-center justify-center bg-white p-1">
                     <Image
-                      src="/images/sample-product.webp"
-                      alt=""
+                      src={formatImageUrl(coupon.store?.image?.public_id)}
+                      alt={METADATA.APP_URL + ' image'}
                       className=""
                       loading="lazy"
                       width="125"
@@ -51,18 +54,22 @@ const TopDealsSplide = ({ topDeals }: { topDeals: CouponData[] }) => {
                         <div className="relative h-6 w-6">
                           <Image src={'/images/fire.svg'} alt="Fire" fill />
                         </div>
-                        <span className="pt-px">37% Off</span>
+                        <span className="pt-px">
+                          {formatDiscount(coupon)} Off
+                        </span>
                       </span>
                     </div>
                     <div className="flex grow flex-col justify-between">
                       <p className="line-clamp-3 text-xs font-medium">
-                        Infinno Inflatable Tummy Time Mat Premium Baby Water
-                        Play Mat
+                        {coupon.store?.name}
                       </p>
                       <div className="flex items-center justify-center gap-x-1 sm:justify-normal">
-                        <div className="rounded-full bg-gray-200 px-2.5 py-2 text-xs font-bold whitespace-nowrap text-black sm:px-4">
+                        <Link
+                          href={`/stores/${coupon.store?.slug}`}
+                          className="rounded-full bg-gray-200 px-2.5 py-2 text-xs font-bold whitespace-nowrap text-black sm:px-4"
+                        >
                           Check price
-                        </div>
+                        </Link>
                       </div>
                     </div>
                   </div>

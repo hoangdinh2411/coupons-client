@@ -68,13 +68,13 @@ function StoreInfo({
             Why trust us?
           </h3>
           <p className="mb-2 font-sans text-sm">
-            Here`&rsquo;`s why you can shop with confidence at {store.name}{' '}
-            using TrustCoupon:
+            Here&rsquo;s why you can shop with confidence at {store.name} using
+            TrustCoupon:
           </p>
           <ul className="list-inside list-disc space-y-1">
             <li>
               <strong>Daily Verification:</strong> Our team tests each code
-              every day to ensure it`&rsquo;`s active.
+              every day to ensure it&rsquo;s active.
             </li>
             <li>
               <strong>Clear Terms:</strong> We read the fine print so you know

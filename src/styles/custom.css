@@ -25,7 +25,11 @@ fieldset {
   background-color: rgb(247 247 247) !important;
   margin: 0 auto !important;
   width: 100% !important;
-  aspect-ratio: 1 / auto;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px;
+  justify-content: center !important;
+  align-items: center !important;
 }
 .image-wrapper img {
   background-color: inherit;
@@ -40,6 +44,7 @@ fieldset {
   padding: 8px 0 0 0 !important;
   display: flex !important;
   justify-content: center !important;
+  text-align: center !important;
 }
 .react-datepicker-wrapper {
   width: 100%;

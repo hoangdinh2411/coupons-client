@@ -7,14 +7,31 @@ interface CouponButtonProps {
 }
 
 export default function CouponButton({ coupon }: CouponButtonProps) {
+  const getButtonContent = () => {
+    switch (coupon.type as CouponType) {
+      case CouponType.CODE:
+        return 'See code'
+      case CouponType.ONLINE_AND_IN_STORE:
+        return 'Shop now'
+      default:
+        return 'Get deal'
+    }
+  }
+  const getHideValue = () => {
+    switch (coupon.type as CouponType) {
+      case CouponType.CODE:
+        return coupon.code ?? ''
+      case CouponType.ONLINE_AND_IN_STORE:
+        return 'Shop now'
+      default:
+        return 'Get deal'
+    }
+  }
+
   return (
     <div className="coupon-button show-peel">
-      {coupon?.code ? (
-        <div className="coupon-button-peel">{coupon?.code}</div>
-      ) : (
-        <div className="coupon-button-peel">Get Deal</div>
-      )}
-      {coupon.type === CouponType.CODE ? 'See Code' : 'Get Deal'}
+      <div className="coupon-button-peel">{getHideValue()}</div>
+      {getButtonContent()}
     </div>
   )
 }
