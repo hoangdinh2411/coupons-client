@@ -1,30 +1,28 @@
-import { CountCoupons } from '@/types/category.type'
+import { CategoryData, CountCoupons } from '@/types/category.type'
 import { StoreData } from '@/types/store.type'
 import Link from 'next/link'
 import React from 'react'
 
 const SideSection = ({
-  title = '',
+  category,
   countCoupons,
   similarStores,
-  about,
 }: {
-  title: string
-  about: string
+  category: CategoryData
   countCoupons: CountCoupons
   similarStores: StoreData[]
 }) => {
   return (
     <aside className="lg:row-end-infinite col-span-2 col-start-1 row-start-5 lg:col-span-1 lg:row-start-4 lg:mr-16">
       <p className="mt-8 mb-4 text-xs font-bold tracking-wider uppercase">
-        About {title} coupons
+        About {category.name} coupons
       </p>
       <div className="prose mb-14 text-base">
-        <p>{about}</p>
+        <p>{category.description}</p>
       </div>
 
       <p className="mb-4 text-xs font-bold tracking-wider uppercase">
-        Today&apos;s top {title} offers:
+        Today&apos;s top {category.name} offers:
       </p>
       <ul className="my-4 ml-4 list-disc text-sm">
         <li>2% Cash Back for Purchases Sitewide</li>

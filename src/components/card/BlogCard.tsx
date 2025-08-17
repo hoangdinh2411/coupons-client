@@ -24,7 +24,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
             sizes="auto"
             className="h-full w-full object-cover"
           />
-          <span className="absolute -top-4 -right-4 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
+          <span className="absolute -top-4 -right-4 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
             <Image
               src={blog.topic?.image.url || '/images/no-img.webp'}
               alt={blog.topic?.name}
@@ -71,7 +71,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
             sizes="auto"
             className="h-full w-full object-cover md:h-auto"
           />
-          <span className="absolute -bottom-2 left-6 z-10 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
+          <span className="absolute -bottom-2 left-6 z-10 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
             <Image
               src={blog.topic?.image.url || '/images/no-img.webp'}
               alt={blog.topic?.name}
@@ -121,7 +121,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           sizes="auto"
           className="h-full w-full object-cover"
         />
-        <span className="absolute -bottom-2 left-6 hidden size-[40px] rounded-full border-2 border-gray-200 lg:block">
+        <span className="absolute -bottom-2 left-6 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
           <Image
             src={blog.topic?.image.url || '/images/no-img.webp'}
             alt={blog.topic?.name}

@@ -12,6 +12,8 @@ import { CouponType } from '@/types/enum'
 import { getCouponsByCategory } from '@/services/categoryApi'
 import { usePathname } from 'next/navigation'
 import FAQs from './FAQs'
+import { formatDiscount } from '@/helpers/format'
+import { METADATA } from '@/helpers/config'
 
 const ListCoupons = ({
   coupons: initialCoupons,
@@ -61,57 +63,60 @@ const ListCoupons = ({
       window.location.href = coupon?.offer_link || coupon?.store?.url || ''
     }
   }
+
   return (
     <div className="col-span-2 col-start-1 row-start-4 mt-2 mb-6 overflow-hidden lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-3">
-      <section className="relative mb-6 flex gap-x-4">
-        <div className="relative min-h-24 min-w-24 overflow-hidden rounded-full border border-gray-200 p-2">
-          <Link href={'/coupons/amazon'}>
-            <Image
-              src={category.image.url}
-              alt="Amazon"
-              className="h-auto w-full object-cover"
-              fill
-            />
-          </Link>
-        </div>
-
-        <div>
-          <p className="xs:text-2xl text-xl font-bold">
-            Today&apos;s Top Deals
-          </p>
-          <p className="text-xs font-semibold tracking-wider uppercase">
-            Presented by {category.name}
-          </p>
-          <Link
-            href={`/coupons/amazon`}
-            className="mt-3 flex items-center text-xs font-bold tracking-wider uppercase underline underline-offset-2"
-            rel="nofollow sponsored"
-          >
-            <div className="relative h-5 w-5">
-              <Image
-                src={'/images/cashback-bolt.svg'}
-                alt="Cashback Bolt"
-                fill
-              />
+      {topDeals.length > 0 && (
+        <>
+          <section className="relative mb-6 flex gap-x-4">
+            <div className="relative min-h-24 min-w-24 overflow-hidden rounded-full border border-gray-200 p-2">
+              <Link href={'/coupons/amazon'}>
+                <Image
+                  src={category.image.url}
+                  alt={category.name}
+                  className="h-auto w-full object-cover"
+                  fill
+                />
+              </Link>
             </div>
-            1% Cash Back on {category.name}
-            <FaArrowRight className="ml-1 h-3 w-3" />
-          </Link>
-        </div>
 
-        <Link
-          href={`/stores/`}
-          className="absolute right-0.5 bottom-3 hidden h-11 items-center rounded-full border border-black bg-white px-4 py-1.5 text-xs font-bold whitespace-nowrap text-black lg:flex"
-        >
-          View more deals
-        </Link>
-      </section>
+            <div>
+              <p className="xs:text-2xl text-xl font-bold">
+                Today&apos;s Top Deals
+              </p>
+              <p className="text-xs font-semibold tracking-wider uppercase">
+                Presented by {category.name}
+              </p>
+              <Link
+                href={`/coupons/amazon`}
+                className="mt-3 flex items-center text-xs font-bold tracking-wider uppercase underline underline-offset-2"
+                rel="nofollow sponsored"
+              >
+                <div className="relative h-5 w-5">
+                  <Image
+                    src={'/images/cashback-bolt.svg'}
+                    alt="Cashback Bolt"
+                    fill
+                  />
+                </div>
+                on {category.name}
+                <FaArrowRight className="ml-1 h-3 w-3" />
+              </Link>
+            </div>
 
-      <TopDealsSplide topDeals={topDeals} />
-
+            <Link
+              href={`/stores`}
+              className="absolute right-0.5 bottom-3 hidden h-11 items-center rounded-full border border-black bg-white px-4 py-1.5 text-xs font-bold whitespace-nowrap text-black lg:flex"
+            >
+              View more deals
+            </Link>
+          </section>
+          <TopDealsSplide topDeals={topDeals} />
+        </>
+      )}
       <div className="my-14 flex w-full items-center justify-center">
         <Link
-          href={'/coupons'}
+          href={'/stores'}
           className="flex h-11 w-fit items-center justify-center rounded-full border border-black bg-white px-4 py-1.5 text-xs font-bold whitespace-nowrap text-black lg:hidden"
         >
           View more deals
@@ -130,7 +135,7 @@ const ListCoupons = ({
                 src={
                   coupon.store?.image?.url || '/images/default-store-logo.png'
                 }
-                alt="Target 2% Cash Back for Purchases Sidewise"
+                alt={METADATA.APP_URL + ' Image'}
                 className="object-contain px-2 pt-4 pb-0"
                 fill
               />
@@ -157,8 +162,7 @@ const ListCoupons = ({
             {coupon.discount > 0 && (
               <Badge
                 className="absolute top-2 left-2 !text-sm"
-                imageIcon="/images/cashback-bolt.svg"
-                text={`+${coupon.discount}% Back`}
+                text={formatDiscount(coupon) ?? 'N/A'}
               />
             )}
           </button>

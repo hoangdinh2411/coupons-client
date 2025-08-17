@@ -58,10 +58,10 @@ export default async function BlogsPage() {
                     </div>
                   </div>
                   <div className="group relative mb-[10px] border-2 border-[#741fa233] bg-[#fefefe] px-10 py-[30px] text-left transition-all duration-300 ease-out hover:bg-[#653297]">
-                    <span className="absolute -top-[10%] size-[46px] rounded-full border-2 border-[#fefefe]">
+                    <span className="absolute -top-[10%] size-[46px] overflow-hidden rounded-full border-2 border-[#fefefe]">
                       <Image
-                        src={'/images/blog-news.webp'}
-                        alt={'aaa'}
+                        src={formatImageUrl(newest.topic.image.public_id)}
+                        alt={newest.topic.name}
                         width={46}
                         height={46}
                         className="object-cover"

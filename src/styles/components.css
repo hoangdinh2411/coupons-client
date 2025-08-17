@@ -123,7 +123,7 @@
 }
 
 .coupon-button {
-  background-color: #318200;
+  background-color: #b5d43b;
   border-radius: 6px;
   color: #fff;
   font-size: 16px;
@@ -137,18 +137,18 @@
   width: -webkit-fit-content;
   width: fit-content;
   cursor: pointer;
-   transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
 }
 
 .show-peel:before {
-  border-bottom: 48px solid #318200;
+  border-bottom: 48px solid #b5d43b;
   border-right: 0px solid transparent;
   content: '';
   position: absolute;
   right: 0;
   top: 0;
   transform: rotate(0deg);
-   transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
   transition:
     border-bottom 0.25s,
     border-right 0.25s,
@@ -156,12 +156,12 @@
     transform 0.25s;
   z-index: 2;
   width: 40px;
-  background: linear-gradient(135deg, #b3d99b 0%, #a9d18c 50%, #9cc77f 100%);
+  background: linear-gradient(135deg, #d9ef82 0%, #d9ef82 50%, #d9ef82 100%);
   border-radius: 0 6px 6px 0;
 }
 
 .show-peel .coupon-button-peel {
-  background-color: #b3d99b;
+  background-color: #d9ef82;
   border-radius: 0 6px 6px 0;
   bottom: 1px;
   color: #2b2430;
@@ -182,7 +182,7 @@
 }
 
 .show-peel:after {
-  border-bottom: 12px solid #2d7300;
+  border-bottom: 12px solid #b5d43b;
   border-right: 32px solid transparent;
   bottom: 1px;
   content: '';
@@ -195,7 +195,7 @@
   border-radius: 0 0 3px 0;
 }
 .show-peel:hover:before {
-  border-bottom: 41px solid #a9d18c;
+  border-bottom: 41px solid #d9ef82 ;
   border-right: 40px solid transparent;
   top: 3px;
   transition: all 0.2s ease-in;

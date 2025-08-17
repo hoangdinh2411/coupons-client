@@ -1,4 +1,4 @@
-export function formatImageUrl(public_id: string) {
+export function formatImageUrl(public_id: string | undefined) {
   if (!public_id) return '/images/no-img.webp'
 
   const domain = 'https://img.trustcoupon.com'

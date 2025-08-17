@@ -1,4 +1,5 @@
 import { CouponData } from '@/types/coupon.type'
+import { TypeDiscount } from '@/types/enum'
 import React from 'react'
 
 const OffersTable = ({ coupons }: { coupons: CouponData[] }) => {
@@ -23,13 +24,13 @@ const OffersTable = ({ coupons }: { coupons: CouponData[] }) => {
             {coupons.slice(0, 5).map((coupon) => (
               <tr key={coupon.id} className="hover:bg-gray-100">
                 <td className="border-b-slate-600 px-4 py-4 text-start text-gray-500">
-                  {coupon.discount}%
+                  {`${coupon.discount} ${coupon.type_discount === TypeDiscount.PERCENT ? '%' : '$'}`}
                 </td>
                 <td className="border-b-slate-600 px-4 py-4 text-gray-500">
                   {coupon.offer_detail}
                 </td>
                 <td className="border-b-slate-600 px-4 py-4 text-start text-gray-500">
-                  {coupon.expire_date}
+                  {coupon.expire_date ? coupon.expire_date : 'Valid everyday'}
                 </td>
               </tr>
             ))}
