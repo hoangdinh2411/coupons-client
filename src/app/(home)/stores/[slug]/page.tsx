@@ -27,7 +27,7 @@ export async function generateMetadata({
   const store = res.data.store
   return {
     category: store.categories ? store.categories[0].name : 'website',
-    title: store.name,
+    title: `${store.meta_data?.title} ${dayjs(store.updated_at).format('MMMM YYYY')}`,
     description: store.meta_data?.description,
     keywords: store.keywords,
     alternates: {

@@ -9,6 +9,7 @@ import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
 import { Fragment } from 'react'
 import Head from 'next/head'
+import dayjs from 'dayjs'
 
 export async function generateMetadata({
   params,
@@ -25,7 +26,7 @@ export async function generateMetadata({
   const { category } = categoryResponse.data
   return {
     category: category.name,
-    title: category.name,
+    title: `${category.meta_data?.title} ${dayjs(category.updated_at).format('MMMM YYYY')}`,
     description: category.meta_data?.description,
     keywords: category.meta_data?.keywords,
     alternates: {

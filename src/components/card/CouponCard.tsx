@@ -92,7 +92,7 @@ function CouponCard(props: CouponCardPropsType) {
             </h2>
 
             {/* Description - Fixed line-clamp for desktop */}
-            <p className="line-clamp-2 text-sm leading-4 font-semibold text-gray-800 md:!line-clamp-3 md:text-base md:leading-5">
+            <p className="line-clamp-1 text-sm leading-4 font-semibold text-gray-800 md:!line-clamp-3 md:text-base md:leading-5">
               {description}
             </p>
           </div>

@@ -108,6 +108,7 @@ export default async function LandingPage() {
   const top_deals_today = res.data?.top_deal_today ?? []
   const top_deals = res.data?.top_deals ?? []
 
+  console.log(top_deals_today)
   return (
     <Fragment>
       <Suspense
@@ -244,11 +245,11 @@ export default async function LandingPage() {
               </div>
             </div>
           </div>
+          {/* Today top deal */}
           {top_deals_today && (
             <div className="mt-12">
               <div className="mx-auto max-w-[1280px] overflow-hidden">
                 <div className="group relative cursor-auto">
-                  {/* Today top deal */}
                   <TopDealList top_deals_today={top_deals_today} />
                 </div>
               </div>

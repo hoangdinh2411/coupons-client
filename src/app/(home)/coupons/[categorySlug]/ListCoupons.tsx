@@ -161,7 +161,7 @@ const ListCoupons = ({
 
             {coupon.discount > 0 && (
               <Badge
-                className="absolute top-2 left-2 !text-sm"
+                className="absolute top-2 left-2 p-2 !text-sm"
                 text={formatDiscount(coupon) ?? 'N/A'}
               />
             )}

@@ -146,7 +146,7 @@ function ModalCoupon() {
                     target="_blank"
                     className="bg-green absolute top-1/2 right-1 ml-auto flex h-[90%] w-full -translate-y-1/2 cursor-pointer items-center justify-center rounded-full px-6 font-bold text-white uppercase"
                   >
-                    Show now
+                    Shop now
                   </Link>
                 </div>
               </div>
