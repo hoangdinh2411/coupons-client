@@ -144,7 +144,9 @@ export default async function StoreDetailPage({
                 <CouponList coupons={store?.expired_coupons ?? []} />
               </Fragment>
             )}
-            <OffersTable coupons={store?.coupons ?? []} />
+            {store?.coupons.length > 0 && (
+              <OffersTable coupons={store?.coupons ?? []} />
+            )}
             <div className={`block lg:hidden`}>
               <StoreInfo store={store} similar_store={similar_store} />
             </div>

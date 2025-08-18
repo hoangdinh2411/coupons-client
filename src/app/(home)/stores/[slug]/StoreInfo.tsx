@@ -113,9 +113,9 @@ function StoreInfo({
             Rating {store.name}
           </h2>
 
-          <div className="relative my-3 min-h-10">
+          <div className="relative my-3">
             {/* Stars */}
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center gap-1">
               {totalRating.map((i) => (
                 <button
                   key={i}

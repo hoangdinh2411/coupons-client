@@ -18,7 +18,7 @@ const SideSection = ({
         About {category.name} coupons
       </p>
       <div className="prose mb-14 text-base">
-        <p>{category.description}</p>
+        <p>{category.about}</p>
       </div>
 
       <p className="mb-4 text-xs font-bold tracking-wider uppercase">

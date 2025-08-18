@@ -9,7 +9,7 @@ function CouponList({ coupons }: CouponListPropsType) {
   return (
     <div>
       {coupons.map((coupon: CouponData, index: number) => (
-        <CouponCardAccordion key={index} {...coupon} />
+        <CouponCardAccordion key={index} coupon={coupon} />
       ))}
     </div>
   )
