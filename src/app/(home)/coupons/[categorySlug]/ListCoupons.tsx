@@ -8,7 +8,6 @@ import TopDealsSplide from './TopDealsSplide'
 import Badge from '@/components/badge'
 import { CouponData } from '@/types/coupon.type'
 import { CategoryData } from '@/types/category.type'
-import { CouponType } from '@/types/enum'
 import { getCouponsByCategory } from '@/services/categoryApi'
 import { usePathname } from 'next/navigation'
 import FAQs from './FAQs'
@@ -150,13 +149,9 @@ const ListCoupons = ({
                   {coupon.title || 'Coupon Title'}
                 </p>
               </div>
-              {coupon.type === CouponType.CODE ? (
-                <p className="mt-2 self-start rounded-full bg-gray-100 px-4 py-1.5 text-xs font-bold lg:mb-1">
-                  {coupon.type === CouponType.CODE ? 'Coupon Code' : ''}
-                </p>
-              ) : (
-                <></>
-              )}
+              <p className="mt-2 self-start rounded-full bg-gray-100 px-4 py-1.5 text-xs font-bold capitalize lg:mb-1">
+                {coupon.type}
+              </p>
             </div>
 
             {coupon.discount > 0 && (
