@@ -3,7 +3,7 @@ import React from 'react'
 import { FaChevronRight } from 'react-icons/fa'
 import AccountInfo from './AccountInfo'
 import { getUserProfile } from '@/services/userApi'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import { Metadata } from 'next'
 
@@ -19,9 +19,8 @@ export const metadata: Metadata = {
 
 const ProfilePage = async () => {
   const res = await getUserProfile()
-
   if (!res.success || !res.data) {
-    notFound()
+    redirect(APP_ROUTERS.INDEX)
   }
 
   return (
