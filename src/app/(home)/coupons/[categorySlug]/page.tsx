@@ -97,6 +97,7 @@ const CouponsByCategoryPage = async ({
             countCoupons={count_coupons}
             similarStores={similar_stores}
           />
+
           <ListCoupons
             topDeals={top_deals}
             coupons={coupons || []}

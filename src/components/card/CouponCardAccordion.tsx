@@ -7,7 +7,7 @@ import { CouponData } from '@/types/coupon.type'
 import { usePathname } from 'next/navigation'
 import { formatDiscount } from '@/helpers/format'
 
-function CouponCardAccordion(coupon: CouponData) {
+function CouponCardAccordion({ coupon }: { coupon: CouponData }) {
   const pathname = usePathname()
   const handleClick = () => {
     // open a new tab/window at the same URL
@@ -59,10 +59,7 @@ function CouponCardAccordion(coupon: CouponData) {
         </div>
         <CouponButton coupon={coupon} />
       </div>
-      <CardAccordion
-        className="hidden md:block"
-        content={<p>{coupon.offer_detail}</p>}
-      />
+      <CardAccordion className="hidden md:block" coupon={coupon} />
     </div>
   )
 }

@@ -112,16 +112,16 @@ const ListCoupons = ({
             </Link>
           </section>
           <TopDealsSplide topDeals={topDeals} />
+          <div className="my-14 flex w-full items-center justify-center">
+            <Link
+              href={'/stores'}
+              className="flex h-11 w-fit items-center justify-center rounded-full border border-black bg-white px-4 py-1.5 text-xs font-bold whitespace-nowrap text-black lg:hidden"
+            >
+              View more deals
+            </Link>
+          </div>
         </>
       )}
-      <div className="my-14 flex w-full items-center justify-center">
-        <Link
-          href={'/stores'}
-          className="flex h-11 w-fit items-center justify-center rounded-full border border-black bg-white px-4 py-1.5 text-xs font-bold whitespace-nowrap text-black lg:hidden"
-        >
-          View more deals
-        </Link>
-      </div>
 
       <div className="grid grid-cols-1 gap-4 md:mt-20 md:grid-cols-3">
         {coupons?.map((coupon, index) => (
