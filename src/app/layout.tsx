@@ -8,6 +8,7 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 const ToastProvider = dynamic(() => import('@/context/ToastProvider'))
 const ModalCoupon = dynamic(() => import('@/components/modal/ModalCoupon'))
+const ScrollToTop = dynamic(() => import('@/components/scroll-to-top'))
 import { aptos } from '@/fonts/aptos'
 import { aptosDisplay } from '@/fonts/aptosDisplay'
 import { aptosNarrow } from '@/fonts/aptosNarrow'
@@ -124,6 +125,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        <ScrollToTop />
         <ToastProvider />
         <Suspense>
           <ModalCoupon />
