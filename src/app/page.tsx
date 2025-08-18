@@ -108,7 +108,6 @@ export default async function LandingPage() {
   const top_deals_today = res.data?.top_deal_today ?? []
   const top_deals = res.data?.top_deals ?? []
 
-  console.log(top_deals_today)
   return (
     <Fragment>
       <Suspense

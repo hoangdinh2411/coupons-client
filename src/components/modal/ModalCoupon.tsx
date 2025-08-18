@@ -70,7 +70,6 @@ function ModalCoupon() {
     if (open && referenceId) {
       startTransition(async () => {
         const res = await getCoupon(+referenceId)
-        console.log(res)
         if (res.success && res.data) {
           setCoupon(res.data)
         }
