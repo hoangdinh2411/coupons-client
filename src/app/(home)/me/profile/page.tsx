@@ -14,7 +14,6 @@ import SocialMediaSection from './components/SocialMediaSection'
 
 const ProfilePage = () => {
   const { user, setUser } = UseAppStore((state) => state)
-  console.log('🚀 ~ ProfilePage ~ user:', user)
   const [editingSection, setEditingSection] = useState<string | null>(null)
   const [showEmailVerification, setShowEmailVerification] = useState(false)
   const [loading, setLoading] = useState(false)

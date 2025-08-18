@@ -8,10 +8,10 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 const ToastProvider = dynamic(() => import('@/context/ToastProvider'))
 const ModalCoupon = dynamic(() => import('@/components/modal/ModalCoupon'))
-const ScrollToTop = dynamic(() => import('@/components/scroll-to-top'))
 import { aptos } from '@/fonts/aptos'
 import { aptosDisplay } from '@/fonts/aptosDisplay'
 import { aptosNarrow } from '@/fonts/aptosNarrow'
+import ScrollToTop from '@/components/scroll-to-top/ScrollToTop'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

@@ -49,7 +49,7 @@ export default function ScrollToTop() {
             ease: 'easeInOut',
           }}
           onClick={scrollToTop}
-          className="fixed right-8 bottom-8 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-xl focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+          className="bg-green focus:ring-olive-green fixed right-8 bottom-8 z-50 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r text-white shadow-lg hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none lg:h-10 lg:w-10"
           aria-label="Scroll to top"
         >
           <FaChevronUp className="h-5 w-5" />
