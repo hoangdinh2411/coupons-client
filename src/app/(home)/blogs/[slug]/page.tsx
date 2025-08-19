@@ -17,6 +17,7 @@ import Head from 'next/head'
 import Breadcrumb from './Breadcrumb'
 import FAQs from './FAQs'
 import { formatImageUrl } from '@/helpers/formatImageUrl'
+import Script from 'next/script'
 export async function generateMetadata({
   params,
 }: {
@@ -97,8 +98,61 @@ export default async function BlogDetailPage({
   const blog = blogRes.data.blog
   const latest = latestRes.data || []
   const readMore = blogRes.data.read_more
+  //Schema Organization
+  const jsonLd = {
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': 'https://trustcoupon.com/blogs/' + blog.slug,
+        headline: blog.title,
+        description: blog.meta_data?.description,
+        datePublished: blog.updated_at,
+        dateModified: blog.updated_at,
+        author: {
+          '@type': 'Person',
+          name: formatDisplayName(blog.user),
+          url: 'https://trustcoupon.com/me',
+        },
+        publisher: {
+          '@type': 'Organization',
+          '@id': 'https://trustcoupon.com/#organization',
+          name: 'TrustCoupon.com',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://trustcoupon.com/images/logo-with-white-text-and-green-logo.png',
+          },
+        },
+        image: [formatImageUrl(blog.image.public_id)],
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': 'https://trustcoupon.com/blogs/' + blog.slug,
+        },
+        articleSection: blog.topic.name,
+        keywords: blog.keywords || blog.meta_data?.keywords,
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': 'https://trustcoupon.com/blogs/' + blog.slug,
+        mainEntity: blog.faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: f.answer,
+          },
+        })),
+      },
+    ],
+  }
+  const jsonLdClean = JSON.parse(JSON.stringify(jsonLd))
   return (
     <Fragment>
+      <Script
+        id={`ld-blog-${blog.slug}`}
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdClean) }}
+      />
       <Head>
         {blog.keywords.map((tag) => (
           <meta key={tag} property="article:tag" content={tag} />
