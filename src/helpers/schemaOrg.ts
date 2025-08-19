@@ -48,7 +48,7 @@ export const jsonHome = {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Trang chủ',
+          name: 'HomePage',
           item: 'https://trustcoupon.com/',
         },
       ],
