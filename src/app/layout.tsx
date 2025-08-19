@@ -70,13 +70,6 @@ export default function RootLayout({
   children: React.ReactNode
 }): JSX.Element {
   //Schema Organization
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: METADATA.NAME,
-    url: METADATA.APP_URL,
-    logo: `${METADATA.APP_URL}/logo.png`,
-  }
 
   return (
     <html
@@ -120,10 +113,10 @@ export default function RootLayout({
         suppressHydrationWarning={true}
         suppressContentEditableWarning={true}
       >
-        <script
+        {/* <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        /> */}
         {children}
         <ScrollToTop />
         <ToastProvider />
