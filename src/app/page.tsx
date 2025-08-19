@@ -11,6 +11,8 @@ import SpotlightList from './(home)/(home)/SpotlightList'
 import { Fragment, Suspense } from 'react'
 import PopularList from './(home)/(home)/PopularList'
 import { getDataForHomePage } from '@/services/clientApi'
+import { jsonHome } from '@/helpers/schemaOrg'
+import Script from 'next/script'
 
 const FAQ = [
   {
@@ -107,9 +109,19 @@ export default async function LandingPage() {
 
   const top_deals_today = res.data?.top_deal_today ?? []
   const top_deals = res.data?.top_deals ?? []
+  const jsonLd = {
+    ...jsonHome,
+  }
+  const jsonLdClean = JSON.parse(JSON.stringify(jsonLd))
 
   return (
     <Fragment>
+      <Script
+        id={`ld-blog-home`}
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdClean) }}
+      />
       <Suspense
         fallback={<div className="h-[112px] bg-gray-50 lg:h-[122px]" />}
       >
