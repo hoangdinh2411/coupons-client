@@ -15,9 +15,9 @@ import { METADATA } from '@/helpers/config'
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const { slug } = params
+  const { slug } = await params
 
   const res = await getStoreBySlug(slug)
   if (!res.success || !res.data?.store) {
@@ -65,9 +65,9 @@ export async function generateMetadata({
 export default async function StoreDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const { slug } = params
+  const { slug } = await params
   const res = await getStoreBySlug(slug)
 
   if (!res.success || !res.data) {
