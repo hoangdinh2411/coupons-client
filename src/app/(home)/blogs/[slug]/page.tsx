@@ -131,6 +131,29 @@ export default async function BlogDetailPage({
         keywords: blog.keywords || blog.meta_data?.keywords,
       },
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://trustcoupon.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Blogs',
+            item: 'https://trustcoupon.com/blogs',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: blog.title,
+            item: 'https://trustcoupon.com/blogs/' + blog.slug,
+          },
+        ],
+      },
+      {
         '@type': 'FAQPage',
         '@id': 'https://trustcoupon.com/blogs/' + blog.slug,
         mainEntity: blog.faqs.map((f) => ({
