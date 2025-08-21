@@ -7,7 +7,7 @@ type MetaData = {
   description: string
 }
 
-type Data = {
+export type DynamicPageType = {
   created_at: string
   updated_at: string
   deleted_at: string | null
@@ -23,5 +23,5 @@ type Data = {
 
 export type DynamicPageResponse = {
   success?: boolean
-  data: Data
+  data: DynamicPageType
 }
