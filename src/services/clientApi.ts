@@ -1,6 +1,7 @@
 import { CouponData } from '@/types/coupon.type'
 import customFetch from './customFetch'
 import { MenuData, SearchData } from '@/types/client.type'
+import { DynamicPageResponse } from '@/types/dynamic-page.type'
 
 export const getMenu = async () => {
   return await customFetch<MenuData>(`/client/menu`, {
@@ -18,6 +19,14 @@ export const getDataForHomePage = async () => {
     next: {
       revalidate: 3600,
       tags: ['menu-data'],
+    },
+  })
+}
+export const getPageByType = async (type: string) => {
+  return await customFetch<DynamicPageResponse>(`/client/pages/${type}`, {
+    next: {
+      revalidate: 3600,
+      tags: ['page-data'],
     },
   })
 }
