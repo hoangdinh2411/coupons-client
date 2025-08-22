@@ -4,6 +4,7 @@ import React, { memo } from 'react'
 import Link from 'next/link'
 import { CouponData } from '@/types/coupon.type'
 import { METADATA } from '@/helpers/config'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 export interface TopDealCardPropsType {
   coupon: CouponData
@@ -36,7 +37,7 @@ function TopDealCard({
                 className="rounded-xl border bg-white object-contain object-center p-2 md:rounded-none md:border-0"
                 fill
                 alt={`${METADATA.NAME} ${coupon.store?.name || coupon.title} store logo`}
-                src={coupon.store?.image?.url ?? '/images/no-img.webp'}
+                src={formatImageUrl(coupon.store?.image?.public_id)}
                 sizes="(min-width: 1280px) 120px, (min-width: 1024px) 125px, (min-width: 768px) 125px, 127px"
                 loading="lazy"
               />

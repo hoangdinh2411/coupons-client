@@ -15,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const res = await getOtherPageBySlug(slug)
-  if (!res.success || !res.data) {
+  if (!res.success || !res.data || !res.data.content) {
     notFound()
   }
 
@@ -70,7 +70,7 @@ export async function generateMetadata({
 export default async function Page({ params }: PageProps) {
   const { slug } = await params
   const res = await getOtherPageBySlug(slug)
-  if (!res.success || !res.data) {
+  if (!res.success || !res.data || !res.data.content) {
     notFound()
   }
 

@@ -7,6 +7,7 @@ import { getBlogsByTopic, getTopics } from '@/services/topicApi'
 import { notFound, redirect } from 'next/navigation'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import ListBlogs from '../../blogs/components/ListBlogs'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 export async function generateMetadata({
   params,
@@ -120,7 +121,7 @@ export default async function TopicDetailPage({
               <h1 className="flex items-center gap-4 text-5xl font-bold text-[#ff5c6d] capitalize">
                 <Image
                   className="size-10 rounded-full border-2 border-gray-100"
-                  src={topic?.image?.url || '/images/no-img.webp'}
+                  src={formatImageUrl(topic?.image?.public_id)}
                   alt={topic?.name || ''}
                   width={160}
                   height={160}

@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 import UseAppStore from '@/stores/app.store'
 import { saveCoupon } from '@/services/userApi'
 import { CouponType } from '@/types/enum'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 function ModalCoupon() {
   const [open, setOpen] = useState(false)
@@ -97,7 +98,7 @@ function ModalCoupon() {
           {/* Fixed size image container */}
           <div className="relative mx-auto size-[96px] min-h-[96px] min-w-[96px] flex-shrink-0 overflow-hidden rounded-full border border-[#121821] bg-white object-contain">
             <Image
-              src={coupon?.store?.image?.url || '/images/brandCard2.webp'}
+              src={formatImageUrl(coupon?.store?.image?.public_id)}
               alt={coupon.store?.name || coupon.title}
               fill
               priority

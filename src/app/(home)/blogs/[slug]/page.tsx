@@ -168,6 +168,7 @@ export default async function BlogDetailPage({
     ],
   }
   const jsonLdClean = JSON.parse(JSON.stringify(jsonLd))
+  console.log(readMore)
   return (
     <Fragment>
       <Script

@@ -13,6 +13,7 @@ import { usePathname } from 'next/navigation'
 import FAQs from './FAQs'
 import { formatDiscount } from '@/helpers/format'
 import { METADATA } from '@/helpers/config'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 const ListCoupons = ({
   coupons: initialCoupons,
@@ -131,9 +132,7 @@ const ListCoupons = ({
           >
             <div className="relative flex aspect-video max-h-full max-w-36 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-white object-contain px-4 capitalize md:max-w-full md:rounded-none md:border-0 md:px-8">
               <Image
-                src={
-                  coupon.store?.image?.url || '/images/default-store-logo.png'
-                }
+                src={formatImageUrl(coupon.store?.image?.public_id)}
                 alt={METADATA.APP_URL + ' Image'}
                 className="object-contain px-2 pt-4 pb-0"
                 fill

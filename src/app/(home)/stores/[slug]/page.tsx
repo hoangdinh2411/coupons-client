@@ -11,6 +11,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 export async function generateMetadata({
   params,
@@ -166,7 +167,7 @@ export default async function StoreDetailPage({
                       <Image
                         fill
                         priority
-                        src={store.image?.url || '/images/female.webp'}
+                        src={formatImageUrl(store.image?.public_id)}
                         alt={store?.name || 'Store Logo'}
                         className="size-full rounded-[100%] object-contain"
                       />

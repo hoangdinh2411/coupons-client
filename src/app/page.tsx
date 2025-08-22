@@ -106,7 +106,6 @@ const SPOTLIGHT_LIST = Array.from({ length: 3 }, (_, i) => ({
 
 export default async function LandingPage() {
   const res = await getDataForHomePage()
-
   const top_deals_today = res.data?.top_deal_today ?? []
   const top_deals = res.data?.top_deals ?? []
   const jsonLd = {
