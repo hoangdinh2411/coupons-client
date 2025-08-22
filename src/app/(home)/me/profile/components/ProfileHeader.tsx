@@ -1,10 +1,12 @@
 // components/ProfileHeader.tsx
 import React from 'react'
 import Image from 'next/image'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
+import { ImageType } from '@/types/share.type'
 
 interface ProfileHeaderProps {
   email: string
-  avatar?: { url: string }
+  avatar?: ImageType
   loading: boolean
   onSelectFile: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -24,7 +26,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         <div className="relative flex size-16 overflow-hidden rounded-full bg-gray-200 sm:size-20">
           {avatar?.url ? (
             <Image
-              src={avatar.url}
+              src={formatImageUrl(avatar.public_id)}
               alt="Profile"
               className="h-full w-full object-cover"
               width={80}

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { memo } from 'react'
 import { usePathname } from 'next/navigation'
 import { CouponData } from '@/types/coupon.type'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 // Interface for using with CouponData object
 export interface CouponCardWithDataPropsType {
@@ -47,7 +48,7 @@ function CouponCard(props: CouponCardPropsType) {
     const { coupon } = props
     title = coupon.title
     description = coupon.offer_detail
-    imgUrl = coupon.store?.image?.url ?? '/images/no-img.webp'
+    imgUrl = formatImageUrl(coupon.store?.image?.public_id)
   } else {
     // Using individual props
     title = props.title

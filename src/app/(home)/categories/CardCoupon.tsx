@@ -1,4 +1,5 @@
 'use client'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 import { CategoryData } from '@/types/category.type'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,7 +30,7 @@ function CardCoupon({
           fill
           alt={`${category.name} category`}
           className="bg-white object-cover"
-          src={category?.image?.url}
+          src={formatImageUrl(category.image.public_id)}
           fetchPriority={priority ? 'high' : 'low'}
           loading={isAboveFold ? 'eager' : 'lazy'}
           sizes="(min-width: 640px) 144px, 126px"

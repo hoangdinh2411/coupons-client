@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { formatDate } from '@/helpers/format'
 import { BlogData } from '@/types/blog.type'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 interface BlogCardProps {
   blog: BlogData
@@ -17,7 +18,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           className="relative aspect-[1] max-h-[200px] min-h-auto w-1/4 min-w-[200px]"
         >
           <Image
-            src={blog.image.url || '/images/no-img.webp'}
+            src={formatImageUrl(blog.image.public_id)}
             alt={blog.title}
             fill
             priority
@@ -26,7 +27,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           />
           <span className="absolute -top-4 -right-4 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
             <Image
-              src={blog.topic?.image.url || '/images/no-img.webp'}
+              src={formatImageUrl(blog.topic.image.public_id)}
               alt={blog.topic?.name}
               fill
               sizes="auto"
@@ -67,7 +68,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           className="relative aspect-[1] max-h-[280px] w-full"
         >
           <Image
-            src={blog.image.url || '/images/no-img.webp'}
+            src={formatImageUrl(blog.image.public_id)}
             alt={blog.title}
             fill
             priority
@@ -76,7 +77,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           />
           <span className="absolute -bottom-2 left-6 z-10 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
             <Image
-              src={blog.topic?.image.url || '/images/no-img.webp'}
+              src={formatImageUrl(blog.topic.image.public_id)}
               alt={blog.topic?.name}
               fill
               sizes="auto"
@@ -117,7 +118,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
         className="relative aspect-[1] max-h-[280px] w-full"
       >
         <Image
-          src={blog.image.url || '/images/no-img.webp'}
+          src={formatImageUrl(blog.image.public_id)}
           alt={blog.title}
           fill
           priority
@@ -126,7 +127,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
         />
         <span className="absolute -bottom-2 left-6 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
           <Image
-            src={blog.topic?.image.url || '/images/no-img.webp'}
+            src={formatImageUrl(blog.topic.image.public_id)}
             alt={blog.topic?.name}
             fill
             sizes="auto"

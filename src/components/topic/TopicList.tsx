@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
 import { TopicData } from '@/types/topic.type'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 export default function TopicList({ topics }: { topics: TopicData[] }) {
   return (
@@ -34,7 +35,7 @@ export default function TopicList({ topics }: { topics: TopicData[] }) {
             >
               <div className="group-hover:border-green relative aspect-square w-full max-w-[62px] overflow-hidden rounded-full border border-gray-300">
                 <Image
-                  src={topic.image.url || '/images/no-img.webp'}
+                  src={formatImageUrl(topic.image.public_id)}
                   alt={`${topic.name} topic`}
                   fill
                   className="object-cover"
