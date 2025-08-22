@@ -36,9 +36,14 @@ export const getBlogBySlug = async (slug: string) => {
     cache: 'force-cache',
   })
 }
-export const getAllBlogs = async () => {
+export const getAllBlogs = async (page?: number, limit?: number) => {
+  const params = new URLSearchParams()
+  if (page && limit) {
+    params.append('page', page.toString())
+    params.append('limit', limit.toString())
+  }
   return await customFetch<IResponseWithTotal<BlogData[]>>(
-    `/client/blogs/all`,
+    `/client/blogs/all?${params.toString()}`,
     {
       next: {
         revalidate: 3600,
