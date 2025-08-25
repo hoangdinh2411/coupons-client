@@ -28,23 +28,27 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
     return () => clearTimeout(handler)
   }, [searchText])
 
+  async function handleSearch(text: string) {
+    if (!text.trim()) return
+    const res = await search(text)
+    if (!res.data || !res.success) return
+    console.log(res.data)
+    // check if value is not empty
+    if (
+      res.data &&
+      ((Array.isArray(res.data.stores) && res.data.stores.length > 0) ||
+        (Array.isArray(res.data.categories) &&
+          res.data.categories.length > 0) ||
+        (Array.isArray(res.data.blogs) && res.data.blogs.length > 0))
+    ) {
+      setResult(res.data)
+    } else {
+      setResult(null)
+    }
+  }
   useEffect(() => {
     if (debouncedQuery && isTyping) {
-      search(debouncedQuery).then((res) => {
-        if (!res.data || !res.success) return
-        // check if value is not empty
-        if (
-          res.data &&
-          ((Array.isArray(res.data.stores) && res.data.stores.length > 0) ||
-            (Array.isArray(res.data.categories) &&
-              res.data.categories.length > 0) ||
-            (Array.isArray(res.data.blogs) && res.data.blogs.length > 0))
-        ) {
-          setResult(res.data)
-        } else {
-          setResult(null)
-        }
-      }) // gọi API ở đây
+      handleSearch(debouncedQuery)
     }
   }, [debouncedQuery])
 
@@ -74,8 +78,14 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
       <IoIosSearch
         className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
         size={24}
+        onClick={() => handleSearch(searchText)}
       />
       <input
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch(searchText)
+          }
+        }}
         type="Search"
         value={searchText}
         className="h-10 w-full pl-10"
@@ -97,8 +107,19 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
               <IoIosSearch
                 className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
                 size={24}
+                onClick={() => handleSearch(searchText)}
               />
-              <input type="Search" className="h-10 w-full pl-10" />
+              <input
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearch(searchText)
+                  }
+                }}
+                type="Search"
+                value={searchText}
+                className="h-10 w-full pl-10"
+                onChange={handleStoreInputChange}
+              />
             </div>
           </div>
 

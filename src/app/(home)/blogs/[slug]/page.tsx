@@ -26,7 +26,7 @@ export async function generateMetadata({
   const { slug } = await params
   const res = await getBlogBySlug(slug)
 
-  if (!res.success || !res.data?.blog) {
+  if (!res.success || !res.data?.blog || res.data.blog.is_published === false) {
     notFound()
   }
 
@@ -92,7 +92,11 @@ export default async function BlogDetailPage({
     getLatestBlogs(),
   ])
 
-  if (!blogRes.success || !blogRes.data?.blog) {
+  if (
+    !blogRes.success ||
+    !blogRes.data?.blog ||
+    blogRes.data.blog.is_published === false
+  ) {
     notFound()
   }
   const blog = blogRes.data.blog
