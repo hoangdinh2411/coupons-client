@@ -21,9 +21,10 @@ export async function generateMetadata({
 
   const page = res.data
   const pageUrl = `${METADATA.APP_URL}/${page.slug}`
+  const title = page.meta_data?.title
   return {
     // 1. title, meta_data, canonical
-    title: page.type,
+    title: title,
     description: page.meta_data?.description,
     robots: {
       index: false,
@@ -35,7 +36,7 @@ export async function generateMetadata({
     },
     // 2. Open Graph (OG)
     openGraph: {
-      title: page.type,
+      title: title,
       description: page.meta_data?.description,
       url: pageUrl,
       type: 'article',
@@ -56,7 +57,7 @@ export async function generateMetadata({
     // 3. Twitter Card
     twitter: {
       card: 'summary_large_image',
-      title: page.type,
+      title: title,
       description: page.meta_data?.description,
       images: [page.thumbnail.url],
       // imageAlt: blog.title,

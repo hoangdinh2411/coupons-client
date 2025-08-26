@@ -12,17 +12,26 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [result, setResult] = useState<SearchData | null>(null)
-  const handleToggleFocused = () => {
-    setIsFocused(!isFocused)
+  const [isLoading, setIsLoading] = useState(false)
+  const handleFocus = () => {
+    setIsFocused(true)
+  }
+  const handleUnfocus = () => {
+    setIsFocused(false)
   }
   const handleStoreInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
+    if (value.trim() === '') {
+      setResult(null)
+    }
     setSearchText(value)
     setIsTyping(true)
   }
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedQuery(searchText)
+      if (!isLoading) {
+        setDebouncedQuery(searchText)
+      }
     }, 1000)
 
     return () => clearTimeout(handler)
@@ -30,6 +39,7 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
 
   async function handleSearch(text: string) {
     if (!text.trim()) return
+    setIsLoading(true)
     const res = await search(text)
     if (!res.data || !res.success) return
     console.log(res.data)
@@ -45,6 +55,7 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
     } else {
       setResult(null)
     }
+    setIsLoading(false)
   }
   useEffect(() => {
     if (debouncedQuery && isTyping) {
@@ -60,7 +71,7 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
           !containerRef.current.contains(event.target as Node) &&
           isFocused
         ) {
-          setIsFocused(false)
+          handleUnfocus()
         }
       }, 0)
     }
@@ -89,7 +100,7 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
         type="Search"
         value={searchText}
         className="h-10 w-full pl-10"
-        onFocus={handleToggleFocused}
+        onFocus={handleFocus}
         onChange={handleStoreInputChange}
       />
       <div
@@ -99,7 +110,7 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
         <div className="lg:h-au flex h-full flex-col gap-1">
           <div className="flex items-center gap-6 p-4 lg:hidden">
             <HiOutlineArrowLeft
-              onClick={handleToggleFocused}
+              onClick={handleUnfocus}
               className="cursor-pointer"
               size={24}
             />
