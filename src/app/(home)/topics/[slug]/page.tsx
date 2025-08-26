@@ -26,14 +26,14 @@ export async function generateMetadata({
   const currentTopic = res.data.find((t) => t.slug === slug)
   return {
     category: currentTopic?.name,
-    title: currentTopic?.name,
+    title: currentTopic?.meta_data?.title,
     description: currentTopic?.description,
     keywords: currentTopic?.name,
     alternates: {
       canonical: `/topics/${slug}`,
     },
     openGraph: {
-      title: currentTopic?.name,
+      title: currentTopic?.meta_data?.title,
       description: currentTopic?.meta_data?.description,
       url: `${METADATA.APP_URL}/topics/${slug}`,
 
@@ -50,7 +50,7 @@ export async function generateMetadata({
         : [],
     },
     twitter: {
-      title: currentTopic?.name,
+      title: currentTopic?.meta_data?.title,
       description: currentTopic?.meta_data?.description,
       images: currentTopic?.image
         ? [
@@ -86,13 +86,11 @@ export default async function TopicDetailPage({
     getTopics(),
   ])
 
-  if (!topicRes.success || !topicRes.data) {
-    throw new Error(topicRes.message ?? 'Cannot fetch topics')
-  }
   if (!blogsRes.success || !blogsRes.data) {
     notFound()
   }
 
+  console.log(blogsRes)
   const topics = topicRes.data || []
   const blogs = blogsRes?.data?.results || []
   const top_blogs = blogs.slice(0, 3)

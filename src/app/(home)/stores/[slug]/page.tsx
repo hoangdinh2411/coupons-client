@@ -26,7 +26,7 @@ export async function generateMetadata({
   }
   const store = res.data.store
 
-  const pageTitle = `${store.name} Coupons & Promo Codes | ${dayjs().format('MMMM YYYY')}`
+  const pageTitle = `${store.meta_data?.title} ${dayjs().format('MMMM YYYY')}`
   const pageDescription =
     store.meta_data?.description ||
     `Find the latest verified deals and promo codes for ${store.name} at TrustCoupon.com.`

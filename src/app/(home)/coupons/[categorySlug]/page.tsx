@@ -24,16 +24,17 @@ export async function generateMetadata({
     return notFound()
   }
   const { category } = categoryResponse.data
+  const title = `${category.meta_data?.title} ${dayjs(category.updated_at).format('MMMM YYYY')}`
   return {
     category: category.name,
-    title: `${category.meta_data?.title} ${dayjs(category.updated_at).format('MMMM YYYY')}`,
+    title: title,
     description: category.meta_data?.description,
     keywords: category.meta_data?.keywords,
     alternates: {
       canonical: `/coupons/${categorySlug}`,
     },
     openGraph: {
-      title: category.name,
+      title: title,
       description: category.meta_data?.description,
       url: `${METADATA.APP_URL}/coupons/${categorySlug}`,
       images: [
@@ -47,7 +48,7 @@ export async function generateMetadata({
       ],
     },
     twitter: {
-      title: category.name,
+      title: title,
       description: category.meta_data?.description,
       images: [
         {
