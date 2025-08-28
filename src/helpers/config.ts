@@ -10,7 +10,6 @@ export const APP_ROUTERS = {
 
   ALL_STORES: '/brands',
   ALL_CATEGORIES: '/categories',
-  ALL_TOPICS: '/topics',
   BLOGS: '/blogs',
   ACCOUNT: '/me',
   PROFILE: '/me/profile',

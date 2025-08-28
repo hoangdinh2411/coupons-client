@@ -204,12 +204,12 @@ export default async function LandingPage() {
               <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
                 <Link href="/cashback">Summer Sales</Link>
               </h2>
-              <Link
+              {/* <Link
                 href="/cashback"
                 className="block text-xs font-semibold tracking-widest uppercase underline underline-offset-4"
               >
                 All Cash Back
-              </Link>
+              </Link> */}
             </div>
             <ListSale top_deals={top_deals} />
           </section>
