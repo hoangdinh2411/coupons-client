@@ -104,6 +104,7 @@ export default async function BlogDetailPage({
   const jsonLd = {
     '@graph': [
       {
+        '@context': 'https://schema.org',
         '@type': 'BlogPosting',
         '@id': 'https://trustcoupon.com/blogs/' + blog.slug,
         headline: blog.title,
