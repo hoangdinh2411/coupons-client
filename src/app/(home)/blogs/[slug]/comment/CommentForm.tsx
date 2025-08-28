@@ -61,7 +61,7 @@ export default function CommentForm({
                   fill
                   sizes="auto"
                   priority
-                  src={formatImageUrl(user.avatar.public_id)}
+                  src={formatImageUrl(user.avatar?.public_id)}
                   alt={formatDisplayName(user)}
                 />
               </div>

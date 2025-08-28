@@ -42,7 +42,6 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
     setIsLoading(true)
     const res = await search(text)
     if (!res.data || !res.success) return
-    console.log(res.data)
     // check if value is not empty
     if (
       res.data &&

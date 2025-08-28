@@ -38,8 +38,8 @@ export async function generateMetadata({
     title: title,
     description: blog.meta_data?.description,
     robots: {
-      index: false,
-      follow: false,
+      index: blog.is_indexed,
+      follow: blog.is_indexed,
       'max-image-preview': 'large',
     },
     alternates: {
