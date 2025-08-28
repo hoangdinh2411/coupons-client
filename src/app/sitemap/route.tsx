@@ -38,11 +38,6 @@ const staticUrls: Omit<UrlEntry, 'lastmod'>[] = [
     priority: 0.7,
   },
   {
-    loc: `${BASE_URL}${APP_ROUTERS.ALL_TOPICS}`,
-    changefreq: 'weekly',
-    priority: 0.6,
-  },
-  {
     loc: `${BASE_URL}${APP_ROUTERS.BLOGS}`,
     changefreq: 'daily',
     priority: 0.8,

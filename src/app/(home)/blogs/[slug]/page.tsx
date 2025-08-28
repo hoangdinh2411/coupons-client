@@ -188,7 +188,7 @@ export default async function BlogDetailPage({
         <div className="mx-auto max-w-[1162px]">
           <div className="mb-10 grid grid-cols-1 gap-10 overflow-hidden lg:grid-cols-3">
             <div className="col-span-2">
-              <Breadcrumb slug={slug} />
+              <Breadcrumb slug={blog.title} />
               <section className="">
                 <div className="relative py-6 font-semibold">
                   <h1 className="text-olive-green text-5xl leading-16 font-bold">
