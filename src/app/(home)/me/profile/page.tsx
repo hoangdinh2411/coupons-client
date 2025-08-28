@@ -33,7 +33,6 @@ const ProfilePage = () => {
 
   const handleUpdateUser = async (payload: any, successMessage: string) => {
     if (!user) return false
-
     setLoading(true)
     try {
       const res = await updateUser(payload)
@@ -44,6 +43,7 @@ const ProfilePage = () => {
         return true
       } else {
         toast.error(res.message || 'Cannot update user profile.')
+        return false
       }
     } catch (error) {
       console.error('Error updating user:', error)
