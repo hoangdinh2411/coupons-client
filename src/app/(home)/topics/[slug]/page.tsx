@@ -20,10 +20,7 @@ export async function generateMetadata({
   }
   const res = await getTopics()
 
-  if (!res.success || !res.data) {
-    throw new Error(res.message ?? 'Cannot fetch topics')
-  }
-  const currentTopic = res.data.find((t) => t.slug === slug)
+  const currentTopic = (res.data || []).find((t) => t.slug === slug)
   return {
     category: currentTopic?.name,
     title: currentTopic?.meta_data?.title,
