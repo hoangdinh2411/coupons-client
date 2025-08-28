@@ -22,6 +22,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
             alt={blog.title}
             fill
             priority
+            loading="lazy"
             sizes="auto"
             className="h-full w-full object-cover"
           />

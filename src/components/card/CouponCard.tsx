@@ -42,6 +42,7 @@ function CouponCard({ coupon, className }: CouponCardWithDataPropsType) {
             alt={METADATA.APP_URL + ' image'}
             src={formatImageUrl(coupon.store?.image?.public_id)}
             width={500}
+            loading="lazy"
             height={500}
             quality={75}
           />
