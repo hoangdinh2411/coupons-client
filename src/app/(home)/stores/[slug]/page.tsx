@@ -82,6 +82,7 @@ export default async function StoreDetailPage({
     '@graph': [
       // Schema 1: BreadcrumbList
       {
+        '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
           {
