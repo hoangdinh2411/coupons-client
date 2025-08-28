@@ -30,6 +30,14 @@ export const getOtherPageBySlug = async (type: string) => {
     },
   })
 }
+export const getAllPage = async () => {
+  return await customFetch<DynamicPageData[]>(`/client/pages/all`, {
+    next: {
+      revalidate: 3600,
+      tags: ['page-data'],
+    },
+  })
+}
 export const search = async (search_text: string) => {
   return await customFetch<SearchData>(
     `/client/search?search_text=${search_text}`,

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import { generateSitemapXml } from '@/helpers/sitemapHelper'
 import { UrlEntry } from '@/types/sitemap.type'
+import getAllPages from './getAllPages'
 
 const BASE_URL = METADATA.APP_URL
 
@@ -101,9 +102,11 @@ const staticUrls: Omit<UrlEntry, 'lastmod'>[] = [
 export async function GET() {
   try {
     const nowIso = new Date().toISOString()
+    const otherPages = await getAllPages()
 
     const finalUrls: UrlEntry[] = [
       ...staticUrls.map((u) => ({ ...u, lastmod: nowIso })),
+      ...otherPages,
     ]
 
     const xml = generateSitemapXml(finalUrls)
