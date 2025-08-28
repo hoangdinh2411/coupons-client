@@ -26,8 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: '/',
     },
     robots: {
-      index: false,
-      follow: false,
+      index: true,
+      follow: true,
       'max-image-preview': 'large',
       googleBot: {
         notranslate: true,

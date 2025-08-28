@@ -148,9 +148,9 @@ export default async function StoreDetailPage({
           <div className="mx-auto flex max-w-7xl gap-10">
             <div className="bg-white lg:w-92 xl:w-[336px]"></div>
             <div className="">
-              <p className="mb-3 hidden items-center self-center font-sans text-xl leading-tight font-bold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
+              <h1 className="mb-3 hidden items-center self-center font-sans text-xl leading-tight font-bold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
                 {store?.name} Coupons & promo codes
-              </p>
+              </h1>
               <p className="mt-4 text-sm font-[600] tracking-wider uppercase">
                 Top offers for {dayjs().format('MMMM D, YYYY')}
               </p>

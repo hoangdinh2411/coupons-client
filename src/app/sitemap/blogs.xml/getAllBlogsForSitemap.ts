@@ -21,7 +21,6 @@ export default async function getAllBlogsSiteMap(): Promise<UrlEntry[]> {
     hasMore = fetchedCount < totalCount
     page++
   }
-  console.log(allBlogs)
   if (!allBlogs) return []
   // Fetch the total number of products and calculate the number of sitemaps needed
   const nowIso = new Date().toISOString()

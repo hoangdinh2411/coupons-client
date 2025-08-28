@@ -26,11 +26,6 @@ export async function generateMetadata({
     // 1. title, meta_data, canonical
     title: title,
     description: page.meta_data?.description,
-    robots: {
-      index: false,
-      follow: false,
-      'max-image-preview': 'large',
-    },
     alternates: {
       canonical: pageUrl,
     },

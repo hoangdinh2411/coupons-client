@@ -90,7 +90,6 @@ export default async function TopicDetailPage({
     notFound()
   }
 
-  console.log(blogsRes)
   const topics = topicRes.data || []
   const blogs = blogsRes?.data?.results || []
   const top_blogs = blogs.slice(0, 3)
