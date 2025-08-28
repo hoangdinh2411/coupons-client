@@ -43,7 +43,7 @@ const ProfilePage = () => {
         toast.success(successMessage)
         return true
       } else {
-        throw new Error(res.message || 'Update failed')
+        toast.error(res.message || 'Cannot update user profile.')
       }
     } catch (error) {
       console.error('Error updating user:', error)
