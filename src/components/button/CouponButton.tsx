@@ -29,7 +29,7 @@ export default function CouponButton({ coupon }: CouponButtonProps) {
   }
 
   return (
-    <div className="coupon-button show-peel">
+    <div className="coupon-button show-peel hidden md:block">
       <div className="coupon-button-peel">{getHideValue()}</div>
       {getButtonContent()}
     </div>

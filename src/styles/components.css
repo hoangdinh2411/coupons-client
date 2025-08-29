@@ -195,7 +195,7 @@
   border-radius: 0 0 3px 0;
 }
 .show-peel:hover:before {
-  border-bottom: 41px solid #d9ef82 ;
+  border-bottom: 41px solid #d9ef82;
   border-right: 40px solid transparent;
   top: 3px;
   transition: all 0.2s ease-in;
