@@ -1,16 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ImageType } from './share.type'
+import { BaseData, ImageType, MetaData } from './share.type'
+import { FAQData } from './store.type'
 
-type MetaData = {
-  title: string
-  keywords: string[]
-  description: string
-}
-
-export type DynamicPageType = {
-  created_at: string
-  updated_at: string
-  deleted_at: string | null
+export interface DynamicPageData extends BaseData {
   meta_data: MetaData
   id: number
   type: string
@@ -18,10 +10,5 @@ export type DynamicPageType = {
   content: string
   images: string[]
   thumbnail: ImageType
-  faqs: any[]
-}
-
-export type DynamicPageResponse = {
-  success?: boolean
-  data: DynamicPageType
+  faqs: FAQData[]
 }

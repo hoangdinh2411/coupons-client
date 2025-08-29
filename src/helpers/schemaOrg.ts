@@ -2,6 +2,7 @@ export const jsonHome = {
   '@context': 'https://schema.org',
   '@graph': [
     {
+      '@context': 'https://schema.org',
       '@type': 'Organization',
       '@id': 'https://trustcoupon.com/#organization',
       url: 'https://trustcoupon.com',

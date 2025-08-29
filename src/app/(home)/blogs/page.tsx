@@ -26,16 +26,11 @@ export default async function BlogsPage() {
     getBlogsPerTopic(),
   ])
 
-  if (!latestRes.success || !latestRes.data) {
-    throw new Error(latestRes.message || 'cannot get latest blogs')
-  }
-  if (!blogPerTopicRes.success || !blogPerTopicRes.data) {
-    throw new Error(blogPerTopicRes.message || 'cannot get blogs per topic')
-  }
+  const blogs = latestRes.data || []
   // const blogs_per_topic = res.data.blogs_per_topic
-  const newest = latestRes.data[0]
-  const latest = latestRes.data.slice(1, latestRes.data.length)
-  const blogs_per_topic = Object.values(blogPerTopicRes.data)
+  const newest = blogs[0]
+  const latest = blogs.slice(1, blogs.length)
+  const blogs_per_topic = Object.values(blogPerTopicRes.data || [])
   return (
     <Fragment>
       <div className="mt-4 px-4 lg:mt-10">
@@ -84,9 +79,7 @@ export default async function BlogsPage() {
                     </div>
                   </div>
                 </Link>
-              ) : (
-                <p>Blogs not found </p>
-              )}
+              ) : null}
             </div>
 
             <div className="hidden w-1/3 lg:block">
@@ -101,7 +94,7 @@ export default async function BlogsPage() {
           <div>
             <ListPost type="grid" blogs={latest} />
           </div>
-          {blogs_per_topic &&
+          {blogs_per_topic.length &&
             blogs_per_topic.map((list, listIndex) => {
               if (list.length === 0) return null
               const topic = list[0].topic

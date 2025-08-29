@@ -26,19 +26,20 @@ export async function generateMetadata({
   const { slug } = await params
   const res = await getBlogBySlug(slug)
 
-  if (!res.success || !res.data?.blog) {
+  if (!res.success || !res.data?.blog || res.data.blog.is_published === false) {
     notFound()
   }
 
   const blog = res.data.blog
   const pageUrl = `${METADATA.APP_URL}/blogs/${blog.slug}`
+  const title = blog.meta_data?.title
   return {
     // 1. title, meta_data, canonical
-    title: blog.title,
+    title: title,
     description: blog.meta_data?.description,
     robots: {
-      index: false,
-      follow: false,
+      index: blog.is_indexed,
+      follow: blog.is_indexed,
       'max-image-preview': 'large',
     },
     alternates: {
@@ -46,7 +47,7 @@ export async function generateMetadata({
     },
     // 2. Open Graph (OG)
     openGraph: {
-      title: blog.title,
+      title: title,
       description: blog.meta_data?.description,
       url: pageUrl,
       type: 'article',
@@ -68,7 +69,7 @@ export async function generateMetadata({
     // 3. Twitter Card
     twitter: {
       card: 'summary_large_image',
-      title: blog.title,
+      title: title,
       description: blog.meta_data?.description,
       images: [blog.image.url],
       // imageAlt: blog.title,
@@ -87,14 +88,15 @@ export default async function BlogDetailPage({
   if (!slug) {
     redirect(APP_ROUTERS.BLOGS)
   }
-  const [blogRes, latestRes] = await Promise.all([
-    getBlogBySlug(slug),
-    getLatestBlogs(),
-  ])
-
-  if (!blogRes.success || !blogRes.data?.blog) {
+  const blogRes = await getBlogBySlug(slug)
+  if (
+    !blogRes.success ||
+    !blogRes.data?.blog ||
+    blogRes.data.blog.is_published === false
+  ) {
     notFound()
   }
+  const latestRes = await getLatestBlogs()
   const blog = blogRes.data.blog
   const latest = latestRes.data || []
   const readMore = blogRes.data.read_more
@@ -102,6 +104,7 @@ export default async function BlogDetailPage({
   const jsonLd = {
     '@graph': [
       {
+        '@context': 'https://schema.org',
         '@type': 'BlogPosting',
         '@id': 'https://trustcoupon.com/blogs/' + blog.slug,
         headline: blog.title,
@@ -185,7 +188,7 @@ export default async function BlogDetailPage({
         <div className="mx-auto max-w-[1162px]">
           <div className="mb-10 grid grid-cols-1 gap-10 overflow-hidden lg:grid-cols-3">
             <div className="col-span-2">
-              <Breadcrumb slug={slug} />
+              <Breadcrumb slug={blog.title} />
               <section className="">
                 <div className="relative py-6 font-semibold">
                   <h1 className="text-olive-green text-5xl leading-16 font-bold">

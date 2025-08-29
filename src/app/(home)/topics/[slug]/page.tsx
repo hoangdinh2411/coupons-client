@@ -7,6 +7,7 @@ import { getBlogsByTopic, getTopics } from '@/services/topicApi'
 import { notFound, redirect } from 'next/navigation'
 import { APP_ROUTERS, METADATA } from '@/helpers/config'
 import ListBlogs from '../../blogs/components/ListBlogs'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 export async function generateMetadata({
   params,
@@ -19,20 +20,17 @@ export async function generateMetadata({
   }
   const res = await getTopics()
 
-  if (!res.success || !res.data) {
-    throw new Error(res.message ?? 'Cannot fetch topics')
-  }
-  const currentTopic = res.data.find((t) => t.slug === slug)
+  const currentTopic = (res.data || []).find((t) => t.slug === slug)
   return {
     category: currentTopic?.name,
-    title: currentTopic?.name,
+    title: currentTopic?.meta_data?.title,
     description: currentTopic?.description,
     keywords: currentTopic?.name,
     alternates: {
       canonical: `/topics/${slug}`,
     },
     openGraph: {
-      title: currentTopic?.name,
+      title: currentTopic?.meta_data?.title,
       description: currentTopic?.meta_data?.description,
       url: `${METADATA.APP_URL}/topics/${slug}`,
 
@@ -49,7 +47,7 @@ export async function generateMetadata({
         : [],
     },
     twitter: {
-      title: currentTopic?.name,
+      title: currentTopic?.meta_data?.title,
       description: currentTopic?.meta_data?.description,
       images: currentTopic?.image
         ? [
@@ -85,9 +83,6 @@ export default async function TopicDetailPage({
     getTopics(),
   ])
 
-  if (!topicRes.success || !topicRes.data) {
-    throw new Error(topicRes.message ?? 'Cannot fetch topics')
-  }
   if (!blogsRes.success || !blogsRes.data) {
     notFound()
   }
@@ -120,7 +115,7 @@ export default async function TopicDetailPage({
               <h1 className="flex items-center gap-4 text-5xl font-bold text-[#ff5c6d] capitalize">
                 <Image
                   className="size-10 rounded-full border-2 border-gray-100"
-                  src={topic?.image?.url || '/images/no-img.webp'}
+                  src={formatImageUrl(topic?.image?.public_id)}
                   alt={topic?.name || ''}
                   width={160}
                   height={160}

@@ -11,6 +11,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
+import { formatImageUrl } from '@/helpers/formatImageUrl'
 
 export async function generateMetadata({
   params,
@@ -25,7 +26,7 @@ export async function generateMetadata({
   }
   const store = res.data.store
 
-  const pageTitle = `${store.name} Coupons & Promo Codes | ${dayjs().format('MMMM YYYY')}`
+  const pageTitle = `${store.meta_data?.title} ${dayjs().format('MMMM YYYY')}`
   const pageDescription =
     store.meta_data?.description ||
     `Find the latest verified deals and promo codes for ${store.name} at TrustCoupon.com.`
@@ -81,6 +82,7 @@ export default async function StoreDetailPage({
     '@graph': [
       // Schema 1: BreadcrumbList
       {
+        '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
           {
@@ -147,9 +149,9 @@ export default async function StoreDetailPage({
           <div className="mx-auto flex max-w-7xl gap-10">
             <div className="bg-white lg:w-92 xl:w-[336px]"></div>
             <div className="">
-              <p className="mb-3 hidden items-center self-center font-sans text-xl leading-tight font-bold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
+              <h1 className="mb-3 hidden items-center self-center font-sans text-xl leading-tight font-bold [grid-area:heading] lg:mt-1 lg:-mb-3 lg:flex lg:items-center lg:self-start lg:pl-0 lg:text-4xl">
                 {store?.name} Coupons & promo codes
-              </p>
+              </h1>
               <p className="mt-4 text-sm font-[600] tracking-wider uppercase">
                 Top offers for {dayjs().format('MMMM D, YYYY')}
               </p>
@@ -166,7 +168,7 @@ export default async function StoreDetailPage({
                       <Image
                         fill
                         priority
-                        src={store.image?.url || '/images/female.webp'}
+                        src={formatImageUrl(store.image?.public_id)}
                         alt={store?.name || 'Store Logo'}
                         className="size-full rounded-[100%] object-contain"
                       />

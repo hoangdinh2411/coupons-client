@@ -31,7 +31,7 @@ export default function AuthLayout({
         </div>
       </main>
       <div className="border-t-1 border-gray-300 p-5 text-center">
-        © 2025 Trust Coupon, Inc.
+        © 2025 TrustCoupon, Inc.
       </div>
     </div>
   )

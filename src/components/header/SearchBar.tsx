@@ -12,39 +12,53 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [result, setResult] = useState<SearchData | null>(null)
-  const handleToggleFocused = () => {
-    setIsFocused(!isFocused)
+  const [isLoading, setIsLoading] = useState(false)
+  const handleFocus = () => {
+    setIsFocused(true)
+  }
+  const handleUnfocus = () => {
+    setIsFocused(false)
   }
   const handleStoreInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
+    if (value.trim() === '') {
+      setResult(null)
+    }
     setSearchText(value)
     setIsTyping(true)
   }
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedQuery(searchText)
+      if (!isLoading) {
+        setDebouncedQuery(searchText)
+      }
     }, 1000)
 
     return () => clearTimeout(handler)
   }, [searchText])
 
+  async function handleSearch(text: string) {
+    if (!text.trim()) return
+    setIsLoading(true)
+    const res = await search(text)
+    if (!res.data || !res.success) return
+    // check if value is not empty
+    if (
+      res.data &&
+      ((Array.isArray(res.data.stores) && res.data.stores.length > 0) ||
+        (Array.isArray(res.data.categories) &&
+          res.data.categories.length > 0) ||
+        (Array.isArray(res.data.blogs) && res.data.blogs.length > 0))
+    ) {
+      setResult(res.data)
+    } else {
+      setResult(null)
+    }
+    setIsLoading(false)
+  }
   useEffect(() => {
     if (debouncedQuery && isTyping) {
-      search(debouncedQuery).then((res) => {
-        if (!res.data || !res.success) return
-        // check if value is not empty
-        if (
-          res.data &&
-          ((Array.isArray(res.data.stores) && res.data.stores.length > 0) ||
-            (Array.isArray(res.data.categories) &&
-              res.data.categories.length > 0) ||
-            (Array.isArray(res.data.blogs) && res.data.blogs.length > 0))
-        ) {
-          setResult(res.data)
-        } else {
-          setResult(null)
-        }
-      }) // gọi API ở đây
+      handleSearch(debouncedQuery)
     }
   }, [debouncedQuery])
 
@@ -56,7 +70,7 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
           !containerRef.current.contains(event.target as Node) &&
           isFocused
         ) {
-          setIsFocused(false)
+          handleUnfocus()
         }
       }, 0)
     }
@@ -69,17 +83,23 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
     <div
       ref={containerRef}
       data-focused={isFocused}
-      className="bg-light-green relative z-20 w-full flex-1 rounded-t-2xl rounded-b-2xl lg:max-w-[450px] data-[focused=true]:lg:rounded-b-none data-[focused=true]:lg:bg-white"
+      className="bg-light-green relative z-20 ml-auto w-full flex-1 rounded-t-2xl rounded-b-2xl lg:max-w-[450px] data-[focused=true]:lg:rounded-b-none data-[focused=true]:lg:bg-white"
     >
       <IoIosSearch
         className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
         size={24}
+        onClick={() => handleSearch(searchText)}
       />
       <input
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch(searchText)
+          }
+        }}
         type="Search"
         value={searchText}
         className="h-10 w-full pl-10"
-        onFocus={handleToggleFocused}
+        onFocus={handleFocus}
         onChange={handleStoreInputChange}
       />
       <div
@@ -89,7 +109,7 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
         <div className="lg:h-au flex h-full flex-col gap-1">
           <div className="flex items-center gap-6 p-4 lg:hidden">
             <HiOutlineArrowLeft
-              onClick={handleToggleFocused}
+              onClick={handleUnfocus}
               className="cursor-pointer"
               size={24}
             />
@@ -97,8 +117,19 @@ export default function SearchBar({ menu }: { menu: MenuData | null }) {
               <IoIosSearch
                 className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer"
                 size={24}
+                onClick={() => handleSearch(searchText)}
               />
-              <input type="Search" className="h-10 w-full pl-10" />
+              <input
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearch(searchText)
+                  }
+                }}
+                type="Search"
+                value={searchText}
+                className="h-10 w-full pl-10"
+                onChange={handleStoreInputChange}
+              />
             </div>
           </div>
 

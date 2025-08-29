@@ -106,7 +106,6 @@ const SPOTLIGHT_LIST = Array.from({ length: 3 }, (_, i) => ({
 
 export default async function LandingPage() {
   const res = await getDataForHomePage()
-
   const top_deals_today = res.data?.top_deal_today ?? []
   const top_deals = res.data?.top_deals ?? []
   const jsonLd = {
@@ -205,12 +204,12 @@ export default async function LandingPage() {
               <h2 className="mb-4 text-xl leading-tight font-bold capitalize md:leading-normal">
                 <Link href="/cashback">Summer Sales</Link>
               </h2>
-              <Link
+              {/* <Link
                 href="/cashback"
                 className="block text-xs font-semibold tracking-widest uppercase underline underline-offset-4"
               >
                 All Cash Back
-              </Link>
+              </Link> */}
             </div>
             <ListSale top_deals={top_deals} />
           </section>

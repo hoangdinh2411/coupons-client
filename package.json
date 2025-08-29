@@ -15,6 +15,7 @@
   "dependencies": {
     "@glidejs/glide": "^3.7.1",
     "@hookform/resolvers": "^5.2.0",
+    "@next/third-parties": "^15.5.2",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide": "^4.1.4",
     "@svgr/webpack": "^8.1.0",

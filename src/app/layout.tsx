@@ -6,6 +6,7 @@ import { Metadata } from 'next'
 import { METADATA } from '@/helpers/config'
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
+import { GoogleAnalytics } from '@next/third-parties/google'
 const ToastProvider = dynamic(() => import('@/context/ToastProvider'))
 const ModalCoupon = dynamic(() => import('@/components/modal/ModalCoupon'))
 import { aptos } from '@/fonts/aptos'
@@ -26,8 +27,8 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: '/',
     },
     robots: {
-      index: false,
-      follow: false,
+      index: true,
+      follow: true,
       'max-image-preview': 'large',
       googleBot: {
         notranslate: true,
@@ -113,6 +114,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
         suppressContentEditableWarning={true}
       >
+        <GoogleAnalytics gaId="G-E8M8PDL5Y1" />
         {/* <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
