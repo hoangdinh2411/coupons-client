@@ -6,8 +6,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/',
     },
-    sitemap: METADATA.APP_URL + '/sitemap.xml',
+    sitemap: [
+      METADATA.APP_URL + '/sitemap',
+      METADATA.APP_URL + '/sitemap/blogs.xml',
+      METADATA.APP_URL + '/sitemap/stores.xml',
+      METADATA.APP_URL + '/sitemap/categories.xml',
+      METADATA.APP_URL + '/sitemap/topics.xml',
+    ],
   }
 }
