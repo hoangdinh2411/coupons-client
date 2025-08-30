@@ -19,10 +19,13 @@ function CouponCard({ coupon, className = '' }: CouponCardWithDataPropsType) {
   const pathname = usePathname()
 
   const handleClick = () => {
-    // open a new tab/window at the same URL
-    window.open(`${pathname}?outClicked=true`, '_blank')
-    window.location.href =
-      coupon.offer_link || coupon.store?.url || METADATA.APP_URL
+    window.open(
+      `${pathname}?outClicked=true&referenceId=${coupon.id}`,
+      '_blank',
+    )
+    if (coupon?.offer_link || coupon?.store?.url) {
+      window.location.href = coupon?.offer_link || coupon?.store?.url || ''
+    }
   }
 
   return (
