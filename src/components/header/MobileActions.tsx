@@ -54,7 +54,7 @@ export default function MobileActions({ menu }: { menu: MenuData | null }) {
               />
             </span>
           </div>
-          <div className="flex items-center justify-center gap-4 px-4 py-8 sm:px-8">
+          <div className="flex items-center justify-center gap-1 p-2 md:gap-4 md:p-8">
             {user ? (
               <div className="flex w-full items-center justify-around">
                 <div className="flex flex-col">
@@ -98,7 +98,7 @@ export default function MobileActions({ menu }: { menu: MenuData | null }) {
           </div>
         </div>
         {menu && (
-          <nav className="px-2 py-3">
+          <nav className="px-1 py-3 md:px-2">
             <div className="flex flex-col items-start justify-start border-b-1 border-solid border-gray-300">
               <div className="w-full px-2 py-3 sm:px-4">
                 <Link href={APP_ROUTERS.HOT_DEALS} className="font-bold">

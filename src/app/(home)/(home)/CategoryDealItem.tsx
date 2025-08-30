@@ -16,7 +16,7 @@ export default function CategoryDealItem({ category }: CategoryDealItemProps) {
         width={100}
         height={100}
         alt={category.name}
-        className="h-[100px] w-[100px] rounded-full object-cover"
+        className="size-[80px] rounded-full object-cover md:size-[100px]"
         src={`${category?.image?.url ?? '/images/no-img.webp'}`}
       />
       <p className="text-center text-sm font-bold break-all uppercase group-hover:underline">

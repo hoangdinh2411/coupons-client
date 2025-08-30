@@ -18,17 +18,16 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           className="relative aspect-[1] max-h-[200px] min-h-auto w-1/4 min-w-[200px]"
         >
           <Image
-            src={formatImageUrl(blog.image.public_id)}
+            src={formatImageUrl(blog?.image?.public_id)}
             alt={blog.title}
             fill
             priority
-            loading="lazy"
             sizes="auto"
             className="h-full w-full object-cover"
           />
           <span className="absolute -top-4 -right-4 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
             <Image
-              src={formatImageUrl(blog.topic.image.public_id)}
+              src={formatImageUrl(blog.topic?.image?.public_id)}
               alt={blog.topic?.name}
               fill
               sizes="auto"

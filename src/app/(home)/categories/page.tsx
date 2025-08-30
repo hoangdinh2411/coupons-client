@@ -31,10 +31,10 @@ async function CategoriesListPage() {
         />
       )}
 
-      <div className="container mx-auto w-full max-w-(--max-width) p-8">
-        <h2 className="mb-4 text-xl font-bold md:text-2xl">
+      <div className="container mx-auto w-full max-w-(--max-width) p-4 md:p-8">
+        <h1 className="mb-4 text-xl font-bold md:text-2xl">
           Top Coupons & Deals Categories
-        </h2>
+        </h1>
         <TopCategories />
         <h2 className="mb-4 text-xl font-[900] md:text-2xl">
           All Coupons & Deals Categories
