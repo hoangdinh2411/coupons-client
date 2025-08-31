@@ -93,7 +93,7 @@ const CouponsByCategoryPage = async ({
 
         <CouponsHeader title={category.name} />
 
-        <div className="container mx-auto grid max-w-screen-xl grid-cols-[theme(spacing.24)_auto] px-4 lg:mt-4 lg:grid-cols-[theme(spacing.80)_auto] lg:pt-40">
+        <div className="container mx-auto grid max-w-screen-xl grid-cols-[theme(spacing.24)_auto] px-2 lg:mt-4 lg:grid-cols-[theme(spacing.80)_auto] lg:pt-40">
           <SideSection
             category={category}
             countCoupons={count_coupons}
