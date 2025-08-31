@@ -15,7 +15,7 @@ export default function CategoryHeader({
 }: CategoryHeaderProps) {
   return (
     <div className="mb-[30px] flex items-center justify-between">
-      <div className="flex items-center gap-4">
+      <Link href={href} className="flex items-center gap-4 hover:underline">
         {image && (
           <Image
             src={image}
@@ -28,10 +28,10 @@ export default function CategoryHeader({
         <h5 className="text-olive-green text-base font-bold tracking-widest uppercase lg:text-lg">
           {title}
         </h5>
-      </div>
+      </Link>
       <Link
         href={href}
-        className="text-olive-green flex items-center text-sm font-bold tracking-widest uppercase lg:text-lg"
+        className="text-olive-green hidden items-center text-sm font-bold tracking-widest uppercase md:flex lg:text-lg"
       >
         view all
         <FaChevronRight className="ml-2 inline-block size-3" />

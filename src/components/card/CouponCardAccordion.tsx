@@ -27,9 +27,9 @@ function CouponCardAccordion({ coupon }: { coupon: CouponData }) {
     <div className="mb-2 min-h-[75px] rounded-lg border-1 border-gray-200 bg-white px-3 py-3 md:px-6 md:hover:shadow-lg md:hover:shadow-gray-200/50 lg:mb-4 lg:px-6">
       <div
         onClick={handleClick}
-        className="card-top focus:border-green flex cursor-pointer gap-4 self-center border-2 border-white focus-within:border-2 lg:gap-8"
+        className="card-top focus:border-green flex cursor-pointer gap-2 self-center border-2 border-white focus-within:border-2 md:gap-4 lg:gap-8"
       >
-        <div className="text-green mx-0 flex w-fit min-w-30 flex-col self-center text-left text-xl font-extrabold tracking-tight uppercase sm:row-span-3 sm:row-start-1 sm:mx-auto sm:pt-1 sm:pb-2 md:mx-0 md:text-3xl lg:tracking-wide">
+        <div className="text-green mx-0 flex w-fit min-w-20 flex-col self-center text-left text-xl font-extrabold tracking-tight uppercase sm:row-span-3 sm:row-start-1 sm:mx-auto sm:pt-1 sm:pb-2 md:mx-0 md:min-w-30 md:text-3xl lg:tracking-wide">
           <p className="w-fit">Up to </p>
           <p className="w-fit">{formatDiscount(coupon)}</p>
           <p className="w-fit">Off</p>

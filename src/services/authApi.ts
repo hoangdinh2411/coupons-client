@@ -41,7 +41,7 @@ export const resetPasswordApi = async (payload: ResetPasswordPayload) => {
 }
 export const signOutApi = async () => {
   return await fetch(process.env.NEXT_PUBLIC_APP_DOMAIN + '/api/sign-out', {
-    method: 'DELETE',
+    method: 'POST',
     credentials: 'include',
   })
 }
