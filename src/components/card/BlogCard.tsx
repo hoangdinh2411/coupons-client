@@ -12,10 +12,10 @@ interface BlogCardProps {
 export default function BlogCard({ blog, post_variant }: BlogCardProps) {
   if (post_variant === 'row') {
     return (
-      <div className="group relative flex w-full flex-col sm:flex-row">
+      <div className="group relative flex w-full flex-col md:flex-row">
         <Link
           href={`/blogs/${blog.slug}`}
-          className="relative aspect-[1] max-h-[200px] min-h-auto w-full sm:w-1/4"
+          className="relative aspect-[1] max-h-[200px] min-h-auto w-full md:w-1/4"
         >
           <Image
             src={formatImageUrl(blog.image.public_id)}
@@ -37,7 +37,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
           </span>
         </Link>
 
-        <div className="hover:bg-green relative w-full flex-1 p-2 text-left transition-all duration-300 ease-out sm:ml-10">
+        <div className="group-hover:bg-green relative w-full flex-1 p-2 text-left transition-all duration-300 ease-out md:ml-10">
           <Link href={`/blogs/${blog.slug}`}>
             {blog.topic && (
               <div className="flex h-full flex-col justify-between gap-2">
