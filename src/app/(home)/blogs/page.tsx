@@ -31,29 +31,33 @@ export default async function BlogsPage() {
   const newest = blogs[0]
   const latest = blogs.slice(1, blogs.length)
   const blogs_per_topic = Object.values(blogPerTopicRes.data || [])
+
   return (
     <Fragment>
       <div className="mt-4 px-4 lg:mt-10">
         <div className="mx-auto max-w-[1162px]">
-          <div className="flex flex-col gap-[30px] md:flex-row">
-            <div className="w-full lg:w-2/3">
+          <div className="flex flex-row gap-3 md:flex-row">
+            <div className="size-full bg-red-100 lg:w-2/3">
               {newest?.id ? (
-                <Link href={`/blogs/${newest.slug}`} className="mb-10">
+                <Link
+                  href={`/blogs/${newest.slug}`}
+                  className="flex w-full md:flex-row lg:flex-col"
+                >
                   {/* post image */}
-                  <div>
-                    <div className="relative aspect-[765/453] max-h-[453px] min-h-full w-full max-w-[765px] lg:aspect-[1]">
-                      <Image
-                        src={formatImageUrl(newest.image.public_id)}
-                        alt={newest.title}
-                        fill
-                        priority
-                        sizes="auto"
-                        className="h-auto w-full object-cover"
-                      />
-                    </div>
+                  <div className="relative aspect-[765/453] w-full min-w-32">
+                    <Image
+                      src={formatImageUrl(newest.image.public_id)}
+                      alt={newest.title}
+                      fill
+                      priority
+                      sizes="auto"
+                      className="h-full w-full object-cover"
+                    />
                   </div>
-                  <div className="group relative mb-[10px] border-2 border-[#741fa233] bg-[#fefefe] px-10 py-[30px] text-left transition-all duration-300 ease-out hover:bg-[#653297]">
-                    <span className="absolute -top-[10%] size-[46px] overflow-hidden rounded-full border-2 border-[#fefefe]">
+
+                  {/* content */}
+                  <div className="group border-light-green hover:bg-light-green relative border-2 bg-[#fefefe] p-2 text-left transition-all duration-300 ease-out lg:p-6">
+                    <span className="absolute -top-[10%] hidden size-[46px] overflow-hidden rounded-full border-2 border-[#fefefe] lg:block">
                       <Image
                         src={formatImageUrl(newest.topic.image.public_id)}
                         alt={newest.topic.name}
@@ -62,20 +66,18 @@ export default async function BlogsPage() {
                         className="object-cover"
                       />
                     </span>
+                    <div className="mt-3">
+                      <span className="text-md text-light-green font-bold tracking-wide uppercase group-hover:text-white">
+                        News
+                      </span>
+                    </div>
                     <div>
-                      <div className="mt-3">
-                        <span className="text-md font-bold tracking-wide text-[#741fa2] uppercase group-hover:text-white">
-                          News
-                        </span>
-                      </div>
-                      <div>
-                        <h2 className="text-olive-green mb-2 text-2xl font-bold group-hover:text-white lg:text-4xl">
-                          {newest.title}
-                        </h2>
-                        <span className="text-olive-green text-sm group-hover:text-white">
-                          Published {formatDate(newest.updated_at)}
-                        </span>
-                      </div>
+                      <h2 className="text-olive-green mb-2 text-xl font-bold group-hover:text-white md:text-2xl lg:text-4xl">
+                        {newest.title}
+                      </h2>
+                      <span className="text-olive-green text-sm group-hover:text-white">
+                        Published {formatDate(newest.updated_at)}
+                      </span>
                     </div>
                   </div>
                 </Link>
