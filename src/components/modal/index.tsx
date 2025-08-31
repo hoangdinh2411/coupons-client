@@ -64,7 +64,7 @@ const Modal: React.FC<ModalProps> = ({
         className={`relative ${isCenter ? 'mx-auto md:p-4' : 'mx-0'} flex w-full flex-col overflow-hidden ${maxWidthClasses[maxWidth]} h-auto rounded-xl bg-white shadow-lg`}
       >
         {showCloseButton && (
-          <div className="absolute top-2 right-4 z-10">
+          <div className="absolute top-4 right-4 z-10">
             <div className="hover:border-green cursor-pointer rounded-[100%] border-2 border-white">
               <button
                 className="cursor-pointer rounded-full p-2 hover:bg-gray-50 focus:outline-none"
