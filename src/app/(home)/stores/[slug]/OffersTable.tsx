@@ -6,13 +6,13 @@ const OffersTable = ({ coupons }: { coupons: CouponData[] }) => {
   return (
     <div className="mx-auto mt-20 mb-10 w-full rounded-lg">
       <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse bg-[#F9FAFB]">
+        <table className="min-w-full table-auto border-collapse bg-[#F9FAFB]">
           <thead>
             <tr className="bg-gray-100">
               <th className="border-b-slate-600 px-4 py-4 text-start text-sm text-gray-700 uppercase">
                 Discount
               </th>
-              <th className="border-b-slate-600 px-4 py-4 text-start text-sm text-gray-700 uppercase">
+              <th className="min-w-[300px] border-b-slate-600 px-4 py-4 text-start text-sm text-gray-700 uppercase">
                 Offer Description
               </th>
               <th className="border-b-slate-600 px-4 py-4 text-start text-sm text-gray-700 uppercase">
@@ -26,7 +26,7 @@ const OffersTable = ({ coupons }: { coupons: CouponData[] }) => {
                 <td className="border-b-slate-600 px-4 py-4 text-start text-gray-500">
                   {`${coupon.discount} ${coupon.type_discount === TypeDiscount.PERCENT ? '%' : '$'}`}
                 </td>
-                <td className="border-b-slate-600 px-4 py-4 text-gray-500">
+                <td className="min-w-[300px] border-b-slate-600 px-4 py-4 text-gray-500">
                   {coupon.offer_detail}
                 </td>
                 <td className="border-b-slate-600 px-4 py-4 text-start text-gray-500">

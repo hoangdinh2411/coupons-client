@@ -68,8 +68,8 @@ const ListCoupons = ({
     <div className="col-span-2 col-start-1 row-start-4 mt-2 mb-6 overflow-hidden lg:col-span-1 lg:col-start-2 lg:row-span-5 lg:row-start-3">
       {topDeals.length > 0 && (
         <>
-          <section className="relative mb-6 flex gap-x-4">
-            <div className="relative min-h-24 min-w-24 overflow-hidden rounded-full border border-gray-200 p-2">
+          <section className="relative mb-6 flex gap-x-2">
+            <div className="relative size-24 overflow-hidden rounded-full border border-gray-200 p-2 md:size-32">
               <Link href={'/coupons/amazon'}>
                 <Image
                   src={category.image.url}
@@ -130,7 +130,7 @@ const ListCoupons = ({
             key={index}
             className="relative mb-5 flex h-full cursor-pointer overflow-hidden border-[#E0E0E0] bg-transparent md:h-auto md:min-h-[278px] md:flex-col md:rounded-xl md:border lg:h-[300px] lg:flex-col lg:bg-white"
           >
-            <div className="relative flex aspect-video max-h-full max-w-36 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-white object-contain px-4 capitalize md:max-w-full md:rounded-none md:border-0 md:px-8">
+            <div className="relative flex aspect-video max-h-full max-w-30 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-white object-contain px-4 capitalize md:max-w-full md:rounded-none md:border-0 md:px-8">
               <Image
                 src={formatImageUrl(coupon.store?.image?.public_id)}
                 alt={METADATA.APP_URL + ' Image'}
