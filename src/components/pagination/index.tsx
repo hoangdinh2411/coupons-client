@@ -31,10 +31,11 @@ export default function Pagination({
       <button
         onClick={() => handleChangePage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="cursor-pointer rounded border border-[#0998d6] px-4 py-2 font-bold text-[#0988d6] hover:border-[#602d6c] hover:text-[#602d6c] disabled:opacity-50"
+        className="border-light-green text-light-green hover:border-light-green hover:text-light-green cursor-pointer rounded border px-4 py-2 font-bold disabled:opacity-50"
         aria-label="Previous page"
       >
-        « Prev
+        <span className="hidden sm:block">« </span>
+        Prev
       </button>
 
       {list.map((page) => (
@@ -45,7 +46,7 @@ export default function Pagination({
           className={`rounded px-4 py-2 font-bold ${
             page === currentPage
               ? 'border border-[#a7a7a7] text-[#a7a7a7]'
-              : 'cursor-pointer border border-[#0998d6] text-[#0988d6] hover:border-[#602d6c] hover:text-[#602d6c]'
+              : 'border-light-green text-light-green hover:border-light-green hover:text-light-green cursor-pointer rounded border px-4 py-2 font-bold disabled:opacity-50'
           }`}
         >
           {page}
@@ -54,10 +55,11 @@ export default function Pagination({
       <button
         onClick={() => handleChangePage(currentPage + 1)}
         disabled={currentPage === list.length}
-        className="cursor-pointer rounded border border-[#0998d6] px-4 py-2 font-bold text-[#0988d6] hover:border-[#602d6c] hover:text-[#602d6c] disabled:opacity-50"
+        className="border-light-green text-light-green hover:border-light-green hover:text-light-green cursor-pointer rounded border px-4 py-2 font-bold disabled:opacity-50"
         aria-label="Next page"
       >
-        Next »
+        <span className="hidden sm:block">»</span>
+        Next
       </button>
     </div>
   )

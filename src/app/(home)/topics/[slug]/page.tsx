@@ -112,7 +112,7 @@ export default async function TopicDetailPage({
         <div className="mx-auto max-w-[1162px]">
           <div className="mb-10 flex flex-wrap items-center justify-between">
             <div className="flex-1">
-              <h1 className="flex items-center gap-4 text-5xl font-bold text-[#ff5c6d] capitalize">
+              <h1 className="flex items-center gap-4 text-2xl font-bold text-[#ff5c6d] capitalize lg:text-5xl">
                 <Image
                   className="size-10 rounded-full border-2 border-gray-100"
                   src={formatImageUrl(topic?.image?.public_id)}
