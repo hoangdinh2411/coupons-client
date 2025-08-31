@@ -58,8 +58,8 @@ export default function Pagination({
         className="cursor-pointer rounded border border-[#6f7900] px-3 py-2 font-bold text-gray-900 hover:border-[#6f7900] hover:text-[#6f7900] disabled:opacity-50"
         aria-label="Next page"
       >
-        <span className="hidden sm:inline-block">»</span>
         Next
+        <span className="hidden sm:inline-block">»</span>
       </button>
     </div>
   )
