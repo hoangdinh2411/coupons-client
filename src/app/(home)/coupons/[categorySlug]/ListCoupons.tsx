@@ -128,9 +128,9 @@ const ListCoupons = ({
           <button
             onClick={() => handleClick(coupon)}
             key={index}
-            className="relative mb-5 flex h-full cursor-pointer overflow-hidden border-[#E0E0E0] bg-transparent md:h-auto md:min-h-[278px] md:flex-col md:rounded-xl md:border lg:h-[300px] lg:flex-col lg:bg-white"
+            className="relative mb-5 flex h-full cursor-pointer overflow-hidden rounded-lg border border-gray-200 bg-white md:h-auto md:min-h-[278px] md:flex-col md:rounded-xl lg:min-h-[300px] lg:flex-col"
           >
-            <div className="relative flex aspect-video max-h-full max-w-30 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-white object-contain px-4 capitalize md:max-w-full md:rounded-none md:border-0 md:px-8">
+            <div className="relative flex aspect-video max-h-full max-w-30 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl object-contain px-2 capitalize md:max-w-full md:rounded-none md:border-0 md:px-8">
               <Image
                 src={formatImageUrl(coupon.store?.image?.public_id)}
                 alt={METADATA.APP_URL + ' Image'}
@@ -139,16 +139,16 @@ const ListCoupons = ({
               />
             </div>
 
-            <div className="relative flex h-full flex-col justify-between px-2 py-0 md:py-2">
+            <div className="relative flex h-full flex-1 flex-col justify-between gap-2 bg-gray-50/50 p-2 md:gap-4 md:p-3">
               <div>
-                <h3 className="text-xs font-bold tracking-wide uppercase md:mt-2">
+                <h3 className="text-left text-sm font-bold tracking-wide uppercase md:mt-2 md:text-base">
                   {coupon.store?.name || 'Store Name'}
                 </h3>
-                <p className="my-2 line-clamp-2 text-base leading-5 capitalize md:mb-auto md:line-clamp-3">
+                <p className="line-clamp-2 text-left text-sm leading-5 capitalize md:mb-auto md:line-clamp-2 md:text-base">
                   {coupon.title || 'Coupon Title'}
                 </p>
               </div>
-              <p className="mt-2 self-start rounded-full bg-gray-100 px-4 py-1.5 text-xs font-bold capitalize lg:mb-1">
+              <p className="ml-auto self-start rounded-full bg-gray-100 px-4 py-1.5 text-xs font-bold capitalize lg:mb-1">
                 {coupon.type}
               </p>
             </div>

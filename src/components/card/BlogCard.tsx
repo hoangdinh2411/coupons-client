@@ -12,7 +12,7 @@ interface BlogCardProps {
 export default function BlogCard({ blog, post_variant }: BlogCardProps) {
   if (post_variant === 'row') {
     return (
-      <div className="group relative flex w-full flex-col md:flex-row">
+      <div className="group border-light-green relative flex w-full flex-col border-2 border-solid md:flex-row">
         <Link
           href={`/blogs/${blog.slug}`}
           className="relative aspect-[1] max-h-[200px] min-h-auto w-full md:w-1/4"
@@ -22,7 +22,6 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
             alt={blog.title}
             fill
             priority
-            loading="lazy"
             sizes="auto"
             className="h-full w-full object-cover"
           />

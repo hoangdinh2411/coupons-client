@@ -34,7 +34,7 @@ export default function ListBlogs({ blogs, type = 'grid' }: ListBlogProps) {
       className={
         actualType === 'grid'
           ? 'mb-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'
-          : 'flex flex-col gap-6'
+          : 'mb-6 flex flex-col gap-6'
       }
     >
       {blogs.map((blog) => (
