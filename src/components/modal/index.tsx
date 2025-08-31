@@ -90,7 +90,9 @@ const Modal: React.FC<ModalProps> = ({
         {title && (
           <div className="px-4 py-2 text-center text-lg font-bold">{title}</div>
         )}
-        <div className={`rounded-xl ${isCenter && 'p-4'} overflow-y-auto`}>
+        <div
+          className={`min-h-[100vh] rounded-xl md:min-h-auto ${isCenter && 'p-4'} overflow-y-auto`}
+        >
           {children}
         </div>
       </div>

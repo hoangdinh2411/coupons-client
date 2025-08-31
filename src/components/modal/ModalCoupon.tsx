@@ -94,7 +94,7 @@ function ModalCoupon() {
       maxWidth="3xl"
     >
       {!isPending && coupon ? (
-        <div className="relative grid max-h-[90vh] min-h-[500px] grid-rows-[auto_auto_auto_1fr] gap-5 overflow-y-auto pt-10">
+        <div className="relative grid max-h-[90vh] w-full grid-rows-[auto_auto_auto_1fr] gap-5 overflow-y-auto px-2 pt-10 md:px-0">
           {/* Fixed size image container */}
           <div className="relative mx-auto size-[96px] min-h-[96px] min-w-[96px] flex-shrink-0 overflow-hidden rounded-full border border-[#121821] bg-white object-contain">
             <Image
@@ -107,7 +107,7 @@ function ModalCoupon() {
           </div>
 
           {/* Title - fixed height */}
-          <h2 className="flex-shrink-0 text-center text-xl font-bold">
+          <h2 className="text-md flex-shrink-0 text-center font-bold md:text-xl">
             {coupon.title}
           </h2>
 
@@ -116,7 +116,7 @@ function ModalCoupon() {
             {/* Coupon code section */}
             {coupon.type === CouponType.CODE ? (
               <div className="flex flex-col items-center">
-                <div className="relative mx-auto flex h-14 w-[288px] items-center rounded-full border-1 border-slate-700 px-6 py-4 text-xl font-bold text-white transition duration-200">
+                <div className="relative mx-auto flex h-14 w-full items-center rounded-full border-1 border-slate-700 px-6 py-4 text-xl font-bold text-white transition duration-200 md:w-[288px]">
                   <span className="mr-2 flex-1 bg-gradient-to-r from-black via-gray-600 to-gray-300 bg-clip-text text-left text-transparent uppercase">
                     {coupon.code}
                   </span>
@@ -128,7 +128,7 @@ function ModalCoupon() {
                     {copied ? 'copied' : 'copy'}
                   </span>
                 </div>
-                <p className="mt-2 text-sm text-gray-900">
+                <p className="mt-2 text-xs text-gray-900 md:text-sm">
                   Copy and paste this code at{' '}
                   <Link
                     href={coupon?.offer_link || coupon.store?.url || ''}
@@ -153,7 +153,7 @@ function ModalCoupon() {
             )}
 
             {/* Email Subscribe Section */}
-            <div className="mx-auto mt-6 w-full max-w-md">
+            <div className="mx-auto mt-6 w-full md:max-w-md">
               <div className="mb-4 text-center">
                 <p className="text-base text-gray-800">
                   Never miss a great{' '}
@@ -174,12 +174,12 @@ function ModalCoupon() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email Address"
-                    className="flex-1 border-none px-4 py-3 outline-none focus:ring-0"
+                    className="flex-1 border-none px-2 py-3 outline-none focus:ring-0 md:px-4"
                     required
                   />
                   <button
                     type="submit"
-                    className="bg-[#B5D43B] px-6 py-3 font-medium text-white transition duration-200 hover:bg-[#A5C235]"
+                    className="bg-[#B5D43B] px-4 py-3 font-medium text-white transition duration-200 hover:bg-[#A5C235] md:px-6"
                   >
                     Subscribe
                   </button>
@@ -217,71 +217,9 @@ function ModalCoupon() {
             </p>
           </div>
 
-          {/* Code Feedback Section with Counters - Commented out */}
-          {/* <div className="mx-auto mt-4 w-full max-w-md">
-          <div className="flex items-center justify-center gap-4">
-            <span className="text-gray-700">Did the code work?</span>
-            <div className="flex gap-3">
-              <button
-                onClick={() => handleFeedback('yes')}
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 transition duration-200 ${
-                  feedbackGiven === 'yes'
-                    ? 'border border-[#B5D43B]/30 bg-[#B5D43B]/20 text-[#B5D43B]'
-                    : 'border border-gray-200 text-gray-600 hover:bg-[#B5D43B]/5'
-                }`}
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                </svg>
-                <span className="text-sm font-medium">Yes</span>
-                <span
-                  className={`rounded-full px-2 py-1 text-xs ${
-                    feedbackGiven === 'yes'
-                      ? 'bg-[#B5D43B] text-white'
-                      : 'bg-gray-100 text-gray-600'
-                  }`}
-                >
-                  {likeCount}
-                </span>
-              </button>
-
-              <button
-                onClick={() => handleFeedback('no')}
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 transition duration-200 ${
-                  feedbackGiven === 'no'
-                    ? 'border border-red-200 bg-red-100 text-red-700'
-                    : 'border border-gray-200 text-gray-600 hover:bg-red-50'
-                }`}
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M18 9.5a1.5 1.5 0 11-3 0v-6a1.5 1.5 0 113 0v6zM14 9.667v-5.43a2 2 0 00-1.106-1.79l-.05-.025A4 4 0 0011.055 2H5.64a2 2 0 00-1.962 1.608l-1.2 6A2 2 0 004.44 12H8v4a2 2 0 002 2 1 1 0 001-1v-.667a4 4 0 01.8-2.4l1.4-1.866a4 4 0 00.8-2.4z" />
-                </svg>
-                <span className="text-sm font-medium">No</span>
-                <span
-                  className={`rounded-full px-2 py-1 text-xs ${
-                    feedbackGiven === 'no'
-                      ? 'bg-red-500 text-white'
-                      : 'bg-gray-100 text-gray-600'
-                  }`}
-                >
-                  {dislikeCount}
-                </span>
-              </button>
-            </div>
-          </div>
-        </div> */}
-
           {/* Accordion section - expandable */}
           <div className="w-full flex-grow text-black">
-            <div className="w-full rounded-t-none bg-gray-100 px-8 py-8">
+            <div className="w-full rounded-t-none bg-gray-100 px-2 py-4 md:px-8 md:py-8">
               <div
                 className="text-md flex cursor-pointer font-semibold"
                 onClick={(e) => {
@@ -301,7 +239,7 @@ function ModalCoupon() {
                     Valid everyday
                   </span>
                 )}
-                <div className="relative right-auto flex w-1/5 justify-end md:w-1/3">
+                <div className="relative right-auto flex w-5/5 justify-end md:w-1/3">
                   <div className="flex items-center gap-2">
                     <p className="text-base font-semibold underline underline-offset-2">
                       Details & Exclusions
