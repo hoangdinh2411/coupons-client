@@ -62,11 +62,11 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
 
   if (post_variant === 'grid') {
     return (
-      <div className="group border-light-green bg-gray-border-gray-200 relative flex flex-col border-2 md:flex-col">
+      <div className="group border-light-green bg-gray-border-gray-200 relative flex h-full border-2 lg:flex-col">
         {/* Image */}
         <Link
           href={`/blogs/${blog.slug}`}
-          className="relative aspect-[1] max-h-[280px] w-full"
+          className="relative aspect-[1] h-full w-32 lg:size-full"
         >
           <Image
             src={formatImageUrl(blog.image.public_id)}
@@ -74,9 +74,9 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
             fill
             priority
             sizes="auto"
-            className="h-full w-full object-cover md:h-auto"
+            className="size-full object-cover md:h-auto"
           />
-          <span className="absolute -bottom-2 left-6 z-10 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
+          <span className="absolute -bottom-2 left-6 z-10 line-clamp-1 hidden size-[40px] overflow-hidden rounded-full border-2 border-gray-200 lg:block">
             <Image
               src={formatImageUrl(blog.topic.image.public_id)}
               alt={blog.topic?.name}
@@ -88,7 +88,7 @@ export default function BlogCard({ blog, post_variant }: BlogCardProps) {
         </Link>
 
         {/* Content */}
-        <div className="group-hover:bg-green relative flex-1 px-6 py-4 text-left transition-all duration-300 ease-out lg:px-10 lg:py-[30px]">
+        <div className="group-hover:bg-green relative flex-1 px-4 py-4 text-left transition-all duration-300 ease-out lg:px-10 lg:py-[30px]">
           <Link href={`/blogs/${blog.slug}`}>
             {blog.topic && (
               <div className="flex h-full flex-col justify-between gap-2">
