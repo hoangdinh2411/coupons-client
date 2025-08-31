@@ -52,7 +52,7 @@ export default async function BlogsPage() {
                       />
                     </div>
                   </div>
-                  <div className="group relative mb-[10px] border-2 border-[#741fa233] bg-[#fefefe] px-10 py-[30px] text-left transition-all duration-300 ease-out hover:bg-[#653297]">
+                  <div className="group border-light-green hover:bg-light-green relative mb-[10px] border-2 bg-[#fefefe] px-10 py-[30px] text-left transition-all duration-300 ease-out">
                     <span className="absolute -top-[10%] size-[46px] overflow-hidden rounded-full border-2 border-[#fefefe]">
                       <Image
                         src={formatImageUrl(newest.topic.image.public_id)}
@@ -64,7 +64,7 @@ export default async function BlogsPage() {
                     </span>
                     <div>
                       <div className="mt-3">
-                        <span className="text-md font-bold tracking-wide text-[#741fa2] uppercase group-hover:text-white">
+                        <span className="text-md text-light-green font-bold tracking-wide uppercase group-hover:text-white">
                           News
                         </span>
                       </div>
