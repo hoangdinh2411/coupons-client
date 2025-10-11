@@ -15,7 +15,6 @@ export default function Pagination({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-
   const totalPages = Math.ceil(total / limit)
 
   const handleChangePage = (selectedPage: number) => {
@@ -35,7 +34,11 @@ export default function Pagination({
     }
 
     // show 2 first pages
-    pages.push(1, 2)
+    if (currentPage > 2) {
+      pages.push(1)
+    } else {
+      pages.push(1, 2)
+    }
 
     // if currentPage > 4 => add “...”
     if (currentPage > 4) pages.push('...')
@@ -48,7 +51,11 @@ export default function Pagination({
     if (currentPage < totalPages - 3) pages.push('...')
 
     // show 2 last pages
-    pages.push(totalPages - 1, totalPages)
+    if (currentPage < totalPages - 2) {
+      pages.push(totalPages - 1, totalPages)
+    } else {
+      pages.push(totalPages - 1)
+    }
 
     return pages
   }
@@ -56,7 +63,7 @@ export default function Pagination({
   const visiblePages = getVisiblePages()
 
   return (
-    <div className="mt-4 flex items-center space-x-2">
+    <div className="mt-4 flex items-center space-x-1 md:space-x-2">
       <button
         onClick={() => handleChangePage(currentPage - 1)}
         disabled={currentPage === 1}
@@ -69,7 +76,7 @@ export default function Pagination({
 
       {visiblePages.map((page, index) =>
         page === '...' ? (
-          <span key={`dots-${index}`} className="px-3 text-gray-500">
+          <span key={`dots-${index}`} className="px-1 text-gray-500 md:px-2">
             ...
           </span>
         ) : (
