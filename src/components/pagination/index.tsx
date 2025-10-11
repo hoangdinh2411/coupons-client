@@ -15,47 +15,83 @@ export default function Pagination({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const list =
-    total && total > limit
-      ? [...Array(Math.ceil(total / limit))].map((_, i) => i + 1)
-      : [1]
+
+  const totalPages = Math.ceil(total / limit)
 
   const handleChangePage = (selectedPage: number) => {
+    if (selectedPage < 1 || selectedPage > totalPages) return
     const params = new URLSearchParams(searchParams.toString())
     params.set('page', selectedPage.toString())
     router.push(`${pathname}?${params.toString()}`)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  const getVisiblePages = () => {
+    const pages: (number | string)[] = []
+    if (totalPages <= 7) {
+      // if less than 7 pages, show all
+      for (let i = 1; i <= totalPages; i++) pages.push(i)
+      return pages
+    }
+
+    // show 2 first pages
+    pages.push(1, 2)
+
+    // if currentPage > 4 => add “...”
+    if (currentPage > 4) pages.push('...')
+
+    const start = Math.max(3, currentPage - 1)
+    const end = Math.min(totalPages - 2, currentPage + 1)
+    for (let i = start; i <= end; i++) pages.push(i)
+
+    // if currentPage < totalPages - 3 => add “...”
+    if (currentPage < totalPages - 3) pages.push('...')
+
+    // show 2 last pages
+    pages.push(totalPages - 1, totalPages)
+
+    return pages
+  }
+
+  const visiblePages = getVisiblePages()
+
   return (
     <div className="mt-4 flex items-center space-x-2">
       <button
         onClick={() => handleChangePage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="border-light-green hover:border-light-green cursor-pointer rounded border px-2 py-2 text-xs font-bold text-[#6f7900] hover:text-[#6f7900] disabled:opacity-10 md:px-4 md:py-2 md:text-sm"
+        className="border-light-green hover:border-light-green flex cursor-pointer gap-1 rounded border px-2 py-2 text-xs font-bold text-[#6f7900] hover:text-[#6f7900] disabled:opacity-10 md:px-4 md:py-2 md:text-sm"
         aria-label="Previous page"
       >
         <span className="hidden sm:inline-block">« </span>
         Prev
       </button>
 
-      {list.map((page) => (
-        <button
-          key={page}
-          onClick={() => handleChangePage(page)}
-          aria-current={page === currentPage ? 'page' : undefined}
-          className={`border-light-green rounded border-2 px-2 py-1 font-bold md:px-4 md:py-2 ${
-            page === currentPage
-              ? 'text-olive-green bg-green'
-              : 'hover:bg-light-green hover:text-olive-green cursor-pointer rounded font-bold disabled:opacity-50'
-          }`}
-        >
-          {page}
-        </button>
-      ))}
+      {visiblePages.map((page, index) =>
+        page === '...' ? (
+          <span key={`dots-${index}`} className="px-3 text-gray-500">
+            ...
+          </span>
+        ) : (
+          <button
+            key={page}
+            onClick={() => handleChangePage(page as number)}
+            aria-current={page === currentPage ? 'page' : undefined}
+            className={`border-light-green rounded border-2 px-2 py-1 font-bold md:px-4 md:py-2 ${
+              page === currentPage
+                ? 'text-olive-green bg-green'
+                : 'hover:bg-light-green hover:text-olive-green cursor-pointer'
+            }`}
+          >
+            {page}
+          </button>
+        ),
+      )}
+
       <button
         onClick={() => handleChangePage(currentPage + 1)}
-        disabled={currentPage === list.length}
-        className="border-light-green hover:border-light-green hover:text-olive-green hover:bg-light-green cursor-pointer rounded border px-2 py-2 text-xs font-bold text-[#6f7900] disabled:opacity-10 md:px-4 md:py-2 md:text-sm"
+        disabled={currentPage === totalPages}
+        className="border-light-green hover:border-light-green hover:text-olive-green hover:bg-light-green flex cursor-pointer gap-1 rounded border px-2 py-2 text-xs font-bold text-[#6f7900] disabled:opacity-10 md:px-4 md:py-2 md:text-sm"
         aria-label="Next page"
       >
         Next
