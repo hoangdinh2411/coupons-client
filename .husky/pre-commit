@@ -1,4 +1,3 @@
-npm run lint 
 eslint --fix
 npm run format
 git add .
