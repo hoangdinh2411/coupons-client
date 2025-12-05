@@ -3,8 +3,7 @@ import React, { ButtonHTMLAttributes } from 'react'
 import { useFormStatus } from 'react-dom'
 import SpinnerLoading from '../loading'
 
-interface ButtonWithLoadingProp
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonWithLoadingProp extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   isPending?: boolean
 }

@@ -5,8 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { memo } from 'react'
 
-interface CardCouponPropsType
-  extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
+interface CardCouponPropsType extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
   category: CategoryData
   priority?: boolean
   isAboveFold?: boolean
